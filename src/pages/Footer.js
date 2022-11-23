@@ -6,17 +6,17 @@ function Footer() {
         <div>
             <h1>Empresa</h1>
             <ul>
-                <Link to="/home">
+                <Link to="/">
                     <li>Inicio</li>
                 </Link>
-                <Link to="/preguntas frecuentes">
+                <Link to="/preguntasfrecuentes">
                     <li>Preguntas frecuentes</li>
                 </Link>
                 <Link to="/sobrenosotros">
                     <li>Sobre nosotros</li>
                 </Link>
             </ul>
-                <h1>Mi cuenta </h1>
+                <h1>Mi cuenta</h1>
                 <ul>
                     <Link to="/sobrenosotros">
                         <li>Iniciar sesión</li>
