@@ -15,3 +15,23 @@ export function productByname(title) {
         throw new Error(e)
     }
 }
+
+export function filterByPirce (product_price) {
+    return ({
+        type: 'FILTER_BY_PRICE',
+        payload: product_price
+    })
+}
+
+export function filterByCategory (product_category) {
+    return ({
+        type: 'FILTER_BY_CATEGORY',
+        payload: product_category
+    })
+}
+
+export function filterByBrand () {}
+
+export function orderByPrice () {}
+
+export function orderByPopularity () {} 
