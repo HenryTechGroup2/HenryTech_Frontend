@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect} from "react-redux";
 
 export function Product (props){
+
     return (
         <div>
              <div>
@@ -13,8 +14,10 @@ export function Product (props){
             </Link>
             <p>categoría: {props.category} </p>
             <h3>precio: {props.price}</h3>
-            {/* Si usuario está logeado y hay cantidad en el stock que se habilite el carrito de compra  de lo contrario que se desabilite*/}
-            <p>Stock:{props.stock} </p>
+            {/* Si usuario está logeado y hay cantidad en el stock que se habilite el carrito de compra  de lo contrario que se deshabilite*/}
+            {/* Cambiar el stock una vez sepa como llega del back  */}
+            {/* <p>Stock:{props.stock.find(e=>e.title===props.title? e.stock:false)} </p> */}
+            <p>Stock: {props.stock}</p>
             <button type="submit" disabled={props.userloggin&&props.stock? false:true}>Agregar al carrito</button>
             </div>
         </div>
