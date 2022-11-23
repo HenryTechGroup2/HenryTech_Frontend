@@ -25,6 +25,20 @@ export function getStockProducts(){
             })
         }
     } catch (error) {
-        
+        throw new Error (error.message)
     }
+}
+
+export function getDetailsProducts(id){
+   try {
+    return async function (dispatch) {
+        const result = await axios.get(`https://fakestoreapi.com/products/${id}`)
+        return dispatch({
+                    type: "GET_DETAILS_PRODUCTS",
+                    payload: result.data
+                })
+    }
+   } catch (error) {
+        throw new Error (error.message)
+   }
 }
