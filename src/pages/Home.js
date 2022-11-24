@@ -1,13 +1,21 @@
 import React from 'react';
-import Footer from './Footer';
-import Products from "./Products"
+import Aside from '../components/Aside/Aside';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import Products from '../components/Products/Product';
 
 const Home = () => {
-  return <div>
-    <div>HOLA HOMEEE</div> 
-    <div> <Products/> </div>
-    <div> <Footer/></div>
-  </div>;
+  return (
+    <div className='home'>
+      <Header />
+      <div className='home__main'>
+        <Aside />
+        <Products />
+      </div>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default Home;
