@@ -1,0 +1,16 @@
+@mixin flex($a, $b, $c, $d, $e) {
+  display: flex;
+  flex-flow: $a $b;
+  justify-content: $c;
+  gap: $e;
+  @if $b == 'nowrap' {
+    align-items: $d;
+  } @else {
+    align-content: $d;
+  }
+}
+@mixin responsive($medida: 600px) {
+  @media (max-width: $medida) {
+    @content;
+  }
+}

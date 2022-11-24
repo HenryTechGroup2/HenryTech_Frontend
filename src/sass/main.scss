@@ -1,0 +1,108 @@
+@import './imports/reset.scss', './imports/mixins.scss';
+.home {
+}
+.home__main {
+  @include flex(row, wrap, start, center, 0.4em);
+  @include responsive() {
+    @include flex(column, wrap, start, center, 0.4em);
+  }
+}
+.header {
+  padding: 1em 2em;
+  @include flex(row, nowrap, space-between, center, 0);
+  margin: 0 0 2em 0;
+  &__logo {
+  }
+  &__henry {
+    color: $color-principal;
+    font-size: 2.2em;
+    font-weight: bold;
+    text-shadow: 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff,
+      0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff;
+  }
+  &__options {
+    @include flex(row, nowrap, space-between, center, 1em);
+  }
+  &__login {
+    background: $color-principal;
+    padding: 0.4em 0.8em;
+    font-size: 1.3em;
+    border: 0.1em solid #fff;
+    border-radius: 2em;
+  }
+  &__cart {
+    fill: $color-principal;
+  }
+}
+.aside {
+  flex-grow: 0.25;
+}
+.product {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1em;
+  color: #232;
+  &__article {
+    width: 20em;
+    position: relative;
+    background: #fff;
+    padding: 1em;
+    border-radius: 1em;
+  }
+  &__favorit {
+    position: absolute;
+    right: 0.3em;
+    top: 0.3em;
+    cursor: pointer;
+  }
+  &__img {
+    width: 15em;
+    height: 18em;
+  }
+  &__container {
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__top {
+    width: 100%;
+    padding: 0 0 0 1.25em;
+  }
+  &__name {
+    width: 15em;
+    height: 4em;
+  }
+  &__bottom {
+    width: 100%;
+    padding: 0 0 0 1.25em;
+  }
+  &__rating {
+  }
+  &__stock {
+    font-weight: bold;
+  }
+  &__category {
+  }
+  &__price {
+  }
+  &__button {
+    background: linear-gradient(
+      to right,
+      $color-principal 0%,
+      $succes 70%,
+      $succes 100%
+    );
+    // box-shadow: inset 1em 1em 1em #36d1dc, 0.1em 0.1em 0 #36d1dc;
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: $font-principal;
+    @include flex(row, nowrap, center, center, 0.3em);
+    transition: 0.5s linear;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
