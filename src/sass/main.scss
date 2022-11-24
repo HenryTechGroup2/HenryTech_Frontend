@@ -7,10 +7,53 @@
     @include flex(column, wrap, start, center, 0.4em);
   }
 }
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include flex(column, nowrap, center, center, 0);
+  backdrop-filter: blur(1em);
+  transition: 0.5s linear;
+  &__container {
+    width: 20em;
+    height: 20em;
+    background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+    border-radius: 0.8em;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__close {
+    align-self: flex-end;
+    padding: 0 1.6em;
+    cursor: pointer;
+  }
+  &__form {
+    @include flex(column, nowrap, center, center, 0.9em);
+  }
+  &__login {
+    @include input-defecto(0.4em, 0.8em, 15em);
+  }
+  &__acount {
+    @include flex(row, nowrap, space-between, center, 0.5em);
+  }
+  &__link {
+    font-size: 1.1em;
+    transition: 0.5s ease;
+    padding: 0.4em 0;
+    &:hover {
+      text-decoration: 2px #004b23 underline;
+    }
+  }
+  &__button {
+    @include button-principal();
+  }
+}
 .header {
   padding: 1em 2em;
   @include flex(row, nowrap, space-between, center, 0);
   margin: 0 0 2em 0;
+  border-bottom: 2px solid #fff;
   &__logo {
   }
   &__henry {
@@ -29,9 +72,25 @@
     font-size: 1.3em;
     border: 0.1em solid #fff;
     border-radius: 2em;
+    cursor: pointer;
   }
   &__cart {
     fill: $color-principal;
+  }
+}
+.register {
+  &__form {
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__input {
+    @include input-defecto(0.4em, 0.9em, 22em) // @include f;
+;
+  }
+  &__password {
+    width: 11em;
+  }
+  &__button {
+    @include button-principal();
   }
 }
 .aside {
@@ -76,6 +135,8 @@
     padding: 0 0 0 1.25em;
   }
   &__rating {
+    color: $color-star;
+    font-size: 1.4em;
   }
   &__stock {
     font-weight: bold;
@@ -85,24 +146,6 @@
   &__price {
   }
   &__button {
-    background: linear-gradient(
-      to right,
-      $color-principal 0%,
-      $succes 70%,
-      $succes 100%
-    );
-    // box-shadow: inset 1em 1em 1em #36d1dc, 0.1em 0.1em 0 #36d1dc;
-    padding: 0.5em 1em;
-    border-radius: 1em;
-    color: $color-white;
-    text-transform: uppercase;
-    font-size: 1em;
-    font-weight: bold;
-    font-family: $font-principal;
-    @include flex(row, nowrap, center, center, 0.3em);
-    transition: 0.5s linear;
-    &:hover {
-      transform: scale(1.1);
-    }
+    @include button-principal();
   }
 }

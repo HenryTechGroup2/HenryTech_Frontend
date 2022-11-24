@@ -1,6 +1,10 @@
+import { CREATE_USER } from '../actions';
+import { USER } from '../storage/variables';
+
 const initialState = {
   products: [],
   userlogin: false,
+  userDates: {},
   stockProducts: [
     {
       title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
@@ -25,7 +29,14 @@ export const reducerFetch = (state = initialState, action) => {
         stockProducts: action.payload,
       };
     }
-
+    case CREATE_USER: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      return {
+        ...state,
+        userDates: action.payload,
+      };
+    }
     default:
       return state;
   }
