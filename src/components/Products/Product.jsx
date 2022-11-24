@@ -15,7 +15,7 @@ export default function Products() {
   return (
     <section className='product'>
       {products.map((product) => (
-        <Card key={product.id} product={product} login={userlogin} />
+        <Card key={product.product_id} product={product} login={userlogin} />
       ))}
     </section>
   );

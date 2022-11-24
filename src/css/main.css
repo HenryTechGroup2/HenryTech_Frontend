@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@100;300;500;800&family=IBM+Plex+Mono:wght@100;300&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@100;300;500;800&family=IBM+Plex+Mono:wght@100;300&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -66,6 +67,11 @@ li {
   padding: 0;
 }
 
+.links {
+  color: #fff;
+  text-decoration: none;
+}
+
 .home__main {
   display: flex;
   flex-flow: row wrap;
@@ -83,6 +89,91 @@ li {
   }
 }
 
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  backdrop-filter: blur(1em);
+  transition: 0.5s linear;
+}
+.modal__container {
+  width: 20em;
+  height: 20em;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  border-radius: 0.8em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.modal__close {
+  align-self: flex-end;
+  padding: 0 1.6em;
+  cursor: pointer;
+}
+.modal__form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0.9em;
+  align-items: center;
+}
+.modal__login {
+  padding: 0.4em 0.8em;
+  font-size: 1.2em;
+  width: 15em;
+  border: 2px solid #fff;
+  color: #333333;
+  border-radius: 1em;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+}
+.modal__login::placeholder {
+  color: #fff;
+  font-family: "Exo";
+}
+.modal__acount {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 0.5em;
+  align-items: center;
+}
+.modal__link {
+  font-size: 1.1em;
+  transition: 0.5s ease;
+  padding: 0.4em 0;
+}
+.modal__link:hover {
+  text-decoration: 2px #004b23 underline;
+}
+.modal__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.modal__button:hover {
+  transform: scale(1.1);
+}
+
 .header {
   padding: 1em 2em;
   display: flex;
@@ -91,6 +182,7 @@ li {
   gap: 0;
   align-items: center;
   margin: 0 0 2em 0;
+  border-bottom: 2px solid #fff;
 }
 .header__henry {
   color: #7eda55;
@@ -111,9 +203,53 @@ li {
   font-size: 1.3em;
   border: 0.1em solid #fff;
   border-radius: 2em;
+  cursor: pointer;
 }
 .header__cart {
   fill: #7eda55;
+}
+
+.register__form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.register__input {
+  padding: 0.4em 0.9em;
+  font-size: 1.2em;
+  width: 22em;
+  border: 2px solid #fff;
+  color: #333333;
+  border-radius: 1em;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+}
+.register__input::placeholder {
+  color: #fff;
+  font-family: "Exo";
+}
+.register__password {
+  width: 11em;
+}
+.register__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.register__button:hover {
+  transform: scale(1.1);
 }
 
 .aside {
@@ -162,6 +298,10 @@ li {
 .product__bottom {
   width: 100%;
   padding: 0 0 0 1.25em;
+}
+.product__rating {
+  color: #ffa41c;
+  font-size: 1.4em;
 }
 .product__stock {
   font-weight: bold;
