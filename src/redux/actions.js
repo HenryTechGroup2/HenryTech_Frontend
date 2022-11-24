@@ -42,3 +42,17 @@ export function getDetailsProducts(id){
         throw new Error (error.message)
    }
 }
+
+export function postCreateReview(payload){
+    try {
+        return async function(dispatch){
+            const result4 = await axios.post("`https://fakestoreapi.com/products/",payload)
+            return dispatch({
+                type: "POST_CREATE_REVIEW",
+                payload: result4.data
+            })
+        }
+    } catch (error) {
+        throw new Error (error.message)
+    }
+}
