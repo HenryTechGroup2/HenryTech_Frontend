@@ -1,0 +1,56 @@
+@import './variables.scss';
+@mixin flex($a, $b, $c, $d, $e) {
+  display: flex;
+  flex-flow: $a $b;
+  justify-content: $c;
+  gap: $e;
+  @if $b == 'nowrap' {
+    align-items: $d;
+  } @else {
+    align-content: $d;
+  }
+}
+@mixin responsive($medida: 600px) {
+  @media (max-width: $medida) {
+    @content;
+  }
+}
+@mixin button-principal() {
+  background: linear-gradient(
+    to right,
+    $color-principal 0%,
+    $succes 70%,
+    $succes 100%
+  );
+
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: $color-white;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: $font-principal;
+  @include flex(row, nowrap, center, center, 0.3em);
+  transition: 0.5s linear;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+@mixin input-defecto($a, $b, $c) {
+  padding: $a $b;
+  font-size: 1.2em;
+  width: $c;
+  border: 2px solid #fff;
+  color: #333333;
+  border-radius: 1em;
+  background: linear-gradient(
+    to right,
+    $color-principal 0%,
+    $succes 70%,
+    $succes 100%
+  );
+  &::placeholder {
+    color: #fff;
+    font-family: $font-principal;
+  }
+}

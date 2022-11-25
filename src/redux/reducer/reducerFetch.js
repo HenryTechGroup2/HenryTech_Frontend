@@ -1,27 +1,37 @@
+import { CREATE_USER } from '../actions';
+import { USER } from '../storage/variables';
+
+
+
+
 const initialState = {
-  products:[],
+
+  products: [],
+  userlogin: false,
+  userDates: {},
+  stockProducts: [
+    {
+      title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
+      stock: 10,
+    },
+    { title: 'Mens Casual Premium Slim Fit T-Shirts ', stock: 35 },
+    { title: 'Mens Cotton Jacket', stock: 4 },
+  ],
   copieProducts:[],
   detailsProduct:[],
-  userloggin: false,
-  stockProducts: [{title:"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", stock:10},{title:"Mens Casual Premium Slim Fit T-Shirts ", stock:35},{title:"Mens Cotton Jacket", stock:4}],
   reviews: []
+};
 
-}
 
-export const reducerFetch = (state= initialState, action) => {
-  switch(action.type){
-    case "GET_PRODUCTS":{
+export const reducerFetch = (state = initialState, action) => {
+  switch (action.type) {
+    case "GET_PRODUCTS": {
+
       return {
         ...state,
         products: action.payload,
         copieProducts: action.payload
-      }
-    }
-    case "GET_STOCK_PRODUCTS":{
-      return {
-        ...state,
-        stockProducts: action.payload
-      }
+      };
     }
     case "GET_DETAILS_PRODUCTS":{
       return {
@@ -35,7 +45,36 @@ export const reducerFetch = (state= initialState, action) => {
         reviews: [...state.reviews, {...action.payload}]
       }
     }
-    default:
-      return state;
+    case "GET_STOCK_PRODUCTS": {
+
+      return {
+        ...state,
+        stockProducts: action.payload,
+      };
+    }
+    case CREATE_USER: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      return {
+        ...state,
+        userDates: action.payload,
+      };
+    }
+    
+    case 'PRODUCT_BY_NAME': return {
+      ...state,
+      products: action.payload
+    }
+
+    case 'FILTER_BY_PRICE': {
+      let filterproducts = state.copieProducts.filter(e => e.product_price <= action.payload)
+      return {
+        ...state,
+        products: filterproducts
+      }
+    }
+
+    default: return { ...state }
+
   }
-};
+}
