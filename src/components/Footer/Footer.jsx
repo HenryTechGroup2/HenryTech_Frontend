@@ -3,19 +3,32 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <div style={{ width: '50' }}>
-      <h1>Empresa</h1>
-      <ul>
-        <Link to='/home'>
-          <li>Inicio</li>
-        </Link>
-        <Link to='/preguntas frecuentes'>
-          <li>Preguntas frecuentes</li>
-        </Link>
-        <Link to='/sobrenosotros'>
-          <li>Sobre nosotros</li>
-        </Link>
-      </ul>
+
+    <div>
+      <div>
+        <h1>Empresa</h1>
+        <ul>
+          <Link to='/'>
+            <li>Inicio</li>
+          </Link>
+          <Link to='/preguntasfrecuentes'>
+            <li>Preguntas frecuentes</li>
+          </Link>
+          <Link to='/sobrenosotros'>
+            <li>Sobre nosotros</li>
+          </Link>
+        </ul>
+        <h1>Mi cuenta </h1>
+        <ul>
+          <Link to='/sobrenosotros'>
+            <li>Iniciar sesión</li>
+          </Link>
+          <li>Registrarse</li>
+        </ul>
+        <h1>Métodos de pago</h1>
+                <img src={"https://www.radioonlinehd.com/assets/images/usapagos-530x397.png"} alt="métodos de pago"></img>
+      </div>
+
     </div>
   );
 }
