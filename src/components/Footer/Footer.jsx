@@ -7,10 +7,10 @@ function Footer() {
       <div>
         <h1>Empresa</h1>
         <ul>
-          <Link to='/home'>
+          <Link to='/'>
             <li>Inicio</li>
           </Link>
-          <Link to='/preguntas frecuentes'>
+          <Link to='/preguntasfrecuentes'>
             <li>Preguntas frecuentes</li>
           </Link>
           <Link to='/sobrenosotros'>
@@ -24,6 +24,8 @@ function Footer() {
           </Link>
           <li>Registrarse</li>
         </ul>
+        <h1>Métodos de pago</h1>
+                <img src={"https://www.radioonlinehd.com/assets/images/usapagos-530x397.png"} alt="métodos de pago"></img>
       </div>
     </div>
   );

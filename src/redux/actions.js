@@ -1,10 +1,9 @@
-
 import axios from 'axios';
 export const CREATE_USER = '@user/create';
 export function getAllProducts() {
   try {
     return async function (dispatch) {
-      const result = await axios.get('http://localhost:3003/api/product');
+      const result = await axios.get('http://localhost:3001/api/product');
       return dispatch({
         type: 'GET_PRODUCTS',
         payload: result.data,
@@ -33,8 +32,33 @@ export function getStockProducts() {
   } catch (error) {}
 }
 
-import axios from 'axios'
+export function getDetailsProducts(id){
+    try {
+     return async function (dispatch) {
+         const result = await axios.get(`http://localhost:3001/api/product/${id}`)
+         return dispatch({
+                     type: "GET_DETAILS_PRODUCTS",
+                     payload: result.data
+                 })
+     }
+    } catch (error) {
+         throw new Error (error.message)
+    }
+ }
 
+ export function postCreateReview(payload){
+    try {
+        return async function(dispatch){
+            const result4 = await axios.post("`https://fakestoreapi.com/products/",payload)
+            return dispatch({
+                type: "POST_CREATE_REVIEW",
+                payload: result4.data
+            })
+        }
+    } catch (error) {
+        throw new Error (error.message)
+    }
+}
 
 export function productByname(title) {
     try {
@@ -70,4 +94,5 @@ export function filterByBrand () {}
 export function orderByPrice () {}
 
 export function orderByPopularity () {} 
+
 
