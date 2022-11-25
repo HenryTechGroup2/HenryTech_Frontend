@@ -19,10 +19,10 @@ let configHelp = {
     },
     modes: {
       push: {
-        quantity: 4,
+        quantity: 2,
       },
       repulse: {
-        distance: 200,
+        distance: 80,
         duration: 0.4,
       },
     },
@@ -35,8 +35,8 @@ let configHelp = {
       color: '#ffffff',
       distance: 150,
       enable: true,
-      opacity: 0.5,
-      width: 1,
+      opacity: 1,
+      width: 0.5,
     },
     collisions: {
       enable: true,
@@ -48,12 +48,12 @@ let configHelp = {
         default: 'bounce',
       },
       random: false,
-      speed: 3,
+      speed: 1.5,
       straight: false,
     },
     number: {
       density: {
-        enable: true,
+        enable: false,
         area: 800,
       },
       value: 80,

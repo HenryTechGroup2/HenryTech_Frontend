@@ -5,7 +5,7 @@ import { getAllProducts } from '../../redux/actions';
 import Card from '../Card/Card';
 export default function Products() {
   const dispatch = useDispatch();
-  const { reducerFetch } = useSelector((state) => state);
+  const { products, userlogin } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -14,12 +14,8 @@ export default function Products() {
 
   return (
     <section className='product'>
-      {reducerFetch.products.map((product) => (
-        <Card
-          key={product.product_id}
-          product={product}
-          login={reducerFetch.userlogin}
-        />
+      {products.map((product) => (
+        <Card key={product.product_id} product={product} login={userlogin} />
       ))}
     </section>
   );

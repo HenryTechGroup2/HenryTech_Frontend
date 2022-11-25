@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 
 const Header = () => {
   const [open, setOpen] = useState(null);
-  const { reducerFetch } = useSelector((state) => state);
+  const { userDates, car } = useSelector((state) => state);
   const handleOpenModalSession = (change) => setOpen(change);
 
   return (
@@ -17,7 +17,7 @@ const Header = () => {
         </Link>
       </div>
       <div className='header__options'>
-        {reducerFetch.userDates.hasOwnProperty('user_name') ? (
+        {userDates.hasOwnProperty('user_name') ? (
           <i>{userLogin}</i>
         ) : (
           <span
@@ -31,6 +31,7 @@ const Header = () => {
         <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
         <Link to='/car' className='header__cart'>
           {cartHeader}
+          <span className='header__length'>{car.length}</span>
         </Link>
       </div>
     </div>

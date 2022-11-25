@@ -109,6 +109,7 @@ li {
   align-items: center;
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
+  z-index: 20;
 }
 .modal__container {
   width: 20em;
@@ -216,6 +217,13 @@ li {
 }
 .header__cart {
   fill: #7eda55;
+}
+.header__length {
+  background: #7eda55;
+  padding: 0.2em 0.5em;
+  border-radius: 50%;
+  color: #000;
+  font-weight: bold;
 }
 
 .carruzel {

@@ -22,6 +22,7 @@
   @include flex(column, nowrap, center, center, 0);
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
+  z-index: 20;
   &__container {
     width: 20em;
     height: 20em;
@@ -84,6 +85,13 @@
   }
   &__cart {
     fill: $color-principal;
+  }
+  &__length {
+    background: $color-principal;
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    color: #000;
+    font-weight: bold;
   }
 }
 .carruzel {
