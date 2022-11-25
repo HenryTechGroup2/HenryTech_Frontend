@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
+
     <div>
       <div>
         <h1>Empresa</h1>
@@ -27,6 +28,7 @@ function Footer() {
         <h1>Métodos de pago</h1>
                 <img src={"https://www.radioonlinehd.com/assets/images/usapagos-530x397.png"} alt="métodos de pago"></img>
       </div>
+
     </div>
   );
 }

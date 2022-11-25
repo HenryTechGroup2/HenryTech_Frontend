@@ -50,66 +50,68 @@ const Register = () => {
     <>
       <Header />
       <div className='register'>
-        <form className='register__form' onSubmit={handleSubmitRegister}>
-          <input
-            placeholder='Name'
-            className='register__input'
-            value={register.user_name}
-            name='user_name'
-            onChange={handleChange}
-            type='text'
-          />
-          <input
-            placeholder='Email'
-            className='register__input'
-            value={register.user_email}
-            name='user_email'
-            onChange={handleChange}
-            type='email'
-          />
-          <div>
+        <div className='register__container'>
+          <form className='register__form' onSubmit={handleSubmitRegister}>
             <input
-              placeholder='Password'
-              className='register__input register__password'
-              value={register.user_password}
-              name='user_password'
+              placeholder='Name'
+              className='register__input'
+              value={register.user_name}
+              name='user_name'
               onChange={handleChange}
-              type='password'
+              type='text'
             />
             <input
-              placeholder='Confirm Password'
-              className='register__input register__password'
-              value={register.confirm_password}
-              name='confirm_password'
+              placeholder='Email'
+              className='register__input'
+              value={register.user_email}
+              name='user_email'
               onChange={handleChange}
-              type='password'
+              type='email'
             />
-          </div>
-          <input
-            placeholder='Phone'
-            className='register__input'
-            value={register.user_phone}
-            name='user_phone'
-            onChange={handleChange}
-            type='text'
-          />
-          <input
-            className='register__input'
-            value={register.user_payment_method}
-            name='user_payment_method'
-            onChange={handleChange}
-            type='text'
-          />
-          <input
-            placeholder='Shipping'
-            className='register__input'
-            value={register.user_shipping_address}
-            name='user_shipping_address'
-            onChange={handleChange}
-            type='text'
-          />
-          <button className='register__button'>Confirma registro</button>
-        </form>
+            <div>
+              <input
+                placeholder='Password'
+                className='register__input register__password'
+                value={register.user_password}
+                name='user_password'
+                onChange={handleChange}
+                type='password'
+              />
+              <input
+                placeholder='Confirm Password'
+                className='register__input register__password'
+                value={register.confirm_password}
+                name='confirm_password'
+                onChange={handleChange}
+                type='password'
+              />
+            </div>
+            <input
+              placeholder='Phone'
+              className='register__input'
+              value={register.user_phone}
+              name='user_phone'
+              onChange={handleChange}
+              type='text'
+            />
+            <input
+              className='register__input'
+              value={register.user_payment_method}
+              name='user_payment_method'
+              onChange={handleChange}
+              type='text'
+            />
+            <input
+              placeholder='Shipping'
+              className='register__input'
+              value={register.user_shipping_address}
+              name='user_shipping_address'
+              onChange={handleChange}
+              type='text'
+            />
+            <button className='register__button'>Confirma registro</button>
+          </form>
+        </div>
       </div>
       {/* <Footer /> */}
     </>

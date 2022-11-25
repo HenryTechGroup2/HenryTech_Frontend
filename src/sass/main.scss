@@ -1,5 +1,11 @@
-@import './imports/reset.scss', './imports/mixins.scss';
+@import './imports/reset.scss', './imports/mixins.scss',
+  './imports/variables.scss';
 .home {
+}
+#tsparticles {
+  height: 250vh;
+  position: absolute;
+  width: 100%;
 }
 .home__main {
   @include flex(row, wrap, start, center, 0.4em);
@@ -16,6 +22,7 @@
   @include flex(column, nowrap, center, center, 0);
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
+  z-index: 20;
   &__container {
     width: 20em;
     height: 20em;
@@ -52,8 +59,10 @@
 .header {
   padding: 1em 2em;
   @include flex(row, nowrap, space-between, center, 0);
-  margin: 0 0 2em 0;
   border-bottom: 2px solid #fff;
+  height: 5.5em;
+  position: relative;
+  z-index: 10;
   &__logo {
   }
   &__henry {
@@ -77,10 +86,74 @@
   &__cart {
     fill: $color-principal;
   }
+  &__length {
+    background: $color-principal;
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    color: #000;
+    font-weight: bold;
+  }
+}
+.carruzel {
+  display: flex;
+  transition: 0.5s ease;
+  transform: translateX(0);
+  margin: 0 0 3em 0;
+  &__div {
+    position: relative;
+  }
+  &__button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5em;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__button:nth-child(1) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5em;
+    @include flex(row, nowrap, start, center, 0);
+  }
+  &__btn {
+    @include flex(row, nowrap, center, center, 0);
+    font-size: 2.3em;
+    border: 2px solid #fff;
+    border-radius: 0 50% 50% 0;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    font-family: $font-principal;
+  }
+  &__btn2 {
+    @include flex(row, nowrap, center, center, 0);
+    border-radius: 50% 0 0 50%;
+    font-size: 2.3em;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    font-family: $font-principal;
+  }
+  &__img {
+    width: 100vw;
+  }
 }
 .register {
-  &__form {
+  height: calc(100vh - 7.5em);
+  &__container {
+    height: 100%;
     @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__form {
+    width: 30em;
+    height: 30em;
+    background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+    border-radius: 1em;
+    @include flex(column, nowrap, center, center, 1.2em);
   }
   &__input {
     @include input-defecto(0.4em, 0.9em, 22em) // @include f;
@@ -95,6 +168,49 @@
 }
 .aside {
   flex-grow: 0.25;
+}
+.car {
+  margin: 2em 0 0 0;
+  width: 100vw;
+  @include flex(row, nowrap, center, center, 0.5em);
+  &__map {
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__container {
+    background: #fff;
+    border-radius: 1em;
+    @include flex(row, nowrap, center, start, 0.5em);
+    color: #000;
+    height: 15em;
+    width: 35em;
+  }
+  &__description {
+    @include flex(column, nowrap, space-around, start, 0.5em);
+    height: 100%;
+  }
+  &__p {
+    width: 15em;
+  }
+  &__img {
+    width: 15em;
+    height: 15em;
+  }
+  &__total {
+    background: #fff;
+    font-size: 1.4em;
+    color: #000;
+    padding: 1em;
+    position: sticky;
+    top: 1em;
+    align-self: flex-start;
+    font-weight: bold;
+    border-radius: 1em;
+  }
+  &__button {
+    align-self: end;
+    margin: 0.5em 1em 0.5em 0.5em;
+    background: transparent;
+  }
 }
 .product {
   flex-grow: 1;
@@ -114,6 +230,7 @@
     right: 0.3em;
     top: 0.3em;
     cursor: pointer;
+    @include flex(row, nowrap, center, center, 0.5em);
   }
   &__img {
     width: 15em;
@@ -140,6 +257,7 @@
   }
   &__stock {
     font-weight: bold;
+    @include flex(row, nowrap, center, center, 0.5em);
   }
   &__category {
   }

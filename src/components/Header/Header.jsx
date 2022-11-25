@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 
 const Header = () => {
   const [open, setOpen] = useState(null);
-  const { userDates } = useSelector((state) => state);
+  const { userDates, car } = useSelector((state) => state);
   const handleOpenModalSession = (change) => setOpen(change);
 
   return (
@@ -29,7 +29,10 @@ const Header = () => {
         )}
 
         <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
-        <i className='header__cart'>{cartHeader}</i>
+        <Link to='/car' className='header__cart'>
+          {cartHeader}
+          <span className='header__length'>{car.length}</span>
+        </Link>
       </div>
     </div>
   );

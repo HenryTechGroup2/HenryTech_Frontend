@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@100;300;500;800&family=IBM+Plex+Mono:wght@100;300&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@100;300;500;800&family=IBM+Plex+Mono:wght@100;300&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@100;300;500;800&family=IBM+Plex+Mono:wght@100;300&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -72,6 +73,12 @@ li {
   text-decoration: none;
 }
 
+#tsparticles {
+  height: 250vh;
+  position: absolute;
+  width: 100%;
+}
+
 .home__main {
   display: flex;
   flex-flow: row wrap;
@@ -102,6 +109,7 @@ li {
   align-items: center;
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
+  z-index: 20;
 }
 .modal__container {
   width: 20em;
@@ -181,8 +189,10 @@ li {
   justify-content: space-between;
   gap: 0;
   align-items: center;
-  margin: 0 0 2em 0;
   border-bottom: 2px solid #fff;
+  height: 5.5em;
+  position: relative;
+  z-index: 10;
 }
 .header__henry {
   color: #7eda55;
@@ -208,12 +218,99 @@ li {
 .header__cart {
   fill: #7eda55;
 }
+.header__length {
+  background: #7eda55;
+  padding: 0.2em 0.5em;
+  border-radius: 50%;
+  color: #000;
+  font-weight: bold;
+}
 
-.register__form {
+.carruzel {
+  display: flex;
+  transition: 0.5s ease;
+  transform: translateX(0);
+  margin: 0 0 3em 0;
+}
+.carruzel__div {
+  position: relative;
+}
+.carruzel__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.carruzel__button:nth-child(1) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0;
+  align-items: center;
+}
+.carruzel__btn {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  font-size: 2.3em;
+  border: 2px solid #fff;
+  border-radius: 0 50% 50% 0;
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+  font-family: "Exo";
+}
+.carruzel__btn2 {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  border-radius: 50% 0 0 50%;
+  font-size: 2.3em;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+  font-family: "Exo";
+}
+.carruzel__img {
+  width: 100vw;
+}
+
+.register {
+  height: calc(100vh - 7.5em);
+}
+.register__container {
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 0.5em;
+  align-items: center;
+}
+.register__form {
+  width: 30em;
+  height: 30em;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  border-radius: 1em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 1.2em;
   align-items: center;
 }
 .register__input {
@@ -256,6 +353,66 @@ li {
   flex-grow: 0.25;
 }
 
+.car {
+  margin: 2em 0 0 0;
+  width: 100vw;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.car__map {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.car__container {
+  background: #fff;
+  border-radius: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: start;
+  color: #000;
+  height: 15em;
+  width: 35em;
+}
+.car__description {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  gap: 0.5em;
+  align-items: start;
+  height: 100%;
+}
+.car__p {
+  width: 15em;
+}
+.car__img {
+  width: 15em;
+  height: 15em;
+}
+.car__total {
+  background: #fff;
+  font-size: 1.4em;
+  color: #000;
+  padding: 1em;
+  position: sticky;
+  top: 1em;
+  align-self: flex-start;
+  font-weight: bold;
+  border-radius: 1em;
+}
+.car__button {
+  align-self: end;
+  margin: 0.5em 1em 0.5em 0.5em;
+  background: transparent;
+}
+
 .product {
   flex-grow: 1;
   display: grid;
@@ -275,6 +432,11 @@ li {
   right: 0.3em;
   top: 0.3em;
   cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
 }
 .product__img {
   width: 15em;
@@ -305,6 +467,11 @@ li {
 }
 .product__stock {
   font-weight: bold;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
 }
 .product__button {
   background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
