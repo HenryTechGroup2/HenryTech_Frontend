@@ -24,6 +24,8 @@ function Footer() {
           </Link>
           <li>Registrarse</li>
         </ul>
+        <h1>Métodos de pago</h1>
+                <img src={"https://www.radioonlinehd.com/assets/images/usapagos-530x397.png"} alt="métodos de pago"></img>
       </div>
     </div>
   );
