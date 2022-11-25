@@ -61,8 +61,10 @@
   @include flex(row, nowrap, space-between, center, 0);
   border-bottom: 2px solid #fff;
   height: 5.5em;
-  position: relative;
+  position: sticky;
   z-index: 10;
+  top: 0;
+  background: #333;
   &__logo {
   }
   &__henry {
@@ -218,12 +220,15 @@
   grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
   gap: 1em;
   color: #232;
+
   &__article {
     width: 20em;
     position: relative;
     background: #fff;
     padding: 1em;
     border-radius: 1em;
+    align-self: center;
+    justify-self: center;
   }
   &__favorit {
     position: absolute;
@@ -265,5 +270,48 @@
   }
   &__button {
     @include button-principal();
+  }
+}
+.pagination {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 1em;
+  margin: auto;
+  grid-column: 1/3;
+  // grid-column-end: 3;
+  &__container {
+  }
+  &__div {
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__button {
+    margin: auto;
+    @include button-principal();
+  }
+}
+.footer {
+  background: #333;
+  border-top: 2px solid #fff;
+  @include flex(row, nowrap, space-around, center, 1em);
+  &__h1 {
+  }
+  &__ul {
+  }
+  &__li {
+    list-style: none;
+  }
+  &__pago {
+  }
+  &__image {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(2.5em, 1fr));
+    grid-auto-rows: 2.5em;
+    // justify-content: center;
+    // align-items: center;
+    gap: 0.4em;
+  }
+  &__img {
+    width: 2.5em;
   }
 }
