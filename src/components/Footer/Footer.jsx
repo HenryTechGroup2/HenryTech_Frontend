@@ -7,10 +7,10 @@ function Footer() {
       <div>
         <h1>Empresa</h1>
         <ul>
-          <Link to='/home'>
+          <Link to='/'>
             <li>Inicio</li>
           </Link>
-          <Link to='/preguntas frecuentes'>
+          <Link to='/preguntasfrecuentes'>
             <li>Preguntas frecuentes</li>
           </Link>
           <Link to='/sobrenosotros'>

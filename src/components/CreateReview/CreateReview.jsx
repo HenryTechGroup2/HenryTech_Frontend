@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {postCreateReview} from "../redux/actions.js"
+import {postCreateReview} from "../../redux/actions.js"
 
 export function CreateReview (){
 

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Questions from './pages/Questions.js';
 import Aboutus from "./pages/Aboutus.js"
-import Details from './pages/Details.js';
+import Details from './components/Details/Details.jsx';
 import './css/main.css';
 import Register from './pages/Register';
 import ProductByName from './pages/ProductsByName.js';

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import { filterByPirce } from "../redux/Actions"
+import { filterByPirce } from "../redux/actions.js"
 
 
 export default function GetFilters() {

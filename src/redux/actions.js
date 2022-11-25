@@ -3,7 +3,7 @@ export const CREATE_USER = '@user/create';
 export function getAllProducts() {
   try {
     return async function (dispatch) {
-      const result = await axios.get('http://localhost:3003/api/product');
+      const result = await axios.get('http://localhost:3001/api/product');
       return dispatch({
         type: 'GET_PRODUCTS',
         payload: result.data,
@@ -35,7 +35,7 @@ export function getStockProducts() {
 export function getDetailsProducts(id){
     try {
      return async function (dispatch) {
-         const result = await axios.get(`http://localhost:3003/api/product/${id}`)
+         const result = await axios.get(`http://localhost:3001/api/product/${id}`)
          return dispatch({
                      type: "GET_DETAILS_PRODUCTS",
                      payload: result.data
@@ -59,9 +59,6 @@ export function getDetailsProducts(id){
         throw new Error (error.message)
     }
 }
-
-import axios from 'axios'
-
 
 export function productByname(title) {
     try {

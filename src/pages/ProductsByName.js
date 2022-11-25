@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import { productByname } from "../redux/Actions"
+import { productByname } from "../redux/actions.js"
 
 export default function ProductByName() {
 

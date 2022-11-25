@@ -18,7 +18,7 @@ const Card = ({ product, login }) => {
     <article className='product__article'>
       <div className='product__container'>
         <div className='product__favorit'>{favorit}</div>
-        <Link to={`/products/${product.product_id}`}>
+        <Link to={`/products/${product.id}`}>
           <img
             className='product__img'
             src={`${product.product_img}`}
