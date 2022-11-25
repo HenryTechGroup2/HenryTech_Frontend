@@ -35,6 +35,7 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         userDates: action.payload,
+        userlogin: true,
       };
     }
     default:

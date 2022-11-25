@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addToCar } from '../../redux/actionsCar';
 import { cart, favorit, stock } from '../../utils/Icons';
 
 const Card = ({ product, login }) => {
@@ -13,11 +15,17 @@ const Card = ({ product, login }) => {
   //   product_category,
   //   product_img,
   //   product_array_img,
-  const handleAddToCart = () => {};
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToCar(product));
+  };
   return (
     <article className='product__article'>
       <div className='product__container'>
-        <div className='product__favorit'>{favorit}</div>
+        <div className='product__favorit'>
+          <span className='product__stock'>{stock} Stock</span>
+          <span>{favorit}</span>{' '}
+        </div>
         <Link to={`/products/${product.product_id}`}>
           <img
             className='product__img'
@@ -43,11 +51,10 @@ const Card = ({ product, login }) => {
         {/* Si usuario está logeado y hay cantidad en el stock que se habilite el carrito de compra  de lo contrario que se deshabilite*/}
         {/* Cambiar el stock una vez sepa como llega del back  */}
         {/* <p>Stock:{props.stock.find(e=>e.title===props.title? e.stock:false)} </p> */}
-        <p className='product__stock'>{stock} Stock:</p>
+
         <button
           onClick={handleAddToCart}
           className='product__button'
-          type='submit'
           disabled={login === false ? true : false}
         >
           {cart}
