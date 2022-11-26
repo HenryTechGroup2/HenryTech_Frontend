@@ -1,23 +1,16 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { addToCar } from '../../redux/actionsCar';
-import { cart, favorit, stock } from '../../utils/Icons';
+import useCount from '../../hooks/useCount';
+import { favorit, stock } from '../../utils/Icons';
+import Count from '../Count/Count';
 
-const Card = ({ product, login }) => {
-  // product_name,
-  //   product_description,
-  //   product_price,
-  //   product_ofer,
-  //   product_stock,
-  //   product_rating,
-  //   product_category,
-  //   product_img,
-  //   product_array_img,
-  const dispatch = useDispatch();
-  const handleAddToCart = () => {
-    dispatch(addToCar(product));
-  };
+const Card = ({ product }) => {
+  const { count } = useCount();
+  useEffect(() => {
+    console.log(count);
+  }, [count]);
+
+  console.log(count);
   return (
     <article className='product__article'>
       <div className='product__container'>
@@ -56,15 +49,7 @@ const Card = ({ product, login }) => {
         {/* Si usuario está logeado y hay cantidad en el stock que se habilite el carrito de compra  de lo contrario que se deshabilite*/}
         {/* Cambiar el stock una vez sepa como llega del back  */}
         {/* <p>Stock:{props.stock.find(e=>e.title===props.title? e.stock:false)} </p> */}
-
-        <button
-          onClick={handleAddToCart}
-          className='product__button'
-          disabled={login === false ? true : false}
-        >
-          {cart}
-          Agregar
-        </button>
+        <Count product={product} />
       </div>
     </article>
   );

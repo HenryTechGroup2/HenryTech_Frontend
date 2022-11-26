@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const images = [
+export const images = [
   '../pagos/link.jpg',
   '../pagos/visa.png',
   '../pagos/maestro.png',
@@ -29,6 +29,7 @@ function Footer() {
         <div className='footer__image'>
           {images.map((image) => (
             <img
+              key={image}
               className='footer__img'
               src={image}
               alt={image}

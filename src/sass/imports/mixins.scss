@@ -54,3 +54,15 @@
     font-family: $font-principal;
   }
 }
+@mixin background-defecto() {
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+}
+@mixin car-option {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding: 0.4em;
+  border: 1px solid #fff;
+  width: 100%;
+  border-radius: 0.5em;
+}

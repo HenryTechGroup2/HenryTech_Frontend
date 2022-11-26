@@ -3,7 +3,7 @@
 .home {
 }
 #tsparticles {
-  height: 250vh;
+  // height: 250vh;
   position: absolute;
   width: 100%;
 }
@@ -26,7 +26,7 @@
   &__container {
     width: 20em;
     height: 20em;
-    background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+    @include background-defecto();
     border-radius: 0.8em;
     @include flex(column, nowrap, center, center, 0);
   }
@@ -62,10 +62,91 @@
   border-bottom: 2px solid #fff;
   height: 5.5em;
   position: sticky;
-  z-index: 10;
+  z-index: 100;
   top: 0;
   background: #333;
-  &__logo {
+  &__hover {
+    position: relative;
+  }
+  &__ul {
+    position: absolute;
+    top: 3.4em;
+    right: 2em;
+    width: 10em;
+    opacity: 0;
+    visibility: hidden;
+    @include background-defecto();
+    transition: 0.5s ease;
+    margin: 0;
+    padding: 0;
+    padding: 1em;
+    @include flex(column, nowrap, start, start, 0.5em);
+    color: #000;
+    border-radius: 1em;
+  }
+  // &__li {
+  //   list-style: none;
+  //   margin: 0;
+  //   padding: 0;
+  //   padding: 0.4em;
+  //   border: 1px solid #fff;
+  //   width: 100%;
+  //   border-radius: 0.5em;
+  // }
+  &__make {
+    display: none;
+    position: absolute;
+    width: 20em;
+    height: 20em;
+    right: 10em;
+    top: 8em;
+    border-radius: 1em;
+    background: #000;
+    color: #fff;
+  }
+  &__purcharse {
+    display: none;
+    position: absolute;
+    width: 20em;
+    height: 20em;
+    right: 10em;
+    top: 8em;
+    border-radius: 1em;
+    background: #000;
+    color: #fff;
+  }
+  &__carr {
+    display: none;
+    position: absolute;
+    width: 20em;
+    height: 20em;
+    right: 10em;
+    top: 8em;
+    border-radius: 1em;
+    background: #000;
+    color: #fff;
+  }
+  .purcharse {
+    @include car-option();
+  }
+  .make {
+    @include car-option();
+  }
+  .carr {
+    @include car-option();
+  }
+  .purcharse:hover &__purcharse {
+    display: block;
+  }
+  .carr:hover &__carr {
+    display: block;
+  }
+  .make:hover &__make {
+    display: block;
+  }
+  &__hover:hover &__ul {
+    opacity: 1;
+    visibility: visible;
   }
   &__henry {
     color: $color-principal;
@@ -290,6 +371,169 @@
     @include button-principal();
   }
 }
+.details {
+  position: relative;
+  z-index: 30;
+  @include flex(row, wrap, center, center, 1em);
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  border-radius: 1em;
+  padding: 2em;
+  max-width: 76em;
+  margin: 4em auto 0;
+  &__images {
+    @include flex(column, wrap, center, center, 1em);
+  }
+  &__image {
+    width: 3.5em;
+    height: 3.5em;
+    cursor: pointer;
+    border-radius: 0.5em;
+  }
+  &__center {
+    width: 30em;
+    object-fit: contain;
+    height: 40em;
+    @include flex(column, wrap, center, center, 1em);
+    background: #fff;
+    border-radius: 2em;
+    box-sizing: border-box;
+  }
+  &__special {
+    @include flex(row, nowrap, start, center, 0);
+    height: 100%;
+  }
+  &__left {
+    @include flex(column, nowrap, space-between, center, 0);
+    height: 40em;
+  }
+  &__h2 {
+    font-size: 1.5em;
+    font-weight: 500;
+    @include flex(row, wrap, space-between, center, 0);
+    position: relative;
+  }
+  &__name {
+    width: 11.8em;
+    font-weight: bold;
+  }
+  &__favorit {
+    align-self: flex-start;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+  }
+  &__img {
+    object-fit: contain;
+    box-sizing: border-box;
+  }
+  &__description {
+    width: 20em;
+  }
+  &__price {
+    font-size: 2em;
+  }
+  &__border {
+    border: 2px solid #000;
+  }
+  &__p {
+    font-size: 2em;
+  }
+  &__rating {
+    color: $color-star;
+  }
+  &__button {
+    @include button-principal();
+    font-weight: bold;
+  }
+  &__stock {
+    @include flex(row, nowrap, start, center, 0.2em);
+  }
+  &__dis {
+    font-size: 0.7em;
+  }
+  &__count {
+    @include flex(row, nowrap, start, center, 0.5em);
+  }
+
+  &__span {
+    font-size: 2em;
+  }
+  &__bot {
+    position: relative;
+    z-index: 40;
+  }
+  &__dpago {
+    @include flex(row, wrap, start, center, 0);
+    height: 100%;
+  }
+  &__bottom {
+    padding: 2em;
+    line-height: 1.5;
+    font-size: 1.2em;
+    width: 50%;
+    flex-grow: 2;
+  }
+  &__pago {
+    // flex-grow: 1;
+    margin: 2em 1em 0 0;
+    line-height: 1.5;
+    font-size: 1.2em;
+    background: #fff;
+    height: 15em;
+    box-shadow: 0.4em 0.2em 0.3em #000;
+    border-radius: 0.5em;
+  }
+  &__span {
+    color: #000;
+    font-size: 1em;
+    display: block;
+    text-align: center;
+    margin: 0 0 1em 0;
+  }
+  &__map {
+    width: 10em;
+    @include flex(row, wrap, center, center, 1em);
+    margin: auto;
+  }
+}
+.review {
+  width: 100%;
+  @include flex(column, nowrap, center, center, 0);
+  &__h2 {
+  }
+  &__form {
+    @include flex(column, nowrap, center, center, 0.6em);
+  }
+  &__div {
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__label {
+    display: inline-block;
+    width: 9.5em;
+  }
+  &__input {
+    @include input-defecto(0.5em, 0.8em, 15em);
+  }
+  &__textarea {
+    @include input-defecto(0.5em, 0.8em, 19em);
+    height: 10em;
+    width: 29em;
+  }
+  &__button {
+    @include button-principal();
+  }
+  &__cstar {
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+  }
+  &__star {
+    cursor: pointer;
+    color: $color-star;
+    font-weight: bold;
+  }
+}
 .footer {
   background: #333;
   border-top: 2px solid #fff;
@@ -313,5 +557,43 @@
   }
   &__img {
     width: 2.5em;
+  }
+}
+.comentarios {
+  &__h2 {
+  }
+  &__div {
+    @include flex(row, nowrap, start, center, 0.3em);
+  }
+  &__star {
+  }
+  &__rating {
+    background: #222;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    box-shadow: 0.4em 0.8em 0.3em #000;
+    @include flex(row, nowrap, start, center, 0.3em);
+  }
+  &__cal {
+    font-size: 2em;
+    font-weight: bold;
+    // margin: 0 0 0.4em 0;
+    width: 2em;
+    text-align: center;
+  }
+  &__r {
+  }
+
+  &__coment {
+    align-self: flex-start;
+  }
+}
+.count {
+  &__div {
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__span {
+    font-size: 1.5em;
+    font-weight: bold;
   }
 }

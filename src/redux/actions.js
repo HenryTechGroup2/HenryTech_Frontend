@@ -1,5 +1,7 @@
 import axios from 'axios';
 export const CREATE_USER = '@user/create';
+export const DELETE_DETAILS = '@detail/delete';
+export const CAR_MODIFIER = '@car/modifier';
 export function getAllProducts() {
   try {
     return async function (dispatch) {
@@ -149,7 +151,11 @@ export function filterByCategory(product_category) {
     payload: product_category,
   };
 }
-
+export function deleteDetailsProducts() {
+  return {
+    type: DELETE_DETAILS,
+  };
+}
 export function filterByBrand() {}
 
 

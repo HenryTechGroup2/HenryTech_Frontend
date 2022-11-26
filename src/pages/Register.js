@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
 import { useDispatch } from 'react-redux';
 import { CREATE_USER } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +27,7 @@ const Register = () => {
   };
   const handleSubmitRegister = async (evt) => {
     evt.preventDefault();
-    const data = await axios.post('http://localhost:3003/api/user', {
+    const data = await axios.post('http://localhost:3001/api/user', {
       user_email: register.user_email,
       user_name: register.user_name,
       user_password: register.user_password,
