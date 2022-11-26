@@ -80,6 +80,7 @@ export const reducerFetch = (state = initialState, action) => {
         car: products,
       };
     }
+
     case 'PRODUCT_BY_NAME':
       return {
         ...state,
@@ -89,6 +90,36 @@ export const reducerFetch = (state = initialState, action) => {
       let filterproducts = state.copieProducts.filter(
         (e) => e.product_price <= action.payload
       );
+
+    
+    case 'PRODUCT_BY_NAME': return {
+      ...state,
+      products: action.payload
+    }
+
+    case 'FILTERS': {
+      let filterproducts = []
+      state.copieProducts.forEach(e => {
+        if (action.payload.category.length > 0 && action.payload.brand.length > 0) {
+          if (action.payload.category.includes(e.product_category) && action.payload.brand.includes(e.product_brand) && e.product_price <= action.payload.price) {
+            filterproducts.push(e)
+          }
+        }
+        else if (action.payload.category.length > 0) {
+          if (action.payload.category.includes(e.product_category) && e.product_price <= action.payload.price) {
+            filterproducts.push(e)
+          }
+        }
+        else if (action.payload.brand.length > 0) {
+          if (action.payload.brand.includes(e.product_brand) && e.product_price <= action.payload.price) {
+            filterproducts.push(e)
+          }
+        }
+        else if (e.product_price <= action.payload.price) {
+          filterproducts.push(e)
+        }
+      })
+
       return {
         ...state,
         products: filterproducts,
@@ -120,7 +151,81 @@ export const reducerFetch = (state = initialState, action) => {
         priceTotal: Number(state.priceTotal) - Number(produc.product_price),
       };
     }
+
     default:
       return { ...state };
+
+
+    case "ORDER_BY_PRICE": {
+      if (action.payload === 'price max-min') {
+        let orderproducts = state.products.sort((a, b) => {
+          if (a.product_price < b.product_price) {
+            return 1
+          }
+          if (a.product_price > b.product_price) {
+            return -1
+          }
+          else return 0
+        })
+        return {
+          ...state,
+          products: orderproducts
+        }
+      }
+
+      if (action.payload === 'price min-max') {
+        let orderproducts = state.products.sort((a, b) => {
+          if (a.product_price < b.product_price) {
+            return -1
+          }
+          if (a.product_price > b.product_price) {
+            return 1
+          }
+          else return 0
+        })
+        return {
+          ...state,
+          products: orderproducts
+        }
+      }
+    }
+
+    case "ORDER_BY_RATING": {
+      if (action.payload === 'rating max-min') {
+        let orderproducts = state.products.sort((a, b) => {
+          if (a.product_rating < b.product_rating) {
+            return 1
+          }
+          if (a.product_rating > b.product_rating) {
+            return -1
+          }
+          else return 0
+        })
+        return {
+          ...state,
+          products: orderproducts
+        }
+      }
+
+      if (action.payload === 'rating min-max') {
+        let orderproducts = state.products.sort((a, b) => {
+          if (a.product_rating < b.product_rating) {
+            return -1
+          }
+          if (a.product_rating > b.product_rating) {
+            return 1
+          }
+          else return 0
+        })
+        return {
+          ...state,
+          products: orderproducts
+        }
+      }
+    }
+
+    default: return { ...state }
+
+
   }
 };
