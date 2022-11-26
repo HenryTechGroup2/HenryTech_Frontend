@@ -8,6 +8,8 @@ import ParticlesBackground from '../components/Particles/ParticlesBackground';
 import Products from '../components/Products/Product';
 import { CREATE_USER } from '../redux/actions';
 import { USER } from '../redux/storage/variables';
+import Filters from '../components/Filters/Filters.jsx'
+import Orders from '../components/Orders/Orders';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const Home = () => {
       <div className='home__main'>
         <Aside />
         <Products />
+      </div>
+
+      <div>
+        <Filters/> 
+        <Orders/> 
       </div>
 
       <Footer />
