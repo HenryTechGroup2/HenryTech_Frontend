@@ -5,11 +5,8 @@ import Header from '../components/Header/Header';
 import useUser from '../hooks/useUser';
 
 const Car = () => {
-  const { car } = useSelector((state) => state);
-  const priceTotal = car.reduce(
-    (a, b) => Number(a) + Number(b.product_price),
-    0
-  );
+  const { car, priceTotal } = useSelector((state) => state);
+
   useUser();
   return (
     <div>
@@ -17,7 +14,7 @@ const Car = () => {
       <div className='car'>
         <div className='car__map'>
           {car.map((product) => (
-            <CardCar product={product} />
+            <CardCar key={product.product_id} product={product} />
           ))}
         </div>
         <div className='car__total'>Total:${priceTotal}.00</div>

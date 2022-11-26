@@ -54,3 +54,6 @@
     font-family: $font-principal;
   }
 }
+@mixin background-defecto() {
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+}

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 const images = [
   '../assets/translate.jpg',
   '../assets/translate2.jpg',
@@ -29,10 +29,14 @@ const Images = () => {
       divRef.current.style.transform = `translateX(-${movimiento}vw)`;
     }
   };
-  setInterval(() => {
+  const carruzel = setInterval(() => {
     handleClick(nameMove);
   }, 10000);
-
+  useEffect(() => {
+    return () => {
+      clearInterval(carruzel);
+    };
+  }, []);
   return (
     <div className='carruzel' ref={divRef}>
       {images.map((image, index) => (

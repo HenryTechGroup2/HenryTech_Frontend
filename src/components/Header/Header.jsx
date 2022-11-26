@@ -30,8 +30,17 @@ const Header = () => {
 
         <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
         <Link to='/car' className='header__cart'>
-          {cartHeader}
-          <span className='header__length'>{car.length}</span>
+          <div className='header__hover'>
+            {cartHeader} <span className='header__length'>{car.length}</span>
+            <ul className='header__ul'>
+              <li className='header__li carr'>Car</li>
+              <li className='header__li purcharse'>Purchase data</li>
+              <li className='make'>
+                <span className='header__li'>Make payment</span>
+                <div className='header__make'>Hello World</div>
+              </li>
+            </ul>
+          </div>
         </Link>
       </div>
     </div>
