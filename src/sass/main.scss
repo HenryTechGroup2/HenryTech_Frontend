@@ -65,6 +65,12 @@
   z-index: 100;
   top: 0;
   background: #333;
+  &__search {
+    @include input-defecto(0.5em, 0.9em, 20em);
+    &::placeholder {
+      color: #000;
+    }
+  }
   &__hover {
     position: relative;
   }

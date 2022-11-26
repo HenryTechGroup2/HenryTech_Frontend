@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export default function Products() {
   const dispatch = useDispatch();
-  const { products, userlogin } = useSelector((state) => state);
+  const { copieProducts: products, userlogin } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getAllProducts());

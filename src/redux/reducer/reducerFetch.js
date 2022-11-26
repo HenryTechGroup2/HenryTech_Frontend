@@ -1,4 +1,9 @@
-import { CAR_MODIFIER, CREATE_USER, DELETE_DETAILS } from '../actions';
+import {
+  CAR_MODIFIER,
+  CREATE_USER,
+  DELETE_DETAILS,
+  FILTER_SEARCH,
+} from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { USER } from '../storage/variables';
 
@@ -12,6 +17,9 @@ const initialState = {
   detailsProduct: {},
   reviews: [],
   priceTotal: 0,
+  filters: {
+    search: '',
+  },
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -80,7 +88,19 @@ export const reducerFetch = (state = initialState, action) => {
         car: products,
       };
     }
-
+    case FILTER_SEARCH: {
+      const resultSearch = state.products.filter(
+        (product) =>
+          product.product_name
+            .toLowerCase()
+            .indexOf(action.payload.toLowerCase()) !== -1
+      );
+      return {
+        ...state,
+        copieProducts: resultSearch,
+        search: action.payload,
+      };
+    }
     case 'PRODUCT_BY_NAME':
       return {
         ...state,
@@ -90,35 +110,40 @@ export const reducerFetch = (state = initialState, action) => {
       let filterproducts = state.copieProducts.filter(
         (e) => e.product_price <= action.payload
       );
-
-    
-    case 'PRODUCT_BY_NAME': return {
-      ...state,
-      products: action.payload
+      return state;
     }
-
     case 'FILTERS': {
-      let filterproducts = []
-      state.copieProducts.forEach(e => {
-        if (action.payload.category.length > 0 && action.payload.brand.length > 0) {
-          if (action.payload.category.includes(e.product_category) && action.payload.brand.includes(e.product_brand) && e.product_price <= action.payload.price) {
-            filterproducts.push(e)
+      let filterproducts = [];
+      state.copieProducts.forEach((e) => {
+        if (
+          action.payload.category.length > 0 &&
+          action.payload.brand.length > 0
+        ) {
+          if (
+            action.payload.category.includes(e.product_category) &&
+            action.payload.brand.includes(e.product_brand) &&
+            e.product_price <= action.payload.price
+          ) {
+            filterproducts.push(e);
           }
-        }
-        else if (action.payload.category.length > 0) {
-          if (action.payload.category.includes(e.product_category) && e.product_price <= action.payload.price) {
-            filterproducts.push(e)
+        } else if (action.payload.category.length > 0) {
+          if (
+            action.payload.category.includes(e.product_category) &&
+            e.product_price <= action.payload.price
+          ) {
+            filterproducts.push(e);
           }
-        }
-        else if (action.payload.brand.length > 0) {
-          if (action.payload.brand.includes(e.product_brand) && e.product_price <= action.payload.price) {
-            filterproducts.push(e)
+        } else if (action.payload.brand.length > 0) {
+          if (
+            action.payload.brand.includes(e.product_brand) &&
+            e.product_price <= action.payload.price
+          ) {
+            filterproducts.push(e);
           }
+        } else if (e.product_price <= action.payload.price) {
+          filterproducts.push(e);
         }
-        else if (e.product_price <= action.payload.price) {
-          filterproducts.push(e)
-        }
-      })
+      });
 
       return {
         ...state,
@@ -151,81 +176,71 @@ export const reducerFetch = (state = initialState, action) => {
         priceTotal: Number(state.priceTotal) - Number(produc.product_price),
       };
     }
-
-    default:
-      return { ...state };
-
-
-    case "ORDER_BY_PRICE": {
+    case 'ORDER_BY_PRICE': {
       if (action.payload === 'price max-min') {
         let orderproducts = state.products.sort((a, b) => {
           if (a.product_price < b.product_price) {
-            return 1
+            return 1;
           }
           if (a.product_price > b.product_price) {
-            return -1
-          }
-          else return 0
-        })
+            return -1;
+          } else return 0;
+        });
         return {
           ...state,
-          products: orderproducts
-        }
+          products: orderproducts,
+        };
       }
 
       if (action.payload === 'price min-max') {
         let orderproducts = state.products.sort((a, b) => {
           if (a.product_price < b.product_price) {
-            return -1
+            return -1;
           }
           if (a.product_price > b.product_price) {
-            return 1
-          }
-          else return 0
-        })
+            return 1;
+          } else return 0;
+        });
         return {
           ...state,
-          products: orderproducts
-        }
+          products: orderproducts,
+        };
       }
+      return state;
     }
-
-    case "ORDER_BY_RATING": {
+    case 'ORDER_BY_RATING': {
       if (action.payload === 'rating max-min') {
         let orderproducts = state.products.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
-            return 1
+            return 1;
           }
           if (a.product_rating > b.product_rating) {
-            return -1
-          }
-          else return 0
-        })
+            return -1;
+          } else return 0;
+        });
         return {
           ...state,
-          products: orderproducts
-        }
+          products: orderproducts,
+        };
       }
 
       if (action.payload === 'rating min-max') {
         let orderproducts = state.products.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
-            return -1
+            return -1;
           }
           if (a.product_rating > b.product_rating) {
-            return 1
-          }
-          else return 0
-        })
+            return 1;
+          } else return 0;
+        });
         return {
           ...state,
-          products: orderproducts
-        }
+          products: orderproducts,
+        };
       }
+      return state;
     }
-
-    default: return { ...state }
-
-
+    default:
+      return state;
   }
 };

@@ -195,6 +195,22 @@ li {
   top: 0;
   background: #333;
 }
+.header__search {
+  padding: 0.5em 0.9em;
+  font-size: 1.2em;
+  width: 20em;
+  border: 2px solid #fff;
+  color: #333333;
+  border-radius: 1em;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+}
+.header__search::placeholder {
+  color: #fff;
+  font-family: "Exo";
+}
+.header__search::placeholder {
+  color: #000;
+}
 .header__hover {
   position: relative;
 }
