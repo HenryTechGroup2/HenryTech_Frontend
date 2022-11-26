@@ -33,10 +33,16 @@ const Header = () => {
           <div className='header__hover'>
             {cartHeader} <span className='header__length'>{car.length}</span>
             <ul className='header__ul'>
-              <li className='header__li carr'>Car</li>
-              <li className='header__li purcharse'>Purchase data</li>
+              <li className='carr'>
+                <span>Car</span>
+                <div className='header__carr'>Hello World</div>
+              </li>
+              <li className='purcharse'>
+                <span>Purchase data</span>
+                <div className='header__purcharse'>Hello World</div>
+              </li>
               <li className='make'>
-                <span className='header__li'>Make payment</span>
+                <span>Make payment</span>
                 <div className='header__make'>Hello World</div>
               </li>
             </ul>
