@@ -1,23 +1,29 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-export function Pagination ({paginado, actualPage, next, prev}){
+export function Pagination({ paginado, actualPage, next, prev }) {
+  const products = useSelector((state) => state.products);
+  const productsPage = 16;
+  const numberPage = Math.ceil(products.length / productsPage);
 
-    const products = useSelector(state=>state.products)
-    const productsPage= 16;
-    const numberPage = Math.ceil((products.length)/productsPage);
-
-
-    return (
-                <div>
-                    <div>
-                    <button onClick={prev}>Prev</button>
-                    <button onClick={()=>paginado(actualPage)}>{actualPage}</button>
-                    <button onClick={next}>Next</button>
-                    </div>
-                </div>
-            )
-
+  return (
+    <div className='pagination__container'>
+      <div className='pagination__div'>
+        <button className='pagination__button' onClick={prev}>
+          Prev
+        </button>
+        <button
+          className='pagination__button'
+          onClick={() => paginado(actualPage)}
+        >
+          {actualPage}
+        </button>
+        <button className='pagination__button' onClick={next}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default Pagination
+export default Pagination;

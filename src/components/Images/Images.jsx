@@ -8,29 +8,24 @@ const images = [
 let movimiento = 0;
 let nameMove = 'next';
 const Images = () => {
-  // const [movimiento, setMovimiento] = useState(0);
   const divRef = useRef();
   const handleClick = (name) => {
     if (name === 'next') {
       if (movimiento >= 300) {
         movimiento = movimiento - 100;
-        console.log(movimiento, 'next >=me 300');
         divRef.current.style.transform = `translateX(-${movimiento}vw)`;
         return (nameMove = 'prev');
       }
       movimiento = movimiento + 100;
-      console.log(movimiento, 'next <=ma 300');
       return (divRef.current.style.transform = `translateX(-${movimiento}vw)`);
     } else {
       if (movimiento <= 0) {
         movimiento = movimiento + 100;
-        console.log(movimiento, 'prev <= 0');
 
         divRef.current.style.transform = `translateX(-${movimiento}vw)`;
         return (nameMove = 'next');
       }
       movimiento = movimiento - 100;
-      console.log(movimiento, 'prev >= 0');
       divRef.current.style.transform = `translateX(-${movimiento}vw)`;
     }
   };

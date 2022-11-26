@@ -5,7 +5,6 @@ import { addToCar } from '../../redux/actionsCar';
 import { cart, favorit, stock } from '../../utils/Icons';
 
 const Card = ({ product, login }) => {
-  console.log(login);
   // product_name,
   //   product_description,
   //   product_price,
@@ -22,14 +21,12 @@ const Card = ({ product, login }) => {
   return (
     <article className='product__article'>
       <div className='product__container'>
-
         <div className='product__favorit'>
           <span className='product__stock'>{stock} Stock</span>
           <span>{favorit}</span>{' '}
         </div>
         <Link to={`/products/${product.product_id}`}>
-
-        <div className='product__favorit'>{favorit}</div>
+          <div className='product__favorit'>{favorit}</div>
 
           <img
             className='product__img'
@@ -38,7 +35,11 @@ const Card = ({ product, login }) => {
           />
         </Link>
         <div className='product__top'>
-          <h4 className='product__name'>Nombre: {product.product_name}</h4>
+          <h4 className='product__name'>
+            {product.product_name.length > 70
+              ? `${product.product_name.slice(0, 70)}...`
+              : product.product_name}
+          </h4>
         </div>
         <div className='product__bottom'>
           {/* <h4 className='product__category'>
