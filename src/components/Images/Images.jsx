@@ -29,14 +29,14 @@ const Images = () => {
       divRef.current.style.transform = `translateX(-${movimiento}vw)`;
     }
   };
-  const carruzel = setInterval(() => {
-    handleClick(nameMove);
-  }, 10000);
-  useEffect(() => {
-    return () => {
-      clearInterval(carruzel);
-    };
-  }, []);
+  // const carruzel = setInterval(() => {
+  //   handleClick(nameMove);
+  // }, 10000);
+  // useEffect(() => {
+  //   return () => {
+  //     clearInterval(carruzel);
+  //   };
+  // }, []);
   return (
     <div className='carruzel' ref={divRef}>
       {images.map((image, index) => (

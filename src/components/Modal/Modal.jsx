@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import { close } from '../../utils/Icons';
+import axios from 'axios';
+import { CREATE_USER } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+};
 const Modal = ({ open, handleOpenModalSession }) => {
-  const [login, setLogin] = useState({
-    email: '',
-    password: '',
-  });
-  const handleSubmit = (evt) => {
+  const [login, setLogin] = useState(INITIAL_STATE);
+  const dispatch = useDispatch();
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
+    const data = await axios.post('http://localhost:3001/api/user/login', {
+      user_email: login.email,
+      user_password: login.password,
+    });
+    if (data.status === 200) {
+      dispatch({ type: CREATE_USER, payload: data.data.user });
+      handleOpenModalSession(null);
+      return setLogin(INITIAL_STATE);
+    }
+    console.log(data);
   };
   const handleChange = (evt) => {
     const { name, value } = evt.currentTarget;
@@ -18,6 +33,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
     });
   };
   const $modal = document.getElementById('modal');
+  //Un portal es una nueva div en el html de react que se utiliza para que no haya inconveniencia con la modal y pueda aplicar el fondo difuminado
   return ReactDom.createPortal(
     <div
       className='modal'

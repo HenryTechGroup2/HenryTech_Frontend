@@ -3,6 +3,7 @@ export const CREATE_USER = '@user/create';
 export const DELETE_DETAILS = '@detail/delete';
 export const CAR_MODIFIER = '@car/modifier';
 export const FILTER_SEARCH = '@filter/search';
+export const PAGES_HOME = '@pages/home';
 export function getAllProducts() {
   try {
     return async function (dispatch) {
@@ -120,6 +121,11 @@ export function filterSearch(value) {
   return {
     type: FILTER_SEARCH,
     payload: value,
+  };
+}
+export function pageHome() {
+  return {
+    type: PAGES_HOME,
   };
 }
 export function deleteDetailsProducts() {

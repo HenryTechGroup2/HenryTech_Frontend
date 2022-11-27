@@ -7,6 +7,7 @@ const useCount = (INITIAL_STATE = 1) => {
     if (name === 'suma') {
       return setCount(count + 1);
     }
+    if (count - 1 === 0) return;
     setCount(count - 1);
   };
   return {

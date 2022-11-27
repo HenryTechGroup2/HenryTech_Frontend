@@ -3,9 +3,10 @@ import {
   CREATE_USER,
   DELETE_DETAILS,
   FILTER_SEARCH,
+  PAGES_HOME,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
-import { USER } from '../storage/variables';
+import { CAR, USER } from '../storage/variables';
 
 const initialState = {
   products: [],
@@ -17,6 +18,7 @@ const initialState = {
   detailsProduct: {},
   reviews: [],
   priceTotal: 0,
+  viewHome: false,
   filters: {
     search: '',
   },
@@ -69,6 +71,7 @@ export const reducerFetch = (state = initialState, action) => {
         car: [...state.car, newProductCar],
         productIdCar: state.productIdCar + 1,
       };
+      window.localStorage.setItem(CAR, JSON.stringify(state.car));
       const priceTotal = state.car.reduce(
         (a, b) => Number(a) + Number(b.product_price) * b.product_count,
         0
@@ -79,18 +82,17 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case DELETE_TO_CAR: {
-      console.log(action.payload);
-
       const products = state.car.filter(
         (product) => product.product_id !== action.payload.id
       );
 
-      console.log(products);
-      return {
+      state = {
         ...state,
         car: products,
         priceTotal: state.priceTotal - action.payload.price,
       };
+      window.localStorage.setItem(CAR, JSON.stringify(state.car));
+      return state;
     }
     case FILTER_SEARCH: {
       const resultSearch = state.products.filter(
@@ -102,7 +104,11 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         copieProducts: resultSearch,
-        search: action.payload,
+        filters: {
+          ...state.filters,
+          search: action.payload,
+        },
+        viewHome: true,
       };
     }
     case 'PRODUCT_BY_NAME':
@@ -243,6 +249,17 @@ export const reducerFetch = (state = initialState, action) => {
         };
       }
       return state;
+    }
+    //PAGES
+    case PAGES_HOME: {
+      return {
+        ...state,
+        viewHome: false,
+        filters: {
+          ...state.filters,
+          search: '',
+        },
+      };
     }
     default:
       return state;

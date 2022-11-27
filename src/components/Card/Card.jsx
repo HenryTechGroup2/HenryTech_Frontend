@@ -1,22 +1,28 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useCount from '../../hooks/useCount';
-import { favorit, stock } from '../../utils/Icons';
+import { favorit, stock, notFavorit } from '../../utils/Icons';
 import Count from '../Count/Count';
 
-const Card = ({ product }) => {
-  useCount();
-
+const Card = ({ product, isFlex = false }) => {
+  const [favoritState, setFavoritState] = useState(false);
+  const handleAddFavorit = (evt) => {
+    evt.stopPropagation();
+    console.log('first');
+    setFavoritState(!favoritState);
+  };
   return (
-    <article className='product__article'>
+    <article
+      className={`product__article ${isFlex === true ? 'product__flex' : ''}`}
+    >
       <div className='product__container'>
         <div className='product__favorit'>
           <span className='product__stock'>{stock} Stock</span>
-          <span>{favorit}</span>{' '}
+          <button className='product__btn' onClick={handleAddFavorit}>
+            {favoritState ? notFavorit : favorit}
+          </button>{' '}
         </div>
         <Link to={`/products/${product.product_id}`}>
-          <div className='product__favorit'>{favorit}</div>
-
           <img
             className='product__img'
             src={`${product.product_img}`}
@@ -31,10 +37,6 @@ const Card = ({ product }) => {
           </h4>
         </div>
         <div className='product__bottom'>
-          {/* <h4 className='product__category'>
-            Category: {product.product_category}
-            {'     '}
-          </h4> */}
           <h4 className='product__price'>
             Price: ${product.product_price}{' '}
             <span className='product__rating'>
@@ -42,9 +44,6 @@ const Card = ({ product }) => {
             </span>
           </h4>
         </div>
-        {/* Si usuario está logeado y hay cantidad en el stock que se habilite el carrito de compra  de lo contrario que se deshabilite*/}
-        {/* Cambiar el stock una vez sepa como llega del back  */}
-        {/* <p>Stock:{props.stock.find(e=>e.title===props.title? e.stock:false)} </p> */}
         <Count product={product} />
       </div>
     </article>

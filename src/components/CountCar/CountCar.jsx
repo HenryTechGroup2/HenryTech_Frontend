@@ -18,6 +18,7 @@ const CountCar = ({ product }) => {
         },
       });
     } else {
+      if (count - 1 < 0) return;
       setCount(count - 1);
       dispatch({
         type: CAR_MODIFIER,
