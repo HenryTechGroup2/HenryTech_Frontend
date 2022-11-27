@@ -31,12 +31,12 @@ const CountCar = ({ product }) => {
   };
   return (
     <div className='details__count'>
-      <button className='details__button' onClick={() => handleClick()}>
+      <button className='car__button' onClick={() => handleClick()}>
         -
       </button>
-      <span className='details__span'>{count}</span>
+      <span className='car__count'>{count}</span>
       <button
-        className='details__button'
+        className='car__button'
         name='suma'
         onClick={() => handleClick('suma')}
       >

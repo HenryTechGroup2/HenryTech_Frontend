@@ -66,60 +66,68 @@ export default function GetFilters() {
   };
 
   return (
-    <div>
-      <div>
-        <h3>Precio:</h3>
-        <p>{/* {minprice} - {input.price} */}</p>
-        <input
-          type='range'
-          min={minPrice}
-          max={maxPrice}
-          name='price'
-          value={input.price}
-          onChange={(e) => priceOnChange(e)}
-        />
+    <div className='filter'>
+      <div className='filter__div'>
+        <h3 className='filter__h3'>Precio</h3>
+        <div className='filter__range'>
+          <span className='filter__price'>{minPrice}</span>
+          <input
+            className='filter__input'
+            type='range'
+            min={minPrice}
+            max={maxPrice}
+            name='price'
+            value={input.price}
+            onChange={(e) => priceOnChange(e)}
+          />
+          <span className='filter__price'>{maxPrice}</span>
+        </div>
+        <div className='filter__input--price'>
+          {input.price === Infinity ? minPrice : input.price}
+        </div>
         {/* <input type='text' placeholder="filtra por precio" onChange={(e) => priceOnChange(e)} />
                 <input type='submit' onClick={(e) => priceOnClick(e)} /> */}
       </div>
-      <div>
-        <h3>Categorias:</h3>
-        {uniquecategories.map((e) => {
-          return (
-            <div key={e}>
-              <label>
+      <div className='filter__div'>
+        <h3 className='filter__h3'>Categorias</h3>
+        <div className='filter__categorys'>
+          {uniquecategories.map((category) => {
+            return (
+              <div className='filter__map' key={category}>
+                <div className='filter__category'> {category}</div>
                 <input
+                  className='filter__check'
                   type='checkbox'
-                  name={e}
-                  value={e}
+                  name={category}
+                  value={category}
                   onChange={(e) => categoryOnChange(e)}
                 />
-                {e}
-              </label>
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div>
-        <h3>Marcas:</h3>
+      <div className='filter__marcas'>
+        <h3 className='filter__h3'>Marcas</h3>
         {uniquebrands.map((e) => {
           return (
-            <div key={e}>
-              <label>
-                <input
-                  type='checkbox'
-                  name={e}
-                  value={e}
-                  onChange={(e) => brandOnChange(e)}
-                />
-                {e}
-              </label>
+            <div className='filter__map' key={e}>
+              <input
+                className='filter__check'
+                type='checkbox'
+                name={e}
+                value={e}
+                onChange={(e) => brandOnChange(e)}
+              />
+              {e}
             </div>
           );
         })}
       </div>
-      <br />
-      <div>
-        <button onClick={(e) => filtersOnClick(e)}>Aplicar filtros</button>
+      <div className='filter__aplique'>
+        <button className='filter__button' onClick={(e) => filtersOnClick(e)}>
+          Aplicar filtros
+        </button>
       </div>
     </div>
   );

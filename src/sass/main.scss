@@ -2,6 +2,12 @@
   './imports/variables.scss';
 .home {
 }
+.aside {
+  position: sticky;
+  top: 6em;
+  height: 45em;
+  @include flex(column, nowrap, center, center, 0);
+}
 #tsparticles {
   // height: 250vh;
   position: absolute;
@@ -9,6 +15,7 @@
 }
 .home__main {
   @include flex(row, wrap, start, center, 0.4em);
+  position: relative;
   @include responsive() {
     @include flex(column, wrap, start, center, 0.4em);
   }
@@ -90,24 +97,15 @@
     color: #000;
     border-radius: 1em;
   }
-  // &__li {
-  //   list-style: none;
-  //   margin: 0;
-  //   padding: 0;
-  //   padding: 0.4em;
-  //   border: 1px solid #fff;
-  //   width: 100%;
-  //   border-radius: 0.5em;
-  // }
   &__make {
     display: none;
     position: absolute;
     width: 20em;
     height: 20em;
-    right: 10em;
-    top: 8em;
+    right: 9em;
+    top: -4em;
     border-radius: 1em;
-    background: #000;
+    @include background-defecto();
     color: #fff;
   }
   &__purcharse {
@@ -115,10 +113,10 @@
     position: absolute;
     width: 20em;
     height: 20em;
-    right: 10em;
-    top: 8em;
+    right: 9em;
+    top: -4em;
     border-radius: 1em;
-    background: #000;
+    @include background-defecto();
     color: #fff;
   }
   &__carr {
@@ -126,20 +124,34 @@
     position: absolute;
     width: 20em;
     height: 20em;
-    right: 10em;
-    top: 8em;
+    right: 9em;
+    top: -4em;
     border-radius: 1em;
-    background: #000;
+    @include background-defecto();
     color: #fff;
+    overflow: auto;
   }
   .purcharse {
     @include car-option();
+    transition: 0.5s linear;
+    overflow: auto;
+    &:hover {
+      background: #004b23;
+    }
   }
   .make {
     @include car-option();
+    transition: 0.5s linear;
+    &:hover {
+      background: #004b23;
+    }
   }
   .carr {
     @include car-option();
+    transition: 0.5s linear;
+    &:hover {
+      background: #004b23;
+    }
   }
   .purcharse:hover &__purcharse {
     display: block;
@@ -261,44 +273,73 @@
 .car {
   margin: 2em 0 0 0;
   width: 100vw;
-  @include flex(row, nowrap, center, center, 0.5em);
+  @include flex(row, nowrap, center, center, 1.2em);
   &__map {
     @include flex(column, nowrap, center, center, 0.5em);
   }
   &__container {
+    margin: 0.5em 0 0 0;
     background: #fff;
     border-radius: 1em;
     @include flex(row, nowrap, center, start, 0.5em);
     color: #000;
-    height: 15em;
-    width: 35em;
+    height: 6em;
   }
   &__description {
-    @include flex(column, nowrap, space-around, start, 0.5em);
+    @include flex(column, nowrap, center, center, 0.5em);
     height: 100%;
+  }
+  &__product {
+    display: flex;
+    gap: 1em;
   }
   &__p {
     width: 15em;
   }
   &__img {
-    width: 15em;
-    height: 15em;
+    width: 5em;
+    height: 5em;
+    object-fit: contain;
   }
   &__total {
     background: #fff;
-    font-size: 1.4em;
+    // font-size: 1.4em;
     color: #000;
-    padding: 1em;
+    padding: 0.5em;
     position: sticky;
-    top: 1em;
+    top: 0;
     align-self: flex-start;
     font-weight: bold;
     border-radius: 1em;
+    text-align: center;
   }
-  &__button {
+  &__btn {
     align-self: end;
     margin: 0.5em 1em 0.5em 0.5em;
     background: transparent;
+  }
+  &__button {
+    background: linear-gradient(
+      to right,
+      $color-principal 0%,
+      $succes 70%,
+      $succes 100%
+    );
+
+    // padding: 0.5em 1em;
+    padding: 0.1em 0.4em;
+    border-radius: 1em;
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: $font-principal;
+    @include flex(row, nowrap, center, center, 0.3em);
+    transition: 0.5s linear;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 .product {
@@ -327,6 +368,7 @@
   &__img {
     width: 15em;
     height: 18em;
+    object-fit: contain;
   }
   &__container {
     @include flex(column, nowrap, center, center, 0);
@@ -601,5 +643,98 @@
   &__span {
     font-size: 1.5em;
     font-weight: bold;
+  }
+}
+.filter {
+  height: 37em;
+  padding: 1em 2em;
+  @include flex(column, nowrap, start, start, 0.5em);
+  @include background-defecto();
+  border-radius: 1em;
+  max-width: 20em;
+  &__input--price {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  &__div {
+    border: 2px solid #ffff;
+    flex-grow: 1;
+    width: 100%;
+    border-radius: 2em;
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__range {
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__price {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  &__h3 {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  &__input {
+    width: 8em;
+  }
+  &__map {
+    @include flex(row, nowrap, start, center, 0.5em);
+  }
+  &__categorys {
+    padding: 1em;
+  }
+  &__category {
+    width: 9em;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+  &__marcas {
+    width: 100%;
+    border: 2px solid #fff;
+    border-radius: 2em;
+  }
+  &__check {
+    width: 1.3em;
+    height: 1.3em;
+    border: none;
+    outline: none;
+    &:checked {
+      width: 1.4em;
+      height: 1.4em;
+    }
+  }
+  &__aplique {
+    width: 100%;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__button {
+    @include button-principal();
+  }
+}
+.order {
+  @include background-defecto();
+  border-radius: 1em;
+  margin: 1em 0 0 0;
+  @include flex(column, nowrap, center, center, 0);
+  max-width: 20em;
+  width: 20em;
+  height: 10em;
+  &__h3 {
+    text-align: center;
+    font-size: 1.4em;
+  }
+  &__select {
+    padding: 0.5em 0.9em;
+    @include button-principal();
+    max-width: 15em;
+    width: 12em;
+    &:hover {
+      transform: scale(1);
+    }
+  }
+  &__option {
+    background: #004b23;
+    padding: 0.5em 1em;
+    margin: 0.3em 0 0 0;
   }
 }

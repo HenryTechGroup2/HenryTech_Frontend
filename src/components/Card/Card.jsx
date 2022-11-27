@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import useCount from '../../hooks/useCount';
 import { favorit, stock } from '../../utils/Icons';
 import Count from '../Count/Count';
 
 const Card = ({ product }) => {
-  const { count } = useCount();
-  useEffect(() => {
-    console.log(count);
-  }, [count]);
+  useCount();
 
-  console.log(count);
   return (
     <article className='product__article'>
       <div className='product__container'>

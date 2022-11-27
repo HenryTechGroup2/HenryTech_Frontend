@@ -79,13 +79,17 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case DELETE_TO_CAR: {
+      console.log(action.payload);
+
       const products = state.car.filter(
-        (product) => product.idCar !== action.payload
+        (product) => product.product_id !== action.payload.id
       );
+
       console.log(products);
       return {
         ...state,
         car: products,
+        priceTotal: state.priceTotal - action.payload.price,
       };
     }
     case FILTER_SEARCH: {

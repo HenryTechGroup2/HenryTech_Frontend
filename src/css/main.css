@@ -73,6 +73,17 @@ li {
   text-decoration: none;
 }
 
+.aside {
+  position: sticky;
+  top: 6em;
+  height: 45em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+
 #tsparticles {
   position: absolute;
   width: 100%;
@@ -84,6 +95,7 @@ li {
   justify-content: start;
   gap: 0.4em;
   align-content: center;
+  position: relative;
 }
 @media (max-width: 600px) {
   .home__main {
@@ -239,10 +251,10 @@ li {
   position: absolute;
   width: 20em;
   height: 20em;
-  right: 10em;
-  top: 8em;
+  right: 9em;
+  top: -4em;
   border-radius: 1em;
-  background: #000;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
   color: #fff;
 }
 .header__purcharse {
@@ -250,10 +262,10 @@ li {
   position: absolute;
   width: 20em;
   height: 20em;
-  right: 10em;
-  top: 8em;
+  right: 9em;
+  top: -4em;
   border-radius: 1em;
-  background: #000;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
   color: #fff;
 }
 .header__carr {
@@ -261,11 +273,12 @@ li {
   position: absolute;
   width: 20em;
   height: 20em;
-  right: 10em;
-  top: 8em;
+  right: 9em;
+  top: -4em;
   border-radius: 1em;
-  background: #000;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
   color: #fff;
+  overflow: auto;
 }
 .header .purcharse {
   list-style: none;
@@ -275,6 +288,11 @@ li {
   border: 1px solid #fff;
   width: 100%;
   border-radius: 0.5em;
+  transition: 0.5s linear;
+  overflow: auto;
+}
+.header .purcharse:hover {
+  background: #004b23;
 }
 .header .make {
   list-style: none;
@@ -284,6 +302,10 @@ li {
   border: 1px solid #fff;
   width: 100%;
   border-radius: 0.5em;
+  transition: 0.5s linear;
+}
+.header .make:hover {
+  background: #004b23;
 }
 .header .carr {
   list-style: none;
@@ -293,6 +315,10 @@ li {
   border: 1px solid #fff;
   width: 100%;
   border-radius: 0.5em;
+  transition: 0.5s linear;
+}
+.header .carr:hover {
+  background: #004b23;
 }
 .purcharse:hover .header__purcharse {
   display: block;
@@ -472,7 +498,7 @@ li {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  gap: 0.5em;
+  gap: 1.2em;
   align-items: center;
 }
 .car__map {
@@ -483,6 +509,7 @@ li {
   align-items: center;
 }
 .car__container {
+  margin: 0.5em 0 0 0;
   background: #fff;
   border-radius: 1em;
   display: flex;
@@ -491,39 +518,62 @@ li {
   gap: 0.5em;
   align-items: start;
   color: #000;
-  height: 15em;
-  width: 35em;
+  height: 6em;
 }
 .car__description {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-around;
+  justify-content: center;
   gap: 0.5em;
-  align-items: start;
+  align-items: center;
   height: 100%;
+}
+.car__product {
+  display: flex;
+  gap: 1em;
 }
 .car__p {
   width: 15em;
 }
 .car__img {
-  width: 15em;
-  height: 15em;
+  width: 5em;
+  height: 5em;
+  object-fit: contain;
 }
 .car__total {
   background: #fff;
-  font-size: 1.4em;
   color: #000;
-  padding: 1em;
+  padding: 0.5em;
   position: sticky;
-  top: 1em;
+  top: 0;
   align-self: flex-start;
   font-weight: bold;
   border-radius: 1em;
+  text-align: center;
 }
-.car__button {
+.car__btn {
   align-self: end;
   margin: 0.5em 1em 0.5em 0.5em;
   background: transparent;
+}
+.car__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.1em 0.4em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.car__button:hover {
+  transform: scale(1.1);
 }
 
 .product {
@@ -556,6 +606,7 @@ li {
 .product__img {
   width: 15em;
   height: 18em;
+  object-fit: contain;
 }
 .product__container {
   display: flex;
@@ -969,6 +1020,157 @@ li {
 .count__span {
   font-size: 1.5em;
   font-weight: bold;
+}
+
+.filter {
+  height: 37em;
+  padding: 1em 2em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  gap: 0.5em;
+  align-items: start;
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  border-radius: 1em;
+  max-width: 20em;
+}
+.filter__input--price {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.filter__div {
+  border: 2px solid white;
+  flex-grow: 1;
+  width: 100%;
+  border-radius: 2em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.filter__range {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.filter__price {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.filter__h3 {
+  text-align: center;
+  font-size: 1.5em;
+}
+.filter__input {
+  width: 8em;
+}
+.filter__map {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0.5em;
+  align-items: center;
+}
+.filter__categorys {
+  padding: 1em;
+}
+.filter__category {
+  width: 9em;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.filter__marcas {
+  width: 100%;
+  border: 2px solid #fff;
+  border-radius: 2em;
+}
+.filter__check {
+  width: 1.3em;
+  height: 1.3em;
+  border: none;
+  outline: none;
+}
+.filter__check:checked {
+  width: 1.4em;
+  height: 1.4em;
+}
+.filter__aplique {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.filter__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.filter__button:hover {
+  transform: scale(1.1);
+}
+
+.order {
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  border-radius: 1em;
+  margin: 1em 0 0 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  max-width: 20em;
+  width: 20em;
+  height: 10em;
+}
+.order__h3 {
+  text-align: center;
+  font-size: 1.4em;
+}
+.order__select {
+  padding: 0.5em 0.9em;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+  max-width: 15em;
+  width: 12em;
+}
+.order__select:hover {
+  transform: scale(1.1);
+}
+.order__select:hover {
+  transform: scale(1);
+}
+.order__option {
+  background: #004b23;
+  padding: 0.5em 1em;
+  margin: 0.3em 0 0 0;
 }
 
 /*# sourceMappingURL=main.css.map */

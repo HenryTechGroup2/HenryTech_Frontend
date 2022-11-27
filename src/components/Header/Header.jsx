@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FILTER_SEARCH } from '../../redux/actions';
 import { cartHeader, userLogin } from '../../utils/Icons';
+import CardCar from '../CardCar/CardCar';
 import Modal from '../Modal/Modal';
 
 const Header = () => {
   const [open, setOpen] = useState(null);
   const [search, setSearch] = useState('');
-  const { userDates, car } = useSelector((state) => state);
+  const { userDates, car, priceTotal } = useSelector((state) => state);
   const handleOpenModalSession = (change) => setOpen(change);
   const dispatch = useDispatch();
   const handleChangeProductFilter = (evt) => {
@@ -45,25 +46,30 @@ const Header = () => {
         )}
 
         <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
-        <Link to='/car' className='header__cart'>
-          <div className='header__hover'>
-            {cartHeader} <span className='header__length'>{car.length}</span>
-            <ul className='header__ul'>
-              <li className='carr'>
-                <span>Car</span>
-                <div className='header__carr'>Hello World</div>
-              </li>
-              <li className='purcharse'>
-                <span>Purchase data</span>
-                <div className='header__purcharse'>Hello World</div>
-              </li>
-              <li className='make'>
-                <span>Make payment</span>
-                <div className='header__make'>Hello World</div>
-              </li>
-            </ul>
-          </div>
-        </Link>
+
+        <div className='header__hover'>
+          {cartHeader} <span className='header__length'>{car.length}</span>
+          <ul className='header__ul'>
+            <li className='carr'>
+              <span>Car</span>
+              <div className='header__carr'>
+                <div className='car__total'>Total:${priceTotal}.00</div>
+
+                {car.map((product) => (
+                  <CardCar key={product.product_id} product={product} />
+                ))}
+              </div>
+            </li>
+            <li className='purcharse'>
+              <span>Purchase data</span>
+              <div className='header__purcharse'>Hello World</div>
+            </li>
+            <li className='make'>
+              <span>Make payment</span>
+              <div className='header__make'>Hello World</div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

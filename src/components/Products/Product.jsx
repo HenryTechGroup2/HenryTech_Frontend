@@ -38,7 +38,7 @@ export default function Products() {
 
   return (
     <section className='product'>
-      {products.slice(0, 17).map((product) => (
+      {products.slice(2, 18).map((product) => (
         <Card key={product.product_id} product={product} login={userlogin} />
       ))}
       <div className='pagination'>

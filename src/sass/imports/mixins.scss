@@ -32,6 +32,7 @@
   font-family: $font-principal;
   @include flex(row, nowrap, center, center, 0.3em);
   transition: 0.5s linear;
+
   &:hover {
     transform: scale(1.1);
   }
