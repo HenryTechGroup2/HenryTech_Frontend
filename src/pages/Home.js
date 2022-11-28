@@ -11,6 +11,7 @@ import { USER } from '../redux/storage/variables';
 import { ToastContainer } from 'react-toastify';
 import ProductsHome from '../components/ProductsHome/ProductsHome';
 const Home = () => {
+
   const dispatch = useDispatch();
   const { filters, viewHome, products } = useSelector((state) => state);
   useEffect(() => {
