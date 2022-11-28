@@ -15,6 +15,7 @@ import Star from '../Star/Star.jsx';
 import { favorit, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
+import ButtonTop from '../ButtonTop/ButtonTop.jsx';
 export function Details() {
   const params = useParams();
 
@@ -26,7 +27,10 @@ export function Details() {
 
   useEffect(() => {
     dispatch(getDetailsProducts(params.id));
-
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
     return () => {
       dispatch(deleteDetailsProducts());
     };
@@ -39,10 +43,10 @@ export function Details() {
   const images = detailsProduct?.product_array_img?.concat(
     detailsProduct?.product_img
   );
-
   return (
     <>
       <Header />
+      <ButtonTop />
       <ParticlesBackground />
       <ToastContainer />
       <div className='details'>
@@ -64,11 +68,9 @@ export function Details() {
               ))}
         </div>
         <div className='details__center'>
-          {imagePrincipal.length > 0 ? (
-            <div
-              className='details__special'
-              style={{ position: 'relative', zIndex: '1000' }}
-            >
+          {/* style={{ position: 'relative', zIndex: '1000' }} */}
+          {imagePrincipal?.length > 0 ? (
+            <div className='details__special'>
               <ReactImageMagnify
                 {...{
                   smallImage: {
@@ -91,10 +93,25 @@ export function Details() {
               />
             </div>
           ) : (
-            <img
-              className='details__img'
-              src={detailsProduct?.product_img}
-              alt=''
+            <ReactImageMagnify
+              {...{
+                smallImage: {
+                  alt: 'Wristwatch by Ted Baker London',
+                  isFluidWidth: true,
+                  src: detailsProduct?.product_img,
+                },
+                largeImage: {
+                  src: detailsProduct?.product_img,
+                  width: 1000,
+                  height: 850,
+                },
+                enlargedImageContainerDimensions: {
+                  width: 400,
+                  height: 640,
+                },
+                enlargedImagePortalId: 'portal',
+                fadeDurationInMs: 0,
+              }}
             />
           )}
         </div>

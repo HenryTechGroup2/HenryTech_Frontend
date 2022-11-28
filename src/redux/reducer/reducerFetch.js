@@ -22,15 +22,22 @@ const initialState = {
   filters: {
     search: '',
   },
+  productsOfer: [],
 };
 
 export const reducerFetch = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_PRODUCTS': {
+      const ofertDay = action.payload.filter(
+        ({ product_ofer }) => product_ofer === true
+      );
+      console.log(action.payload);
+      console.log(ofertDay);
       return {
         ...state,
         products: action.payload,
         copieProducts: action.payload,
+        productsOfer: ofertDay,
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
@@ -62,6 +69,26 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case ADD_TO_CART: {
+      let existProduct = state.car.find(
+        ({ product_id }) => product_id === action.payload.product.product_id
+      );
+      if (existProduct) {
+        existProduct.product_count =
+          existProduct.product_count + action.payload.count;
+
+        state = {
+          ...state,
+        };
+        const priceTotal = state.car.reduce(
+          (a, b) => Number(a) + Number(b.product_price) * b.product_count,
+          0
+        );
+        window.localStorage.setItem(CAR, JSON.stringify(state.car));
+        return {
+          ...state,
+          priceTotal,
+        };
+      }
       const newProductCar = {
         ...action.payload.product,
         product_count: action.payload.count,
@@ -71,11 +98,12 @@ export const reducerFetch = (state = initialState, action) => {
         car: [...state.car, newProductCar],
         productIdCar: state.productIdCar + 1,
       };
-      window.localStorage.setItem(CAR, JSON.stringify(state.car));
+
       const priceTotal = state.car.reduce(
         (a, b) => Number(a) + Number(b.product_price) * b.product_count,
         0
       );
+      window.localStorage.setItem(CAR, JSON.stringify(state.car));
       return {
         ...state,
         priceTotal,
@@ -124,7 +152,14 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'FILTERS': {
       let filterproducts = [];
+
       state.products.forEach((product) => {
+        const name =
+          product.product_name
+            .toLowerCase()
+            .indexOf(state.filters.search.toLowerCase()) !== -1;
+        const price =
+          Number(product.product_price) <= Number(action.payload.price);
         if (
           action.payload.category.length > 0 &&
           action.payload.brand.length > 0
@@ -132,7 +167,8 @@ export const reducerFetch = (state = initialState, action) => {
           if (
             action.payload.category.includes(product.product_category) &&
             action.payload.brand.includes(product.product_brand) &&
-            Number(product.product_price) <= Number(action.payload.price)
+            price &&
+            name
           ) {
             return filterproducts.push(product);
           }
@@ -141,7 +177,8 @@ export const reducerFetch = (state = initialState, action) => {
         if (action.payload.category.length > 0) {
           if (
             action.payload.category.includes(product.product_category) &&
-            Number(product.product_price) <= Number(action.payload.price)
+            price &&
+            name
           ) {
             return filterproducts.push(product);
           }
@@ -150,15 +187,20 @@ export const reducerFetch = (state = initialState, action) => {
         if (action.payload.brand.length > 0) {
           if (
             action.payload.brand.includes(product.product_brand) &&
-            product.product_price <= action.payload.price
+            product.product_price <= action.payload.price &&
+            name
           ) {
             return filterproducts.push(product);
           }
           return;
         }
-        if (Number(product.product_price) <= Number(action.payload.price)) {
-          return filterproducts.push(product);
+        if (price && state.filters.search.length > 0) {
+          if (name) {
+            return filterproducts.push(product);
+          }
+          return;
         }
+        return;
       });
 
       return {

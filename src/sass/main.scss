@@ -1,5 +1,19 @@
 @import './imports/reset.scss', './imports/mixins.scss',
   './imports/variables.scss';
+.btn-top {
+  position: fixed;
+  z-index: 100;
+  left: 10px;
+  bottom: 10px;
+  opacity: 1;
+  transition: 0.5s ease;
+  background: transparent;
+  @include button-principal();
+  padding: 0.4em;
+}
+.close {
+  opacity: 0;
+}
 .home {
   &__cards {
     @include flex(column, nowrap, center, center, 1em);
@@ -449,7 +463,11 @@
   width: 100%;
   padding: 1em;
   margin: auto;
+  &__div {
+    @include flex(row, nowrap, center, center, 0.2em);
+  }
   &__container {
+    margin: 2em 0;
     position: relative;
     z-index: 10;
   }
