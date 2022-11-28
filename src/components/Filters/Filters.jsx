@@ -53,7 +53,6 @@ export default function GetFilters() {
       setInput({ ...input, category: input.category });
     }
   };
-
   let brandOnChange = (e) => {
     if (e.target.checked) {
       setInput({ ...input, brand: [...input.brand, e.target.value] });

@@ -9,6 +9,7 @@ export function getAllProducts() {
   try {
     return async function (dispatch) {
       const result = await axios.get(`${api}/api/product`);
+      console.log(result);
       return dispatch({
         type: 'GET_PRODUCTS',
         payload: result.data,

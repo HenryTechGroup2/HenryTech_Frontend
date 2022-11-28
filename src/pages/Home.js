@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../components/Aside/Aside';
 import Footer from '../components/Footer/Footer';
@@ -10,8 +10,8 @@ import { CREATE_USER, getAllProducts } from '../redux/actions';
 import { USER } from '../redux/storage/variables';
 import { ToastContainer } from 'react-toastify';
 import ProductsHome from '../components/ProductsHome/ProductsHome';
+import Pagination from '../components/Pagination/Pagination';
 const Home = () => {
-
   const dispatch = useDispatch();
   const { filters, viewHome, products } = useSelector((state) => state);
   useEffect(() => {
@@ -22,6 +22,28 @@ const Home = () => {
     }
     dispatch(getAllProducts());
   }, []);
+  ///
+  const [actualPage, setActualPage] = useState(1);
+  const productsPage = 16;
+  const page = actualPage * productsPage;
+  // const productsforPage = products.slice(page - productsPage, page);
+
+  function pag(number) {
+    setActualPage(number);
+  }
+  function next() {
+    const numberPage = Math.ceil(products.length / productsPage);
+    if (actualPage !== numberPage) {
+      setActualPage(actualPage + 1);
+    }
+  }
+  function prev() {
+    if (actualPage !== 1) {
+      setActualPage(actualPage - 1);
+    }
+  }
+  ///
+
   console.log(viewHome);
   return (
     <div className='home'>
@@ -32,7 +54,15 @@ const Home = () => {
         {filters.search.length > 0 || viewHome === true ? (
           <div className='home__main'>
             <Aside />
-            <Products />
+            <div className='home__pages'>
+              <Products page={page} productsPage={productsPage} />
+              <Pagination
+                paginado={pag}
+                next={next}
+                prev={prev}
+                actualPage={actualPage}
+              />
+            </div>
           </div>
         ) : (
           <div className='home__products'>

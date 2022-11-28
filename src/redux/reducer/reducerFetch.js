@@ -124,40 +124,46 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'FILTERS': {
       let filterproducts = [];
-      state.copieProducts.forEach((e) => {
+      state.products.forEach((product) => {
         if (
           action.payload.category.length > 0 &&
           action.payload.brand.length > 0
         ) {
           if (
-            action.payload.category.includes(e.product_category) &&
-            action.payload.brand.includes(e.product_brand) &&
-            e.product_price <= action.payload.price
+            action.payload.category.includes(product.product_category) &&
+            action.payload.brand.includes(product.product_brand) &&
+            Number(product.product_price) <= Number(action.payload.price)
           ) {
-            filterproducts.push(e);
+            return filterproducts.push(product);
           }
-        } else if (action.payload.category.length > 0) {
+          return;
+        }
+        if (action.payload.category.length > 0) {
           if (
-            action.payload.category.includes(e.product_category) &&
-            e.product_price <= action.payload.price
+            action.payload.category.includes(product.product_category) &&
+            Number(product.product_price) <= Number(action.payload.price)
           ) {
-            filterproducts.push(e);
+            return filterproducts.push(product);
           }
-        } else if (action.payload.brand.length > 0) {
+          return;
+        }
+        if (action.payload.brand.length > 0) {
           if (
-            action.payload.brand.includes(e.product_brand) &&
-            e.product_price <= action.payload.price
+            action.payload.brand.includes(product.product_brand) &&
+            product.product_price <= action.payload.price
           ) {
-            filterproducts.push(e);
+            return filterproducts.push(product);
           }
-        } else if (e.product_price <= action.payload.price) {
-          filterproducts.push(e);
+          return;
+        }
+        if (Number(product.product_price) <= Number(action.payload.price)) {
+          return filterproducts.push(product);
         }
       });
 
       return {
         ...state,
-        products: filterproducts,
+        copieProducts: filterproducts,
       };
     }
     case DELETE_DETAILS: {
@@ -188,32 +194,32 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'ORDER_BY_PRICE': {
       if (action.payload === 'price max-min') {
-        let orderproducts = state.products.sort((a, b) => {
-          if (a.product_price < b.product_price) {
+        let orderproducts = state.copieProducts.sort((a, b) => {
+          if (Number(a.product_price) < Number(b.product_price)) {
             return 1;
           }
-          if (a.product_price > b.product_price) {
+          if (Number(a.product_price) > Number(b.product_price)) {
             return -1;
           } else return 0;
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
         };
       }
 
       if (action.payload === 'price min-max') {
-        let orderproducts = state.products.sort((a, b) => {
-          if (a.product_price < b.product_price) {
+        let orderproducts = state.copieProducts.sort((a, b) => {
+          if (Number(a.product_price) < Number(b.product_price)) {
             return -1;
           }
-          if (a.product_price > b.product_price) {
+          if (Number(a.product_price) > Number(b.product_price)) {
             return 1;
           } else return 0;
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
         };
       }
       return state;

@@ -5,7 +5,6 @@ export function Pagination({ paginado, actualPage, next, prev }) {
   const products = useSelector((state) => state.products);
   const productsPage = 16;
   const numberPage = Math.ceil(products.length / productsPage);
-
   return (
     <div className='pagination__container'>
       <div className='pagination__div'>
