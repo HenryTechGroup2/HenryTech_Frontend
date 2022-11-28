@@ -4,10 +4,11 @@ export const DELETE_DETAILS = '@detail/delete';
 export const CAR_MODIFIER = '@car/modifier';
 export const FILTER_SEARCH = '@filter/search';
 export const PAGES_HOME = '@pages/home';
+export const api = 'https://henry-tech-backend.vercel.app';
 export function getAllProducts() {
   try {
     return async function (dispatch) {
-      const result = await axios.get('http://localhost:3001/api/product');
+      const result = await axios.get(`${api}/api/product`);
       return dispatch({
         type: 'GET_PRODUCTS',
         payload: result.data,
@@ -39,7 +40,7 @@ export function getStockProducts() {
 export function getDetailsProducts(id) {
   try {
     return async function (dispatch) {
-      const result = await axios.get(`http://localhost:3001/api/product/${id}`);
+      const result = await axios.get(`${api}/api/product/${id}`);
       return dispatch({
         type: 'GET_DETAILS_PRODUCTS',
         payload: result.data,
