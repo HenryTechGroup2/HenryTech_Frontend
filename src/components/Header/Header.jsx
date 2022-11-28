@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FILTER_SEARCH, pageHome } from '../../redux/actions';
 import { cartHeader, userLogin } from '../../utils/Icons';
+import CardCar from '../CardCar/CardCar';
 import Modal from '../Modal/Modal';
+import Payment from '../Payment/Payment';
+import UpdateInfo from '../UpdateInfo/UpdateInfo';
 
 const Header = () => {
   const [open, setOpen] = useState(null);
-  const { userDates, car } = useSelector((state) => state);
+  const { userDates, car, priceTotal, filters } = useSelector((state) => state);
   const handleOpenModalSession = (change) => setOpen(change);
-
+  const dispatch = useDispatch();
+  const handleChangeProductFilter = (evt) => {
+    const { value } = evt.currentTarget;
+    dispatch({ type: FILTER_SEARCH, payload: value });
+  };
+  const handleClick = () => {
+    dispatch(pageHome());
+  };
   return (
     <div className='header'>
       <div className='header__logo'>
-        <Link to='/' className='header__henry'>
+        <Link to='/' className='header__henry' onClick={handleClick}>
           Henry - Tech
         </Link>
+      </div>
+      <div>
+        <input
+          className='header__search'
+          placeholder='Search Products'
+          value={filters.search}
+          onChange={handleChangeProductFilter}
+          type='text'
+        />
       </div>
       <div className='header__options'>
         {userDates.hasOwnProperty('user_name') ? (
@@ -29,25 +49,38 @@ const Header = () => {
         )}
 
         <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
-        <Link to='/car' className='header__cart'>
-          <div className='header__hover'>
-            {cartHeader} <span className='header__length'>{car.length}</span>
-            <ul className='header__ul'>
-              <li className='carr'>
-                <span>Car</span>
-                <div className='header__carr'>Hello World</div>
-              </li>
-              <li className='purcharse'>
-                <span>Purchase data</span>
-                <div className='header__purcharse'>Hello World</div>
-              </li>
-              <li className='make'>
-                <span>Make payment</span>
-                <div className='header__make'>Hello World</div>
-              </li>
-            </ul>
-          </div>
-        </Link>
+
+        <div className='header__hover'>
+          {cartHeader} <span className='header__length'>{car.length}</span>
+          <ul className='header__ul'>
+            <li className='carr'>
+              <span>Car</span>
+              <div className='header__carr'>
+                <div className='car__total'>
+                  {car.length <= 0
+                    ? 'No products added to cart'
+                    : `Total:$${priceTotal}.00`}
+                </div>
+
+                {car.map((product) => (
+                  <CardCar key={product.product_id} product={product} />
+                ))}
+              </div>
+            </li>
+            <li className='purcharse'>
+              <span>Purchase data</span>
+              <div className='header__purcharse'>
+                <UpdateInfo />
+              </div>
+            </li>
+            <li className='make'>
+              <span>Make payment</span>
+              <div className='header__make'>
+                <Payment />
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

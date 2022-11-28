@@ -7,8 +7,14 @@ export const addToCar = (product) => {
   };
 };
 export const deleteProductCar = (product) => {
+  console.log(product);
+  const price = product.product_price * product.product_count;
+  console.log(price);
   return {
     type: DELETE_TO_CAR,
-    payload: product.idCar,
+    payload: {
+      id: product.product_id,
+      price,
+    },
   };
 };

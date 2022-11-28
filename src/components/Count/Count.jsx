@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import useCount from '../../hooks/useCount';
 import { ADD_TO_CART } from '../../redux/actionsCar';
 import { cart } from '../../utils/Icons';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Count = ({ product_count = 1, product }) => {
   const { count, handleClick } = useCount(product_count);
   const dispatch = useDispatch();
@@ -14,6 +15,16 @@ const Count = ({ product_count = 1, product }) => {
         product,
         count,
       },
+    });
+    toast.success(`Add to car`, {
+      position: 'bottom-right',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
     });
   };
   return (

@@ -73,38 +73,6 @@ li {
   text-decoration: none;
 }
 
-.btn-top {
-  position: fixed;
-  z-index: 100;
-  left: 10px;
-  bottom: 10px;
-  opacity: 1;
-  transition: 0.5s ease;
-  background: transparent;
-  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
-  padding: 0.5em 1em;
-  border-radius: 1em;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 1em;
-  font-weight: bold;
-  font-family: "Exo";
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  gap: 0.3em;
-  align-items: center;
-  transition: 0.5s linear;
-  padding: 0.4em;
-}
-.btn-top:hover {
-  transform: scale(1.1);
-}
-
-.close {
-  opacity: 0;
-}
-
 .home__cards {
   display: flex;
   flex-flow: column nowrap;
@@ -746,15 +714,7 @@ li {
   padding: 1em;
   margin: auto;
 }
-.pagination__div {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  gap: 0.2em;
-  align-items: center;
-}
 .pagination__container {
-  margin: 2em 0;
   position: relative;
   z-index: 10;
 }
@@ -1333,53 +1293,12 @@ li {
 }
 
 .questions {
+  background: red;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   justify-content: center;
   gap: 0.5em;
   align-items: center;
 }
-.questions__h1 {
-  font-family: "Roboto";
-  margin: 2em 0 0 0;
-}
-.questions__p {
-  text-align: left;
-  font-size: 1.2em;
-  line-height: 1;
-  padding: 0.3em 0 0 0;
-  height: 0;
-  opacity: 0;
-  transition: 0.5s linear;
-  width: 30em;
-  padding: 0.3em 1em;
-  background: #333;
-}
-.questions .v {
-  height: 6em;
-  opacity: 1;
-}
-.questions__div {
-  font-family: "Roboto";
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  gap: 0.2em;
-  align-content: center;
-  width: 40em;
-}
-.questions__text {
-  width: 45em;
-  font-size: 1.2em;
-  font-family: "Roboto";
-}
-.questions__h2 {
-  font-weight: 500;
-  padding: 0.2em;
-  position: relative;
-  z-index: 10;
-  cursor: pointer;
-  background: #333;
-}
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=css.map */
