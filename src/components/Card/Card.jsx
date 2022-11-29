@@ -1,26 +1,24 @@
 import React from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { favorit, stock, notFavorit } from '../../utils/Icons';
+import { stock as stockIcon, noStock } from '../../utils/Icons';
+import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
 import Count from '../Count/Count';
 
 const Card = ({ product, isFlex = false }) => {
-  const [favoritState, setFavoritState] = useState(false);
-  const handleAddFavorit = (evt) => {
-    evt.stopPropagation();
-    console.log('first');
-    setFavoritState(!favoritState);
-  };
   return (
     <article
       className={`product__article ${isFlex === true ? 'product__flex' : ''}`}
     >
       <div className='product__container'>
         <div className='product__favorit'>
-          <span className='product__stock'>{stock} Stock</span>
-          <button className='product__btn' onClick={handleAddFavorit}>
-            {favoritState ? notFavorit : favorit}
-          </button>{' '}
+          <span className='product__stock'>
+            {product.stock.stock_amount > 0 ? (
+              <div className='product__stock--icon'>{stockIcon} Stock</div>
+            ) : (
+              <div className='product__stock--icon'>{noStock} No Stock</div>
+            )}
+          </span>
+          <ButtonFavorite product={product} />
         </div>
         <Link to={`/products/${product.product_id}`}>
           <img

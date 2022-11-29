@@ -14,7 +14,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
   const dispatch = useDispatch();
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const data = await axios.post(`${api}/api/user/login`, {
+    const data = await axios.post(`http://localhost:3001/api/user/login`, {
       user_email: login.email,
       user_password: login.password,
     });

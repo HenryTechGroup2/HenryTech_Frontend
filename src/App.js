@@ -8,23 +8,29 @@ import Register from './pages/Register';
 import Car from './pages/Car';
 import ProductByName from './pages/ProductsByName.js';
 import './css/main.css';
-
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe(
+  'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
+);
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
+    <Elements stripe={stripePromise}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
 
-        <Route path='/car' element={<Car />} />
+          <Route path='/car' element={<Car />} />
 
-        <Route path='/home' />
-        <Route exact path='/product' element={<ProductByName />} />
-        <Route path='/preguntasfrecuentes' element={<Questions />} />
-        <Route path='/sobrenosotros' element={<Aboutus />} />
-        <Route exact path='/products/:id' element={<Details />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path='/home' />
+          <Route exact path='/product' element={<ProductByName />} />
+          <Route path='/preguntasfrecuentes' element={<Questions />} />
+          <Route path='/sobrenosotros' element={<Aboutus />} />
+          <Route exact path='/products/:id' element={<Details />} />
+        </Routes>
+      </BrowserRouter>
+    </Elements>
   );
 }
 
