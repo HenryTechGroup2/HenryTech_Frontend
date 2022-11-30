@@ -8,14 +8,14 @@ const ParticlesBackground = () => {
     await loadFull(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async (container) => {
-    await console.log(container);
-  }, []);
+  // const particlesLoaded = useCallback(async (container) => {
+
+  // }, []);
   return (
     <Particles
       id='tsparticles'
       init={particlesInit}
-      loaded={particlesLoaded}
+      // loaded={particlesLoaded}
       options={configParticles}
     ></Particles>
   );

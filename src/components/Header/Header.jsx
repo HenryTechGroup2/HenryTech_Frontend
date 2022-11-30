@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FILTER_SEARCH, pageHome } from '../../redux/actions';
+import { closeSession, FILTER_SEARCH, pageHome } from '../../redux/actions';
 import { cartHeader, userLogin } from '../../utils/Icons';
 import CardCar from '../CardCar/CardCar';
 import Modal from '../Modal/Modal';
@@ -11,7 +11,10 @@ import UpdateInfo from '../UpdateInfo/UpdateInfo';
 const Header = () => {
   const [open, setOpen] = useState(null);
   const { userDates, car, priceTotal, filters } = useSelector((state) => state);
-  const handleOpenModalSession = (change) => setOpen(change);
+  const handleOpenModalSession = (change) => {
+    setOpen(change);
+    document.body.classList.toggle('body');
+  };
   const dispatch = useDispatch();
   const handleChangeProductFilter = (evt) => {
     const { value } = evt.currentTarget;
@@ -19,6 +22,9 @@ const Header = () => {
   };
   const handleClick = () => {
     dispatch(pageHome());
+  };
+  const handleClickCloseSession = () => {
+    dispatch(closeSession());
   };
   return (
     <div className='header'>
@@ -38,7 +44,15 @@ const Header = () => {
       </div>
       <div className='header__options'>
         {userDates.hasOwnProperty('user_name') ? (
-          <i>{userLogin}</i>
+          <div className='header__i'>
+            {userLogin}
+            <button
+              className='header__session'
+              onClick={handleClickCloseSession}
+            >
+              Cerrar sesion
+            </button>
+          </div>
         ) : (
           <span
             className='header__login'
@@ -62,7 +76,7 @@ const Header = () => {
                     : `Total:$${priceTotal}.00`}
                 </div>
 
-                {car.map((product) => (
+                {car?.map((product) => (
                   <CardCar key={product.product_id} product={product} />
                 ))}
               </div>

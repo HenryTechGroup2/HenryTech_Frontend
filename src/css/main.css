@@ -105,6 +105,10 @@ li {
   opacity: 0;
 }
 
+.body {
+  overflow: hidden;
+}
+
 .home__cards {
   display: flex;
   flex-flow: column nowrap;
@@ -180,7 +184,7 @@ li {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -192,7 +196,7 @@ li {
   align-items: center;
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
-  z-index: 20;
+  z-index: 200;
 }
 .modal__container {
   width: 20em;
@@ -437,6 +441,37 @@ li {
   border-radius: 50%;
   color: #000;
   font-weight: bold;
+}
+.header__i {
+  position: relative;
+  transition: 0.5s ease;
+}
+.header__i:hover .header__session {
+  opacity: 1;
+  visibility: visible;
+}
+.header__session {
+  position: absolute;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+  left: -1.5em;
+  opacity: 0;
+  visibility: hidden;
+}
+.header__session:hover {
+  transform: scale(1.1);
 }
 
 .carruzel {
@@ -718,6 +753,13 @@ li {
 }
 .product__flex {
   display: flex;
+}
+.product__stock--icon {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.2em;
+  align-items: center;
 }
 .product__button {
   background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
@@ -1313,6 +1355,40 @@ li {
 .payment {
   width: 100%;
   height: 100%;
+}
+.payment__container {
+  padding: 1em;
+  margin: 1em 0.5em 0 0.5em;
+  background: #fff;
+  border-radius: 1em;
+}
+.payment__div {
+  margin: 1em 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.payment__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.payment__button:hover {
+  transform: scale(1.1);
 }
 .payment__h3 {
   text-align: center;

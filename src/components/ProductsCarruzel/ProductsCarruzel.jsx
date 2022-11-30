@@ -6,7 +6,6 @@ const ProductsCarruzel = ({ translate, products }) => {
   const [direction, setDirection] = useState(translate);
   useEffect(() => {
     setDirection(translate);
-    console.log(translate);
   }, [translate]);
   return (
     <div
