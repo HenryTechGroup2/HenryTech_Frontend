@@ -7,6 +7,8 @@ export const PAGES_HOME = '@pages/home';
 export const ADD_FAVORIT = '@favorit/add';
 export const USER_CLOSE = '@user/close';
 export const ADD_CART_LOCAL_STORAGE = '@car/storage';
+export const ARMAMENT_PC_PRODUCT = '@armament/product';
+export const ADD_TO_CART_PC = '@armament/cart-product';
 export const api = 'https://henry-tech-backend.vercel.app';
 export function getAllProducts() {
   return async function (dispatch) {
@@ -136,6 +138,12 @@ export function closeSession() {
     type: USER_CLOSE,
   };
 }
+export function addProductPC(product) {
+  return {
+    type: ARMAMENT_PC_PRODUCT,
+    payload: product,
+  };
+}
 export function deleteDetailsProducts() {
   return {
     type: DELETE_DETAILS,
@@ -144,3 +152,9 @@ export function deleteDetailsProducts() {
 export function filterByBrand() {}
 
 export function orderByPopularity() {}
+export function addToCartProductsArmamentPC(products) {
+  return {
+    type: ADD_TO_CART_PC,
+    payload: products,
+  };
+}

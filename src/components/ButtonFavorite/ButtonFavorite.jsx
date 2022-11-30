@@ -13,9 +13,7 @@ const ButtonFavorite = ({ product }) => {
       user_id: userDates.user_id,
       product_id: product.product_id,
     });
-    console.log(data);
   };
-  console.log(product?.product_favorite);
   return (
     <button
       className='product__btn'

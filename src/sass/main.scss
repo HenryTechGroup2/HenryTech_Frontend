@@ -17,7 +17,16 @@
 .body {
   overflow: hidden;
 }
+
 .home {
+  &__carruzel {
+    display: flex;
+    color: #000;
+    width: 100%;
+    transform: translateX(0);
+    gap: 1.2em;
+    transition: 0.5s linear;
+  }
   &__cards {
     @include flex(column, nowrap, center, center, 1em);
     width: 59em;
@@ -26,14 +35,6 @@
     border-radius: 0.5em;
     padding: 1em;
     overflow: hidden;
-  }
-  &__carruzel {
-    display: flex;
-    color: #000;
-    width: 100%;
-    transform: translateX(0);
-    gap: 1.2em;
-    transition: 0.5s linear;
   }
   &__buttons {
     @include flex(row, nowrap, center, center, 0.5em);
@@ -121,7 +122,7 @@
   border-bottom: 2px solid #fff;
   height: 5.5em;
   position: sticky;
-  z-index: 100;
+  z-index: 200;
   top: 0;
   background: #333;
   &__search {
@@ -232,11 +233,11 @@
   }
   &__login {
     background: $color-principal;
-    padding: 0.4em 0.8em;
-    font-size: 1.3em;
+    padding: 0.3em 0.4em;
     border: 0.1em solid #fff;
     border-radius: 2em;
     cursor: pointer;
+    color: #000;
   }
   &__cart {
     fill: $color-principal;
@@ -910,5 +911,351 @@
     z-index: 10;
     cursor: pointer;
     background: #333;
+  }
+}
+.pc {
+  position: relative;
+  z-index: 100;
+  @include flex(row, nowrap, center, center, 0);
+  &__container {
+    max-width: 1200px;
+    padding: 1em;
+    @include responsive(1000px) {
+      padding: 0 0.3em;
+    }
+  }
+  &__components {
+    @include flex(row, nowrap, start, start, 2em);
+  }
+  &__component {
+    width: 6em;
+    object-fit: contain;
+    height: 6em;
+    background: #fff;
+  }
+  &__brand {
+    background: #fff;
+    @include flex(row, nowrap, start, center, 0.5em);
+    width: 18em;
+    padding: 0.5em;
+    border-radius: 0.2em;
+  }
+  &__amd {
+    background: #555;
+    border-radius: 0.2em;
+  }
+  &__intel {
+    background: #00a5b9;
+    border-radius: 0.2em;
+  }
+  &__left {
+    align-self: flex-start;
+    padding: 1em 0;
+    width: 18em;
+    border-radius: 0.5em;
+    background: #fff;
+    box-shadow: 0.1em 0.1em 1em #000;
+  }
+  &__right {
+    flex-shrink: 3;
+    @include flex(row, wrap, start, start, 1em);
+    min-height: 500px;
+  }
+  &__mark {
+    @include flex(row, nowrap, start, center, 0.5em);
+    margin: 0 0 1em 0;
+  }
+  &__image {
+    width: 8em;
+    height: 2em;
+    padding: 0.3em;
+    cursor: pointer;
+  }
+  &__map {
+    cursor: pointer;
+    height: 9em;
+    width: 20em;
+    color: #000;
+    @include flex(row, wrap, start, space-between, 1em);
+    background: #fff;
+    border-radius: 0.5em;
+    position: relative;
+  }
+  &__des {
+    height: 100%;
+    @include flex(column, wrap, space-between, space-between, 1em);
+  }
+  &__name {
+    font-weight: 400;
+    font-size: 1em;
+    font-family: 'Roboto';
+    width: 13em;
+    padding: 1em 0 0 0;
+    font-weight: bold;
+    justify-items: start;
+    // align-self: flex-start;
+  }
+  &__price {
+    // align-self: flex-end;
+    padding: 0 0 1em 0;
+    font-weight: bold;
+  }
+  &__h1 {
+    font-family: 'Roboto';
+    padding: 0.2em;
+  }
+  &__description {
+    font-size: 1.1em;
+    padding: 0.2em;
+    height: 3.5em;
+    margin: 0 0 1em 0;
+    @include responsive(950px) {
+      margin: 0 0 4em 0;
+    }
+  }
+  &__images {
+    cursor: pointer;
+    @include flex(row, nowrap, space-around, center, 0);
+  }
+  &__div {
+    position: relative;
+  }
+  &__i {
+    position: absolute;
+    right: 5px;
+    top: 0;
+  }
+  &__select {
+    filter: brightness(0);
+  }
+  &__selec {
+    border: 1px solid #000;
+    border-radius: 1em;
+  }
+  &__img {
+    width: 4.5em;
+    height: 4.5em;
+    object-fit: contain;
+  }
+  &__dates {
+    @include flex(row, nowrap, space-around, center, 0);
+  }
+  &__total {
+    color: #000;
+    padding: 0.2em;
+    font-weight: bold;
+    background: #eee;
+    width: 9em;
+    border: 1px solid #000;
+  }
+  &__buy {
+    @include button-principal--second(0.2em, 0.4em, 0.2em, 0.9em);
+    padding: 0.5em;
+  }
+  &__informacion {
+    position: absolute;
+    right: 5px;
+  }
+  &__complete {
+    height: 500px;
+    background: #fff;
+    color: #000;
+    padding: 1em 1.5em;
+    border-radius: 0.5em;
+  }
+  &__h2 {
+  }
+  &__ul {
+    height: calc(100% - 32px);
+    @include flex(column, nowrap, space-between, start, 0);
+  }
+  &__li {
+  }
+  &__span {
+    display: inline-block;
+    width: 1.4em;
+  }
+  &__button {
+    align-self: flex-end;
+    @include button-principal();
+  }
+}
+// .portal {
+//   position: absolute;
+//   z-index: 300;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   height: 100vh;
+//   width: 100vw;
+//   backdrop-filter: blur(1em);
+//   @include flex(row, nowrap, center, center, 0);
+//   &__div {
+//     width: 50em;
+//     height: 30em;
+//     background: #33333390;
+//     border-radius: 1em;
+//     border: 2px solid #fff;
+//     @include flex(column, nowrap, center, center, 1em);
+//     position: relative;
+//   }
+//   &__carruzel {
+//     width: 35em;
+//     overflow: hidden;
+//     @include flex(row, nowrap, start, center, 0);
+//     margin: auto;
+//   }
+//   &__carruzell {
+//     width: 25em;
+//     transition: 0.5s ease;
+//     @include flex(row, nowrap, start, center, 3em);
+//     transform: translateX(-0em);
+//   }
+//   &__acordeon {
+//     width: 25em;
+//     margin: 2em 0 0 0;
+//     overflow: auto;
+//     position: relative;
+//   }
+//   &__absolute {
+//     width: 100%;
+//     height: 20em;
+//     background: red;
+//   }
+//   &__map {
+//     // width: 25em;
+//     // width: 600px;
+//     width: 35em;
+//     @include flex(row, nowrap, start, start, 0.4em);
+//   }
+//   &__img {
+//     width: 10em;
+//     height: 10em;
+//     margin: 2em 0 0 0;
+//     object-fit: contain;
+//     background: #fff;
+//   }
+//   &__buttons {
+//     @include flex(row, nowrap, center, center, 0.5em);
+//     height: 3em;
+//     width: 10em;
+//   }
+//   &__btn {
+//     width: 1em;
+//     height: 1em;
+//     border-radius: 50%;
+//   }
+//   &__close {
+//     background: transparent;
+//     position: absolute;
+//     right: 1em;
+//     top: 0.2em;
+//   }
+// }
+.portal {
+  position: absolute;
+  z-index: 300;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+  @include flex(row, nowrap, center, center, 0);
+  &__div {
+    width: 50em;
+    height: 30em;
+    background: #33333390;
+    border-radius: 1em;
+    border: 2px solid #fff;
+    @include flex(column, nowrap, center, center, 1em);
+    position: relative;
+  }
+  &__carruzel {
+    width: 20em;
+    overflow: hidden;
+    @include flex(row, nowrap, start, center, 0);
+    margin: auto;
+  }
+  &__carruzell {
+    transition: 0.5s ease;
+    @include flex(row, nowrap, center, center, 3em);
+    transform: translateX(-0em);
+  }
+  &__img {
+    width: 20em;
+    height: 20em;
+    margin: 2em 0 0 0;
+    object-fit: contain;
+    background: #fff;
+  }
+  &__buttons {
+    @include flex(row, nowrap, center, center, 0.5em);
+    height: 3em;
+    width: 10em;
+  }
+  &__btn {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+  }
+  &__close {
+    background: transparent;
+    position: absolute;
+    right: 1em;
+    top: 0.2em;
+  }
+}
+.info {
+  position: absolute;
+  z-index: 3000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+  visibility: hidden;
+  @include flex(row, nowrap, center, center, 0);
+  &__container {
+    width: 35em;
+    height: 30em;
+    background: #22222250;
+    position: relative;
+    border: 2px solid #fff;
+    border-radius: 0.5em;
+  }
+
+  &__i {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    cursor: pointer;
+  }
+  &__name {
+    margin: 0 2em 0;
+    margin-bottom: 0;
+    padding: 0 2em;
+    cursor: pointer;
+    background: #222;
+  }
+  &__acordeon {
+    margin: 2em 0 0 0;
+  }
+  &__description {
+    padding: 0 1em;
+    height: 0;
+    margin: 0.2em 2.5em;
+    transition: 0.2s linear;
+    background: #222;
+    overflow: auto;
+  }
+  .x {
+    height: 14em;
+  }
+  &__open {
   }
 }
