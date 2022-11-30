@@ -12,7 +12,7 @@ import {
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { CAR, USER } from '../storage/variables';
-
+let newX;
 const initialState = {
   products: [],
   userlogin: false,
