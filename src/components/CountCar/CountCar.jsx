@@ -6,14 +6,12 @@ import { CAR_MODIFIER } from '../../redux/actions';
 const CountCar = ({ product }) => {
   const [count, setCount] = useState(product.product_count);
   const dispatch = useDispatch();
-  console.log(product.product_count);
   useEffect(() => {
     setCount(product.product_count);
   }, [product.product_count]);
   const handleClick = (name) => {
     if (name === 'suma') {
       setCount(count + 1);
-      console.log('object');
       dispatch({
         type: CAR_MODIFIER,
         payload: {

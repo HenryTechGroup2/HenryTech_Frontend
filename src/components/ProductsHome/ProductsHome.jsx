@@ -24,6 +24,7 @@ const ProductsHome = ({ products }) => {
       <div className='home__buttons'>
         {buttons.map((btn) => (
           <button
+            key={btn}
             name={btn}
             className={`home__button ${
               Number(btn) === select ? 'home__select' : ''

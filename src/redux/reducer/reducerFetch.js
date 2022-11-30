@@ -1,9 +1,12 @@
 import {
+  ADD_CART_LOCAL_STORAGE,
+  ADD_FAVORIT,
   CAR_MODIFIER,
   CREATE_USER,
   DELETE_DETAILS,
   FILTER_SEARCH,
   PAGES_HOME,
+  USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { CAR, USER } from '../storage/variables';
@@ -27,12 +30,11 @@ const initialState = {
 
 export const reducerFetch = (state = initialState, action) => {
   switch (action.type) {
+    //FETCH
     case 'GET_PRODUCTS': {
       const ofertDay = action.payload.filter(
         ({ product_ofer }) => product_ofer === true
       );
-      console.log(action.payload);
-      console.log(ofertDay);
       return {
         ...state,
         products: action.payload,
@@ -41,7 +43,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
-      console.log(action.payload);
       return {
         ...state,
         detailsProduct: action.payload,
@@ -53,6 +54,9 @@ export const reducerFetch = (state = initialState, action) => {
         reviews: [...state.reviews, { ...action.payload }],
       };
     }
+    case ADD_FAVORIT: {
+      return state;
+    }
     case 'GET_STOCK_PRODUCTS': {
       return {
         ...state,
@@ -60,12 +64,50 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case CREATE_USER: {
-      console.log(action.payload);
+      if (action.payload?.hasOwnProperty('user_name')) {
+        state.products.forEach((product) => {
+          return action.payload.user_favorites.forEach((productF) => {
+            if (productF.product_id === product.product_id) {
+              product.product_favorite = true;
+
+              return product;
+            }
+          });
+        });
+        state.products.forEach((product) => {
+          if (!product.hasOwnProperty('product_favorite')) {
+            return (product.product_favorite = false);
+          }
+        });
+      }
       window.localStorage.setItem(USER, JSON.stringify([action.payload]));
       return {
         ...state,
         userDates: action.payload,
         userlogin: true,
+        copieProducts: state.products,
+      };
+    }
+    case USER_CLOSE: {
+      window.localStorage.removeItem(USER);
+      return {
+        ...state,
+        userlogin: false,
+        userDates: {},
+      };
+    }
+    //CART
+    case ADD_CART_LOCAL_STORAGE: {
+      const mapCarStorage = JSON.parse(action.payload);
+      const cart = mapCarStorage?.reduce(
+        (a, b) => Number(a) + Number(b.product_price) * Number(b.product_count),
+        0
+      );
+      console.log(cart);
+      return {
+        ...state,
+        car: mapCarStorage,
+        priceTotal: cart,
       };
     }
     case ADD_TO_CART: {
@@ -122,6 +164,26 @@ export const reducerFetch = (state = initialState, action) => {
       window.localStorage.setItem(CAR, JSON.stringify(state.car));
       return state;
     }
+    case CAR_MODIFIER: {
+      const order = [...state.car];
+      const produc = order.find(
+        (product) => product.product_id === action.payload.product.product_id
+      );
+      produc.product_count = action.payload.count;
+      state = {
+        ...state,
+      };
+      if (action.payload.add === true) {
+        return {
+          ...state,
+          priceTotal: Number(state.priceTotal) + Number(produc.product_price),
+        };
+      }
+      return {
+        ...state,
+        priceTotal: Number(state.priceTotal) - Number(produc.product_price),
+      };
+    }
     case FILTER_SEARCH: {
       const resultSearch = state.products.filter(
         (product) =>
@@ -139,6 +201,7 @@ export const reducerFetch = (state = initialState, action) => {
         viewHome: true,
       };
     }
+    //FILTROS
     case 'PRODUCT_BY_NAME':
       return {
         ...state,
@@ -212,26 +275,6 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         detailsProduct: {},
-      };
-    }
-    case CAR_MODIFIER: {
-      const order = [...state.car];
-      const produc = order.find(
-        (product) => product.product_id === action.payload.product.product_id
-      );
-      produc.product_count = action.payload.count;
-      state = {
-        ...state,
-      };
-      if (action.payload.add === true) {
-        return {
-          ...state,
-          priceTotal: Number(state.priceTotal) + Number(produc.product_price),
-        };
-      }
-      return {
-        ...state,
-        priceTotal: Number(state.priceTotal) - Number(produc.product_price),
       };
     }
     case 'ORDER_BY_PRICE': {

@@ -4,20 +4,22 @@ export const DELETE_DETAILS = '@detail/delete';
 export const CAR_MODIFIER = '@car/modifier';
 export const FILTER_SEARCH = '@filter/search';
 export const PAGES_HOME = '@pages/home';
+export const ADD_FAVORIT = '@favorit/add';
+export const USER_CLOSE = '@user/close';
+export const ADD_CART_LOCAL_STORAGE = '@car/storage';
 export const api = 'https://henry-tech-backend.vercel.app';
 export function getAllProducts() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/product`);
-      console.log(result);
       return dispatch({
         type: 'GET_PRODUCTS',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 export function createUser(user) {
   return {
@@ -27,15 +29,15 @@ export function createUser(user) {
 }
 //Llamar al stock de productos
 export function getStockProducts() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get('https://fakestoreapi.com/getstock');
       return dispatch({
         type: 'GET_STOCK_PRODUCTS',
         payload: result.data,
       });
-    };
-  } catch (error) {}
+    } catch (error) {}
+  };
 }
 
 export function getDetailsProducts(id) {
@@ -52,8 +54,8 @@ export function getDetailsProducts(id) {
   }
 }
 export function postCreateReview(payload) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result4 = await axios.post(
         '`https://fakestoreapi.com/products/',
         payload
@@ -62,26 +64,25 @@ export function postCreateReview(payload) {
         type: 'POST_CREATE_REVIEW',
         payload: result4.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 export function productByname(title) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       let productName = await axios(
         `https://fakestoreapi.com/products?title=${title}`
       );
-      // console.log(productName.data)
       return dispatch({
         type: 'PRODUCT_BY_NAME',
         payload: productName.data,
       });
-    };
-  } catch (e) {
-    throw new Error(e);
-  }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
 }
 
 export function filters(payload) {
@@ -128,6 +129,11 @@ export function filterSearch(value) {
 export function pageHome() {
   return {
     type: PAGES_HOME,
+  };
+}
+export function closeSession() {
+  return {
+    type: USER_CLOSE,
   };
 }
 export function deleteDetailsProducts() {

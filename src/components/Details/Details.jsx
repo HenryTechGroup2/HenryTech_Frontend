@@ -12,10 +12,11 @@ import ParticlesBackground from '../Particles/ParticlesBackground.jsx';
 import Count from '../Count/Count.jsx';
 import Footer, { images as imagesPagos } from '../Footer/Footer.jsx';
 import Star from '../Star/Star.jsx';
-import { favorit, stock } from '../../utils/Icons.js';
+import { favorit, noStock, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
 import ButtonTop from '../ButtonTop/ButtonTop.jsx';
+import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
 export function Details() {
   const params = useParams();
 
@@ -124,14 +125,16 @@ export function Details() {
               <h2 className='details__h2'>
                 <p className='details__name'>{detailsProduct?.product_name}</p>
                 <Star detailsProduct={detailsProduct} />
-                <button className='details__favorit'>{favorit}</button>{' '}
+                <ButtonFavorite product={detailsProduct} />
               </h2>
               <div>
                 <p className='details__price'>
                   <div className='details__stock'>
-                    {stock}
-
-                    <span className='details__dis'>{`  Stock disponible`}</span>
+                    {detailsProduct?.stock?.stock_amount > 0 ? (
+                      <div>{stock} Stock</div>
+                    ) : (
+                      <div>{noStock} No stock</div>
+                    )}
                   </div>
                   ${detailsProduct?.product_price}
                 </p>
