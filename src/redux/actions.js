@@ -138,3 +138,32 @@ export function deleteDetailsProducts() {
 export function filterByBrand() {}
 
 export function orderByPopularity() {}
+
+
+export function getUser(id) {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`http://localhost:3001/api/user/${id}`);
+      return dispatch({
+        type: 'GET_USER',
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export function updateUser(payload, id){
+  try {
+    return async function(dispatch){
+      const result = await axios.put(`http://localhost:3001/api/user/${id}`,payload)
+      return dispatch({
+          type: "PUT_UPDATE_USER",
+          payload: result.data
+      })
+  }
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}

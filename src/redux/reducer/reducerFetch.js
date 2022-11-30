@@ -309,6 +309,18 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
+    case "GET_USER":{
+      return{
+        ...state,
+        user:action.payload
+      }
+    }
+    case "PUT_UPDATE_USER":{
+      return{
+        ...state,
+        userDates: {...state.userDates, ...action.payload}
+      }
+    }
     default:
       return state;
   }

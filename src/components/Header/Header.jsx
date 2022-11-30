@@ -38,7 +38,9 @@ const Header = () => {
       </div>
       <div className='header__options'>
         {userDates.hasOwnProperty('user_name') ? (
+        <Link to={`/micuenta/${userDates.user_id}`}>
           <i>{userLogin}</i>
+        </Link>
         ) : (
           <span
             className='header__login'

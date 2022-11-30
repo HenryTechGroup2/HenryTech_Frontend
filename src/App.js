@@ -23,6 +23,8 @@ function App() {
         <Route path='/preguntasfrecuentes' element={<Questions />} />
         <Route path='/sobrenosotros' element={<Aboutus />} />
         <Route exact path='/products/:id' element={<Details />} />
+        <Route exact path='/micuenta/:id' element={<MyAcount/>} />
+        <Route exact path='/actualiza/:id' element={<UpdateUser/>} />
       </Routes>
     </BrowserRouter>
   );
