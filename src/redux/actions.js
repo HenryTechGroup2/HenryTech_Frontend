@@ -9,6 +9,7 @@ export const USER_CLOSE = '@user/close';
 export const ADD_CART_LOCAL_STORAGE = '@car/storage';
 export const ARMAMENT_PC_PRODUCT = '@armament/product';
 export const ADD_TO_CART_PC = '@armament/cart-product';
+export const DELETE_PC_PRODUCT = '@armament/delete';
 export const api = 'https://henry-tech-backend.vercel.app';
 export function getAllProducts() {
   return async function (dispatch) {
@@ -152,9 +153,18 @@ export function deleteDetailsProducts() {
 export function filterByBrand() {}
 
 export function orderByPopularity() {}
-export function addToCartProductsArmamentPC(products) {
+export function addToCartProductsArmamentPC(products, price) {
   return {
     type: ADD_TO_CART_PC,
-    payload: products,
+    payload: {
+      products,
+      price,
+    },
+  };
+}
+export function deleteProductArmamentPC(id) {
+  return {
+    type: DELETE_PC_PRODUCT,
+    payload: id,
   };
 }

@@ -6,6 +6,7 @@ import {
   CAR_MODIFIER,
   CREATE_USER,
   DELETE_DETAILS,
+  DELETE_PC_PRODUCT,
   FILTER_SEARCH,
   PAGES_HOME,
   USER_CLOSE,
@@ -383,8 +384,22 @@ export const reducerFetch = (state = initialState, action) => {
     case ADD_TO_CART_PC: {
       return {
         ...state,
-        car: [...state.car, ...action.payload],
+        car: [...state.car, ...action.payload.products],
         armamentPc: [],
+        priceTotal: Number(state.priceTotal) + Number(action.payload.price),
+      };
+    }
+    case DELETE_PC_PRODUCT: {
+      console.log(action.payload);
+
+      console.log(state.armamentPc);
+      const products = state.armamentPc.filter(
+        (product) => product.product_id !== action.payload
+      );
+      console.log(products);
+      return {
+        ...state,
+        armamentPc: products,
       };
     }
     default:

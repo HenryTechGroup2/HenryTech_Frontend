@@ -1,7 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postCreateReview } from '../../redux/actions.js';
+// import { postCreateReview } from '../../redux/actions.js';
+import io from 'socket.io-client';
+import { useEffect } from 'react';
+const server = io('http://localhost:3001');
+
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview() {
   const initialState = {
@@ -16,8 +20,14 @@ export function CreateReview() {
     cantityStar: 1,
     confirmStar: null,
   });
+  useEffect(() => {
+    const newReview = (message) => {
+      console.log(message);
+    };
+    server.on('@review/create/successful', newReview);
+  }, []);
   const dispatch = useDispatch();
-
+  //Inputs Changes
   function handleOnChange(e) {
     e.preventDefault();
     setInput({
@@ -31,7 +41,6 @@ export function CreateReview() {
       })
     );
   }
-
   function validate(input) {
     let errors = {};
     if (!input.review_title) {
@@ -51,15 +60,26 @@ export function CreateReview() {
     }
     return errors;
   }
-
+  //Envio de encuesta
   function handleOnSubmit(e) {
     e.preventDefault();
-    dispatch(postCreateReview(input));
-    alert('Reseña creada');
+    // dispatch(postCreateReview(input));
+    server.emit('@review/create', [
+      {
+        review_title: input.review_title,
+        review_body: input.review_body,
+        review_score: input.review_score,
+        review_product_id: 1,
+        review_user_id: 1,
+      },
+    ]);
+
+    // alert('Reseña creada');
     setInput({
       initialState,
     });
   }
+  //Stars
   function handleMouseStar(index) {
     setInput({
       ...input,
@@ -91,7 +111,6 @@ export function CreateReview() {
       <h2 className='review__h2'>Deja tu reseña aquí</h2>
       <form className='review__form' onSubmit={(e) => handleOnSubmit(e)}>
         <div className='review__div'>
-          {/* <label className='review__label'>Titulo de la reseña:</label> */}
           <input
             className='review__input'
             placeholder='Add title review'
@@ -122,20 +141,8 @@ export function CreateReview() {
                 ))}
           </p>
         </div>
+        <div className='review__div'></div>
         <div className='review__div'>
-          {/* <label className='review__label'>Puntaje</label> */}
-          {/* <input
-            className='review__input'
-            type='number'
-            name='review_score'
-            value={input.review_score}
-            onChange={(e) => handleOnChange(e)}
-            ★
-          />
-          {errors.review_score && <p>{errors.review_score}</p>} */}
-        </div>
-        <div className='review__div'>
-          {/* <label className='review__label'>Cuentanos:</label> */}
           <textarea
             placeholder='Add to opinion'
             className='review__textarea'

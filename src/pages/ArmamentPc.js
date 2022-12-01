@@ -6,6 +6,7 @@ import PCComponetn from '../components/PCComponent/PCComponetn';
 import { addProductPC, addToCartProductsArmamentPC } from '../redux/actions';
 import { armamentPcImages } from '../utils/helpers';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const brand = [
   { name: '../assets/amd.png', marca: 'AMD' },
   { name: '../assets/intel.png', marca: 'INTEL' },
@@ -15,6 +16,7 @@ const ArmamentPc = () => {
   const [complete, setComplete] = useState(false);
   const [selectBrand, setSelectBrand] = useState(null);
   const { products, armamentPc } = useSelector((state) => state);
+  const navigate = useNavigate();
   const handleClick = (slct) => {
     setSelect(slct);
     setComplete(false);
@@ -78,7 +80,8 @@ const ArmamentPc = () => {
     );
   };
   const handleToCart = () => {
-    dispatch(addToCartProductsArmamentPC(armamentPc));
+    dispatch(addToCartProductsArmamentPC(armamentPc, priceTotal));
+    navigate('/car');
   };
   return (
     <>

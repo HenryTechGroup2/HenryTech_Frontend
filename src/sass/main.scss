@@ -184,6 +184,13 @@
     color: #fff;
     overflow: auto;
   }
+  &__carl {
+    @include flex(row, nowrap, end, end, 0);
+    padding: 0 0.8em;
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+  }
   .purcharse {
     @include car-option();
     transition: 0.5s linear;
@@ -344,8 +351,13 @@
   margin: 2em 0 0 0;
   width: 100vw;
   @include flex(row, nowrap, center, center, 1.2em);
+  position: relative;
+  z-index: 2;
   &__map {
+    width: 40em;
     @include flex(column, nowrap, center, center, 0.5em);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
   }
   &__container {
     margin: 0.5em 0 0 0;
@@ -1003,14 +1015,17 @@
   &__h1 {
     font-family: 'Roboto';
     padding: 0.2em;
+    background: #444;
   }
   &__description {
     font-size: 1.1em;
     padding: 0.2em;
     height: 3.5em;
     margin: 0 0 1em 0;
+    background: #444;
     @include responsive(950px) {
-      margin: 0 0 4em 0;
+      margin: 0 0 3em 0;
+      height: 6em;
     }
   }
   &__images {

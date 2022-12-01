@@ -6,6 +6,7 @@ const PCComponetn = ({ image, armamentPc, handleClick, select }) => {
   //Componente para que se vayan cambiando el color de los iconos y de imagenes para armar la PC.
   const [productsPC, setProductsPC] = useState([]);
   const [open, setOpen] = useState(false);
+
   const image1 = armamentPc?.filter(
     (product) =>
       product.product_category.toLowerCase() === image.img1.name.toLowerCase()
