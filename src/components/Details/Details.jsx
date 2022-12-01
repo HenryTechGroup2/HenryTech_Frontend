@@ -16,6 +16,7 @@ import { favorit, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
 import ButtonTop from '../ButtonTop/ButtonTop.jsx';
+import FilterByRaiting from './FilterByRaiting.jsx';
 export function Details() {
   const params = useParams();
 
@@ -184,6 +185,9 @@ export function Details() {
                   <option value='Ordenar'>Mas recientes</option>
                   <option value='Ordenar'>Mas utiles</option>
                 </select>
+                <div>
+                  <FilterByRaiting/>
+                </div>
                 <select>
                   <option value='Calificacion'>Calificacion</option>{' '}
                   <option value='Calificacion'>5★</option>{' '}

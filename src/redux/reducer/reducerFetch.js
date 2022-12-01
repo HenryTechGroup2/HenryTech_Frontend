@@ -23,6 +23,7 @@ const initialState = {
     search: '',
   },
   productsOfer: [],
+  detailsReviews: {},
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -309,6 +310,15 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
+
+    case 'FILTER_BY_RAITING': {
+      let productsByRaiting = state.detailsProduct.review.filter(e => e.review_score == action.payload)
+      return {
+        ...state,
+        detailsReviews: {...state.detailsProduct, review: productsByRaiting}
+      }
+    }
+
     default:
       return state;
   }

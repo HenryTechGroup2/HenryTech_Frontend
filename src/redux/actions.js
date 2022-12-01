@@ -135,6 +135,10 @@ export function deleteDetailsProducts() {
     type: DELETE_DETAILS,
   };
 }
-export function filterByBrand() {}
 
-export function orderByPopularity() {}
+export function filterByRaiting (product_raiting) {
+  return ({
+      type: 'FILTER_BY_RAITING',
+      payload: product_raiting
+  })
+}
