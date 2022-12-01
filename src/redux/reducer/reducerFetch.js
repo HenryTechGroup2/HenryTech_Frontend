@@ -355,6 +355,7 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
+
     case ARMAMENT_PC_PRODUCT: {
       let existProduct = state.armamentPc.find(
         ({ product_category, product_name }) =>
@@ -386,6 +387,19 @@ export const reducerFetch = (state = initialState, action) => {
         car: [...state.car, ...action.payload],
         armamentPc: [],
       };
+
+    case "GET_USER":{
+      return{
+        ...state,
+        user:action.payload
+      }
+    }
+    case "PUT_UPDATE_USER":{
+      return{
+        ...state,
+        userDates: {...state.userDates, ...action.payload}
+      }
+
     }
     default:
       return state;

@@ -60,16 +60,24 @@ function App() {
 
           <Route path='/car' element={<Car />} />
 
-          <Route path='/home' />
-          <Route exact path='/product' element={<ProductByName />} />
-          <Route path='/preguntasfrecuentes' element={<Questions />} />
-          <Route path='/sobrenosotros' element={<Aboutus />} />
-          <Route exact path='/products/:id' element={<Details />} />
+
           <Route path='temporary-data' element={<TemporaryData />} />
           <Route path='armament' element={<ArmamentPc />} />
-        </Routes>
-      </BrowserRouter>
+    
+
+
+        <Route path='/home' />
+        <Route exact path='/product' element={<ProductByName />} />
+        <Route path='/preguntasfrecuentes' element={<Questions />} />
+        <Route path='/sobrenosotros' element={<Aboutus />} />
+        <Route exact path='/products/:id' element={<Details />} />
+        <Route exact path='/micuenta/:id' element={<MyAcount/>} />
+        <Route exact path='/actualiza/:id' element={<UpdateUser/>} />
+      </Routes>
+    </BrowserRouter>
+
     </Elements>
+
   );
 }
 
