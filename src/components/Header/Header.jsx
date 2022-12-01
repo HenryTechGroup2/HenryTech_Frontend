@@ -44,8 +44,13 @@ const Header = () => {
       </div>
       <div className='header__options'>
         {userDates.hasOwnProperty('user_name') ? (
+
+        
+
           <div className='header__i'>
-            {userLogin}
+            <Link to={`/micuenta/${userDates.user_id}`}>
+          <i>{userLogin}</i>
+        </Link>
             <button
               className='header__session'
               onClick={handleClickCloseSession}
@@ -53,6 +58,7 @@ const Header = () => {
               Cerrar sesion
             </button>
           </div>
+
         ) : (
           <span
             className='header__login'
