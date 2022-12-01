@@ -7,7 +7,7 @@ import useUser from '../hooks/useUser';
 const Car = () => {
   const { car, priceTotal } = useSelector((state) => state);
 
-  useUser();
+  // useUser();
   return (
     <div>
       <Header />

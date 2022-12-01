@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { closeSession, FILTER_SEARCH, pageHome } from '../../redux/actions';
-import { cartHeader, userLogin } from '../../utils/Icons';
+import { cartHeader, pc, userLogin } from '../../utils/Icons';
 import CardCar from '../CardCar/CardCar';
 import Modal from '../Modal/Modal';
 import Payment from '../Payment/Payment';
@@ -28,7 +28,8 @@ const Header = () => {
   };
   return (
     <div className='header'>
-      <div className='header__logo'>
+      <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
+      <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>
           Henry - Tech
         </Link>
@@ -68,9 +69,10 @@ const Header = () => {
           </span>
         )}
 
-        <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
-
-        <div className='header__hover'>
+        <div title='Armament PC'>
+          <Link to='armament'>{pc}</Link>
+        </div>
+        <div className='header__hover' title='Cart'>
           {cartHeader} <span className='header__length'>{car.length}</span>
           <ul className='header__ul'>
             <li className='carr'>
@@ -87,18 +89,26 @@ const Header = () => {
                 ))}
               </div>
             </li>
-            <li className='purcharse'>
-              <span>Purchase data</span>
-              <div className='header__purcharse'>
-                <UpdateInfo />
-              </div>
-            </li>
-            <li className='make'>
-              <span>Make payment</span>
-              <div className='header__make'>
-                <Payment />
-              </div>
-            </li>
+            {userDates?.hasOwnProperty('user_name') ? (
+              <>
+                <li className='purcharse'>
+                  <span>Purchase data</span>
+                  <div className='header__purcharse'>
+                    <UpdateInfo />
+                  </div>
+                </li>
+                <li className='make'>
+                  <span>Make payment</span>
+                  <div className='header__make'>
+                    <Payment />
+                  </div>
+                </li>
+              </>
+            ) : (
+              <li className='make'>
+                <Link to='temporary-data'>Add dates</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

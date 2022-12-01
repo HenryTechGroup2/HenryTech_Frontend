@@ -109,6 +109,14 @@ li {
   overflow: hidden;
 }
 
+.home__carruzel {
+  display: flex;
+  color: #000;
+  width: 100%;
+  transform: translateX(0);
+  gap: 1.2em;
+  transition: 0.5s linear;
+}
 .home__cards {
   display: flex;
   flex-flow: column nowrap;
@@ -121,14 +129,6 @@ li {
   border-radius: 0.5em;
   padding: 1em;
   overflow: hidden;
-}
-.home__carruzel {
-  display: flex;
-  color: #000;
-  width: 100%;
-  transform: translateX(0);
-  gap: 1.2em;
-  transition: 0.5s linear;
 }
 .home__buttons {
   display: flex;
@@ -279,7 +279,7 @@ li {
   border-bottom: 2px solid #fff;
   height: 5.5em;
   position: sticky;
-  z-index: 100;
+  z-index: 200;
   top: 0;
   background: #333;
 }
@@ -426,11 +426,11 @@ li {
 }
 .header__login {
   background: #7eda55;
-  padding: 0.4em 0.8em;
-  font-size: 1.3em;
+  padding: 0.3em 0.4em;
   border: 0.1em solid #fff;
   border-radius: 2em;
   cursor: pointer;
+  color: #000;
 }
 .header__cart {
   fill: #7eda55;
@@ -1456,6 +1456,373 @@ li {
   z-index: 10;
   cursor: pointer;
   background: #333;
+}
+
+.pc {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.pc__container {
+  max-width: 1200px;
+  padding: 1em;
+}
+@media (max-width: 1000px) {
+  .pc__container {
+    padding: 0 0.3em;
+  }
+}
+.pc__components {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 2em;
+  align-items: start;
+}
+.pc__component {
+  width: 6em;
+  object-fit: contain;
+  height: 6em;
+  background: #fff;
+}
+.pc__brand {
+  background: #fff;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0.5em;
+  align-items: center;
+  width: 18em;
+  padding: 0.5em;
+  border-radius: 0.2em;
+}
+.pc__amd {
+  background: #555;
+  border-radius: 0.2em;
+}
+.pc__intel {
+  background: #00a5b9;
+  border-radius: 0.2em;
+}
+.pc__left {
+  align-self: flex-start;
+  padding: 1em 0;
+  width: 18em;
+  border-radius: 0.5em;
+  background: #fff;
+  box-shadow: 0.1em 0.1em 1em #000;
+}
+.pc__right {
+  flex-shrink: 3;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  gap: 1em;
+  align-content: start;
+  min-height: 500px;
+}
+.pc__mark {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0.5em;
+  align-items: center;
+  margin: 0 0 1em 0;
+}
+.pc__image {
+  width: 8em;
+  height: 2em;
+  padding: 0.3em;
+  cursor: pointer;
+}
+.pc__map {
+  cursor: pointer;
+  height: 9em;
+  width: 20em;
+  color: #000;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  gap: 1em;
+  align-content: space-between;
+  background: #fff;
+  border-radius: 0.5em;
+  position: relative;
+}
+.pc__des {
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  gap: 1em;
+  align-content: space-between;
+}
+.pc__name {
+  font-weight: 400;
+  font-size: 1em;
+  font-family: "Roboto";
+  width: 13em;
+  padding: 1em 0 0 0;
+  font-weight: bold;
+  justify-items: start;
+}
+.pc__price {
+  padding: 0 0 1em 0;
+  font-weight: bold;
+}
+.pc__h1 {
+  font-family: "Roboto";
+  padding: 0.2em;
+}
+.pc__description {
+  font-size: 1.1em;
+  padding: 0.2em;
+  height: 3.5em;
+  margin: 0 0 1em 0;
+}
+@media (max-width: 950px) {
+  .pc__description {
+    margin: 0 0 4em 0;
+  }
+}
+.pc__images {
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  gap: 0;
+  align-items: center;
+}
+.pc__div {
+  position: relative;
+}
+.pc__i {
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.pc__select {
+  filter: brightness(0);
+}
+.pc__selec {
+  border: 1px solid #000;
+  border-radius: 1em;
+}
+.pc__img {
+  width: 4.5em;
+  height: 4.5em;
+  object-fit: contain;
+}
+.pc__dates {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  gap: 0;
+  align-items: center;
+}
+.pc__total {
+  color: #000;
+  padding: 0.2em;
+  font-weight: bold;
+  background: #eee;
+  width: 9em;
+  border: 1px solid #000;
+}
+.pc__buy {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+  padding: 0.5em;
+}
+.pc__buy:hover {
+  transform: scale(1.1);
+}
+.pc__informacion {
+  position: absolute;
+  right: 5px;
+}
+.pc__complete {
+  height: 500px;
+  background: #fff;
+  color: #000;
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+}
+.pc__ul {
+  height: calc(100% - 32px);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: 0;
+  align-items: start;
+}
+.pc__span {
+  display: inline-block;
+  width: 1.4em;
+}
+.pc__button {
+  align-self: flex-end;
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.pc__button:hover {
+  transform: scale(1.1);
+}
+
+.portal {
+  position: absolute;
+  z-index: 300;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.portal__div {
+  width: 50em;
+  height: 30em;
+  background: rgba(51, 51, 51, 0.5647058824);
+  border-radius: 1em;
+  border: 2px solid #fff;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 1em;
+  align-items: center;
+  position: relative;
+}
+.portal__carruzel {
+  width: 20em;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0;
+  align-items: center;
+  margin: auto;
+}
+.portal__carruzell {
+  transition: 0.5s ease;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 3em;
+  align-items: center;
+  transform: translateX(0em);
+}
+.portal__img {
+  width: 20em;
+  height: 20em;
+  margin: 2em 0 0 0;
+  object-fit: contain;
+  background: #fff;
+}
+.portal__buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+  height: 3em;
+  width: 10em;
+}
+.portal__btn {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+}
+.portal__close {
+  background: transparent;
+  position: absolute;
+  right: 1em;
+  top: 0.2em;
+}
+
+.info {
+  position: absolute;
+  z-index: 3000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+  visibility: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.info__container {
+  width: 35em;
+  height: 30em;
+  background: rgba(34, 34, 34, 0.3137254902);
+  position: relative;
+  border: 2px solid #fff;
+  border-radius: 0.5em;
+}
+.info__i {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  cursor: pointer;
+}
+.info__name {
+  margin: 0 2em 0;
+  margin-bottom: 0;
+  padding: 0 2em;
+  cursor: pointer;
+  background: #222;
+}
+.info__acordeon {
+  margin: 2em 0 0 0;
+}
+.info__description {
+  padding: 0 1em;
+  height: 0;
+  margin: 0.2em 2.5em;
+  transition: 0.2s linear;
+  background: #222;
+  overflow: auto;
+}
+.info .x {
+  height: 14em;
 }
 
 /*# sourceMappingURL=main.css.map */

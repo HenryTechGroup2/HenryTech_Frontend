@@ -67,3 +67,25 @@
   width: 100%;
   border-radius: 0.5em;
 }
+@mixin button-principal--second($a, $b, $c, $d) {
+  background: linear-gradient(
+    to right,
+    $color-principal 0%,
+    $succes 70%,
+    $succes 100%
+  );
+
+  padding: $a $b;
+  border-radius: $c;
+  color: $color-white;
+  text-transform: uppercase;
+  font-size: $d;
+  font-weight: bold;
+  font-family: $font-principal;
+  @include flex(row, nowrap, center, center, 0.3em);
+  transition: 0.5s linear;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

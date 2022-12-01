@@ -1,6 +1,8 @@
 import {
   ADD_CART_LOCAL_STORAGE,
   ADD_FAVORIT,
+  ADD_TO_CART_PC,
+  ARMAMENT_PC_PRODUCT,
   CAR_MODIFIER,
   CREATE_USER,
   DELETE_DETAILS,
@@ -10,7 +12,7 @@ import {
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { CAR, USER } from '../storage/variables';
-
+let newX;
 const initialState = {
   products: [],
   userlogin: false,
@@ -26,6 +28,8 @@ const initialState = {
     search: '',
   },
   productsOfer: [],
+  paymentUserDates: {},
+  armamentPc: [],
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -103,7 +107,6 @@ export const reducerFetch = (state = initialState, action) => {
         (a, b) => Number(a) + Number(b.product_price) * Number(b.product_count),
         0
       );
-      console.log(cart);
       return {
         ...state,
         car: mapCarStorage,
@@ -352,6 +355,39 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
+
+    case ARMAMENT_PC_PRODUCT: {
+      let existProduct = state.armamentPc.find(
+        ({ product_category, product_name }) =>
+          product_category === action.payload.product_category &&
+          product_name === action.payload.product_name
+      );
+      if (existProduct) {
+        if (
+          existProduct?.product_category === 'Ram' ||
+          existProduct?.product_category === 'Perifericos'
+        ) {
+          existProduct.product_count = existProduct.product_count + 1;
+          state = {
+            ...state,
+          };
+          return state;
+        }
+        return state;
+      }
+      action.payload.product_count = 1;
+      return {
+        ...state,
+        armamentPc: [...state.armamentPc, action.payload],
+      };
+    }
+    case ADD_TO_CART_PC: {
+      return {
+        ...state,
+        car: [...state.car, ...action.payload],
+        armamentPc: [],
+      };
+
     case "GET_USER":{
       return{
         ...state,
@@ -363,6 +399,7 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         userDates: {...state.userDates, ...action.payload}
       }
+
     }
     default:
       return state;

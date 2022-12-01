@@ -27,7 +27,7 @@ const Count = ({ product_count = 1, product }) => {
       theme: 'dark',
     });
   };
-  console.log(product);
+  // console.log(product);
   return (
     <div className='details__count'>
       <button className='details__button' onClick={handleClick}>
