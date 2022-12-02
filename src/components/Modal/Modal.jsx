@@ -23,7 +23,6 @@ const Modal = ({ open, handleOpenModalSession }) => {
       handleOpenModalSession(null);
       return setLogin(INITIAL_STATE);
     }
-    console.log(data);
   };
   const handleChange = (evt) => {
     const { name, value } = evt.currentTarget;

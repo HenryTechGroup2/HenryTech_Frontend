@@ -26,7 +26,6 @@ const Header = () => {
   const handleClickCloseSession = () => {
     dispatch(closeSession());
   };
-  console.log(userDates);
   return (
     <div className='header'>
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />

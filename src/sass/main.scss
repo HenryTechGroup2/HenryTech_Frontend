@@ -1,5 +1,18 @@
 @import './imports/reset.scss', './imports/mixins.scss',
   './imports/variables.scss';
+.loader {
+  width: 100vw;
+  height: calc(100vh - 5.5em);
+  @include flex(row, nowrap, center, center, 0);
+}
+.spinner {
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+  border: 1em solid #fff;
+  border-bottom-color: blue;
+  animation: spinner infinite 2s linear;
+}
 .btn-top {
   position: fixed;
   z-index: 100;
@@ -17,7 +30,6 @@
 .body {
   overflow: hidden;
 }
-
 .home {
   &__carruzel {
     display: flex;
@@ -614,28 +626,32 @@
     z-index: 1;
   }
   &__dpago {
-    @include flex(row, wrap, start, center, 0);
+    margin: 3em 0 0 0;
+    @include flex(row, wrap, center, start, 1em);
     height: 100%;
   }
   &__bottom {
     padding: 2em;
     line-height: 1.5;
     font-size: 1.2em;
-    width: 50%;
-    flex-grow: 2;
+    width: 35em;
+    height: 26em;
+    background: #333;
+    box-shadow: 0.1em 0.1em 0.3em 0.1em #000;
+    border-radius: 0.5em;
   }
   &__pago {
     // flex-grow: 1;
     margin: 2em 1em 0 0;
     line-height: 1.5;
     font-size: 1.2em;
-    background: #fff;
+    background: #333;
     height: 15em;
     box-shadow: 0.4em 0.2em 0.3em #000;
     border-radius: 0.5em;
   }
   &__span {
-    color: #000;
+    color: #fff;
     font-size: 1em;
     display: block;
     text-align: center;
@@ -1318,5 +1334,13 @@
     font-size: 1.5em;
   }
   &__p {
+  }
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

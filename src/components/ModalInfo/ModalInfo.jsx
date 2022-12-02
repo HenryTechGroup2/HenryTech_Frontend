@@ -19,7 +19,6 @@ const ModalInfo = ({ product, open, handleClick }) => {
     if (acordeon === index) return setAcordeon(null);
     setAcordeon(index);
   };
-  console.log(acordeon);
   return ReactDom.createPortal(
     <div
       className='info'

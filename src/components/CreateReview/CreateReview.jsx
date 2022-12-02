@@ -24,7 +24,6 @@ export function CreateReview({ productId }) {
   });
   useEffect(() => {
     const newReview = (message) => {
-      console.log(message);
       dispatch({ type: ADD_REVIEW_PRODUCT_REAL_TIME, payload: message });
       setReviews([...reviews, message]);
     };
@@ -66,7 +65,6 @@ export function CreateReview({ productId }) {
     return errors;
   }
   //Envio de encuesta
-  console.log(userDates.user_id, productId);
   function handleOnSubmit(e) {
     e.preventDefault();
     // dispatch(postCreateReview(input));

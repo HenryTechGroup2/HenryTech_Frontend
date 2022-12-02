@@ -40,18 +40,15 @@ function App() {
     allProducts();
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
-      console.log(userExist);
       const userLocalStorage = async () => {
         const data = await axios.post(`http://localhost:3001/api/user/login`, {
           user_email: userExist[0].user_email,
           user_password: password,
         });
-        console.log(data);
         dispatch({ type: LOGIN_USER, payload: data.data.user });
       };
       userLocalStorage();
     }
-    console.log(JSON.parse(car));
     if (car) {
       dispatch({
         type: ADD_CART_LOCAL_STORAGE,

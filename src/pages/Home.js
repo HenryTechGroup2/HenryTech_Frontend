@@ -11,8 +11,14 @@ import ProductsHome from '../components/ProductsHome/ProductsHome';
 import Pagination from '../components/Pagination/Pagination';
 import ButtonTop from '../components/ButtonTop/ButtonTop';
 const Home = () => {
-  const { filters, viewHome, products, productsOfer, copieProducts } =
-    useSelector((state) => state);
+  const {
+    filters,
+    viewHome,
+    products,
+    productsOfer,
+    copieProducts,
+    loadingHome,
+  } = useSelector((state) => state);
 
   const [actualPage, setActualPage] = useState(1);
   const productsPage = 16;
@@ -38,29 +44,35 @@ const Home = () => {
       <ButtonTop />
       <Header />
       <Images />
-      <div>
-        {filters?.search.length > 0 || viewHome === true ? (
-          <div className='home__main'>
-            <Aside />
-            <div className='home__pages'>
-              <Products page={page} productsPage={productsPage} />
-              <Pagination
-                handleClick={handleClick}
-                next={next}
-                prev={prev}
-                actualPage={actualPage}
-              />
+      {loadingHome ? (
+        <div>
+          {filters?.search.length > 0 || viewHome === true ? (
+            <div className='home__main'>
+              <Aside />
+              <div className='home__pages'>
+                <Products page={page} productsPage={productsPage} />
+                <Pagination
+                  handleClick={handleClick}
+                  next={next}
+                  prev={prev}
+                  actualPage={actualPage}
+                />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className='home__products'>
-            <ProductsHome products={productsOfer} />
-            <ProductsHome products={products} />
-            <ProductsHome products={products} />
-            <ProductsHome products={products} />
-          </div>
-        )}
-      </div>
+          ) : (
+            <div className='home__products'>
+              <ProductsHome products={productsOfer} />
+              <ProductsHome products={products} />
+              <ProductsHome products={products} />
+              <ProductsHome products={products} />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className='loader'>
+          <div className='spinner'></div>
+        </div>
+      )}
       <ToastContainer />
 
       <Footer />

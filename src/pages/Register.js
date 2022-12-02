@@ -38,14 +38,12 @@ const Register = () => {
       user_shipping_address: register.user_shipping_address,
       user_isAdmin: register.user_isAdmin,
     });
-    console.log(data);
     if (data.status === 200) {
       dispatch({ type: CREATE_USER, payload: data.data.user });
       window.localStorage.setItem(PASSWORD, register.user_password);
       setRegister(INITIAL_STATE);
       return navigate('/');
     }
-    console.log('No registrado');
   };
   useEffect(() => {
     document.body.classList.remove('body');

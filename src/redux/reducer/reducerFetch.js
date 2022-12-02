@@ -36,7 +36,8 @@ const initialState = {
   productsOfer: [],
   paymentUserDates: {},
   armamentPc: [],
-
+  loadingReviews: false,
+  loadingHome: false,
   detailsReviews: [],
 };
 
@@ -52,6 +53,7 @@ export const reducerFetch = (state = initialState, action) => {
         products: action.payload,
         copieProducts: action.payload,
         productsOfer: ofertDay,
+        loadingHome: true,
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
@@ -61,10 +63,10 @@ export const reducerFetch = (state = initialState, action) => {
         detailsProduct: action.payload,
         detailsReviews: action.payload.reviews,
         reviews: action.payload.reviews,
+        loadingReviews: true,
       };
     }
     case ADD_REVIEW_PRODUCT_REAL_TIME: {
-      console.log(action.payload);
       return {
         ...state,
         detailsReviews: [...state.detailsReviews, action.payload],
@@ -111,9 +113,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case LOGIN_USER: {
-      console.log(action.payload);
-
-      console.log(state);
       return {
         ...state,
         userDates: action.payload,
@@ -144,13 +143,12 @@ export const reducerFetch = (state = initialState, action) => {
       return state;
     }
     case ADD_ALL_FAVORITES: {
-      console.log('HOLA DEDE ALL_FAVORITES');
       if (state.userDates?.hasOwnProperty('user_favorites')) {
         state.products.forEach((product) => {
           return state.userDates.user_favorites.forEach((productF) => {
             if (productF.product_id === product.product_id) {
               product.product_favorite = true;
-              console.log('HOLA DEDE ALL_FAVORITES TRUE FAVORITE');
+
               return product;
             }
           });
@@ -160,7 +158,6 @@ export const reducerFetch = (state = initialState, action) => {
             return (product.product_favorite = false);
           }
         });
-        console.log(state);
         return state;
       }
       return state;
@@ -358,6 +355,7 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         detailsProduct: {},
+        loadingReviews: false,
       };
     }
     case 'ORDER_BY_PRICE': {
@@ -471,13 +469,9 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case DELETE_PC_PRODUCT: {
-      console.log(action.payload);
-
-      console.log(state.armamentPc);
       const products = state.armamentPc.filter(
         (product) => product.product_id !== action.payload
       );
-      console.log(products);
       return {
         ...state,
         armamentPc: products,
