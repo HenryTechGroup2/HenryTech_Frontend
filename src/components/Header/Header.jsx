@@ -103,11 +103,7 @@ const Header = () => {
                   </div>
                 </li>
               </>
-            ) : (
-              <li className='make'>
-                <Link to='temporary-data'>Add dates</Link>
-              </li>
-            )}
+            ) : null}
           </ul>
         </div>
       </div>

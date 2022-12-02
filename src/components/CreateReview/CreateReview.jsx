@@ -127,6 +127,7 @@ export function CreateReview({ productId }) {
             {startState.confirmStar === null
               ? star.map((star, index) => (
                   <span
+                    key={index}
                     className='review__star'
                     onMouseEnter={() => handleMouseStar(index)}
                     onClick={handleClickStar}
@@ -136,6 +137,7 @@ export function CreateReview({ productId }) {
                 ))
               : star.map((star, index) => (
                   <span
+                    key={index}
                     className='review__star'
                     onClick={() => handleClickStar(index, 'change')}
                   >

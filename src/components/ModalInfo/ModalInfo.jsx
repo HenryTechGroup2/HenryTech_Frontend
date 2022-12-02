@@ -33,7 +33,7 @@ const ModalInfo = ({ product, open, handleClick }) => {
         </i>
         <div className='info__acordeon'>
           {informacion.map((info, index) => (
-            <div>
+            <div key={index}>
               <h3
                 onClick={() => handleClickDeploy(index)}
                 className='info__name'

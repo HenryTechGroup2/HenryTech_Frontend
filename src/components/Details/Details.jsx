@@ -146,7 +146,7 @@ export function Details() {
                     <ButtonFavorite product={detailsProduct} />
                   </h2>
                   <div>
-                    <p className='details__price'>
+                    <div className='details__price'>
                       <div className='details__stock'>
                         {detailsProduct?.stock?.stock_amount > 0 ? (
                           <div>{stock} Stock</div>
@@ -155,7 +155,7 @@ export function Details() {
                         )}
                       </div>
                       ${detailsProduct?.product_price}
-                    </p>
+                    </div>
                     <Count product={detailsProduct} />
                   </div>
                 </div>

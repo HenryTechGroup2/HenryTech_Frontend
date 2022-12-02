@@ -34,8 +34,8 @@ function App() {
     const userLogin = window.localStorage.getItem(USER);
     const car = window.localStorage.getItem(CAR);
     const password = window.localStorage.getItem(PASSWORD);
-    const allProducts = async () => {
-      await dispatch(getAllProducts());
+    const allProducts = () => {
+      dispatch(getAllProducts());
     };
     allProducts();
     if (userLogin?.length > 0) {
@@ -45,7 +45,7 @@ function App() {
           user_email: userExist[0].user_email,
           user_password: password,
         });
-        dispatch({ type: LOGIN_USER, payload: data.data.user });
+        await dispatch({ type: LOGIN_USER, payload: data.data.user });
       };
       userLocalStorage();
     }

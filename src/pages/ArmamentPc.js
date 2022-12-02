@@ -95,6 +95,7 @@ const ArmamentPc = () => {
             <div className='pc__brand'>
               {brand.map((item) => (
                 <img
+                  key={item.marca}
                   onClick={() => handleSelectBrand(item.marca)}
                   className={` pc__image ${
                     selectBrand === item.marca
@@ -156,6 +157,7 @@ const ArmamentPc = () => {
               ) : (
                 productsAcept?.map((product) => (
                   <ArmamentCard
+                    key={product.product_id}
                     product={product}
                     handleClickAddComponentPc={handleClickAddComponentPc}
                   />
