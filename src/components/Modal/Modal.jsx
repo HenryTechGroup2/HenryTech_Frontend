@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import { close } from '../../utils/Icons';
 import axios from 'axios';
-import { api, CREATE_USER } from '../../redux/actions';
+import { api, LOGIN_USER } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 const INITIAL_STATE = {
   email: '',
@@ -14,12 +14,12 @@ const Modal = ({ open, handleOpenModalSession }) => {
   const dispatch = useDispatch();
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const data = await axios.post(`http://localhost:3001/api/user/login`, {
+    const data = await axios.post(`${api}/api/user/login`, {
       user_email: login.email,
       user_password: login.password,
     });
     if (data.status === 200) {
-      dispatch({ type: CREATE_USER, payload: data.data.user });
+      dispatch({ type: LOGIN_USER, payload: data.data.user });
       handleOpenModalSession(null);
       return setLogin(INITIAL_STATE);
     }

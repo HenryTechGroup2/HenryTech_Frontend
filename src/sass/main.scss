@@ -325,6 +325,8 @@
   &__container {
     height: 100%;
     @include flex(column, nowrap, center, center, 0.5em);
+    position: relative;
+    z-index: 20;
   }
   &__form {
     width: 30em;

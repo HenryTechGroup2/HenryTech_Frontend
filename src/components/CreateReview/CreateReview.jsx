@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
+import { ADD_REVIEW_PRODUCT_REAL_TIME } from '../../redux/actions';
 const server = io('http://localhost:3001');
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
-export function CreateReview() {
+export function CreateReview({ productId }) {
+  const [reviews, setReviews] = useState([]);
   const initialState = {
     review_title: '',
     review_body: '',
@@ -23,10 +25,13 @@ export function CreateReview() {
   useEffect(() => {
     const newReview = (message) => {
       console.log(message);
+      dispatch({ type: ADD_REVIEW_PRODUCT_REAL_TIME, payload: message });
+      setReviews([...reviews, message]);
     };
     server.on('@review/create/successful', newReview);
-  }, []);
+  }, [reviews]);
   const dispatch = useDispatch();
+  const { userDates } = useSelector((state) => state);
   //Inputs Changes
   function handleOnChange(e) {
     e.preventDefault();
@@ -61,6 +66,7 @@ export function CreateReview() {
     return errors;
   }
   //Envio de encuesta
+  console.log(userDates.user_id, productId);
   function handleOnSubmit(e) {
     e.preventDefault();
     // dispatch(postCreateReview(input));
@@ -69,11 +75,10 @@ export function CreateReview() {
         review_title: input.review_title,
         review_body: input.review_body,
         review_score: input.review_score,
-        review_product_id: 1,
-        review_user_id: 1,
+        review_product_id: productId,
+        review_user_id: userDates.user_id,
       },
     ]);
-
     // alert('Reseña creada');
     setInput({
       initialState,
@@ -156,7 +161,7 @@ export function CreateReview() {
         <button
           className='review__button'
           type='submit'
-          disabled={Object.entries(errors).length === 0 ? false : true}
+          // disabled={Object.entries(errors).length === 0 ? false : true}
         >
           Send
         </button>

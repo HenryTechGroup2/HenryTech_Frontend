@@ -26,6 +26,7 @@ const Header = () => {
   const handleClickCloseSession = () => {
     dispatch(closeSession());
   };
+  console.log(userDates);
   return (
     <div className='header'>
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
@@ -44,7 +45,7 @@ const Header = () => {
         />
       </div>
       <div className='header__options'>
-        {userDates.hasOwnProperty('user_name') ? (
+        {userDates?.hasOwnProperty('user_name') ? (
           <div className='header__i'>
             {userLogin}
             <button
