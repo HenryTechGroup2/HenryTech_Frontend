@@ -21,7 +21,9 @@
     "sass": "^1.56.1",
     "socket.io-client": "^4.5.4",
     "tsparticles": "^2.5.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+     "@stripe/react-stripe-js": "^1.15.0",
+    "@stripe/stripe-js": "^1.44.1",
   },
   "scripts": {
     "start": "react-scripts start",
