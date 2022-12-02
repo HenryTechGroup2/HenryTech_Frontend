@@ -190,3 +190,10 @@ export function updateUser(payload, id){
   }
 }
 
+export function filterByRaiting (product_raiting) {
+  return ({
+      type: 'FILTER_BY_RAITING',
+      payload: product_raiting
+  })
+}
+

@@ -30,6 +30,7 @@ const initialState = {
   productsOfer: [],
   paymentUserDates: {},
   armamentPc: [],
+  detailsReviews: {},
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -386,21 +387,30 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         car: [...state.car, ...action.payload],
         armamentPc: [],
-      };
+      }
+    };
 
-    case "GET_USER":{
-      return{
+    case "GET_USER": {
+      return {
         ...state,
-        user:action.payload
+        user: action.payload
       }
     }
-    case "PUT_UPDATE_USER":{
-      return{
+    case "PUT_UPDATE_USER": {
+      return {
         ...state,
-        userDates: {...state.userDates, ...action.payload}
+        userDates: { ...state.userDates, ...action.payload }
       }
-
     }
+
+    case 'FILTER_BY_RAITING': {
+      let productsByRaiting = state.detailsProduct.review.filter(e => e.review_score == action.payload)
+      return {
+        ...state,
+        detailsReviews: {...state.detailsProduct, review: productsByRaiting}
+      }
+    }
+
     default:
       return state;
   }
