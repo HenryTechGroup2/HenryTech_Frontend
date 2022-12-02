@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Questions from './pages/Questions.js';
@@ -8,23 +8,85 @@ import Register from './pages/Register';
 import Car from './pages/Car';
 import ProductByName from './pages/ProductsByName.js';
 import './css/main.css';
-
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import TemporaryData from './pages/TemporaryData';
+import ArmamentPc from './pages/ArmamentPc';
+import ParticlesBackground from './components/Particles/ParticlesBackground';
+import { CAR, PASSWORD, USER } from './redux/storage/variables';
+import axios from 'axios';
+import {
+  ADD_ALL_FAVORITES,
+  ADD_CART_LOCAL_STORAGE,
+  getAllProducts,
+  LOGIN_USER,
+} from './redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import UpdateUser from './components/UpdateUser/UpdateUser';
+import MyAcount from './pages/MyAcount';
+const stripePromise = loadStripe(
+  'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
+);
 function App() {
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state);
+  useEffect(() => {
+    const userLogin = window.localStorage.getItem(USER);
+    const car = window.localStorage.getItem(CAR);
+    const password = window.localStorage.getItem(PASSWORD);
+    const allProducts = async () => {
+      await dispatch(getAllProducts());
+    };
+    allProducts();
+    if (userLogin?.length > 0) {
+      const userExist = JSON.parse(userLogin);
+      console.log(userExist);
+      const userLocalStorage = async () => {
+        const data = await axios.post(`http://localhost:3001/api/user/login`, {
+          user_email: userExist[0].user_email,
+          user_password: password,
+        });
+        console.log(data);
+        dispatch({ type: LOGIN_USER, payload: data.data.user });
+      };
+      userLocalStorage();
+    }
+    console.log(JSON.parse(car));
+    if (car) {
+      dispatch({
+        type: ADD_CART_LOCAL_STORAGE,
+        payload: car,
+      });
+    }
+    dispatch({ type: ADD_ALL_FAVORITES });
+  }, []);
+  useEffect(() => {
+    dispatch({ type: ADD_ALL_FAVORITES });
+  }, [products, dispatch]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
+    <Elements stripe={stripePromise}>
+      <ParticlesBackground />
 
-        <Route path='/car' element={<Car />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
 
-        <Route path='/home' />
-        <Route exact path='/product' element={<ProductByName />} />
-        <Route path='/preguntasfrecuentes' element={<Questions />} />
-        <Route path='/sobrenosotros' element={<Aboutus />} />
-        <Route exact path='/products/:id' element={<Details />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path='/car' element={<Car />} />
+
+          <Route path='temporary-data' element={<TemporaryData />} />
+          <Route path='armament' element={<ArmamentPc />} />
+
+          <Route path='/home' />
+          <Route exact path='/product' element={<ProductByName />} />
+          <Route path='/preguntasfrecuentes' element={<Questions />} />
+          <Route path='/sobrenosotros' element={<Aboutus />} />
+          <Route exact path='/products/:id' element={<Details />} />
+          <Route exact path='/micuenta/:id' element={<MyAcount />} />
+          <Route exact path='/actualiza/:id' element={<UpdateUser />} />
+        </Routes>
+      </BrowserRouter>
+    </Elements>
   );
 }
 

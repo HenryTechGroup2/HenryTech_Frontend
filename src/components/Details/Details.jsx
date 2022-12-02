@@ -12,9 +12,12 @@ import ParticlesBackground from '../Particles/ParticlesBackground.jsx';
 import Count from '../Count/Count.jsx';
 import Footer, { images as imagesPagos } from '../Footer/Footer.jsx';
 import Star from '../Star/Star.jsx';
-import { favorit, stock } from '../../utils/Icons.js';
+import { favorit, noStock, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
+import ButtonTop from '../ButtonTop/ButtonTop.jsx';
+import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
+import FilterByRaiting from './FilterByRaiting.jsx';
 export function Details() {
   const params = useParams();
 
@@ -23,10 +26,13 @@ export function Details() {
   const { detailsProduct } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
-
+  const { reviews } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getDetailsProducts(params.id));
-
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
     return () => {
       dispatch(deleteDetailsProducts());
     };
@@ -39,10 +45,10 @@ export function Details() {
   const images = detailsProduct?.product_array_img?.concat(
     detailsProduct?.product_img
   );
-
   return (
     <>
       <Header />
+      <ButtonTop />
       <ParticlesBackground />
       <ToastContainer />
       <div className='details'>
@@ -64,11 +70,9 @@ export function Details() {
               ))}
         </div>
         <div className='details__center'>
-          {imagePrincipal.length > 0 ? (
-            <div
-              className='details__special'
-              style={{ position: 'relative', zIndex: '1000' }}
-            >
+          {/* style={{ position: 'relative', zIndex: '1000' }} */}
+          {imagePrincipal?.length > 0 ? (
+            <div className='details__special'>
               <ReactImageMagnify
                 {...{
                   smallImage: {
@@ -91,10 +95,25 @@ export function Details() {
               />
             </div>
           ) : (
-            <img
-              className='details__img'
-              src={detailsProduct?.product_img}
-              alt=''
+            <ReactImageMagnify
+              {...{
+                smallImage: {
+                  alt: 'Wristwatch by Ted Baker London',
+                  isFluidWidth: true,
+                  src: detailsProduct?.product_img,
+                },
+                largeImage: {
+                  src: detailsProduct?.product_img,
+                  width: 1000,
+                  height: 850,
+                },
+                enlargedImageContainerDimensions: {
+                  width: 400,
+                  height: 640,
+                },
+                enlargedImagePortalId: 'portal',
+                fadeDurationInMs: 0,
+              }}
             />
           )}
         </div>
@@ -107,14 +126,16 @@ export function Details() {
               <h2 className='details__h2'>
                 <p className='details__name'>{detailsProduct?.product_name}</p>
                 <Star detailsProduct={detailsProduct} />
-                <button className='details__favorit'>{favorit}</button>{' '}
+                <ButtonFavorite product={detailsProduct} />
               </h2>
               <div>
                 <p className='details__price'>
                   <div className='details__stock'>
-                    {stock}
-
-                    <span className='details__dis'>{`  Stock disponible`}</span>
+                    {detailsProduct?.stock?.stock_amount > 0 ? (
+                      <div>{stock} Stock</div>
+                    ) : (
+                      <div>{noStock} No stock</div>
+                    )}
                   </div>
                   ${detailsProduct?.product_price}
                 </p>
@@ -144,7 +165,7 @@ export function Details() {
             </div>
           </div>
         </div>
-        <CreateReview />
+        <CreateReview productId={detailsProduct.product_id} />
         <div className='comentarios'>
           <h2 className='comentarios__h2'>Opiniones del producto</h2>
           <div className='comentarios__div'>
@@ -167,6 +188,9 @@ export function Details() {
                   <option value='Ordenar'>Mas recientes</option>
                   <option value='Ordenar'>Mas utiles</option>
                 </select>
+                <div>
+                  <FilterByRaiting/>
+                </div>
                 <select>
                   <option value='Calificacion'>Calificacion</option>{' '}
                   <option value='Calificacion'>5★</option>{' '}
@@ -176,7 +200,11 @@ export function Details() {
                   <option value='Calificacion'>1★</option>
                 </select>
               </div>
-              <div></div>
+              <div>
+                {reviews?.map((review) => (
+                  <div>{review.review_title}</div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

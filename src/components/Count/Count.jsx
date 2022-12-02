@@ -27,6 +27,7 @@ const Count = ({ product_count = 1, product }) => {
       theme: 'dark',
     });
   };
+  // console.log(product);
   return (
     <div className='details__count'>
       <button className='details__button' onClick={handleClick}>
@@ -41,7 +42,7 @@ const Count = ({ product_count = 1, product }) => {
       <button
         onClick={handleClickAddToCar}
         className='product__button'
-        // disabled={login === false ? true : false}
+        disabled={product?.stock?.stock_amount > 0 ? false : true}
       >
         {cart}
         Agregar

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header/Header';
 import { useDispatch } from 'react-redux';
-import { api, CREATE_USER } from '../redux/actions';
+import { api, CREATE_USER, LOGIN_USER } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
+import { PASSWORD } from '../redux/storage/variables';
 const INITIAL_STATE = {
   user_email: '',
   user_name: '',
@@ -37,14 +38,19 @@ const Register = () => {
       user_shipping_address: register.user_shipping_address,
       user_isAdmin: register.user_isAdmin,
     });
-    // console.log(data);
+    console.log(data);
     if (data.status === 200) {
       dispatch({ type: CREATE_USER, payload: data.data.user });
+      window.localStorage.setItem(PASSWORD, register.user_password);
       setRegister(INITIAL_STATE);
       return navigate('/');
     }
     console.log('No registrado');
   };
+  useEffect(() => {
+    document.body.classList.remove('body');
+  }, []);
+
   return (
     <>
       <Header />

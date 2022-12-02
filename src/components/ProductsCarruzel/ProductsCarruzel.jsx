@@ -6,12 +6,11 @@ const ProductsCarruzel = ({ translate, products }) => {
   const [direction, setDirection] = useState(translate);
   useEffect(() => {
     setDirection(translate);
-    console.log(translate);
   }, [translate]);
   return (
     <div
       className='home__carruzel'
-      style={{ background: 'red', transform: `translateX(-${direction}em)` }}
+      style={{ transform: `translateX(-${direction}em)` }}
     >
       {products.map((product) => (
         <Card isFlex={true} key={product.product_id} product={product} />
