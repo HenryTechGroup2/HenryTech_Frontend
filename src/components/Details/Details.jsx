@@ -26,7 +26,7 @@ export function Details() {
   const { detailsProduct } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
-
+  const { reviews } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getDetailsProducts(params.id));
     window.scrollTo({
@@ -165,7 +165,7 @@ export function Details() {
             </div>
           </div>
         </div>
-        <CreateReview />
+        <CreateReview productId={detailsProduct.product_id} />
         <div className='comentarios'>
           <h2 className='comentarios__h2'>Opiniones del producto</h2>
           <div className='comentarios__div'>
@@ -200,7 +200,11 @@ export function Details() {
                   <option value='Calificacion'>1★</option>
                 </select>
               </div>
-              <div></div>
+              <div>
+                {reviews?.map((review) => (
+                  <div>{review.review_title}</div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

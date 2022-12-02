@@ -356,6 +356,17 @@ li {
   color: #fff;
   overflow: auto;
 }
+.header__carl {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: end;
+  gap: 0;
+  align-items: end;
+  padding: 0 0.8em;
+  font-size: 1em;
+  color: #000;
+  font-weight: bold;
+}
 .header .purcharse {
   list-style: none;
   margin: 0;
@@ -549,6 +560,8 @@ li {
   justify-content: center;
   gap: 0.5em;
   align-items: center;
+  position: relative;
+  z-index: 20;
 }
 .register__form {
   width: 30em;
@@ -609,13 +622,18 @@ li {
   justify-content: center;
   gap: 1.2em;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 .car__map {
+  width: 40em;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 0.5em;
   align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
 }
 .car__container {
   margin: 0.5em 0 0 0;
@@ -1577,16 +1595,19 @@ li {
 .pc__h1 {
   font-family: "Roboto";
   padding: 0.2em;
+  background: #444;
 }
 .pc__description {
   font-size: 1.1em;
   padding: 0.2em;
   height: 3.5em;
   margin: 0 0 1em 0;
+  background: #444;
 }
 @media (max-width: 950px) {
   .pc__description {
-    margin: 0 0 4em 0;
+    margin: 0 0 3em 0;
+    height: 6em;
   }
 }
 .pc__images {

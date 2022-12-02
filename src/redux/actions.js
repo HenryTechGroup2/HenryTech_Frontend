@@ -9,7 +9,13 @@ export const USER_CLOSE = '@user/close';
 export const ADD_CART_LOCAL_STORAGE = '@car/storage';
 export const ARMAMENT_PC_PRODUCT = '@armament/product';
 export const ADD_TO_CART_PC = '@armament/cart-product';
-export const api = 'https://henry-tech-backend.vercel.app';
+export const DELETE_PC_PRODUCT = '@armament/delete';
+export const LOGIN_USER = '@user/login';
+export const ADD_ALL_FAVORITES = '@user/add-favorites';
+export const ADD_REVIEW_PRODUCT_REAL_TIME = '@review/add-real-time';
+export const DELETE_FAVORIT = '@favorit/delete';
+// export const api = 'https://henry-tech-backend.vercel.app';
+export const api = 'http://localhost:3001';
 export function getAllProducts() {
   return async function (dispatch) {
     try {
@@ -153,10 +159,21 @@ export function filterByBrand() {}
 
 export function orderByPopularity() {}
 
-export function addToCartProductsArmamentPC(products) {
+export function addToCartProductsArmamentPC(products, price) {
+
+
   return {
     type: ADD_TO_CART_PC,
-    payload: products,
+    payload: {
+      products,
+      price,
+    },
+  };
+}
+export function deleteProductArmamentPC(id) {
+  return {
+    type: DELETE_PC_PRODUCT,
+    payload: id,
   };
 }
 

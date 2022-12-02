@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ADD_ALL_FAVORITES } from '../../redux/actions';
 import { stock as stockIcon, noStock } from '../../utils/Icons';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
 import Count from '../Count/Count';
 
 const Card = ({ product, isFlex = false }) => {
+  const dispatch = useDispatch();
+  dispatch({ type: ADD_ALL_FAVORITES });
+
   return (
     <article
       className={`product__article ${isFlex === true ? 'product__flex' : ''}`}

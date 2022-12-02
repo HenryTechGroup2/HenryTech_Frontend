@@ -1,18 +1,22 @@
 import {
+  ADD_ALL_FAVORITES,
   ADD_CART_LOCAL_STORAGE,
   ADD_FAVORIT,
+  ADD_REVIEW_PRODUCT_REAL_TIME,
   ADD_TO_CART_PC,
   ARMAMENT_PC_PRODUCT,
   CAR_MODIFIER,
   CREATE_USER,
   DELETE_DETAILS,
+  DELETE_FAVORIT,
+  DELETE_PC_PRODUCT,
   FILTER_SEARCH,
+  LOGIN_USER,
   PAGES_HOME,
   USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { CAR, USER } from '../storage/variables';
-let newX;
 const initialState = {
   products: [],
   userlogin: false,
@@ -30,7 +34,11 @@ const initialState = {
   productsOfer: [],
   paymentUserDates: {},
   armamentPc: [],
+
+  // reviewsPc:[]
+
   detailsReviews: {},
+
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -48,9 +56,17 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
+      //Eliminar el reviews cuando haga el push
       return {
         ...state,
         detailsProduct: action.payload,
+        reviews: action.payload.reviews,
+      };
+    }
+    case ADD_REVIEW_PRODUCT_REAL_TIME: {
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
       };
     }
     case 'POST_CREATE_REVIEW': {
@@ -60,6 +76,14 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case ADD_FAVORIT: {
+      const productNewFavorit = state.copieProducts.find(
+        (product) => product.product_id === Number(action.payload)
+      );
+      productNewFavorit.product_favorite = true;
+      const productFavorit = state.products.find(
+        (product) => product.product_id === Number(action.payload)
+      );
+      productFavorit.product_favorite = true;
       return state;
     }
     case 'GET_STOCK_PRODUCTS': {
@@ -69,23 +93,17 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case CREATE_USER: {
-      if (action.payload?.hasOwnProperty('user_name')) {
-        state.products.forEach((product) => {
-          return action.payload.user_favorites.forEach((productF) => {
-            if (productF.product_id === product.product_id) {
-              product.product_favorite = true;
-
-              return product;
-            }
-          });
-        });
-        state.products.forEach((product) => {
-          if (!product.hasOwnProperty('product_favorite')) {
-            return (product.product_favorite = false);
-          }
-        });
-      }
       window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      return {
+        ...state,
+        userDates: action.payload,
+        userlogin: true,
+      };
+    }
+    case LOGIN_USER: {
+      console.log(action.payload);
+
+      console.log(state);
       return {
         ...state,
         userDates: action.payload,
@@ -95,11 +113,47 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case USER_CLOSE: {
       window.localStorage.removeItem(USER);
+      state.products.forEach((product) => {
+        return (product.product_favorite = false);
+      });
       return {
         ...state,
         userlogin: false,
         userDates: {},
       };
+    }
+    case DELETE_FAVORIT: {
+      const productCopie = state.copieProducts.find(
+        (product) => product.product_id === action.payload
+      );
+      productCopie.product_favorite = false;
+      const product = state.products.find(
+        (product) => product.product_id === action.payload
+      );
+      product.product_favorite = false;
+      return state;
+    }
+    case ADD_ALL_FAVORITES: {
+      console.log('HOLA DEDE ALL_FAVORITES');
+      if (state.userDates?.hasOwnProperty('user_favorites')) {
+        state.products.forEach((product) => {
+          return state.userDates.user_favorites.forEach((productF) => {
+            if (productF.product_id === product.product_id) {
+              product.product_favorite = true;
+              console.log('HOLA DEDE ALL_FAVORITES TRUE FAVORITE');
+              return product;
+            }
+          });
+        });
+        state.products.forEach((product) => {
+          if (!product.hasOwnProperty('product_favorite')) {
+            return (product.product_favorite = false);
+          }
+        });
+        console.log(state);
+        return state;
+      }
+      return state;
     }
     //CART
     case ADD_CART_LOCAL_STORAGE: {
@@ -385,8 +439,25 @@ export const reducerFetch = (state = initialState, action) => {
     case ADD_TO_CART_PC: {
       return {
         ...state,
-        car: [...state.car, ...action.payload],
+        car: [...state.car, ...action.payload.products],
         armamentPc: [],
+
+        priceTotal: Number(state.priceTotal) + Number(action.payload.price),
+      };
+    }
+    case DELETE_PC_PRODUCT: {
+      console.log(action.payload);
+
+      console.log(state.armamentPc);
+      const products = state.armamentPc.filter(
+        (product) => product.product_id !== action.payload
+      );
+      console.log(products);
+      return {
+        ...state,
+        armamentPc: products,
+      };
+
       }
     };
 
@@ -395,6 +466,7 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         user: action.payload
       }
+
     }
     case "PUT_UPDATE_USER": {
       return {

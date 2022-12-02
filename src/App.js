@@ -13,30 +13,39 @@ import { loadStripe } from '@stripe/stripe-js';
 import TemporaryData from './pages/TemporaryData';
 import ArmamentPc from './pages/ArmamentPc';
 import ParticlesBackground from './components/Particles/ParticlesBackground';
-import { CAR, USER } from './redux/storage/variables';
+import { CAR, PASSWORD, USER } from './redux/storage/variables';
 import axios from 'axios';
 import {
+  ADD_ALL_FAVORITES,
   ADD_CART_LOCAL_STORAGE,
-  CREATE_USER,
   getAllProducts,
+  LOGIN_USER,
 } from './redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
 );
 function App() {
   const dispatch = useDispatch();
+  const { products } = useSelector((state) => state);
   useEffect(() => {
     const userLogin = window.localStorage.getItem(USER);
     const car = window.localStorage.getItem(CAR);
+    const password = window.localStorage.getItem(PASSWORD);
+    const allProducts = async () => {
+      await dispatch(getAllProducts());
+    };
+    allProducts();
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
+      console.log(userExist);
       const userLocalStorage = async () => {
         const data = await axios.post(`http://localhost:3001/api/user/login`, {
           user_email: userExist[0].user_email,
-          user_password: userExist[0].user_password,
+          user_password: password,
         });
-        dispatch({ type: CREATE_USER, payload: data.data.user });
+        console.log(data);
+        dispatch({ type: LOGIN_USER, payload: data.data.user });
       };
       userLocalStorage();
     }
@@ -47,8 +56,11 @@ function App() {
         payload: car,
       });
     }
-    dispatch(getAllProducts());
+    dispatch({ type: ADD_ALL_FAVORITES });
   }, []);
+  useEffect(() => {
+    dispatch({ type: ADD_ALL_FAVORITES });
+  }, [products, dispatch]);
   return (
     <Elements stripe={stripePromise}>
       <ParticlesBackground />

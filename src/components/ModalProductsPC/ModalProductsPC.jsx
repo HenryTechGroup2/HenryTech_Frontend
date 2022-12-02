@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
 import { close } from '../../utils/Icons';
+import { useDispatch } from 'react-redux';
+import { deleteProductArmamentPC } from '../../redux/actions';
 const $modal = document.getElementById('mod');
 const ModalProductsPC = ({ product, open, handleClick }) => {
   const [productsMapInfo, setProductsInfo] = useState([]);
   const [button, setButton] = useState([]);
   const [carruzel, setCarruzel] = useState(0);
+  const dispatch = useDispatch();
   useEffect(() => {
     const buttons = [];
     product.forEach((_, index) => {
@@ -20,6 +23,11 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
   const handleClickCarruzel = (index) => {
     const carruzelPage = Number(index) * 23;
     setCarruzel(carruzelPage);
+  };
+  const handleClickDelete = (id) => {
+    console.log(id);
+    dispatch(deleteProductArmamentPC(id));
+    handleClick();
   };
   console.log(carruzel);
   return ReactDom.createPortal(
@@ -36,6 +44,9 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
             {productsMapInfo.map((produc) => (
               <div className='portal__map' key={produc?.product_id}>
                 <img className='portal__img' src={produc?.product_img} alt='' />
+                <button onClick={() => handleClickDelete(produc?.product_id)}>
+                  Delete
+                </button>
               </div>
             ))}
           </div>

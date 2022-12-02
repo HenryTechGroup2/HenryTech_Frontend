@@ -26,6 +26,7 @@ const Header = () => {
   const handleClickCloseSession = () => {
     dispatch(closeSession());
   };
+  console.log(userDates);
   return (
     <div className='header'>
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
@@ -44,9 +45,8 @@ const Header = () => {
         />
       </div>
       <div className='header__options'>
-        {userDates.hasOwnProperty('user_name') ? (
 
-        
+        {userDates?.hasOwnProperty('user_name') ? (
 
           <div className='header__i'>
             <Link to={`/micuenta/${userDates.user_id}`}>
@@ -77,13 +77,16 @@ const Header = () => {
           <ul className='header__ul'>
             <li className='carr'>
               <span>Car</span>
+
               <div className='header__carr'>
                 <div className='car__total'>
                   {car.length <= 0
                     ? 'No products added to cart'
                     : `Total:$${priceTotal}.00`}
                 </div>
-
+                <Link className='header__carl' to='/car'>
+                  Ver de manera completa
+                </Link>
                 {car?.map((product) => (
                   <CardCar key={product.product_id} product={product} />
                 ))}
