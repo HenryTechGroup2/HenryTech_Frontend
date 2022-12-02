@@ -1,10 +1,9 @@
-const Star = ({ detailsProduct, none = true }) => {
+const Star = ({ detailsReviews, none = true }) => {
   return (
     <p className='details__p'>
       <span className='details__rating'>
-        {'★'.repeat(detailsProduct?.product_rating).padEnd(5, '☆')}
+        {'★'.repeat(Math.floor(detailsReviews)).padEnd(5, '☆')}
       </span>
-      {/* {none && detailsProduct?.product_price} */}
     </p>
   );
 };

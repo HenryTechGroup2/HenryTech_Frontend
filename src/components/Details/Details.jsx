@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
+  CHANGE_ID_USER,
   deleteDetailsProducts,
+  FILTER_STAR,
   getDetailsProducts,
 } from '../../redux/actions.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +20,8 @@ import { ToastContainer } from 'react-toastify';
 import ButtonTop from '../ButtonTop/ButtonTop.jsx';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
 import FilterByRaiting from './FilterByRaiting.jsx';
+import axios from 'axios';
+import { api } from '../../redux/actions.js';
 export function Details() {
   const params = useParams();
 
@@ -26,25 +30,33 @@ export function Details() {
   const { detailsProduct } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
-  const { reviews } = useSelector((state) => state);
+
+  const { detailsReviews, reviews } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getDetailsProducts(params.id));
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
+
     return () => {
       dispatch(deleteDetailsProducts());
     };
-  }, [dispatch, params]);
+  }, []);
   const handleChangeImage = (image, index) => {
     setImagePrincipal(image);
     setBorderImage(index);
   };
-
+  const handleFilterStar = (evt) => {
+    const { value } = evt.currentTarget;
+    dispatch({ type: FILTER_STAR, payload: value });
+  };
   const images = detailsProduct?.product_array_img?.concat(
     detailsProduct?.product_img
   );
+  const promedioStar = reviews?.reduce((a, b) => a + b.review_score, 0);
+  const stars = promedioStar / reviews?.length;
+
   return (
     <>
       <Header />
@@ -70,7 +82,6 @@ export function Details() {
               ))}
         </div>
         <div className='details__center'>
-          {/* style={{ position: 'relative', zIndex: '1000' }} */}
           {imagePrincipal?.length > 0 ? (
             <div className='details__special'>
               <ReactImageMagnify
@@ -171,38 +182,41 @@ export function Details() {
           <div className='comentarios__div'>
             <div className='comentarios__star'>
               <div className='comentarios__rating'>
-                <div className='comentarios__cal'>
-                  {detailsProduct.product_rating}
-                </div>
+                <div className='comentarios__cal'>{Math.floor(stars)}</div>
                 <div className='comentarios__r'>
-                  <Star detailsProduct={detailsProduct} none={false} />
-                  {`297 calificaciones`}
+                  <Star detailsReviews={stars} none={false} />
+                  {`${detailsReviews?.length} calificaciones`}
                 </div>
               </div>
               <div></div>
             </div>
             <div className='comentarios__coment'>
-              <div>
-                <select>
+              <div className='comentarios__select'>
+                <select className='comentarios__slct'>
                   <option value='Ordenar'>Ordenar</option>
                   <option value='Ordenar'>Mas recientes</option>
                   <option value='Ordenar'>Mas utiles</option>
                 </select>
-                <div>
-                  <FilterByRaiting/>
-                </div>
-                <select>
-                  <option value='Calificacion'>Calificacion</option>{' '}
-                  <option value='Calificacion'>5★</option>{' '}
-                  <option value='Calificacion'>4★</option>{' '}
-                  <option value='Calificacion'>3★</option>{' '}
-                  <option value='Calificacion'>2★</option>{' '}
-                  <option value='Calificacion'>1★</option>
+                <div>{/* <FilterByRaiting /> */}</div>
+                <select
+                  onChange={handleFilterStar}
+                  className='comentarios__slct'
+                >
+                  <option value='Calificacion'>Calificacion</option>
+                  <option value='Todas'>Todas</option>
+                  <option value='5'>5★</option> <option value='4'>4★</option>{' '}
+                  <option value='3'>3★</option> <option value='2'>2★</option>{' '}
+                  <option value='1'>1★</option>
                 </select>
               </div>
-              <div>
-                {reviews?.map((review) => (
-                  <div>{review.review_title}</div>
+              <div className='comentarios__bottom'>
+                {detailsReviews?.map((review) => (
+                  <div className='comentarios__mapr'>
+                    <h3 className='comentarios__h3'>
+                      {String('★').repeat(review.review_score).padEnd(5, '☆')}
+                    </h3>
+                    <p className='comentarios__p'>{review.review_body}</p>
+                  </div>
                 ))}
               </div>
             </div>

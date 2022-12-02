@@ -13,7 +13,9 @@ export const DELETE_PC_PRODUCT = '@armament/delete';
 export const LOGIN_USER = '@user/login';
 export const ADD_ALL_FAVORITES = '@user/add-favorites';
 export const ADD_REVIEW_PRODUCT_REAL_TIME = '@review/add-real-time';
+export const CHANGE_ID_USER = '@user/changeId';
 export const DELETE_FAVORIT = '@favorit/delete';
+export const FILTER_STAR = '@filter/star';
 // export const api = 'https://henry-tech-backend.vercel.app';
 export const api = 'http://localhost:3001';
 export function getAllProducts() {
@@ -160,8 +162,6 @@ export function filterByBrand() {}
 export function orderByPopularity() {}
 
 export function addToCartProductsArmamentPC(products, price) {
-
-
   return {
     type: ADD_TO_CART_PC,
     payload: {
@@ -177,40 +177,40 @@ export function deleteProductArmamentPC(id) {
   };
 }
 
-
-
 export function getUser(id) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`http://localhost:3001/api/user/${id}`);
       return dispatch({
         type: 'GET_USER',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message)
-  }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 
-export function updateUser(payload, id){
-  try {
-    return async function(dispatch){
-      const result = await axios.put(`http://localhost:3001/api/user/${id}`,payload)
+export function updateUser(payload, id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.put(
+        `http://localhost:3001/api/user/${id}`,
+        payload
+      );
       return dispatch({
-          type: "PUT_UPDATE_USER",
-          payload: result.data
-      })
-  }
-  } catch (error) {
-    throw new Error(error.message)
-  }
+        type: 'PUT_UPDATE_USER',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 
-export function filterByRaiting (product_raiting) {
-  return ({
-      type: 'FILTER_BY_RAITING',
-      payload: product_raiting
-  })
+export function filterByRaiting(product_raiting) {
+  return {
+    type: 'FILTER_BY_RAITING',
+    payload: product_raiting,
+  };
 }
-

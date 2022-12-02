@@ -1276,3 +1276,47 @@
   &__open {
   }
 }
+.comentarios {
+  &__h2 {
+    margin: 0 0 1em 0;
+    padding: 0.3em;
+  }
+  &__div {
+    @include flex(row, wrap, start, start, 1em);
+  }
+  &__star {
+    align-self: start;
+  }
+  &__rating {
+  }
+  &__cal {
+  }
+  &__r {
+  }
+  &__coment {
+    background: #fff;
+    flex-grow: 1;
+    background: #232323;
+    padding: 1em 2em;
+    box-shadow: -0.2em -0.2em 0.3em #000;
+  }
+  &__select {
+    @include flex(row, nowrap, start, center, 0.4em);
+    margin: 0 0 2em 0;
+    border-radius: 0.5em;
+  }
+  &__slct {
+    @include background-defecto();
+    padding: 0.3em;
+    border-radius: 0.2em;
+  }
+  &__mapr {
+  }
+  &__h3 {
+    font-weight: 500;
+    color: $color-star;
+    font-size: 1.5em;
+  }
+  &__p {
+  }
+}
