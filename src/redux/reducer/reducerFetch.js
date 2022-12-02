@@ -38,7 +38,6 @@ const initialState = {
   // reviewsPc:[]
 
   detailsReviews: {},
-
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -457,30 +456,29 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         armamentPc: products,
       };
-
-      }
-    };
-
-    case "GET_USER": {
-      return {
-        ...state,
-        user: action.payload
-      }
-
     }
-    case "PUT_UPDATE_USER": {
+
+    case 'GET_USER': {
       return {
         ...state,
-        userDates: { ...state.userDates, ...action.payload }
-      }
+        user: action.payload,
+      };
+    }
+    case 'PUT_UPDATE_USER': {
+      return {
+        ...state,
+        userDates: { ...state.userDates, ...action.payload },
+      };
     }
 
     case 'FILTER_BY_RAITING': {
-      let productsByRaiting = state.detailsProduct.review.filter(e => e.review_score == action.payload)
+      let productsByRaiting = state.detailsProduct.review.filter(
+        (e) => e.review_score == action.payload
+      );
       return {
         ...state,
-        detailsReviews: {...state.detailsProduct, review: productsByRaiting}
-      }
+        detailsReviews: { ...state.detailsProduct, review: productsByRaiting },
+      };
     }
 
     default:
