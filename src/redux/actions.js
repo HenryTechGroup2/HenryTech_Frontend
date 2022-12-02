@@ -158,7 +158,10 @@ export function deleteDetailsProducts() {
 export function filterByBrand() {}
 
 export function orderByPopularity() {}
+
 export function addToCartProductsArmamentPC(products, price) {
+
+
   return {
     type: ADD_TO_CART_PC,
     payload: {
@@ -173,3 +176,41 @@ export function deleteProductArmamentPC(id) {
     payload: id,
   };
 }
+
+
+
+export function getUser(id) {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`http://localhost:3001/api/user/${id}`);
+      return dispatch({
+        type: 'GET_USER',
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export function updateUser(payload, id){
+  try {
+    return async function(dispatch){
+      const result = await axios.put(`http://localhost:3001/api/user/${id}`,payload)
+      return dispatch({
+          type: "PUT_UPDATE_USER",
+          payload: result.data
+      })
+  }
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export function filterByRaiting (product_raiting) {
+  return ({
+      type: 'FILTER_BY_RAITING',
+      payload: product_raiting
+  })
+}
+

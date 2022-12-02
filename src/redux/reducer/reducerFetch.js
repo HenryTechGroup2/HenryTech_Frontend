@@ -34,7 +34,11 @@ const initialState = {
   productsOfer: [],
   paymentUserDates: {},
   armamentPc: [],
+
   // reviewsPc:[]
+
+  detailsReviews: {},
+
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -406,6 +410,7 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
+
     case ARMAMENT_PC_PRODUCT: {
       let existProduct = state.armamentPc.find(
         ({ product_category, product_name }) =>
@@ -436,6 +441,7 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         car: [...state.car, ...action.payload.products],
         armamentPc: [],
+
         priceTotal: Number(state.priceTotal) + Number(action.payload.price),
       };
     }
@@ -451,7 +457,32 @@ export const reducerFetch = (state = initialState, action) => {
         ...state,
         armamentPc: products,
       };
+
+      }
+    };
+
+    case "GET_USER": {
+      return {
+        ...state,
+        user: action.payload
+      }
+
     }
+    case "PUT_UPDATE_USER": {
+      return {
+        ...state,
+        userDates: { ...state.userDates, ...action.payload }
+      }
+    }
+
+    case 'FILTER_BY_RAITING': {
+      let productsByRaiting = state.detailsProduct.review.filter(e => e.review_score == action.payload)
+      return {
+        ...state,
+        detailsReviews: {...state.detailsProduct, review: productsByRaiting}
+      }
+    }
+
     default:
       return state;
   }
