@@ -440,6 +440,10 @@ export const reducerFetch = (state = initialState, action) => {
           product_category === action.payload.product_category &&
           product_name === action.payload.product_name
       );
+      let existCategory = state.armamentPc.find(
+        ({ product_category }) =>
+          product_category === action.payload.product_category
+      );
       if (existProduct) {
         if (
           existProduct?.product_category === 'Ram' ||
@@ -453,6 +457,7 @@ export const reducerFetch = (state = initialState, action) => {
         }
         return state;
       }
+      if (existCategory) return state;
       action.payload.product_count = 1;
       return {
         ...state,
@@ -460,9 +465,23 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case ADD_TO_CART_PC: {
+      const newProductsToCart = [];
+      action.payload.products.forEach((productArmament) => {
+        state.car.forEach((product) => {
+          if (product.product_id === productArmament.product_id) {
+            product.product_count =
+              product.product_count + productArmament.product_count;
+            productArmament.productExistToCart = true;
+            return false;
+          }
+        });
+        if (productArmament?.productExistToCart) return;
+        return newProductsToCart.push(productArmament);
+      });
+      console.log(newProductsToCart);
       return {
         ...state,
-        car: [...state.car, ...action.payload.products],
+        car: [...state.car, ...newProductsToCart],
         armamentPc: [],
 
         priceTotal: Number(state.priceTotal) + Number(action.payload.price),

@@ -122,7 +122,7 @@ const ArmamentPc = () => {
                 />
               ))}
               <div className='pc__dates'>
-                <div className='pc__total'>Total: ${priceTotal}</div>
+                <div className='pc__total'>Total: ${priceTotal.toFixed(2)}</div>
                 {productsCategoryUnique.length >= 6 ? (
                   <button className='pc__buy' onClick={changePageComplete}>
                     To Buy
@@ -141,7 +141,7 @@ const ArmamentPc = () => {
                   <ul className='pc__ul'>
                     <div>
                       {armamentPc?.map((product) => (
-                        <li className='pc__li'>
+                        <li className='pc__li' key={product?.product_id}>
                           <span className='pc__span'>
                             {product.product_count}
                           </span>

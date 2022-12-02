@@ -1610,6 +1610,7 @@ li {
   padding: 1em 0 0 0;
   font-weight: bold;
   justify-items: start;
+  height: 5em;
 }
 .pc__price {
   padding: 0 0 1em 0;
