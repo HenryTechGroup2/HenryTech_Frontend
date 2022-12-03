@@ -13,27 +13,32 @@ import { loadStripe } from '@stripe/stripe-js';
 import TemporaryData from './pages/TemporaryData';
 import ArmamentPc from './pages/ArmamentPc';
 import ParticlesBackground from './components/Particles/ParticlesBackground';
-import { CAR, PASSWORD, USER } from './redux/storage/variables';
+import { AUTH0, CAR, PASSWORD, USER } from './redux/storage/variables';
 import axios from 'axios';
 import {
   ADD_ALL_FAVORITES,
   ADD_CART_LOCAL_STORAGE,
+  api,
   getAllProducts,
   LOGIN_USER,
 } from './redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import UpdateUser from './components/UpdateUser/UpdateUser';
 import MyAcount from './pages/MyAcount';
+import { useAuth0 } from '@auth0/auth0-react';
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
 );
 function App() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state);
+  const { products, car } = useSelector((state) => state);
+  const { loginWithRedirect } = useAuth0();
+
   useEffect(() => {
     const userLogin = window.localStorage.getItem(USER);
     const car = window.localStorage.getItem(CAR);
     const password = window.localStorage.getItem(PASSWORD);
+    const auth0Session = window.localStorage.getItem(AUTH0);
     const allProducts = () => {
       dispatch(getAllProducts());
     };
@@ -41,7 +46,14 @@ function App() {
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
       const userLocalStorage = async () => {
-        const data = await axios.post(`http://localhost:3001/api/user/login`, {
+        if (auth0Session === 'YES') {
+          const data = await axios.post(`${api}/api/user/login/auth0`, {
+            user_email: userExist[0].user_email,
+            user_name: userExist[0].user_name,
+          });
+          return await dispatch({ type: LOGIN_USER, payload: data.data });
+        }
+        const data = await axios.post(`${api}/api/user/login`, {
           user_email: userExist[0].user_email,
           user_password: password,
         });
@@ -57,11 +69,13 @@ function App() {
     }
     dispatch({ type: ADD_ALL_FAVORITES });
   }, []);
+
   useEffect(() => {
     dispatch({ type: ADD_ALL_FAVORITES });
   }, [products, dispatch]);
   return (
     <Elements stripe={stripePromise}>
+      {/* <div style={{ color: '#fff', fontSize: '100px' }}>Hola Mundo</div> */}
       <ParticlesBackground />
       <BrowserRouter>
         <Routes>

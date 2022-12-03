@@ -19,7 +19,7 @@ const ButtonFavorite = ({ product }) => {
       );
       return dispatch({ type: DELETE_FAVORIT, payload: product.product_id });
     }
-    const data = await axios.post('http://localhost:3001/api/favorite', {
+    await axios.post('http://localhost:3001/api/favorite', {
       user_id: userDates.user_id,
       product_id: product.product_id,
     });
@@ -32,7 +32,7 @@ const ButtonFavorite = ({ product }) => {
   return (
     <button
       className='product__btn'
-      disabled={userDates.hasOwnProperty('user_name') ? false : true}
+      disabled={userDates?.hasOwnProperty('user_name') ? false : true}
       onClick={handleAddFavorit}
     >
       {favoritState === true ? favorit : notFavorit}

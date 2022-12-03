@@ -5,11 +5,13 @@ import { close } from '../../utils/Icons';
 import axios from 'axios';
 import { api, LOGIN_USER } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 const INITIAL_STATE = {
   email: '',
   password: '',
 };
 const Modal = ({ open, handleOpenModalSession }) => {
+  const { loginWithRedirect } = useAuth0();
   const [login, setLogin] = useState(INITIAL_STATE);
   const dispatch = useDispatch();
   const handleSubmit = async (evt) => {
@@ -33,6 +35,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
   };
   const $modal = document.getElementById('modal');
   //Un portal es una nueva div en el html de react que se utiliza para que no haya inconveniencia con la modal y pueda aplicar el fondo difuminado
+
   return ReactDom.createPortal(
     <div
       className='modal'
@@ -72,6 +75,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
             </Link>
           </div>
         </form>
+        <button onClick={() => loginWithRedirect()}>Log In</button>
       </div>
     </div>,
     $modal

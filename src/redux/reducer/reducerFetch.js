@@ -8,6 +8,8 @@ import {
   CAR_MODIFIER,
   CHANGE_ID_USER,
   CREATE_USER,
+  CREATE_USER_AUTH0,
+  DELETE_CART,
   DELETE_DETAILS,
   DELETE_FAVORIT,
   DELETE_PC_PRODUCT,
@@ -18,7 +20,7 @@ import {
   USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
-import { CAR, USER } from '../storage/variables';
+import { AUTH0, CAR, USER } from '../storage/variables';
 const initialState = {
   products: [],
   userlogin: false,
@@ -113,6 +115,7 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case LOGIN_USER: {
+      console.log(action.payload);
       return {
         ...state,
         userDates: action.payload,
@@ -120,8 +123,20 @@ export const reducerFetch = (state = initialState, action) => {
         copieProducts: state.products,
       };
     }
+    case CREATE_USER_AUTH0: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      window.localStorage.setItem(AUTH0, 'YES');
+      return {
+        ...state,
+        userlogin: true,
+        userDates: action.payload,
+      };
+    }
     case USER_CLOSE: {
       window.localStorage.removeItem(USER);
+      window.localStorage.removeItem(AUTH0);
+
       state.products.forEach((product) => {
         return (product.product_favorite = false);
       });
@@ -220,7 +235,10 @@ export const reducerFetch = (state = initialState, action) => {
       const products = state.car.filter(
         (product) => product.product_id !== action.payload.id
       );
-
+      const productDelete = state.car.find(
+        ({ product_id }) => product_id === action.payload.id
+      );
+      productDelete.productExistToCart = false;
       state = {
         ...state,
         car: products,
@@ -228,6 +246,12 @@ export const reducerFetch = (state = initialState, action) => {
       };
       window.localStorage.setItem(CAR, JSON.stringify(state.car));
       return state;
+    }
+    case DELETE_CART: {
+      return {
+        ...state,
+        car: [],
+      };
     }
     case CAR_MODIFIER: {
       const order = [...state.car];

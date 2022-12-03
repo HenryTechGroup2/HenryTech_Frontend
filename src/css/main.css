@@ -83,6 +83,48 @@ li {
   align-items: center;
 }
 
+.stripe {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  backdrop-filter: blur(1em);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  z-index: 500;
+}
+.stripe__div {
+  position: relative;
+  width: 18em;
+  height: 18em;
+  background: #fff;
+  color: #000;
+  border-radius: 0.5em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.stripe__p {
+  padding: 1.5em;
+  width: 100%;
+  font-weight: bold;
+}
+.stripe__span {
+  display: inline-block;
+  align-self: flex-end;
+  margin: 0 3em 1.5em 0;
+  font-weight: bold;
+}
+.stripe__img {
+  width: 5em;
+  height: 5em;
+}
+
 .spinner {
   width: 8em;
   height: 8em;
