@@ -169,10 +169,9 @@ export function deleteProductArmamentPC(id) {
 }
 
 export function getUser(id) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/user/${id}`);
-
 
       return dispatch({
         type: 'GET_USER',
@@ -183,7 +182,6 @@ export function getUser(id) {
     }
   };
 }
-
 
 export function updateUser(payload, id) {
   return async function (dispatch) {
@@ -209,17 +207,17 @@ export function filterByRaiting(product_raiting) {
   };
 }
 
-export function postCreateProduct(payload){
+export function postCreateProduct(payload) {
   try {
-    return async function(dispatch){
-      const result = await axios.post(`${api}/api/product`,payload)
+    return async function (dispatch) {
+      const result = await axios.post(`${api}/api/product`, payload);
       return dispatch({
-          type: "POST_CREATE_PRODUCT",
-          payload: result.data
-      })
-  }    
+        type: 'POST_CREATE_PRODUCT',
+        payload: result.data,
+      });
+    };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
 
@@ -233,7 +231,7 @@ export function getUsers() {
       });
     };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
 export function getInvoice() {
@@ -246,7 +244,7 @@ export function getInvoice() {
       });
     };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
 export function getReviews() {
@@ -259,7 +257,6 @@ export function getReviews() {
       });
     };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
-

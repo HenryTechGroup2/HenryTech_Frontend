@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store/store.js';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
@@ -15,12 +16,11 @@ root.render(
     redirectUri={window.location.origin}
   >
     <Provider store={store}>
-     <ProSidebarProvider>
-      <App />
-       </ProSidebarProvider>
+      <ProSidebarProvider>
+        <App />
+      </ProSidebarProvider>
     </Provider>
   </Auth0Provider>
-
 );
 
 // If you want to start measuring performance in your app, pass a function
