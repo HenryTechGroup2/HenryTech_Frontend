@@ -548,7 +548,30 @@ export const reducerFetch = (state = initialState, action) => {
         detailsReviews: { ...state.detailsProduct, review: productsByRaiting },
       };
     }
-
+    case "POST_CREATE_PRODUCT":{
+      return{
+        ...state,
+        products:[...state.products, action.payload]
+      }
+    }
+    case "GET_USERS":{
+      return{
+        ...state,
+        users: action.payload
+      }
+    }
+    case "GET_INVOICE":{
+      return{
+        ...state,
+        invoices: action.payload
+      }
+    }
+    case "GET_REVIEWS":{
+      return{
+        ...state,
+        reviews: action.payload
+      }
+    }
     default:
       return state;
   }
