@@ -1,5 +1,55 @@
 @import './imports/reset.scss', './imports/mixins.scss',
   './imports/variables.scss';
+.errors {
+  color: #ff0000;
+  font-weight: bold;
+}
+.loader {
+  width: 100vw;
+  height: calc(100vh - 5.5em);
+  @include flex(row, nowrap, center, center, 0);
+}
+.stripe {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  backdrop-filter: blur(1em);
+  @include flex(row, nowrap, center, center, 0);
+  z-index: 500;
+  &__div {
+    position: relative;
+    width: 18em;
+    height: 18em;
+    background: #fff;
+    color: #000;
+    border-radius: 0.5em;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__p {
+    padding: 1.5em;
+    width: 100%;
+    font-weight: bold;
+  }
+  &__span {
+    display: inline-block;
+    align-self: flex-end;
+    margin: 0 3em 1.5em 0;
+    font-weight: bold;
+  }
+  &__img {
+    width: 5em;
+    height: 5em;
+  }
+}
+.spinner {
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+  border: 1em solid #fff;
+  border-bottom-color: blue;
+  animation: spinner infinite 2s linear;
+}
 .btn-top {
   position: fixed;
   z-index: 100;
@@ -17,7 +67,6 @@
 .body {
   overflow: hidden;
 }
-
 .home {
   &__carruzel {
     display: flex;
@@ -333,7 +382,7 @@
     height: 30em;
     background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
     border-radius: 1em;
-    @include flex(column, nowrap, center, center, 1.2em);
+    @include flex(column, nowrap, center, center, 1.4em);
   }
   &__input {
     @include input-defecto(0.4em, 0.9em, 22em) // @include f;
@@ -344,6 +393,18 @@
   }
   &__button {
     @include button-principal();
+  }
+  &__span {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: -20px;
+    color: red;
+    font-size: 1.045em;
+  }
+  &__validate {
+    position: relative;
+    @include flex(column, nowrap, center, center, 0);
   }
 }
 .aside {
@@ -614,28 +675,32 @@
     z-index: 1;
   }
   &__dpago {
-    @include flex(row, wrap, start, center, 0);
+    margin: 3em 0 0 0;
+    @include flex(row, wrap, center, start, 1em);
     height: 100%;
   }
   &__bottom {
     padding: 2em;
     line-height: 1.5;
     font-size: 1.2em;
-    width: 50%;
-    flex-grow: 2;
+    width: 35em;
+    height: 26em;
+    background: #333;
+    box-shadow: 0.1em 0.1em 0.3em 0.1em #000;
+    border-radius: 0.5em;
   }
   &__pago {
     // flex-grow: 1;
     margin: 2em 1em 0 0;
     line-height: 1.5;
     font-size: 1.2em;
-    background: #fff;
+    background: #333;
     height: 15em;
     box-shadow: 0.4em 0.2em 0.3em #000;
     border-radius: 0.5em;
   }
   &__span {
-    color: #000;
+    color: #fff;
     font-size: 1em;
     display: block;
     text-align: center;
@@ -1007,6 +1072,7 @@
     padding: 1em 0 0 0;
     font-weight: bold;
     justify-items: start;
+    height: 5em;
     // align-self: flex-start;
   }
   &__price {
@@ -1274,5 +1340,57 @@
     height: 14em;
   }
   &__open {
+  }
+}
+.comentarios {
+  &__h2 {
+    margin: 0 0 1em 0;
+    padding: 0.3em;
+  }
+  &__div {
+    @include flex(row, wrap, start, start, 1em);
+  }
+  &__star {
+    align-self: start;
+  }
+  &__rating {
+  }
+  &__cal {
+  }
+  &__r {
+  }
+  &__coment {
+    background: #fff;
+    flex-grow: 1;
+    background: #232323;
+    padding: 1em 2em;
+    box-shadow: -0.2em -0.2em 0.3em #000;
+  }
+  &__select {
+    @include flex(row, nowrap, start, center, 0.4em);
+    margin: 0 0 2em 0;
+    border-radius: 0.5em;
+  }
+  &__slct {
+    @include background-defecto();
+    padding: 0.3em;
+    border-radius: 0.2em;
+  }
+  &__mapr {
+  }
+  &__h3 {
+    font-weight: 500;
+    color: $color-star;
+    font-size: 1.5em;
+  }
+  &__p {
+  }
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

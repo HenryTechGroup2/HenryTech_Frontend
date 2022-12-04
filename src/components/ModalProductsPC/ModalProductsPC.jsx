@@ -25,11 +25,9 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
     setCarruzel(carruzelPage);
   };
   const handleClickDelete = (id) => {
-    console.log(id);
     dispatch(deleteProductArmamentPC(id));
     handleClick();
   };
-  console.log(carruzel);
   return ReactDom.createPortal(
     <div className='portal'>
       <div className='portal__div'>
@@ -54,6 +52,7 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
         <div className='portal__buttons'>
           {button.map((btn, index) => (
             <button
+              key={index}
               onClick={() => handleClickCarruzel(index)}
               name={btn}
               className='portal__btn'

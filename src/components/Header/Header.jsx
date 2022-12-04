@@ -1,34 +1,64 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { closeSession, FILTER_SEARCH, pageHome } from '../../redux/actions';
+import {
+  api,
+  closeSession,
+  CREATE_USER,
+  CREATE_USER_AUTH0,
+  FILTER_SEARCH,
+  pageHome,
+} from '../../redux/actions';
 import { cartHeader, pc, userLogin } from '../../utils/Icons';
 import CardCar from '../CardCar/CardCar';
 import Modal from '../Modal/Modal';
 import Payment from '../Payment/Payment';
 import UpdateInfo from '../UpdateInfo/UpdateInfo';
-
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+import axios from 'axios';
+import ModalPayment from '../ModalPayment/ModalPayment';
 const Header = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  const { logout, user } = useAuth0();
   const [open, setOpen] = useState(null);
   const { userDates, car, priceTotal, filters } = useSelector((state) => state);
+  useEffect(() => {
+    const auth0Autentication = async () => {
+      const data = await axios.post(`${api}/api/user/login/auth0`, {
+        user_email: user?.email,
+        user_name: user?.given_name,
+      });
+      console.log(data);
+      dispatch({ type: CREATE_USER_AUTH0, payload: data.data });
+    };
+    auth0Autentication();
+  }, [user]);
+
   const handleOpenModalSession = (change) => {
     setOpen(change);
     document.body.classList.toggle('body');
   };
   const dispatch = useDispatch();
+
   const handleChangeProductFilter = (evt) => {
     const { value } = evt.currentTarget;
     dispatch({ type: FILTER_SEARCH, payload: value });
   };
+
   const handleClick = () => {
     dispatch(pageHome());
   };
+
   const handleClickCloseSession = () => {
     dispatch(closeSession());
+    logout({ returnTo: window.location.origin });
   };
-  console.log(userDates);
+
   return (
     <div className='header'>
+      <ModalPayment />
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
       <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>
@@ -45,13 +75,11 @@ const Header = () => {
         />
       </div>
       <div className='header__options'>
-
         {userDates?.hasOwnProperty('user_name') ? (
-
           <div className='header__i'>
             <Link to={`/micuenta/${userDates.user_id}`}>
-          <i>{userLogin}</i>
-        </Link>
+              <i>{userLogin}</i>
+            </Link>
             <button
               className='header__session'
               onClick={handleClickCloseSession}
@@ -59,9 +87,9 @@ const Header = () => {
               Cerrar sesion
             </button>
           </div>
-
         ) : (
           <span
+            title='Login'
             className='header__login'
             onClick={() => handleOpenModalSession('open')}
           >
@@ -69,8 +97,8 @@ const Header = () => {
           </span>
         )}
 
-        <div title='Armament PC'>
-          <Link to='armament'>{pc}</Link>
+        <div title='Armamento PC'>
+          <Link to='/armament-pc'>{pc}</Link>
         </div>
         <div className='header__hover' title='Cart'>
           {cartHeader} <span className='header__length'>{car.length}</span>
@@ -107,11 +135,7 @@ const Header = () => {
                   </div>
                 </li>
               </>
-            ) : (
-              <li className='make'>
-                <Link to='temporary-data'>Add dates</Link>
-              </li>
-            )}
+            ) : null}
           </ul>
         </div>
       </div>
