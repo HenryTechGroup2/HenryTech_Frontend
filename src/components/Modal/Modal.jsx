@@ -5,23 +5,29 @@ import { close } from '../../utils/Icons';
 import axios from 'axios';
 import { api, LOGIN_USER } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 const INITIAL_STATE = {
   email: '',
   password: '',
 };
 const Modal = ({ open, handleOpenModalSession }) => {
+  const { loginWithRedirect } = useAuth0();
   const [login, setLogin] = useState(INITIAL_STATE);
+  const [responseBackend, setResponseBackend] = useState(null);
   const dispatch = useDispatch();
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const data = await axios.post(`${api}/api/user/login`, {
-      user_email: login.email,
-      user_password: login.password,
-    });
-    if (data.status === 200) {
+    try {
+      const data = await axios.post(`${api}/api/user/login`, {
+        user_email: login.email,
+        user_password: login.password,
+      });
       dispatch({ type: LOGIN_USER, payload: data.data.user });
       handleOpenModalSession(null);
       return setLogin(INITIAL_STATE);
+    } catch (error) {
+      setTimeout(() => setResponseBackend(null), 2500);
+      return setResponseBackend(error.response.data.message);
     }
   };
   const handleChange = (evt) => {
@@ -33,6 +39,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
   };
   const $modal = document.getElementById('modal');
   //Un portal es una nueva div en el html de react que se utiliza para que no haya inconveniencia con la modal y pueda aplicar el fondo difuminado
+
   return ReactDom.createPortal(
     <div
       className='modal'
@@ -66,12 +73,18 @@ const Modal = ({ open, handleOpenModalSession }) => {
             type='password'
           />
           <div className='modal__acount'>
-            <button className='modal__button'>Login</button>
+            <button type='submit' className='modal__button'>
+              Login
+            </button>
             <Link className='links modal__link' to='/register'>
               You have an account?
             </Link>
           </div>
+          <div className='errors'>
+            {responseBackend === null ? null : responseBackend}
+          </div>
         </form>
+        <button onClick={() => loginWithRedirect()}>Log In</button>
       </div>
     </div>,
     $modal

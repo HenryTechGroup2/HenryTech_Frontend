@@ -8,6 +8,8 @@ import {
   CAR_MODIFIER,
   CHANGE_ID_USER,
   CREATE_USER,
+  CREATE_USER_AUTH0,
+  DELETE_CART,
   DELETE_DETAILS,
   DELETE_FAVORIT,
   DELETE_PC_PRODUCT,
@@ -18,7 +20,7 @@ import {
   USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
-import { CAR, USER } from '../storage/variables';
+import { AUTH0, CAR, USER } from '../storage/variables';
 const initialState = {
   products: [],
   userlogin: false,
@@ -39,6 +41,12 @@ const initialState = {
   loadingReviews: false,
   loadingHome: false,
   detailsReviews: [],
+  validateRegister: {
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  },
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -120,8 +128,20 @@ export const reducerFetch = (state = initialState, action) => {
         copieProducts: state.products,
       };
     }
+    case CREATE_USER_AUTH0: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      window.localStorage.setItem(AUTH0, 'YES');
+      return {
+        ...state,
+        userlogin: true,
+        userDates: action.payload,
+      };
+    }
     case USER_CLOSE: {
       window.localStorage.removeItem(USER);
+      window.localStorage.removeItem(AUTH0);
+
       state.products.forEach((product) => {
         return (product.product_favorite = false);
       });
@@ -220,7 +240,10 @@ export const reducerFetch = (state = initialState, action) => {
       const products = state.car.filter(
         (product) => product.product_id !== action.payload.id
       );
-
+      const productDelete = state.car.find(
+        ({ product_id }) => product_id === action.payload.id
+      );
+      productDelete.productExistToCart = false;
       state = {
         ...state,
         car: products,
@@ -228,6 +251,12 @@ export const reducerFetch = (state = initialState, action) => {
       };
       window.localStorage.setItem(CAR, JSON.stringify(state.car));
       return state;
+    }
+    case DELETE_CART: {
+      return {
+        ...state,
+        car: [],
+      };
     }
     case CAR_MODIFIER: {
       const order = [...state.car];
@@ -440,6 +469,10 @@ export const reducerFetch = (state = initialState, action) => {
           product_category === action.payload.product_category &&
           product_name === action.payload.product_name
       );
+      let existCategory = state.armamentPc.find(
+        ({ product_category }) =>
+          product_category === action.payload.product_category
+      );
       if (existProduct) {
         if (
           existProduct?.product_category === 'Ram' ||
@@ -453,6 +486,7 @@ export const reducerFetch = (state = initialState, action) => {
         }
         return state;
       }
+      if (existCategory) return state;
       action.payload.product_count = 1;
       return {
         ...state,
@@ -460,9 +494,23 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case ADD_TO_CART_PC: {
+      const newProductsToCart = [];
+      action.payload.products.forEach((productArmament) => {
+        state.car.forEach((product) => {
+          if (product.product_id === productArmament.product_id) {
+            product.product_count =
+              product.product_count + productArmament.product_count;
+            productArmament.productExistToCart = true;
+            return false;
+          }
+        });
+        if (productArmament?.productExistToCart) return;
+        return newProductsToCart.push(productArmament);
+      });
+      console.log(newProductsToCart);
       return {
         ...state,
-        car: [...state.car, ...action.payload.products],
+        car: [...state.car, ...newProductsToCart],
         armamentPc: [],
 
         priceTotal: Number(state.priceTotal) + Number(action.payload.price),

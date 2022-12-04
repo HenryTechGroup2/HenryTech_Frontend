@@ -52,6 +52,7 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
         <div className='portal__buttons'>
           {button.map((btn, index) => (
             <button
+              key={index}
               onClick={() => handleClickCarruzel(index)}
               name={btn}
               className='portal__btn'
