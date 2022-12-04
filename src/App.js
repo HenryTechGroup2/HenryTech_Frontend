@@ -26,11 +26,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import UpdateUser from './components/UpdateUser/UpdateUser';
 import MyAcount from './pages/MyAcount';
 
-import Dashboard from "./scenes/dashboard/Dashboard.jsx"
+import Dashboard from './scenes/dashboard/Dashboard.jsx';
 import Users from './scenes/Users.jsx';
-import Products from "./scenes/Products.jsx"
+import Products from './scenes/Products.jsx';
 import Invoices from './scenes/Invoices.jsx';
-import Reviews from "./scenes/Reviews.jsx";
+import Reviews from './scenes/Reviews.jsx';
 import CreateProducts from './scenes/CreateProducts';
 
 import { useAuth0 } from '@auth0/auth0-react';
@@ -84,7 +84,6 @@ function App() {
   }, [products, dispatch]);
   return (
     <Elements stripe={stripePromise}>
-      {/* <div style={{ color: '#fff', fontSize: '100px' }}>Hola Mundo</div> */}
       <ParticlesBackground />
       <BrowserRouter>
         <Routes>
@@ -100,13 +99,16 @@ function App() {
           <Route exact path='/products/:id' element={<Details />} />
           <Route exact path='/micuenta/:id' element={<MyAcount />} />
           <Route exact path='/actualiza/:id' element={<UpdateUser />} />
-          <Route exact path='/admin' element={<Dashboard/>} />
-          <Route exact path='/admin/users' element={<Users/>} />
-          <Route exact path='/admin/products' element={<Products/>} />
-          <Route exact path='/admin/invoices' element={<Invoices/>} />
-          <Route exact path='/admin/reviews' element={<Reviews/>} />
-          <Route exact path='/admin/products/crearproducto' element={<CreateProducts/>} />
-
+          <Route exact path='/admin' element={<Dashboard />} />
+          <Route exact path='/admin/users' element={<Users />} />
+          <Route exact path='/admin/products' element={<Products />} />
+          <Route exact path='/admin/invoices' element={<Invoices />} />
+          <Route exact path='/admin/reviews' element={<Reviews />} />
+          <Route
+            exact
+            path='/admin/products/crearproducto'
+            element={<CreateProducts />}
+          />
         </Routes>
       </BrowserRouter>
     </Elements>
