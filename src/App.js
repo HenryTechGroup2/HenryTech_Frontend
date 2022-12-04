@@ -41,24 +41,21 @@ function App() {
     const userLogin = window.localStorage.getItem(USER);
     const car = window.localStorage.getItem(CAR);
     const password = window.localStorage.getItem(PASSWORD);
-    const allProducts = async () => {
-      await dispatch(getAllProducts());
+    const allProducts = () => {
+      dispatch(getAllProducts());
     };
     allProducts();
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
-      console.log(userExist);
       const userLocalStorage = async () => {
         const data = await axios.post(`http://localhost:3001/api/user/login`, {
           user_email: userExist[0].user_email,
           user_password: password,
         });
-        console.log(data);
-        dispatch({ type: LOGIN_USER, payload: data.data.user });
+        await dispatch({ type: LOGIN_USER, payload: data.data.user });
       };
       userLocalStorage();
     }
-    console.log(JSON.parse(car));
     if (car) {
       dispatch({
         type: ADD_CART_LOCAL_STORAGE,
@@ -73,30 +70,27 @@ function App() {
   return (
     <Elements stripe={stripePromise}>
       <ParticlesBackground />
-
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/armament-pc' element={<ArmamentPc />} />
           <Route path='/register' element={<Register />} />
-
           <Route path='/car' element={<Car />} />
-
-          <Route path='temporary-data' element={<TemporaryData />} />
-          <Route path='armament' element={<ArmamentPc />} />
-
-          <Route path='/home' />
-          <Route exact path='/product' element={<ProductByName />} />
+          <Route path='/temporary-data' element={<TemporaryData />} />
+          <Route path='/product' element={<ProductByName />} />
           <Route path='/preguntasfrecuentes' element={<Questions />} />
           <Route path='/sobrenosotros' element={<Aboutus />} />
-          <Route exact path='/products/:id' element={<Details />} />
-          <Route exact path='/micuenta/:id' element={<MyAcount />} />
-          <Route exact path='/actualiza/:id' element={<UpdateUser />} />
+
           <Route exact path='/admin' element={<Dashboard/>} />
           <Route exact path='/admin/users' element={<Users/>} />
           <Route exact path='/admin/products' element={<Products/>} />
           <Route exact path='/admin/invoices' element={<Invoices/>} />
           <Route exact path='/admin/reviews' element={<Reviews/>} />
           <Route exact path='/admin/products/crearproducto' element={<CreateProducts/>} />
+          <Route path='/products/:id' element={<Details />} />
+          <Route path='/micuenta/:id' element={<MyAcount />} />
+          <Route path='/actualiza/:id' element={<UpdateUser />} />
+
         </Routes>
       </BrowserRouter>
     </Elements>

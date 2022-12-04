@@ -14,7 +14,6 @@ const ButtonFavorite = ({ product }) => {
     evt.stopPropagation();
     setFavoritState(!favoritState);
     if (product?.product_favorite === true) {
-      console.log(userDates.user_id, product.product_id);
       await axios.delete(
         `http://localhost:3001/api/favorite/${userDates.user_id}/${product.product_id}`
       );
@@ -30,7 +29,6 @@ const ButtonFavorite = ({ product }) => {
     setFavoritState(product?.product_favorite);
   }, [product?.product_favorite, state]);
 
-  console.log(product);
   return (
     <button
       className='product__btn'

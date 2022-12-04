@@ -60,14 +60,14 @@ const Questions = () => {
       </p>
       <div className='questions__div'>
         {question.map((quest, index) => (
-          <>
+          <React.Fragment key={index}>
             <h2 onClick={() => handleClick(index)} className='questions__h2'>
               {quest.title}
             </h2>
             <p className={`questions__p ${open === index ? 'v' : ''}`}>
               {quest.description}{' '}
             </p>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

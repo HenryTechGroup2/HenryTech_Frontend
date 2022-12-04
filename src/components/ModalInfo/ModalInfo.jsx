@@ -19,7 +19,6 @@ const ModalInfo = ({ product, open, handleClick }) => {
     if (acordeon === index) return setAcordeon(null);
     setAcordeon(index);
   };
-  console.log(acordeon);
   return ReactDom.createPortal(
     <div
       className='info'
@@ -34,7 +33,7 @@ const ModalInfo = ({ product, open, handleClick }) => {
         </i>
         <div className='info__acordeon'>
           {informacion.map((info, index) => (
-            <div>
+            <div key={index}>
               <h3
                 onClick={() => handleClickDeploy(index)}
                 className='info__name'

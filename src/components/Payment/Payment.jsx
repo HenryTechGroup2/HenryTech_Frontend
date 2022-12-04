@@ -8,7 +8,6 @@ const Payment = () => {
   const { userDates, car } = useSelector((state) => state);
   const stripe = useStripe();
   const elements = useElements();
-  console.log(stripe);
   async function handleSubmit(evt) {
     evt.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -22,7 +21,6 @@ const Payment = () => {
         amount: car,
       });
       elements.getElement(CardElement).clear();
-      console.log(data);
     }
   }
   return (

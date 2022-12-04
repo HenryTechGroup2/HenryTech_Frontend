@@ -26,7 +26,6 @@ const Header = () => {
   const handleClickCloseSession = () => {
     dispatch(closeSession());
   };
-  console.log(userDates);
   return (
     <div className='header'>
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
@@ -45,13 +44,11 @@ const Header = () => {
         />
       </div>
       <div className='header__options'>
-
         {userDates?.hasOwnProperty('user_name') ? (
-
           <div className='header__i'>
             <Link to={`/micuenta/${userDates.user_id}`}>
-          <i>{userLogin}</i>
-        </Link>
+              <i>{userLogin}</i>
+            </Link>
             <button
               className='header__session'
               onClick={handleClickCloseSession}
@@ -59,7 +56,6 @@ const Header = () => {
               Cerrar sesion
             </button>
           </div>
-
         ) : (
           <span
             className='header__login'
@@ -70,7 +66,7 @@ const Header = () => {
         )}
 
         <div title='Armament PC'>
-          <Link to='armament'>{pc}</Link>
+          <Link to='/armament-pc'>{pc}</Link>
         </div>
         <div className='header__hover' title='Cart'>
           {cartHeader} <span className='header__length'>{car.length}</span>
@@ -107,11 +103,7 @@ const Header = () => {
                   </div>
                 </li>
               </>
-            ) : (
-              <li className='make'>
-                <Link to='temporary-data'>Add dates</Link>
-              </li>
-            )}
+            ) : null}
           </ul>
         </div>
       </div>

@@ -73,6 +73,25 @@ li {
   text-decoration: none;
 }
 
+.loader {
+  width: 100vw;
+  height: calc(100vh - 5.5em);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+
+.spinner {
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+  border: 1em solid #fff;
+  border-bottom-color: blue;
+  animation: spinner infinite 2s linear;
+}
+
 .btn-top {
   position: fixed;
   z-index: 100;
@@ -992,31 +1011,35 @@ li {
   z-index: 1;
 }
 .details__dpago {
+  margin: 3em 0 0 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: start;
-  gap: 0;
-  align-content: center;
+  justify-content: center;
+  gap: 1em;
+  align-content: start;
   height: 100%;
 }
 .details__bottom {
   padding: 2em;
   line-height: 1.5;
   font-size: 1.2em;
-  width: 50%;
-  flex-grow: 2;
+  width: 35em;
+  height: 26em;
+  background: #333;
+  box-shadow: 0.1em 0.1em 0.3em 0.1em #000;
+  border-radius: 0.5em;
 }
 .details__pago {
   margin: 2em 1em 0 0;
   line-height: 1.5;
   font-size: 1.2em;
-  background: #fff;
+  background: #333;
   height: 15em;
   box-shadow: 0.4em 0.2em 0.3em #000;
   border-radius: 0.5em;
 }
 .details__span {
-  color: #000;
+  color: #fff;
   font-size: 1em;
   display: block;
   text-align: center;
@@ -1844,6 +1867,54 @@ li {
 }
 .info .x {
   height: 14em;
+}
+.comentarios__h2 {
+  margin: 0 0 1em 0;
+  padding: 0.3em;
+}
+.comentarios__div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  gap: 1em;
+  align-content: start;
+}
+.comentarios__star {
+  align-self: start;
+}
+.comentarios__coment {
+  background: #fff;
+  flex-grow: 1;
+  background: #232323;
+  padding: 1em 2em;
+  box-shadow: -0.2em -0.2em 0.3em #000;
+}
+.comentarios__select {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  gap: 0.4em;
+  align-items: center;
+  margin: 0 0 2em 0;
+  border-radius: 0.5em;
+}
+.comentarios__slct {
+  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  padding: 0.3em;
+  border-radius: 0.2em;
+}
+.comentarios__h3 {
+  font-weight: 500;
+  color: #ffa41c;
+  font-size: 1.5em;
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

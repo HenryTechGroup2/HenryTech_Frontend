@@ -25,11 +25,9 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
     setCarruzel(carruzelPage);
   };
   const handleClickDelete = (id) => {
-    console.log(id);
     dispatch(deleteProductArmamentPC(id));
     handleClick();
   };
-  console.log(carruzel);
   return ReactDom.createPortal(
     <div className='portal'>
       <div className='portal__div'>
