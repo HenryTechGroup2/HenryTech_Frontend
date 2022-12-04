@@ -12,7 +12,7 @@ export default function GetFilters() {
   let maxPrice = Math.max(...allprices);
   let minPrice = Math.min(...allprices);
   let inicialstate = {
-    price: minPrice,
+    price: maxPrice,
     category: [],
     brand: [],
   };
