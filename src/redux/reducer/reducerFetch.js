@@ -23,6 +23,7 @@ import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { AUTH0, CAR, USER } from '../storage/variables';
 const initialState = {
   products: [],
+  invoices: [],
   userlogin: false,
   userDates: {},
   car: [],
@@ -548,29 +549,29 @@ export const reducerFetch = (state = initialState, action) => {
         detailsReviews: { ...state.detailsProduct, review: productsByRaiting },
       };
     }
-    case "POST_CREATE_PRODUCT":{
-      return{
+    case 'POST_CREATE_PRODUCT': {
+      return {
         ...state,
-        products:[...state.products, action.payload]
-      }
+        products: [...state.products, action.payload],
+      };
     }
-    case "GET_USERS":{
-      return{
+    case 'GET_USERS': {
+      return {
         ...state,
-        users: action.payload
-      }
+        users: action.payload,
+      };
     }
-    case "GET_INVOICE":{
-      return{
+    case 'GET_INVOICE': {
+      return {
         ...state,
-        invoices: action.payload
-      }
+        invoices: action.payload,
+      };
     }
-    case "GET_REVIEWS":{
-      return{
+    case 'GET_REVIEWS': {
+      return {
         ...state,
-        reviews: action.payload
-      }
+        reviews: action.payload,
+      };
     }
     default:
       return state;
