@@ -35,18 +35,6 @@ export function createUser(user) {
     payload: user,
   };
 }
-//Llamar al stock de productos
-export function getStockProducts() {
-  return async function (dispatch) {
-    try {
-      const result = await axios.get('https://fakestoreapi.com/getstock');
-      return dispatch({
-        type: 'GET_STOCK_PRODUCTS',
-        payload: result.data,
-      });
-    } catch (error) {}
-  };
-}
 
 export function getDetailsProducts(id) {
   try {
@@ -182,7 +170,7 @@ export function deleteProductArmamentPC(id) {
 export function getUser(id) {
   try {
     return async function (dispatch) {
-      const result = await axios.get(`http://localhost:3001/api/user/${id}`);
+      const result = await axios.get(`${api}/api/user/${id}`);
       return dispatch({
         type: 'GET_USER',
         payload: result.data,
@@ -196,7 +184,7 @@ export function getUser(id) {
 export function updateUser(payload, id){
   try {
     return async function(dispatch){
-      const result = await axios.put(`http://localhost:3001/api/user/${id}`,payload)
+      const result = await axios.put(`${api}/api/user/${id}`,payload)
       return dispatch({
           type: "PUT_UPDATE_USER",
           payload: result.data
@@ -214,3 +202,56 @@ export function filterByRaiting (product_raiting) {
   })
 }
 
+export function postCreateProduct(payload){
+  try {
+    return async function(dispatch){
+      const result = await axios.post(`${api}/api/product`,payload)
+      return dispatch({
+          type: "POST_CREATE_PRODUCT",
+          payload: result.data
+      })
+  }    
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export function getUsers() {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`${api}/api/user`);
+      return dispatch({
+        type: 'GET_USERS',
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+export function getInvoice() {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`${api}/api/invoice`);
+      return dispatch({
+        type: 'GET_INVOICE',
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+export function getReviews() {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`${api}/api/review`);
+      return dispatch({
+        type: 'GET_REVIEWS',
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}

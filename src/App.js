@@ -24,6 +24,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import UpdateUser from './components/UpdateUser/UpdateUser';
 import MyAcount from './pages/MyAcount';
+import Dashboard from "./scenes/dashboard/Dashboard.jsx"
+import Users from './scenes/Users.jsx';
+import Products from "./scenes/Products.jsx"
+import Invoices from './scenes/Invoices.jsx';
+import Reviews from "./scenes/Reviews.jsx";
+import CreateProducts from './scenes/CreateProducts';
+
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
 );
@@ -84,6 +91,12 @@ function App() {
           <Route exact path='/products/:id' element={<Details />} />
           <Route exact path='/micuenta/:id' element={<MyAcount />} />
           <Route exact path='/actualiza/:id' element={<UpdateUser />} />
+          <Route exact path='/admin' element={<Dashboard/>} />
+          <Route exact path='/admin/users' element={<Users/>} />
+          <Route exact path='/admin/products' element={<Products/>} />
+          <Route exact path='/admin/invoices' element={<Invoices/>} />
+          <Route exact path='/admin/reviews' element={<Reviews/>} />
+          <Route exact path='/admin/products/crearproducto' element={<CreateProducts/>} />
         </Routes>
       </BrowserRouter>
     </Elements>
