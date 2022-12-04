@@ -41,6 +41,12 @@ const initialState = {
   loadingReviews: false,
   loadingHome: false,
   detailsReviews: [],
+  validateRegister: {
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  },
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -115,7 +121,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case LOGIN_USER: {
-      console.log(action.payload);
       return {
         ...state,
         userDates: action.payload,

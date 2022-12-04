@@ -59,7 +59,7 @@ const Header = () => {
   return (
     <div className='header'>
       <ModalPayment />
-      <Modal open={null} handleOpenModalSession={handleOpenModalSession} />
+      <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
       <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>
           Henry - Tech

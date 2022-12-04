@@ -18,6 +18,7 @@ export const DELETE_FAVORIT = '@favorit/delete';
 export const FILTER_STAR = '@filter/star';
 export const CREATE_USER_AUTH0 = '@user/auth0';
 export const DELETE_CART = 'cart/delete-all';
+
 // export const api = 'https://henry-tech-backend.vercel.app';
 export const api = 'http://localhost:3001';
 export function getAllProducts() {

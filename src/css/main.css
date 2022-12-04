@@ -73,6 +73,11 @@ li {
   text-decoration: none;
 }
 
+.errors {
+  color: #ff0000;
+  font-weight: bold;
+}
+
 .loader {
   width: 100vw;
   height: calc(100vh - 5.5em);
@@ -632,7 +637,7 @@ li {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  gap: 1.2em;
+  gap: 1.4em;
   align-items: center;
 }
 .register__input {
@@ -669,6 +674,22 @@ li {
 }
 .register__button:hover {
   transform: scale(1.1);
+}
+.register__span {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: -20px;
+  color: red;
+  font-size: 1.045em;
+}
+.register__validate {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
 }
 
 .aside {

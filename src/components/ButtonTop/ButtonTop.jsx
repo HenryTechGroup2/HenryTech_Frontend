@@ -9,7 +9,9 @@ const ButtonTop = () => {
         buttonRef.current.classList.add('close');
       }
     } else {
-      buttonRef.current.classList.remove('close');
+      if (buttonRef.current !== null) {
+        buttonRef.current.classList.remove('close');
+      }
     }
   });
   const handleClick = () => {
