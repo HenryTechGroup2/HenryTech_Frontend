@@ -41,7 +41,11 @@ const Card = ({ product, isFlex = false }) => {
         </div>
         <div className='product__bottom'>
           <h4 className='product__price'>
-            Price: ${product.product_price}{' '}
+            Price:
+            {Number(product.product_price).toLocaleString('es-AR', {
+              style: 'currency',
+              currency: 'ARS',
+            })}{' '}
             <span className='product__rating'>
               {'★'.repeat(product.product_rating).padEnd(5, '☆')}
             </span>

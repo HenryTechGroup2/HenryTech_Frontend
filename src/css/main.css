@@ -135,7 +135,7 @@ li {
   height: 8em;
   border-radius: 50%;
   border: 1em solid #fff;
-  border-bottom-color: blue;
+  border-bottom-color: #7eda55;
   animation: spinner infinite 2s linear;
 }
 
@@ -365,6 +365,11 @@ li {
 .header__search::placeholder {
   color: #000;
 }
+.header__logo--img {
+  width: 6em;
+  height: 6em;
+  align-self: center;
+}
 .header__hover {
   position: relative;
 }
@@ -407,6 +412,7 @@ li {
   right: 9em;
   top: -4em;
   border-radius: 1em;
+  z-index: 40;
   background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
   color: #fff;
 }
@@ -490,7 +496,9 @@ li {
 }
 .header__henry {
   color: #7eda55;
+  margin: 0.7em 0 0 0;
   font-size: 2.2em;
+  align-self: center;
   font-weight: bold;
   text-shadow: 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff;
 }
@@ -1265,7 +1273,8 @@ li {
 }
 
 .filter {
-  height: 37em;
+  margin: 3em 0 0 0;
+  height: 45em;
   padding: 1em 2em;
   display: flex;
   flex-flow: column nowrap;
@@ -1318,6 +1327,8 @@ li {
 }
 .filter__categorys {
   padding: 1em;
+  height: 20em;
+  overflow: auto;
 }
 .filter__category {
   width: 9em;
@@ -1378,7 +1389,7 @@ li {
   align-items: center;
   max-width: 20em;
   width: 20em;
-  height: 10em;
+  height: 16em;
 }
 .order__h3 {
   text-align: center;
@@ -1415,7 +1426,7 @@ li {
   margin: 0.3em 0 0 0;
 }
 
-.info {
+.infop {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -1423,7 +1434,7 @@ li {
   align-items: center;
   height: 100%;
 }
-.info__input {
+.infop__input {
   padding: 0.3em 0.7em;
   font-size: 1.2em;
   width: 13em;
@@ -1432,11 +1443,11 @@ li {
   border-radius: 1em;
   background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
 }
-.info__input::placeholder {
+.infop__input::placeholder {
   color: #fff;
   font-family: "Exo";
 }
-.info__button {
+.infop__button {
   background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
   padding: 0.5em 1em;
   border-radius: 1em;
@@ -1452,7 +1463,7 @@ li {
   align-items: center;
   transition: 0.5s linear;
 }
-.info__button:hover {
+.infop__button:hover {
   transform: scale(1.1);
 }
 
@@ -1803,6 +1814,40 @@ li {
 .pc__button:hover {
   transform: scale(1.1);
 }
+.pc__columnx {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: 0;
+  align-items: start;
+}
+.pc__periferico {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 0.5em;
+  align-items: start;
+  margin: 0 0 1em 0;
+}
+.pc__btnn {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.pc__btnn:hover {
+  transform: scale(1.1);
+}
 
 .portal {
   position: absolute;
@@ -1878,6 +1923,25 @@ li {
   position: absolute;
   right: 1em;
   top: 0.2em;
+}
+.portal__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.portal__button:hover {
+  transform: scale(1.1);
 }
 
 .info {
@@ -1972,6 +2036,37 @@ li {
   color: #ffa41c;
   font-size: 1.5em;
 }
+.espera {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0;
+  align-content: center;
+  height: 100vw;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+}
+.espera__div {
+  width: 22em;
+  height: 18em;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5em;
+  border-radius: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0;
+  align-content: center;
+}
+
 @keyframes spinner {
   from {
     transform: rotate(0deg);

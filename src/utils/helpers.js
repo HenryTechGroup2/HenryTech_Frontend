@@ -9,7 +9,7 @@ export const armamentPcImages = [
     },
     img2: {
       imagen: `${route}mother1.png`,
-      name: 'Motherboard',
+      name: 'Placas Madres',
       description:
         'Es donde se conectarán todos los componentes de tu PC. Según el modelo que elijas tendrás diferentes beneficios de conectividad y expansión',
     },
@@ -17,13 +17,13 @@ export const armamentPcImages = [
   {
     img1: {
       imagen: `${route}cooler1.png`,
-      name: 'Cooler',
+      name: 'Cooler Fan',
       description:
         'El cooler mantiene la temperatura de tu equipo, evitando el daño en los componentes y permitiendo que este funcione correctamente.',
     },
     img2: {
       imagen: `${route}memo1.png`,
-      name: 'Ram',
+      name: 'Memorias Ram',
       description:
         'Las memorias sirven para cargar y almacenar todas las instrucciones que se ejecutan en el procesador. Lo que se debe tener en cuenta en esta sección es el tamaño, la frecuencia y la cantidad de módulos',
     },
@@ -46,13 +46,13 @@ export const armamentPcImages = [
   {
     img1: {
       imagen: `${route}poder1.png`,
-      name: 'Fuente de Poder',
+      name: 'Fuentes De Poder',
       description:
         'La fuente es la encargada de alimentar al resto de los componentes y va a ser uno de los factores a tener en cuenta si querés armar una pc potente.',
     },
     img2: {
       imagen: `${route}gabo1.png`,
-      name: 'Gabinete',
+      name: 'Gabinetes',
       description:
         'Es fundamental para el armado de la pc ya que contendrá todos los componentes funcionales de la misma. Podés revisar las medidas en el botón de especificaciones.',
     },
@@ -60,14 +60,15 @@ export const armamentPcImages = [
   {
     img1: {
       imagen: `${route}moni1.png`,
-      name: 'Monitor',
+      name: 'Monitores',
       description:
         'El monitor es fundamental si querés disfrutar de tus juegos y peliculas favoritas.',
     },
     img2: {
       imagen: `${route}periferico1.png`,
-      name: 'Periferico',
+      name: 'Perifericos',
       description: 'Mouses, Teclados, MousePad, Auriculares, Coolers, y mas.',
     },
   },
 ];
+// Auriculares Microfonos Camaras Mouses Teclados

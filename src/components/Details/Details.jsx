@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  CHANGE_ID_USER,
+  api,
   deleteDetailsProducts,
   FILTER_STAR,
   getDetailsProducts,
@@ -14,47 +14,57 @@ import ParticlesBackground from '../Particles/ParticlesBackground.jsx';
 import Count from '../Count/Count.jsx';
 import Footer, { images as imagesPagos } from '../Footer/Footer.jsx';
 import Star from '../Star/Star.jsx';
-import { favorit, noStock, stock } from '../../utils/Icons.js';
+import { noStock, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
 import ButtonTop from '../ButtonTop/ButtonTop.jsx';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
-import FilterByRaiting from './FilterByRaiting.jsx';
-import axios from 'axios';
+import io from 'socket.io-client';
+
 export function Details() {
   const params = useParams();
 
   const dispatch = useDispatch();
+  const server = io(api);
 
   const { detailsProduct } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
+
   const { detailsReviews, reviews, loadingReviews } = useSelector(
     (state) => state
   );
+
   useEffect(() => {
+    server.emit('@product/view', params.id);
+
     dispatch(getDetailsProducts(params.id));
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
-
+    server.emit('@product/view', params.id);
     return () => {
       dispatch(deleteDetailsProducts());
     };
   }, []);
+
   const handleChangeImage = (image, index) => {
     setImagePrincipal(image);
     setBorderImage(index);
   };
+
   const handleFilterStar = (evt) => {
     const { value } = evt.currentTarget;
     dispatch({ type: FILTER_STAR, payload: value });
   };
+
   const images = detailsProduct?.product_array_img?.concat(
     detailsProduct?.product_img
   );
+
   const promedioStar = reviews?.reduce((a, b) => a + b.review_score, 0);
+
   const stars = isNaN(promedioStar / reviews?.length)
     ? 1
     : promedioStar / reviews?.length;
@@ -203,7 +213,6 @@ export function Details() {
                       <option value='Ordenar'>Mas recientes</option>
                       <option value='Ordenar'>Mas utiles</option>
                     </select>
-                    <div>{/* <FilterByRaiting /> */}</div>
                     <select
                       onChange={handleFilterStar}
                       className='comentarios__slct'

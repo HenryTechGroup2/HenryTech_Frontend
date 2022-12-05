@@ -15,22 +15,22 @@ const UpdateInfo = () => {
     });
   }
   return (
-    <form className='info' onSubmit={handleSubmit}>
+    <form className='infop' onSubmit={handleSubmit}>
       <input
         value={changeInfo.shipping}
         onChange={handleChange}
-        className='info__input'
-        placeholder='Shipping'
+        className='infop__input'
+        placeholder='Envío'
         type='text'
       />
       <input
         value={changeInfo.address}
         onChange={handleChange}
-        className='info__input'
-        placeholder='Address'
+        className='infop__input'
+        placeholder='Dirección'
         type='text'
       />
-      <button className='info__button'>Change Info</button>
+      <button className='infop__button'>Cambiar Informacion</button>
     </form>
   );
 };

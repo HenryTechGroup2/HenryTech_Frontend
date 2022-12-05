@@ -42,7 +42,10 @@ const ModalProductsPC = ({ product, open, handleClick }) => {
             {productsMapInfo.map((produc) => (
               <div className='portal__map' key={produc?.product_id}>
                 <img className='portal__img' src={produc?.product_img} alt='' />
-                <button onClick={() => handleClickDelete(produc?.product_id)}>
+                <button
+                  className='portal__button'
+                  onClick={() => handleClickDelete(produc?.product_id)}
+                >
                   Delete
                 </button>
               </div>

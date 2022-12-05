@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
-import { ADD_REVIEW_PRODUCT_REAL_TIME } from '../../redux/actions';
-const server = io('http://localhost:3001');
+import { ADD_REVIEW_PRODUCT_REAL_TIME, api } from '../../redux/actions';
+const server = io(api);
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {
@@ -28,6 +28,9 @@ export function CreateReview({ productId }) {
       setReviews([...reviews, message]);
     };
     server.on('@review/create/successful', newReview);
+    return () => {
+      server.off('@review/create/successful', newReview);
+    }
   }, [reviews]);
   const dispatch = useDispatch();
   const { userDates } = useSelector((state) => state);
@@ -77,9 +80,8 @@ export function CreateReview({ productId }) {
         review_user_id: userDates.user_id,
       },
     ]);
-    // alert('Reseña creada');
     setInput({
-      initialState,
+      ...initialState
     });
   }
   //Stars

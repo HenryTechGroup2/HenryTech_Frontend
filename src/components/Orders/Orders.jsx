@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { orderByPrice, orderByRating } from '../../redux/actions';
+import { orderByPrice, orderByRating, ORDER_VIEWS } from '../../redux/actions';
 
 export default function Orders() {
   let dispatch = useDispatch();
@@ -12,7 +12,10 @@ export default function Orders() {
   function ratingOnChange(e) {
     dispatch(orderByRating(e.target.value));
   }
-
+  function handleChangeMostReview(evt) {
+    const { value } = evt.currentTarget;
+    dispatch({ type: ORDER_VIEWS, payload: value });
+  }
   return (
     <div className='order'>
       <h3 className='order__h3'>Ordena por precio:</h3>
@@ -41,6 +44,15 @@ export default function Orders() {
         </option>
         <option className='order__option' value={'rating min-max'}>
           Peor calificados
+        </option>
+      </select>
+      <h3 className='order__h3'>Ordena por vista</h3>
+      <select className='order__select' onChange={handleChangeMostReview}>
+        <option className='order__option' value={'mas-visto'}>
+          Mas Visto
+        </option>
+        <option className='order__option' value={'menos-visto'}>
+          Menos Visto
         </option>
       </select>
     </div>
