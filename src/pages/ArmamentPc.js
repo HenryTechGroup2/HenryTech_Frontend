@@ -34,7 +34,15 @@ const ArmamentPc = () => {
   const productsAcept = products.filter(
     (product) => {
       if (select === 'Procesadores') {
-        return product?.product_category.toLowerCase() === select.toLocaleLowerCase() && product?.product_brand.toLowerCase() === selectBrand.toLocaleLowerCase()
+        return product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+          && product?.product_brand.toLowerCase() === selectBrand.toLocaleLowerCase()
+      }
+      if (select === 'Perifericos') {
+        return product?.product_category.toLowerCase() === 'auriculares'
+          || product?.product_category.toLowerCase() === 'microfonos'
+          || product?.product_category.toLowerCase() === 'camaras'
+          || product?.product_category.toLowerCase() === 'mouses'
+          || product?.product_category.toLowerCase() === 'teclados'
       }
       return product?.product_category.toLowerCase() === select.toLocaleLowerCase()
     }
@@ -58,13 +66,13 @@ const ArmamentPc = () => {
         product.product_category.toLowerCase() ===
         'Procesadores'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-        'Motherboard'.toLowerCase() ||
+        'Placas Madres'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gpu'.toLowerCase() ||
-        product.product_category.toLowerCase() === 'Ram'.toLowerCase() ||
+        product.product_category.toLowerCase() === 'Memorias Ram'.toLowerCase() ||
         product.product_category.toLowerCase() ===
         'Almacenamiento'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-        'Fuente de Poder'.toLowerCase() ||
+        'Fuentes De Poder'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gabinete'.toLowerCase()
     )
     .map((product) => product.product_category);
