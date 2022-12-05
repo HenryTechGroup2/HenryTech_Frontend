@@ -34,6 +34,7 @@ import Reviews from './scenes/Reviews.jsx';
 import CreateProducts from './scenes/CreateProducts';
 
 import { useAuth0 } from '@auth0/auth0-react';
+import EditProduct from './scenes/EditProduct';
 
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
@@ -83,6 +84,7 @@ function App() {
     dispatch({ type: ADD_ALL_FAVORITES });
   }, [products, dispatch]);
   return (
+  
     <Elements stripe={stripePromise}>
       <ParticlesBackground />
       <BrowserRouter>
@@ -95,7 +97,6 @@ function App() {
           <Route path='/product' element={<ProductByName />} />
           <Route path='/preguntasfrecuentes' element={<Questions />} />
           <Route path='/sobrenosotros' element={<Aboutus />} />
-
           <Route exact path='/products/:id' element={<Details />} />
           <Route exact path='/micuenta/:id' element={<MyAcount />} />
           <Route exact path='/actualiza/:id' element={<UpdateUser />} />
@@ -104,11 +105,8 @@ function App() {
           <Route exact path='/admin/products' element={<Products />} />
           <Route exact path='/admin/invoices' element={<Invoices />} />
           <Route exact path='/admin/reviews' element={<Reviews />} />
-          <Route
-            exact
-            path='/admin/products/crearproducto'
-            element={<CreateProducts />}
-          />
+          <Route exact path='/admin/products/crearproducto' element={<CreateProducts />} />
+          <Route exact path='/admin/products/editarproducto' element={<EditProduct />} />
         </Routes>
       </BrowserRouter>
     </Elements>
