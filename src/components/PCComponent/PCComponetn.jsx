@@ -11,11 +11,21 @@ const PCComponetn = ({ image, armamentPc, handleClick, select }) => {
     (product) =>
       product.product_category.toLowerCase() === image.img1.name.toLowerCase()
   );
-
-  const image2 = armamentPc?.filter(
-    (product) =>
-      product.product_category.toLowerCase() === image.img2.name.toLowerCase()
-  );
+  const image2 =
+    image.img2.name === 'Perifericos'
+      ? armamentPc?.filter(
+          (product) =>
+            product.product_category.toLowerCase() === 'teclados' ||
+            product.product_category.toLowerCase() === 'mouses' ||
+            product.product_category.toLowerCase() === 'auriculares' ||
+            product.product_category.toLowerCase() === 'camaras' ||
+            product.product_category.toLowerCase() === 'microfonos'
+        )
+      : armamentPc?.filter(
+          (product) =>
+            product.product_category.toLowerCase() ===
+            image.img2.name.toLowerCase()
+        );
 
   const handleInfoProduct = (evt, product) => {
     evt.stopPropagation();

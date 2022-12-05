@@ -47,7 +47,7 @@
   height: 8em;
   border-radius: 50%;
   border: 1em solid #fff;
-  border-bottom-color: blue;
+  border-bottom-color: $color-principal;
   animation: spinner infinite 2s linear;
 }
 .btn-top {
@@ -1173,6 +1173,16 @@
     align-self: flex-end;
     @include button-principal();
   }
+  &__columnx {
+    @include flex(column, nowrap, space-between, start, 0);
+  }
+  &__periferico {
+    @include flex(row, nowrap, space-between, start, 0.5em);
+    margin: 0 0 1em 0;
+  }
+  &__btnn {
+    @include button-principal();
+  }
 }
 // .portal {
 //   position: absolute;
@@ -1300,6 +1310,9 @@
     position: absolute;
     right: 1em;
     top: 0.2em;
+  }
+  &__button {
+    @include button-principal();
   }
 }
 .info {

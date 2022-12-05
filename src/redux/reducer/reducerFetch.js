@@ -540,7 +540,25 @@ export const reducerFetch = (state = initialState, action) => {
         }
         return state;
       }
-      if (existCategory) return state;
+      if (existCategory) {
+        console.log(existCategory);
+        if (
+          existCategory?.product_category === 'Memorias RAM' ||
+          existCategory?.product_category === 'Teclados' ||
+          existCategory?.product_category === 'Mouses' ||
+          existCategory?.product_category === 'Microfonos' ||
+          existCategory?.product_category === 'Camaras' ||
+          existCategory?.product_category === ''
+        ) {
+          action.payload.product_count = 1;
+
+          return {
+            ...state,
+            armamentPc: [...state.armamentPc, action.payload],
+          };
+        }
+        return state;
+      }
       action.payload.product_count = 1;
       return {
         ...state,

@@ -135,7 +135,7 @@ li {
   height: 8em;
   border-radius: 50%;
   border: 1em solid #fff;
-  border-bottom-color: blue;
+  border-bottom-color: #7eda55;
   animation: spinner infinite 2s linear;
 }
 
@@ -1814,6 +1814,40 @@ li {
 .pc__button:hover {
   transform: scale(1.1);
 }
+.pc__columnx {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: 0;
+  align-items: start;
+}
+.pc__periferico {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 0.5em;
+  align-items: start;
+  margin: 0 0 1em 0;
+}
+.pc__btnn {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.pc__btnn:hover {
+  transform: scale(1.1);
+}
 
 .portal {
   position: absolute;
@@ -1889,6 +1923,25 @@ li {
   position: absolute;
   right: 1em;
   top: 0.2em;
+}
+.portal__button {
+  background: linear-gradient(to right, #7eda55 0%, #32ba7c 70%, #32ba7c 100%);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+}
+.portal__button:hover {
+  transform: scale(1.1);
 }
 
 .info {
