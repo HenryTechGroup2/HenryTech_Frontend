@@ -21,6 +21,10 @@ import ButtonTop from '../ButtonTop/ButtonTop.jsx';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
 import FilterByRaiting from './FilterByRaiting.jsx';
 import axios from 'axios';
+import io from 'socket.io-client';
+
+const server = io('http://localhost:3001');
+
 export function Details() {
   const params = useParams();
 
@@ -38,7 +42,7 @@ export function Details() {
       top: 0,
       behavior: 'auto',
     });
-
+    server.emit('@product/view',params.id);
     return () => {
       dispatch(deleteDetailsProducts());
     };
@@ -76,9 +80,8 @@ export function Details() {
                     <img
                       key={index}
                       onMouseEnter={() => handleChangeImage(product, index)}
-                      className={`details__image ${
-                        borderImage === index ? 'details__border' : ''
-                      }`}
+                      className={`details__image ${borderImage === index ? 'details__border' : ''
+                        }`}
                       loading='lazy'
                       src={product}
                       alt={product}
