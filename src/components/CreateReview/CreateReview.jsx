@@ -28,6 +28,9 @@ export function CreateReview({ productId }) {
       setReviews([...reviews, message]);
     };
     server.on('@review/create/successful', newReview);
+    return () => {
+      server.off('@review/create/successful', newReview);
+    }
   }, [reviews]);
   const dispatch = useDispatch();
   const { userDates } = useSelector((state) => state);
@@ -77,9 +80,8 @@ export function CreateReview({ productId }) {
         review_user_id: userDates.user_id,
       },
     ]);
-    // alert('Reseña creada');
     setInput({
-      initialState,
+      ...initialState
     });
   }
   //Stars

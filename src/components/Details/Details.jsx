@@ -43,7 +43,7 @@ export function Details() {
       top: 0,
       behavior: 'auto',
     });
-
+    server.emit('@product/view', params.id);
     return () => {
       dispatch(deleteDetailsProducts());
     };

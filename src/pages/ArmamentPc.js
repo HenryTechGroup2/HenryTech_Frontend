@@ -14,7 +14,7 @@ const brand = [
 const ArmamentPc = () => {
   const [select, setSelect] = useState('Procesadores');
   const [complete, setComplete] = useState(false);
-  const [selectBrand, setSelectBrand] = useState(null);
+  const [selectBrand, setSelectBrand] = useState('INTEL');
   const { products, armamentPc } = useSelector((state) => state);
   const navigate = useNavigate();
   const handleClick = (slct) => {
@@ -30,9 +30,22 @@ const ArmamentPc = () => {
   const descriptionH1 = descriptionPc.find(
     (component) => component.name === select
   );
+
   const productsAcept = products.filter(
-    (product) =>
-      product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+    (product) => {
+      if (select === 'Procesadores') {
+        return product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+          && product?.product_brand.toLowerCase() === selectBrand.toLocaleLowerCase()
+      }
+      if (select === 'Perifericos') {
+        return product?.product_category.toLowerCase() === 'auriculares'
+          || product?.product_category.toLowerCase() === 'microfonos'
+          || product?.product_category.toLowerCase() === 'camaras'
+          || product?.product_category.toLowerCase() === 'mouses'
+          || product?.product_category.toLowerCase() === 'teclados'
+      }
+      return product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+    }
   );
   const handleClickAddComponentPc = (addProduct) => {
     dispatch(addProductPC(addProduct));
@@ -51,15 +64,15 @@ const ArmamentPc = () => {
     .filter(
       (product) =>
         product.product_category.toLowerCase() ===
-          'Procesadores'.toLowerCase() ||
+        'Procesadores'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Motherboard'.toLowerCase() ||
+        'Placas Madres'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gpu'.toLowerCase() ||
-        product.product_category.toLowerCase() === 'Ram'.toLowerCase() ||
+        product.product_category.toLowerCase() === 'Memorias Ram'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Almacenamiento'.toLowerCase() ||
+        'Almacenamiento'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Fuente de Poder'.toLowerCase() ||
+        'Fuentes De Poder'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gabinete'.toLowerCase()
     )
     .map((product) => product.product_category);
@@ -97,13 +110,12 @@ const ArmamentPc = () => {
                 <img
                   key={item.marca}
                   onClick={() => handleSelectBrand(item.marca)}
-                  className={` pc__image ${
-                    selectBrand === item.marca
-                      ? item.marca === 'AMD'
-                        ? 'pc__amd'
-                        : 'pc__intel'
-                      : ''
-                  } `}
+                  className={` pc__image ${selectBrand === item.marca
+                    ? item.marca === 'AMD'
+                      ? 'pc__amd'
+                      : 'pc__intel'
+                    : ''
+                    } `}
                   src={item.name}
                   alt={item.name}
                 />
