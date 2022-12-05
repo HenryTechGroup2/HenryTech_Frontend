@@ -10,6 +10,7 @@ export default function Orders() {
   };
 
   function ratingOnChange(e) {
+    console.log(e.target.value);
     dispatch(orderByRating(e.target.value));
   }
   function handleChangeMostReview(evt) {

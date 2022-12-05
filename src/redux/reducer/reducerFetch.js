@@ -443,7 +443,7 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'ORDER_BY_RATING': {
       if (action.payload === 'rating max-min') {
-        let orderproducts = state.products.sort((a, b) => {
+        let orderproducts = state.copieProducts.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
             return 1;
           }
@@ -453,12 +453,12 @@ export const reducerFetch = (state = initialState, action) => {
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
         };
       }
 
       if (action.payload === 'rating min-max') {
-        let orderproducts = state.products.sort((a, b) => {
+        let orderproducts = state.copieProducts.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
             return -1;
           }
@@ -468,7 +468,7 @@ export const reducerFetch = (state = initialState, action) => {
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
         };
       }
       return state;
