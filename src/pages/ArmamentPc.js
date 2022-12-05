@@ -14,7 +14,7 @@ const brand = [
 const ArmamentPc = () => {
   const [select, setSelect] = useState('Procesadores');
   const [complete, setComplete] = useState(false);
-  const [selectBrand, setSelectBrand] = useState(null);
+  const [selectBrand, setSelectBrand] = useState('INTEL');
   const { products, armamentPc } = useSelector((state) => state);
   const navigate = useNavigate();
   const handleClick = (slct) => {
@@ -30,9 +30,14 @@ const ArmamentPc = () => {
   const descriptionH1 = descriptionPc.find(
     (component) => component.name === select
   );
+
   const productsAcept = products.filter(
-    (product) =>
-      product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+    (product) => {
+      if (select === 'Procesadores') {
+        return product?.product_category.toLowerCase() === select.toLocaleLowerCase() && product?.product_brand.toLowerCase() === selectBrand.toLocaleLowerCase()
+      }
+      return product?.product_category.toLowerCase() === select.toLocaleLowerCase()
+    }
   );
   const handleClickAddComponentPc = (addProduct) => {
     dispatch(addProductPC(addProduct));
@@ -51,15 +56,15 @@ const ArmamentPc = () => {
     .filter(
       (product) =>
         product.product_category.toLowerCase() ===
-          'Procesadores'.toLowerCase() ||
+        'Procesadores'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Motherboard'.toLowerCase() ||
+        'Motherboard'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gpu'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Ram'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Almacenamiento'.toLowerCase() ||
+        'Almacenamiento'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Fuente de Poder'.toLowerCase() ||
+        'Fuente de Poder'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gabinete'.toLowerCase()
     )
     .map((product) => product.product_category);
@@ -97,13 +102,12 @@ const ArmamentPc = () => {
                 <img
                   key={item.marca}
                   onClick={() => handleSelectBrand(item.marca)}
-                  className={` pc__image ${
-                    selectBrand === item.marca
-                      ? item.marca === 'AMD'
-                        ? 'pc__amd'
-                        : 'pc__intel'
-                      : ''
-                  } `}
+                  className={` pc__image ${selectBrand === item.marca
+                    ? item.marca === 'AMD'
+                      ? 'pc__amd'
+                      : 'pc__intel'
+                    : ''
+                    } `}
                   src={item.name}
                   alt={item.name}
                 />
