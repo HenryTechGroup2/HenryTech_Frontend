@@ -15,7 +15,9 @@ const Home = () => {
     filters,
     viewHome,
     products,
+    productsMostView,
     productsOfer,
+    productsMostRating,
     copieProducts,
     loadingHome,
   } = useSelector((state) => state);
@@ -38,7 +40,9 @@ const Home = () => {
   function handleClick(index) {
     setActualPage(index);
   }
-
+  const productsView = products.slice(0, 13);
+  const productsMostViewHome = productsMostView.slice(0, 24);
+  const productsRating = productsMostRating.slice(0, 40);
   return (
     <div className='home'>
       <ButtonTop />
@@ -62,9 +66,9 @@ const Home = () => {
           ) : (
             <div className='home__products'>
               <ProductsHome products={productsOfer} />
-              <ProductsHome products={products} />
-              <ProductsHome products={products} />
-              <ProductsHome products={products} />
+              <ProductsHome products={productsMostViewHome} />
+              <ProductsHome products={productsView} />
+              <ProductsHome products={productsRating} />
             </div>
           )}
         </div>

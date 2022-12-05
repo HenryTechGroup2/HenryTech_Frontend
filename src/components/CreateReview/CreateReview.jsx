@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
-import { ADD_REVIEW_PRODUCT_REAL_TIME } from '../../redux/actions';
-const server = io('http://localhost:3001');
+import { ADD_REVIEW_PRODUCT_REAL_TIME, api } from '../../redux/actions';
+const server = io(api);
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {

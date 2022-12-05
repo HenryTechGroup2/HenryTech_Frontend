@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 const images = [
+  '../assets/translate31.png',
   '../assets/translate.jpg',
   '../assets/translate2.jpg',
   '../assets/translate.jpg',
   '../assets/translate2.jpg',
 ];
 let movimiento = 0;
+
 let nameMove = 'next';
+
 const Images = () => {
   const divRef = useRef();
   const handleClick = (name) => {

@@ -11,10 +11,12 @@ const PCComponetn = ({ image, armamentPc, handleClick, select }) => {
     (product) =>
       product.product_category.toLowerCase() === image.img1.name.toLowerCase()
   );
+
   const image2 = armamentPc?.filter(
     (product) =>
       product.product_category.toLowerCase() === image.img2.name.toLowerCase()
   );
+
   const handleInfoProduct = (evt, product) => {
     evt.stopPropagation();
     setProductsPC(product);

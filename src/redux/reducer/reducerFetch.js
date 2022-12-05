@@ -6,7 +6,6 @@ import {
   ADD_TO_CART_PC,
   ARMAMENT_PC_PRODUCT,
   CAR_MODIFIER,
-  CHANGE_ID_USER,
   CREATE_USER,
   CREATE_USER_AUTH0,
   DELETE_CART,
@@ -16,12 +15,14 @@ import {
   FILTER_SEARCH,
   FILTER_STAR,
   LOGIN_USER,
+  ORDER_VIEWS,
   PAGES_HOME,
   USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { AUTH0, CAR, USER } from '../storage/variables';
 const initialState = {
+  priceTotal: 0,
   productIdCar: 1,
   products: [],
   invoices: [],
@@ -32,17 +33,18 @@ const initialState = {
   productsOfer: [],
   armamentPc: [],
   detailsReviews: [],
+  productsMostView: [],
+  productsMostRating: [],
   userDates: {},
   detailsProduct: {},
   paymentUserDates: {},
-  priceTotal: 0,
   viewHome: false,
   userlogin: false,
+  loadingReviews: false,
+  loadingHome: false,
   filters: {
     search: '',
   },
-  loadingReviews: false,
-  loadingHome: false,
   validateRegister: {
     name: false,
     email: false,
@@ -55,15 +57,37 @@ export const reducerFetch = (state = initialState, action) => {
   switch (action.type) {
     //FETCH
     case 'GET_PRODUCTS': {
+      console.log(action.payload);
       const ofertDay = action.payload.filter(
         ({ product_ofer }) => product_ofer === true
       );
+      const productsOrder = [...action.payload];
+      let orderproducts = productsOrder.sort((a, b) => {
+        if (a.product_views < b.product_views) {
+          return 1;
+        }
+        if (a.product_views > b.product_views) {
+          return -1;
+        }
+        return 0;
+      });
+      let orderRating = productsOrder.sort((a, b) => {
+        if (a.product_rating < b.product_rating) {
+          return 1;
+        }
+        if (a.product_rating > b.product_rating) {
+          return -1;
+        }
+        return 0;
+      });
       return {
         ...state,
         products: action.payload,
         copieProducts: action.payload,
         productsOfer: ofertDay,
         loadingHome: true,
+        productsMostView: orderproducts,
+        productsMostRating: orderRating,
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
@@ -88,15 +112,6 @@ export const reducerFetch = (state = initialState, action) => {
         reviews: [...state.reviews, { ...action.payload }],
       };
     }
-    // case CHANGE_ID_USER: {
-    //   const userId = state.detailsReviews.find(
-    //     ({ review_user_id }) => review_user_id === action.payload.user_id
-    //   );
-    //   userId.review_user_id = action.payload.user_name;
-    //   return {
-    //     ...state,
-    //   };
-    // }
     case ADD_FAVORIT: {
       const productNewFavorit = state.copieProducts.find(
         (product) => product.product_id === Number(action.payload)
@@ -321,6 +336,8 @@ export const reducerFetch = (state = initialState, action) => {
             .indexOf(state.filters.search.toLowerCase()) !== -1;
         const price =
           Number(product.product_price) <= Number(action.payload.price);
+        if (state.filters.search.length === 0) {
+        }
         if (
           action.payload.category.length > 0 &&
           action.payload.brand.length > 0
@@ -361,9 +378,9 @@ export const reducerFetch = (state = initialState, action) => {
           }
           return;
         }
-        return;
-      });
 
+        return filterproducts.push(product);
+      });
       return {
         ...state,
         copieProducts: filterproducts,
@@ -455,6 +472,39 @@ export const reducerFetch = (state = initialState, action) => {
       }
       return state;
     }
+    case ORDER_VIEWS: {
+      let productsOrder = [...state.copieProducts];
+      if (action.payload === 'mas-visto') {
+        let orderproducts = productsOrder.sort((a, b) => {
+          if (a.product_views < b.product_views) {
+            return 1;
+          }
+          if (a.product_views > b.product_views) {
+            return -1;
+          }
+          return 0;
+        });
+        console.log(orderproducts, 'ORDER');
+        return {
+          ...state,
+          copieProducts: orderproducts,
+        };
+      }
+      let orderproducts = productsOrder.sort((a, b) => {
+        if (a.product_views < b.product_views) {
+          return -1;
+        }
+        if (a.product_views > b.product_views) {
+          return 1;
+        }
+        return 0;
+      });
+      console.log(orderproducts);
+      return {
+        ...state,
+        copieProducts: orderproducts,
+      };
+    }
     //PAGES
     case PAGES_HOME: {
       return {
@@ -466,7 +516,6 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
-
     case ARMAMENT_PC_PRODUCT: {
       let existProduct = state.armamentPc.find(
         ({ product_category, product_name }) =>
@@ -529,7 +578,6 @@ export const reducerFetch = (state = initialState, action) => {
         armamentPc: products,
       };
     }
-
     case 'GET_USER': {
       return {
         ...state,
@@ -542,7 +590,6 @@ export const reducerFetch = (state = initialState, action) => {
         userDates: { ...state.userDates, ...action.payload },
       };
     }
-
     case 'FILTER_BY_RAITING': {
       let productsByRaiting = state.detailsProduct.review.filter(
         (e) => Number(e.review_score) === Number(action.payload)

@@ -49,7 +49,7 @@ const Payment = () => {
           {userDates.user_name}
         </p>
         <p className='payment__shipping'>
-          <span className='payment__span'>Shipping</span>:{'  '}
+          <span className='payment__span'>Dirección</span>:{'  '}
           {userDates.user_shipping_address}
         </p>
       </div>
@@ -59,7 +59,7 @@ const Payment = () => {
         </div>
         <div className='payment__div'>
           <button className='payment__button' disabled={!stripe}>
-            Buy
+            Pagar
           </button>
         </div>
       </form>

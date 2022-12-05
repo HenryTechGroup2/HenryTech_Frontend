@@ -23,7 +23,6 @@ const Modal = ({ open, handleOpenModalSession }) => {
         user_email: login.email,
         user_password: login.password,
       });
-      console.log(data);
       dispatch({ type: LOGIN_USER, payload: data.data.user });
       handleOpenModalSession(null);
       window.localStorage.setItem(PASSWORD, login.password);
@@ -60,7 +59,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
         </i>
         <form className='modal__form' onSubmit={handleSubmit}>
           <input
-            placeholder='Email'
+            placeholder='Correo Electronico'
             className='modal__login'
             name='email'
             onChange={handleChange}
@@ -68,7 +67,7 @@ const Modal = ({ open, handleOpenModalSession }) => {
             type='email'
           />
           <input
-            placeholder='Password'
+            placeholder='Contraseña'
             className='modal__login'
             name='password'
             onChange={handleChange}
@@ -77,17 +76,19 @@ const Modal = ({ open, handleOpenModalSession }) => {
           />
           <div className='modal__acount'>
             <button type='submit' className='modal__button'>
-              Login
+              Ingresar
             </button>
             <Link className='links modal__link' to='/register'>
-              You have an account?
+              No tienes una cuenta?
             </Link>
           </div>
           <div className='errors'>
             {responseBackend === null ? null : responseBackend}
           </div>
         </form>
-        <button onClick={() => loginWithRedirect()}>Log In</button>
+        <button className='modal__button' onClick={() => loginWithRedirect()}>
+          Registrarte con Google
+        </button>
       </div>
     </div>,
     $modal

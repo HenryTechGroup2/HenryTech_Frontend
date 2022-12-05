@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   api,
   closeSession,
-  CREATE_USER,
   CREATE_USER_AUTH0,
   FILTER_SEARCH,
   pageHome,
@@ -19,8 +18,6 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import ModalPayment from '../ModalPayment/ModalPayment';
 const Header = () => {
-  const { loginWithRedirect } = useAuth0();
-
   const { logout, user } = useAuth0();
   const [open, setOpen] = useState(null);
   const { userDates, car, priceTotal, filters } = useSelector((state) => state);
@@ -62,13 +59,18 @@ const Header = () => {
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
       <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>
-          Henry - Tech
+          <img
+            className='header__logo--img'
+            src='https://images-ext-1.discordapp.net/external/hqPSUdM9YLb7X0FIFb1I2YfpVuTXma5eLBNlr0oIDvs/https/res.cloudinary.com/dd9tlax1c/image/upload/v1670195957/Logo/Henry-removebg-sin-proyect.png.png'
+            alt='Logo_Henry'
+            loading='lazy'
+          />
         </Link>
       </div>
       <div>
         <input
           className='header__search'
-          placeholder='Search Products'
+          placeholder='Buscar Productos'
           value={filters.search}
           onChange={handleChangeProductFilter}
           type='text'
@@ -104,12 +106,12 @@ const Header = () => {
           {cartHeader} <span className='header__length'>{car.length}</span>
           <ul className='header__ul'>
             <li className='carr'>
-              <span>Car</span>
+              <span>Carrito</span>
 
               <div className='header__carr'>
                 <div className='car__total'>
                   {car.length <= 0
-                    ? 'No products added to cart'
+                    ? 'No hay productos en el carrito'
                     : `Total:$${priceTotal}.00`}
                 </div>
                 <Link className='header__carl' to='/car'>
@@ -123,13 +125,13 @@ const Header = () => {
             {userDates?.hasOwnProperty('user_name') ? (
               <>
                 <li className='purcharse'>
-                  <span>Purchase data</span>
+                  <span>Cambiar Datos</span>
                   <div className='header__purcharse'>
                     <UpdateInfo />
                   </div>
                 </li>
                 <li className='make'>
-                  <span>Make payment</span>
+                  <span>Ir a pagar</span>
                   <div className='header__make'>
                     <Payment />
                   </div>

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filters } from '../../redux/actions';
 
 export default function GetFilters() {
-  // let allproducts = useSelector((state) => state.copieProducts);
   let products = useSelector((state) => state.products);
 
   let allprices = [];
@@ -20,6 +19,7 @@ export default function GetFilters() {
   let [input, setInput] = useState(inicialstate);
 
   let allcategories = [];
+
   products.forEach((e) => allcategories.push(e.product_category));
   let uniquecategories = allcategories.filter((valor, index) => {
     return allcategories.indexOf(valor) === index;
@@ -106,7 +106,7 @@ export default function GetFilters() {
           })}
         </div>
       </div>
-      <div className='filter__marcas'>
+      {/* <div className='filter__marcas'>
         <h3 className='filter__h3'>Marcas</h3>
         {uniquebrands.map((e) => {
           return (
@@ -122,7 +122,7 @@ export default function GetFilters() {
             </div>
           );
         })}
-      </div>
+      </div> */}
       <div className='filter__aplique'>
         <button className='filter__button' onClick={(e) => filtersOnClick(e)}>
           Aplicar filtros

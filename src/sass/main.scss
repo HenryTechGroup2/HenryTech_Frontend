@@ -180,6 +180,11 @@
       color: #000;
     }
   }
+  &__logo--img {
+    width: 6em;
+    height: 6em;
+    align-self: center;
+  }
   &__hover {
     position: relative;
   }
@@ -218,6 +223,7 @@
     right: 9em;
     top: -4em;
     border-radius: 1em;
+    z-index: 40;
     @include background-defecto();
     color: #fff;
   }
@@ -279,7 +285,9 @@
   }
   &__henry {
     color: $color-principal;
+    margin: 0.7em 0 0 0;
     font-size: 2.2em;
+    align-self: center;
     font-weight: bold;
     text-shadow: 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff,
       0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff;
@@ -813,7 +821,8 @@
   }
 }
 .filter {
-  height: 37em;
+  margin: 3em 0 0 0;
+  height: 45em;
   padding: 1em 2em;
   @include flex(column, nowrap, start, start, 0.5em);
   @include background-defecto();
@@ -849,6 +858,8 @@
   }
   &__categorys {
     padding: 1em;
+    height: 20em;
+    overflow: auto;
   }
   &__category {
     width: 9em;
@@ -885,7 +896,7 @@
   @include flex(column, nowrap, center, center, 0);
   max-width: 20em;
   width: 20em;
-  height: 10em;
+  height: 16em;
   &__h3 {
     text-align: center;
     font-size: 1.4em;
@@ -905,7 +916,7 @@
     margin: 0.3em 0 0 0;
   }
 }
-.info {
+.infop {
   @include flex(column, nowrap, center, center, 0.5em);
   height: 100%;
   &__input {
