@@ -27,6 +27,17 @@ export function Invoices (){
         rows={invoices}
         columns={columns}
         components={{Toolbar:GridToolbar}}
+        sx={{
+            boxShadow: 2,
+            border: 2,
+            borderColor: 'primary.light',
+            '& .MuiDataGrid-cell:hover': {
+              color: "#7eda55",
+            },
+            color: "white",
+            weigth:"80%",
+            marginLeft: "20%",
+        }}
         />
         </div>
         <div>

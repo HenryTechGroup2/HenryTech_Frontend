@@ -83,6 +83,7 @@ function App() {
     dispatch({ type: ADD_ALL_FAVORITES });
   }, [products, dispatch]);
   return (
+  
     <Elements stripe={stripePromise}>
       <ParticlesBackground />
       <BrowserRouter>
@@ -95,7 +96,6 @@ function App() {
           <Route path='/product' element={<ProductByName />} />
           <Route path='/preguntasfrecuentes' element={<Questions />} />
           <Route path='/sobrenosotros' element={<Aboutus />} />
-
           <Route exact path='/products/:id' element={<Details />} />
           <Route exact path='/micuenta/:id' element={<MyAcount />} />
           <Route exact path='/actualiza/:id' element={<UpdateUser />} />
@@ -104,11 +104,7 @@ function App() {
           <Route exact path='/admin/products' element={<Products />} />
           <Route exact path='/admin/invoices' element={<Invoices />} />
           <Route exact path='/admin/reviews' element={<Reviews />} />
-          <Route
-            exact
-            path='/admin/products/crearproducto'
-            element={<CreateProducts />}
-          />
+          <Route exact path='/admin/products/crearproducto' element={<CreateProducts />} />
         </Routes>
       </BrowserRouter>
     </Elements>

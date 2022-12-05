@@ -28,6 +28,17 @@ export function Users (){
         getRowId={(row)=> row.user_id}
         rows={users}
         columns={columns}
+        sx={{
+            boxShadow: 2,
+            border: 2,
+            borderColor: 'primary.light',
+            '& .MuiDataGrid-cell:hover': {
+              color: "#7eda55",
+            },
+            color: "white",
+            weigth:"80%",
+            marginLeft: "20%",
+        }}
         />
         </div>
         </div>
