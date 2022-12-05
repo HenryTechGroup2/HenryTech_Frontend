@@ -1983,6 +1983,37 @@ li {
   color: #ffa41c;
   font-size: 1.5em;
 }
+.espera {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0;
+  align-content: center;
+  height: 100vw;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+}
+.espera__div {
+  width: 22em;
+  height: 18em;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5em;
+  border-radius: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0;
+  align-content: center;
+}
+
 @keyframes spinner {
   from {
     transform: rotate(0deg);

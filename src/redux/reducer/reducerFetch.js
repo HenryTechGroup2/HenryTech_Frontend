@@ -275,6 +275,7 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         car: [],
+        priceTotal: 0,
       };
     }
     case CAR_MODIFIER: {

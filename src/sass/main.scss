@@ -1397,6 +1397,29 @@
   &__p {
   }
 }
+.espera {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  @include flex(row, wrap, center, center, 0);
+  height: 100vw;
+  width: 100vw;
+  backdrop-filter: blur(1em);
+
+  &__div {
+    width: 22em;
+    height: 18em;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 1em;
+    @include flex(row, wrap, center, center, 0);
+  }
+}
 @keyframes spinner {
   from {
     transform: rotate(0deg);
