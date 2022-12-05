@@ -152,7 +152,7 @@ export function Details() {
                     <p className='details__name'>
                       {detailsProduct?.product_name}
                     </p>
-                    <Star detailsProduct={detailsProduct} />
+                    <Star detailsReviews={detailsProduct.product_rating} />
                     <ButtonFavorite product={detailsProduct} />
                   </h2>
                   <div>
@@ -200,7 +200,7 @@ export function Details() {
                   <div className='comentarios__rating'>
                     <div className='comentarios__cal'>{Math.floor(stars)}</div>
                     <div className='comentarios__r'>
-                      <Star detailsReviews={stars} none={false} />
+                      <Star detailsReviews={detailsProduct.product_rating} none={false} />
                       {`${detailsReviews?.length} calificaciones`}
                     </div>
                   </div>

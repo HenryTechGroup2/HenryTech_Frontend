@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
-import { ADD_REVIEW_PRODUCT_REAL_TIME, api } from '../../redux/actions';
+import { ADD_REVIEW_PRODUCT_REAL_TIME, api, getAllProducts, getDetailsProducts } from '../../redux/actions';
 const server = io(api);
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
@@ -26,6 +26,8 @@ export function CreateReview({ productId }) {
     const newReview = (message) => {
       dispatch({ type: ADD_REVIEW_PRODUCT_REAL_TIME, payload: message });
       setReviews([...reviews, message]);
+      dispatch(getDetailsProducts(productId));
+      dispatch(getAllProducts());
     };
     server.on('@review/create/successful', newReview);
     return () => {
@@ -71,7 +73,7 @@ export function CreateReview({ productId }) {
   function handleOnSubmit(e) {
     e.preventDefault();
     // dispatch(postCreateReview(input));
-    server.emit('@review/create', [
+    server.emit('@review/create',
       {
         review_title: input.review_title,
         review_body: input.review_body,
@@ -79,10 +81,12 @@ export function CreateReview({ productId }) {
         review_product_id: productId,
         review_user_id: userDates.user_id,
       },
-    ]);
+    );
     setInput({
       ...initialState
     });
+
+    
   }
   //Stars
   function handleMouseStar(index) {
@@ -128,24 +132,24 @@ export function CreateReview({ productId }) {
           <p className='review__cstar'>
             {startState.confirmStar === null
               ? star.map((star, index) => (
-                  <span
-                    key={index}
-                    className='review__star'
-                    onMouseEnter={() => handleMouseStar(index)}
-                    onClick={handleClickStar}
-                  >
-                    {startState.cantityStar >= index ? '★' : star}
-                  </span>
-                ))
+                <span
+                  key={index}
+                  className='review__star'
+                  onMouseEnter={() => handleMouseStar(index)}
+                  onClick={handleClickStar}
+                >
+                  {startState.cantityStar >= index ? '★' : star}
+                </span>
+              ))
               : star.map((star, index) => (
-                  <span
-                    key={index}
-                    className='review__star'
-                    onClick={() => handleClickStar(index, 'change')}
-                  >
-                    {startState.cantityStar >= index ? '★' : star}
-                  </span>
-                ))}
+                <span
+                  key={index}
+                  className='review__star'
+                  onClick={() => handleClickStar(index, 'change')}
+                >
+                  {startState.cantityStar >= index ? '★' : star}
+                </span>
+              ))}
           </p>
         </div>
         <div className='review__div'></div>
@@ -163,7 +167,7 @@ export function CreateReview({ productId }) {
         <button
           className='review__button'
           type='submit'
-          // disabled={Object.entries(errors).length === 0 ? false : true}
+        // disabled={Object.entries(errors).length === 0 ? false : true}
         >
           Send
         </button>
