@@ -33,15 +33,12 @@ import Invoices from './scenes/Invoices.jsx';
 import Reviews from './scenes/Reviews.jsx';
 import CreateProducts from './scenes/CreateProducts';
 
-import { useAuth0 } from '@auth0/auth0-react';
-
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
 );
 function App() {
   const dispatch = useDispatch();
-  const { products, car } = useSelector((state) => state);
-  const { loginWithRedirect } = useAuth0();
+  const { products } = useSelector((state) => state);
 
   useEffect(() => {
     const userLogin = window.localStorage.getItem(USER);
@@ -54,6 +51,7 @@ function App() {
     allProducts();
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
+      console.log(userExist);
       const userLocalStorage = async () => {
         if (auth0Session === 'YES') {
           const data = await axios.post(`${api}/api/user/login/auth0`, {
