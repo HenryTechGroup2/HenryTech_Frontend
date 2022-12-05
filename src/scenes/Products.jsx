@@ -76,7 +76,7 @@ export function Products() {
                     </Link>
                 </div>
                 <div className={styles.divform}>
-                    <Link to={`/admin/products/editarproducto/${id}`}>
+                    <Link to={`/admin/products/editarproducto/`}>
                         <button >Editar producto</button>
                     </Link>
                 </div>

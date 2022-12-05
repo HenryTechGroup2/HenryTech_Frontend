@@ -9,7 +9,7 @@ export function CreateProducts() {
     product_name: '',
     product_description: '',
     product_price: '',
-    product_ofer: '',
+    product_ofer: true,
     product_rating: '',
     product_category: '',
     product_img: '',

@@ -34,6 +34,7 @@ import Reviews from './scenes/Reviews.jsx';
 import CreateProducts from './scenes/CreateProducts';
 
 import { useAuth0 } from '@auth0/auth0-react';
+import EditProduct from './scenes/EditProduct';
 
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
@@ -105,6 +106,7 @@ function App() {
           <Route exact path='/admin/invoices' element={<Invoices />} />
           <Route exact path='/admin/reviews' element={<Reviews />} />
           <Route exact path='/admin/products/crearproducto' element={<CreateProducts />} />
+          <Route exact path='/admin/products/editarproducto' element={<EditProduct />} />
         </Routes>
       </BrowserRouter>
     </Elements>
