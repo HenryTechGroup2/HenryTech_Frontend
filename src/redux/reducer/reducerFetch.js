@@ -642,7 +642,15 @@ export const reducerFetch = (state = initialState, action) => {
         reviews: action.payload,
       };
     }
+
+    case 'PUT_UPDATE_PRODUCT': {
+      return {
+        ...state,
+      };
+    }
+
     default:
       return state;
   }
 };
+

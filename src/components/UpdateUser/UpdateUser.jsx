@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { updateUser } from '../../redux/actions';
+import styles from '../../scenes/FormStyle.module.css'
+
 
 export function validate(input) {
   let errors = {};
@@ -67,83 +69,85 @@ const UpdateUser = ({ user }) => {
 
   if (Object.entries(user).length > 0) {
     return (
-      <div>
-        <h1>Actualiza tus datos: {user.user_name} </h1>
-        <form onSubmit={(e) => handleOnSubmit(e)}>
-          <div>
-            <label>Nombre de usuario:</label>
-            <input
-              type='text'
-              name='user_name'
-              value={input.user_name}
-              defaultValue={user.user_name}
-              onChange={(e) => handleOnChange(e)}
-            />
-            {errors.user_name && <p>{errors.user_name}</p>}
-          </div>
-          <h2>Cambia tu contraseña:</h2>
-          <div>
-            <label>Nueva Contraseña:</label>
-            <input
-              type='password'
-              name='user_password'
-              value={input.user_password}
-              defaultValue={user.user_password}
-              onChange={(e) => handleOnChange(e)}
-            />
-            {errors.user_password && <p>{errors.user_password}</p>}
-          </div>
-          <div>
-            <label>Confirma tu Contraseña:</label>
-            <input
-              type='password'
-              name='user_password_confirm'
-              value={input.user_password_confirm}
-              defaultValue={user.user_password}
-              onChange={(e) => handleOnChange(e)}
-            />
-            {errors.user_password_confirm && (
-              <p>{errors.user_password_confirm}</p>
-            )}
-          </div>
-          <div>
-            <label>Numero de contacto:</label>
-            <input
-              type='number'
-              name='user_phone'
-              value={input.user_phone}
-              defaultValue={user.user_phone}
-              onChange={(e) => handleOnChange(e)}
-            />
-            {errors.user_phone && <p>{errors.user_phone}</p>}
-          </div>
-          <div>
-            <label>Método de pago:</label>
-            <input
-              type='text'
-              name='user_payment_method'
-              value={input.user_payment_method}
-              defaultValue={user.user_payment_method}
-              onChange={(e) => handleOnChange(e)}
-            />
-          </div>
-          <div>
-            <label>Dirección de entrega:</label>
-            <input
-              type='text'
-              name='user_shipping_address'
-              value={input.user_shipping_address}
-              defaultValue={user.user_shipping_address}
-              onChange={(e) => handleOnChange(e)}
-            />
-          </div>
-          <button
-            type='submit'
-            disabled={Object.entries(errors).length === 0 ? false : true}
-          >
-            Actualizar
-          </button>
-        </form>
+      <div style={styles.divform}>
+        <div className={styles.form}>
+          <h1>Actualiza tus datos: {user.user_name} </h1>
+          <form onSubmit={(e) => handleOnSubmit(e)}>
+            <div>
+              <label>Nombre de usuario:</label>
+              <input
+                type='text'
+                name='user_name'
+                value={input.user_name}
+                defaultValue={user.user_name}
+                onChange={(e) => handleOnChange(e)}
+              />
+              {errors.user_name && <p>{errors.user_name}</p>}
+            </div>
+            <h2>Cambia tu contraseña:</h2>
+            <div>
+              <label>Nueva Contraseña:</label>
+              <input
+                type='password'
+                name='user_password'
+                value={input.user_password}
+                defaultValue={user.user_password}
+                onChange={(e) => handleOnChange(e)}
+              />
+              {errors.user_password && <p>{errors.user_password}</p>}
+            </div>
+            <div>
+              <label>Confirma tu Contraseña:</label>
+              <input
+                type='password'
+                name='user_password_confirm'
+                value={input.user_password_confirm}
+                defaultValue={user.user_password}
+                onChange={(e) => handleOnChange(e)}
+              />
+              {errors.user_password_confirm && (
+                <p>{errors.user_password_confirm}</p>
+              )}
+            </div>
+            <div>
+              <label>Numero de contacto:</label>
+              <input
+                type='number'
+                name='user_phone'
+                value={input.user_phone}
+                defaultValue={user.user_phone}
+                onChange={(e) => handleOnChange(e)}
+              />
+              {errors.user_phone && <p>{errors.user_phone}</p>}
+            </div>
+            <div>
+              <label>Método de pago:</label>
+              <input
+                type='text'
+                name='user_payment_method'
+                value={input.user_payment_method}
+                defaultValue={user.user_payment_method}
+                onChange={(e) => handleOnChange(e)}
+              />
+            </div>
+            <div>
+              <label>Dirección de entrega:</label>
+              <input
+                type='text'
+                name='user_shipping_address'
+                value={input.user_shipping_address}
+                defaultValue={user.user_shipping_address}
+                onChange={(e) => handleOnChange(e)}
+              />
+            </div>
+            <button
+              type='submit'
+              disabled={Object.entries(errors).length === 0 ? false : true}
+            >
+              Actualizar
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

@@ -149,9 +149,6 @@ export function deleteDetailsProducts() {
     type: DELETE_DETAILS,
   };
 }
-export function filterByBrand() {}
-
-export function orderByPopularity() {}
 
 export function addToCartProductsArmamentPC(products, price) {
   return {
@@ -209,16 +206,16 @@ export function filterByRaiting(product_raiting) {
 }
 
 export function postCreateProduct(payload) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.post(`${api}/api/product`, payload);
       return dispatch({
         type: 'POST_CREATE_PRODUCT',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
 
@@ -248,16 +245,34 @@ export function getInvoice() {
     throw new Error(error.message);
   }
 }
+
 export function getReviews() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/review`);
       return dispatch({
         type: 'GET_REVIEWS',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
+}
+
+export function updateProduct(payload, id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.put(
+        `http://localhost:3001/api/product/${id}`,
+        payload
+      );
+      return dispatch({
+        type: 'PUT_UPDATE_PRODUCT',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }

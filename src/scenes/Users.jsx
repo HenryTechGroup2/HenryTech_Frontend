@@ -16,6 +16,7 @@ export function Users() {
     { field: 'user_favorites', headerName: 'Productos favoritos' },
   ];
 
+
   const dispatch = useDispatch();
   useEffect(() => dispatch(getUsers()), []);
   const { users } = useSelector((state) => state);
@@ -37,6 +38,7 @@ export function Users() {
       ) : null}
     </div>
   );
+
 }
 
 export default Users;
