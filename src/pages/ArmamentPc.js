@@ -51,6 +51,7 @@ const ArmamentPc = () => {
     }
     return product?.product_category.toLowerCase() === select.toLowerCase();
   });
+  let x = 0;
   if (select === 'Perifericos') {
     productsAcept = productsAcept.filter(
       (product) =>
