@@ -123,6 +123,8 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case LOGIN_USER: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
       return {
         ...state,
         userDates: action.payload,

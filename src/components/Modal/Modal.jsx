@@ -6,6 +6,7 @@ import axios from 'axios';
 import { api, LOGIN_USER } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
+import { PASSWORD } from '../../redux/storage/variables';
 const INITIAL_STATE = {
   email: '',
   password: '',
@@ -22,8 +23,10 @@ const Modal = ({ open, handleOpenModalSession }) => {
         user_email: login.email,
         user_password: login.password,
       });
+      console.log(data);
       dispatch({ type: LOGIN_USER, payload: data.data.user });
       handleOpenModalSession(null);
+      window.localStorage.setItem(PASSWORD, login.password);
       return setLogin(INITIAL_STATE);
     } catch (error) {
       setTimeout(() => setResponseBackend(null), 2500);
