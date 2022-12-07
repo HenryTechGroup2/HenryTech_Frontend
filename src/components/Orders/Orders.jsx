@@ -1,48 +1,43 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { orderByPrice, orderByRating } from '../../redux/actions';
+import { orderSelect } from '../../redux/actions';
 
+const selects = [
+  'mayor-precio',
+  'menor-precio',
+  'mayor-puntuacion',
+  'menor-puntuacion',
+  'mas-visto',
+  'menos-visto',
+];
 export default function Orders() {
   let dispatch = useDispatch();
-
-  let priceOnChange = (e) => {
-    dispatch(orderByPrice(e.target.value));
-  };
-
-  function ratingOnChange(e) {
-    dispatch(orderByRating(e.target.value));
+  const divRef = useRef(null);
+  function handleClickChangeOrder(order) {
+    dispatch(orderSelect(order));
+    console.log(order);
   }
-
+  const handleSelect = () => {
+    divRef.current.classList.toggle('order__toggle');
+  };
   return (
     <div className='order'>
-      <h3 className='order__h3'>Ordena por precio:</h3>
-      <select
-        className='order__select'
-        name='select'
-        id='1'
-        onChange={(e) => priceOnChange(e)}
-      >
-        <option className='order__option' value={'price max-min'}>
-          Mayor a menor
-        </option>
-        <option className='order__option' value={'price min-max'}>
-          Menor a mayor
-        </option>
-      </select>
-      <h3 className='order__h3'>Ordena por calificacion:</h3>
-      <select
-        className='order__select'
-        name='select'
-        id='1'
-        onChange={(e) => ratingOnChange(e)}
-      >
-        <option className='order__option' value={'rating max-min'}>
-          Mejor calificados
-        </option>
-        <option className='order__option' value={'rating min-max'}>
-          Peor calificados
-        </option>
-      </select>
+      <div className='order__container'>
+        ORDENA TUS PRODUCTOS{' '}
+        <div onClick={handleSelect}>
+          <img className='order__img' src='../assets/drop.png' alt='' />
+        </div>
+      </div>
+      <div className='order__div' ref={divRef}>
+        {selects.map((order) => (
+          <div
+            onClick={() => handleClickChangeOrder(order)}
+            className='order__order'
+          >
+            {order.toUpperCase()}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

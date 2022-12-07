@@ -8,11 +8,20 @@ import Products from '../components/Products/Product';
 
 import { ToastContainer } from 'react-toastify';
 import ProductsHome from '../components/ProductsHome/ProductsHome';
+// import loader from '../loader.gif';
 import Pagination from '../components/Pagination/Pagination';
 import ButtonTop from '../components/ButtonTop/ButtonTop';
 const Home = () => {
-  const { filters, viewHome, products, productsOfer, copieProducts } =
-    useSelector((state) => state);
+  const {
+    filters,
+    viewHome,
+    products,
+    productsMostView,
+    productsOfer,
+    productsMostRating,
+    copieProducts,
+    loadingHome,
+  } = useSelector((state) => state);
 
   const [actualPage, setActualPage] = useState(1);
   const productsPage = 16;
@@ -32,35 +41,49 @@ const Home = () => {
   function handleClick(index) {
     setActualPage(index);
   }
-
+  const productsView = products.slice(0, 13);
+  const productsMostViewHome = productsMostView.slice(0, 24);
+  const productsRating = productsMostRating.slice(0, 40);
   return (
     <div className='home'>
       <ButtonTop />
       <Header />
       <Images />
-      <div>
-        {filters?.search.length > 0 || viewHome === true ? (
-          <div className='home__main'>
-            <Aside />
-            <div className='home__pages'>
-              <Products page={page} productsPage={productsPage} />
-              <Pagination
-                handleClick={handleClick}
-                next={next}
-                prev={prev}
-                actualPage={actualPage}
-              />
+      {loadingHome ? (
+        <div>
+          {filters?.search.length > 0 || viewHome === true ? (
+            <div className='home__main'>
+              <Aside />
+              <div className='home__pages'>
+                <Products page={page} productsPage={productsPage} />
+                <Pagination
+                  handleClick={handleClick}
+                  next={next}
+                  prev={prev}
+                  actualPage={actualPage}
+                />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className='home__products'>
-            <ProductsHome products={productsOfer} />
-            <ProductsHome products={products} />
-            <ProductsHome products={products} />
-            <ProductsHome products={products} />
-          </div>
-        )}
-      </div>
+          ) : (
+            <div className='home__products'>
+              <ProductsHome products={productsOfer} />
+              <ProductsHome products={productsMostViewHome} />
+              <ProductsHome products={productsView} />
+              <ProductsHome products={productsRating} />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className='loader'>
+          <div className='spinner'></div>
+          {/* <img
+            className='home__image-gif'
+            src={loader}
+            alt='Loader'
+            loading='lazy'
+          /> */}
+        </div>
+      )}
       <ToastContainer />
 
       <Footer />

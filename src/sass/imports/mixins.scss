@@ -16,12 +16,7 @@
   }
 }
 @mixin button-principal() {
-  background: linear-gradient(
-    to right,
-    $color-principal 0%,
-    $succes 70%,
-    $succes 100%
-  );
+  background: #000;
 
   padding: 0.5em 1em;
   border-radius: 1em;
@@ -44,19 +39,20 @@
   border: 2px solid #fff;
   color: #333333;
   border-radius: 1em;
-  background: linear-gradient(
-    to right,
-    $color-principal 0%,
-    $succes 70%,
-    $succes 100%
-  );
+  background: #fff;
+
   &::placeholder {
-    color: #fff;
+    color: #000;
     font-family: $font-principal;
   }
 }
 @mixin background-defecto() {
-  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  background: linear-gradient(
+    45deg,
+    $color-bluewhite 0%,
+    $color-blueforce 70%,
+    $color-bluee 100%
+  );
 }
 @mixin car-option {
   list-style: none;

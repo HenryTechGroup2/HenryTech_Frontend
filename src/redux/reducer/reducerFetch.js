@@ -5,53 +5,93 @@ import {
   ADD_REVIEW_PRODUCT_REAL_TIME,
   ADD_TO_CART_PC,
   ARMAMENT_PC_PRODUCT,
+  BIENVENIDO,
   CAR_MODIFIER,
   CREATE_USER,
+  CREATE_USER_AUTH0,
+  DELETE_CART,
   DELETE_DETAILS,
   DELETE_FAVORIT,
   DELETE_PC_PRODUCT,
+  ERROR,
   FILTER_SEARCH,
+  FILTER_STAR,
   LOGIN_USER,
+  ORDER_VIEWS,
   PAGES_HOME,
+  SELECT_ORDER,
   USER_CLOSE,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
-import { CAR, USER } from '../storage/variables';
+import { AUTH0, CAR, PASSWORD, USER } from '../storage/variables';
 const initialState = {
-  products: [],
-  userlogin: false,
-  userDates: {},
-  car: [],
-  productIdCar: 1,
-  copieProducts: [],
-  detailsProduct: {},
-  reviews: [],
   priceTotal: 0,
+  productIdCar: 1,
+  products: [],
+  invoices: [],
+  users: [],
+  car: [],
+  copieProducts: [],
+  reviews: [],
+  productsOfer: [],
+  armamentPc: [],
+  detailsReviews: [],
+  productsMostView: [],
+  productsMostRating: [],
+  userDates: {},
+  detailsProduct: {},
+  paymentUserDates: {},
   viewHome: false,
+  userlogin: false,
+  loadingReviews: false,
+  loadingHome: false,
   filters: {
     search: '',
   },
-  productsOfer: [],
-  paymentUserDates: {},
-  armamentPc: [],
-
-  // reviewsPc:[]
-
-  detailsReviews: {},
+  validateRegister: {
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  },
+  errorAxios: null,
 };
 
 export const reducerFetch = (state = initialState, action) => {
   switch (action.type) {
     //FETCH
     case 'GET_PRODUCTS': {
+      console.log(action.payload);
       const ofertDay = action.payload.filter(
         ({ product_ofer }) => product_ofer === true
       );
+      const productsOrder = [...action.payload];
+      let orderproducts = productsOrder.sort((a, b) => {
+        if (a.product_views < b.product_views) {
+          return 1;
+        }
+        if (a.product_views > b.product_views) {
+          return -1;
+        }
+        return 0;
+      });
+      let orderRating = productsOrder.sort((a, b) => {
+        if (a.product_rating < b.product_rating) {
+          return 1;
+        }
+        if (a.product_rating > b.product_rating) {
+          return -1;
+        }
+        return 0;
+      });
       return {
         ...state,
         products: action.payload,
         copieProducts: action.payload,
         productsOfer: ofertDay,
+        loadingHome: true,
+        productsMostView: orderproducts,
+        productsMostRating: orderRating,
       };
     }
     case 'GET_DETAILS_PRODUCTS': {
@@ -59,13 +99,15 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         detailsProduct: action.payload,
+        detailsReviews: action.payload.reviews,
         reviews: action.payload.reviews,
+        loadingReviews: true,
       };
     }
     case ADD_REVIEW_PRODUCT_REAL_TIME: {
       return {
         ...state,
-        reviews: [...state.reviews, action.payload],
+        detailsReviews: [...state.detailsReviews, action.payload],
       };
     }
     case 'POST_CREATE_REVIEW': {
@@ -101,8 +143,7 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case LOGIN_USER: {
       console.log(action.payload);
-
-      console.log(state);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
       return {
         ...state,
         userDates: action.payload,
@@ -110,8 +151,20 @@ export const reducerFetch = (state = initialState, action) => {
         copieProducts: state.products,
       };
     }
+    case CREATE_USER_AUTH0: {
+      console.log(action.payload);
+      window.localStorage.setItem(USER, JSON.stringify([action.payload]));
+      window.localStorage.setItem(AUTH0, 'YES');
+      return {
+        ...state,
+        userlogin: true,
+        userDates: action.payload,
+      };
+    }
     case USER_CLOSE: {
       window.localStorage.removeItem(USER);
+      window.localStorage.removeItem(AUTH0);
+
       state.products.forEach((product) => {
         return (product.product_favorite = false);
       });
@@ -133,13 +186,12 @@ export const reducerFetch = (state = initialState, action) => {
       return state;
     }
     case ADD_ALL_FAVORITES: {
-      console.log('HOLA DEDE ALL_FAVORITES');
       if (state.userDates?.hasOwnProperty('user_favorites')) {
         state.products.forEach((product) => {
           return state.userDates.user_favorites.forEach((productF) => {
             if (productF.product_id === product.product_id) {
               product.product_favorite = true;
-              console.log('HOLA DEDE ALL_FAVORITES TRUE FAVORITE');
+
               return product;
             }
           });
@@ -149,7 +201,6 @@ export const reducerFetch = (state = initialState, action) => {
             return (product.product_favorite = false);
           }
         });
-        console.log(state);
         return state;
       }
       return state;
@@ -212,7 +263,10 @@ export const reducerFetch = (state = initialState, action) => {
       const products = state.car.filter(
         (product) => product.product_id !== action.payload.id
       );
-
+      const productDelete = state.car.find(
+        ({ product_id }) => product_id === action.payload.id
+      );
+      productDelete.productExistToCart = false;
       state = {
         ...state,
         car: products,
@@ -220,6 +274,13 @@ export const reducerFetch = (state = initialState, action) => {
       };
       window.localStorage.setItem(CAR, JSON.stringify(state.car));
       return state;
+    }
+    case DELETE_CART: {
+      return {
+        ...state,
+        car: [],
+        priceTotal: 0,
+      };
     }
     case CAR_MODIFIER: {
       const order = [...state.car];
@@ -280,6 +341,8 @@ export const reducerFetch = (state = initialState, action) => {
             .indexOf(state.filters.search.toLowerCase()) !== -1;
         const price =
           Number(product.product_price) <= Number(action.payload.price);
+        if (state.filters.search.length === 0) {
+        }
         if (
           action.payload.category.length > 0 &&
           action.payload.brand.length > 0
@@ -320,22 +383,38 @@ export const reducerFetch = (state = initialState, action) => {
           }
           return;
         }
-        return;
-      });
 
+        return filterproducts.push(product);
+      });
       return {
         ...state,
         copieProducts: filterproducts,
+      };
+    }
+    case FILTER_STAR: {
+      if (action.payload === 'Todas') {
+        return {
+          ...state,
+          detailsReviews: state.reviews,
+        };
+      }
+      const reviewsFiltered = state.reviews.filter(
+        (review) => Number(review.review_score) === Number(action.payload)
+      );
+      return {
+        ...state,
+        detailsReviews: reviewsFiltered,
       };
     }
     case DELETE_DETAILS: {
       return {
         ...state,
         detailsProduct: {},
+        loadingReviews: false,
       };
     }
-    case 'ORDER_BY_PRICE': {
-      if (action.payload === 'price max-min') {
+    case SELECT_ORDER: {
+      if (action.payload === 'mayor-precio') {
         let orderproducts = state.copieProducts.sort((a, b) => {
           if (Number(a.product_price) < Number(b.product_price)) {
             return 1;
@@ -350,7 +429,7 @@ export const reducerFetch = (state = initialState, action) => {
         };
       }
 
-      if (action.payload === 'price min-max') {
+      if (action.payload === 'menor-precio') {
         let orderproducts = state.copieProducts.sort((a, b) => {
           if (Number(a.product_price) < Number(b.product_price)) {
             return -1;
@@ -364,11 +443,8 @@ export const reducerFetch = (state = initialState, action) => {
           copieProducts: orderproducts,
         };
       }
-      return state;
-    }
-    case 'ORDER_BY_RATING': {
-      if (action.payload === 'rating max-min') {
-        let orderproducts = state.products.sort((a, b) => {
+      if (action.payload === 'mayor-puntuacion') {
+        let orderproducts = state.copieProducts.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
             return 1;
           }
@@ -378,12 +454,12 @@ export const reducerFetch = (state = initialState, action) => {
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
         };
       }
 
-      if (action.payload === 'rating min-max') {
-        let orderproducts = state.products.sort((a, b) => {
+      if (action.payload === 'menor-puntuacion') {
+        let orderproducts = state.copieProducts.sort((a, b) => {
           if (a.product_rating < b.product_rating) {
             return -1;
           }
@@ -393,7 +469,40 @@ export const reducerFetch = (state = initialState, action) => {
         });
         return {
           ...state,
-          products: orderproducts,
+          copieProducts: orderproducts,
+        };
+      }
+      let productsOrder = [...state.copieProducts];
+      if (action.payload === 'mas-visto') {
+        let orderproducts = productsOrder.sort((a, b) => {
+          if (a.product_views < b.product_views) {
+            return 1;
+          }
+          if (a.product_views > b.product_views) {
+            return -1;
+          }
+          return 0;
+        });
+        console.log(orderproducts, 'ORDER');
+        return {
+          ...state,
+          copieProducts: orderproducts,
+        };
+      }
+      if (action.payload === 'menos-visto') {
+        let orderproducts = productsOrder.sort((a, b) => {
+          if (a.product_views < b.product_views) {
+            return -1;
+          }
+          if (a.product_views > b.product_views) {
+            return 1;
+          }
+          return 0;
+        });
+        console.log(orderproducts);
+        return {
+          ...state,
+          copieProducts: orderproducts,
         };
       }
       return state;
@@ -409,12 +518,15 @@ export const reducerFetch = (state = initialState, action) => {
         },
       };
     }
-
     case ARMAMENT_PC_PRODUCT: {
       let existProduct = state.armamentPc.find(
         ({ product_category, product_name }) =>
           product_category === action.payload.product_category &&
           product_name === action.payload.product_name
+      );
+      let existCategory = state.armamentPc.find(
+        ({ product_category }) =>
+          product_category === action.payload.product_category
       );
       if (existProduct) {
         if (
@@ -429,6 +541,25 @@ export const reducerFetch = (state = initialState, action) => {
         }
         return state;
       }
+      if (existCategory) {
+        console.log(existCategory);
+        if (
+          existCategory?.product_category === 'Memorias RAM' ||
+          existCategory?.product_category === 'Teclados' ||
+          existCategory?.product_category === 'Mouses' ||
+          existCategory?.product_category === 'Microfonos' ||
+          existCategory?.product_category === 'Camaras' ||
+          existCategory?.product_category === ''
+        ) {
+          action.payload.product_count = 1;
+
+          return {
+            ...state,
+            armamentPc: [...state.armamentPc, action.payload],
+          };
+        }
+        return state;
+      }
       action.payload.product_count = 1;
       return {
         ...state,
@@ -436,48 +567,100 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case ADD_TO_CART_PC: {
+      const newProductsToCart = [];
+      action.payload.products.forEach((productArmament) => {
+        state.car.forEach((product) => {
+          if (product.product_id === productArmament.product_id) {
+            product.product_count =
+              product.product_count + productArmament.product_count;
+            productArmament.productExistToCart = true;
+            return false;
+          }
+        });
+        if (productArmament?.productExistToCart) return;
+        return newProductsToCart.push(productArmament);
+      });
+      console.log(newProductsToCart);
       return {
         ...state,
-        car: [...state.car, ...action.payload.products],
+        car: [...state.car, ...newProductsToCart],
         armamentPc: [],
 
         priceTotal: Number(state.priceTotal) + Number(action.payload.price),
       };
     }
     case DELETE_PC_PRODUCT: {
-      console.log(action.payload);
-
-      console.log(state.armamentPc);
       const products = state.armamentPc.filter(
         (product) => product.product_id !== action.payload
       );
-      console.log(products);
       return {
         ...state,
         armamentPc: products,
       };
     }
-
     case 'GET_USER': {
+      console.log(action.payload);
       return {
         ...state,
-        user: action.payload,
+        userDates: action.payload,
       };
     }
     case 'PUT_UPDATE_USER': {
+      window.localStorage.setItem(PASSWORD, action.payload.password);
       return {
         ...state,
-        userDates: { ...state.userDates, ...action.payload },
+        userDates: { ...state.userDates, ...action.payload.data },
       };
     }
-
     case 'FILTER_BY_RAITING': {
       let productsByRaiting = state.detailsProduct.review.filter(
-        (e) => e.review_score == action.payload
+        (e) => Number(e.review_score) === Number(action.payload)
       );
       return {
         ...state,
         detailsReviews: { ...state.detailsProduct, review: productsByRaiting },
+      };
+    }
+    case 'POST_CREATE_PRODUCT': {
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
+    }
+    case 'GET_USERS': {
+      return {
+        ...state,
+        users: action.payload,
+      };
+    }
+    case 'GET_INVOICE': {
+      return {
+        ...state,
+        invoices: action.payload,
+      };
+    }
+    case 'GET_REVIEWS': {
+      return {
+        ...state,
+        reviews: action.payload,
+      };
+    }
+    case ERROR: {
+      return {
+        ...state,
+        errorAxios: action.payload,
+      };
+    }
+    case 'PUT_UPDATE_PRODUCT': {
+      return {
+        ...state,
+      };
+    }
+    case BIENVENIDO: {
+      console.log(action.payload);
+      return {
+        ...state,
+        bienvenido: action.payload,
       };
     }
 

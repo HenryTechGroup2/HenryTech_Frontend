@@ -4,8 +4,10 @@ import Filters from '../Filters/Filters.jsx';
 const Aside = () => {
   return (
     <div className='aside'>
-      <Filters />
-      <Orders />
+      <div className='aside__container'>
+        <Orders />
+        <Filters />
+      </div>
     </div>
   );
 };

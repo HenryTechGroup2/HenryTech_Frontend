@@ -11,10 +11,12 @@ const brand = [
   { name: '../assets/amd.png', marca: 'AMD' },
   { name: '../assets/intel.png', marca: 'INTEL' },
 ];
+const buttons = ['Teclados', 'Mouses', 'Microfonos', 'Auriculares'];
 const ArmamentPc = () => {
   const [select, setSelect] = useState('Procesadores');
   const [complete, setComplete] = useState(false);
-  const [selectBrand, setSelectBrand] = useState(null);
+  const [selectBrand, setSelectBrand] = useState('INTEL');
+  const [periferico, setPeriferico] = useState('Teclados');
   const { products, armamentPc } = useSelector((state) => state);
   const navigate = useNavigate();
   const handleClick = (slct) => {
@@ -30,15 +32,37 @@ const ArmamentPc = () => {
   const descriptionH1 = descriptionPc.find(
     (component) => component.name === select
   );
-  const productsAcept = products.filter(
-    (product) =>
-      product?.product_category.toLowerCase() === select.toLocaleLowerCase()
-  );
+
+  let productsAcept = products.filter((product) => {
+    if (select === 'Procesadores') {
+      return (
+        product?.product_category.toLowerCase() === select.toLowerCase() &&
+        product?.product_brand.toLowerCase() === selectBrand.toLowerCase()
+      );
+    }
+    if (select === 'Perifericos') {
+      return (
+        product?.product_category.toLowerCase() === 'auriculares' ||
+        product?.product_category.toLowerCase() === 'microfonos' ||
+        product?.product_category.toLowerCase() === 'camaras' ||
+        product?.product_category.toLowerCase() === 'mouses' ||
+        product?.product_category.toLowerCase() === 'teclados'
+      );
+    }
+    return product?.product_category.toLowerCase() === select.toLowerCase();
+  });
+  let x = 0;
+  if (select === 'Perifericos') {
+    productsAcept = productsAcept.filter(
+      (product) =>
+        product.product_category.toLowerCase() === periferico.toLowerCase()
+    );
+  }
   const handleClickAddComponentPc = (addProduct) => {
     dispatch(addProductPC(addProduct));
   };
   const priceTotal = armamentPc?.reduce(
-    (a, b) => a + Number(b.product_price) * b.product_count,
+    (a, b) => a + Number(b.product_price) * Number(b.product_count),
     0
   );
   const changePageComplete = () => {
@@ -53,13 +77,14 @@ const ArmamentPc = () => {
         product.product_category.toLowerCase() ===
           'Procesadores'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Motherboard'.toLowerCase() ||
+          'Placas Madres'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gpu'.toLowerCase() ||
-        product.product_category.toLowerCase() === 'Ram'.toLowerCase() ||
+        product.product_category.toLowerCase() ===
+          'Memorias Ram'.toLowerCase() ||
         product.product_category.toLowerCase() ===
           'Almacenamiento'.toLowerCase() ||
         product.product_category.toLowerCase() ===
-          'Fuente de Poder'.toLowerCase() ||
+          'Fuentes De Poder'.toLowerCase() ||
         product.product_category.toLowerCase() === 'Gabinete'.toLowerCase()
     )
     .map((product) => product.product_category);
@@ -83,6 +108,9 @@ const ArmamentPc = () => {
     dispatch(addToCartProductsArmamentPC(armamentPc, priceTotal));
     navigate('/car');
   };
+  const handleFilterPeriferico = (category) => {
+    setPeriferico(category);
+  };
   return (
     <>
       <Header />
@@ -95,6 +123,7 @@ const ArmamentPc = () => {
             <div className='pc__brand'>
               {brand.map((item) => (
                 <img
+                  key={item.marca}
                   onClick={() => handleSelectBrand(item.marca)}
                   className={` pc__image ${
                     selectBrand === item.marca
@@ -121,46 +150,69 @@ const ArmamentPc = () => {
                 />
               ))}
               <div className='pc__dates'>
-                <div className='pc__total'>Total: ${priceTotal}</div>
+                <div className='pc__total'>
+                  Total:
+                  {Number(priceTotal.toFixed(2)).toLocaleString('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                  })}
+                </div>
                 {productsCategoryUnique.length >= 6 ? (
                   <button className='pc__buy' onClick={changePageComplete}>
-                    To Buy
+                    SIGUIENTE
                   </button>
                 ) : (
                   <button className='pc__buy' onClick={handleClickNotBuy}>
-                    To Buy
+                    SIGUIENTE
                   </button>
                 )}
               </div>
             </div>
-            <div className='pc__right'>
-              {complete ? (
-                <div className='pc__complete'>
-                  <h2 className='pc__h2'>Components Pc</h2>
-                  <ul className='pc__ul'>
-                    <div>
-                      {armamentPc?.map((product) => (
-                        <li className='pc__li'>
-                          <span className='pc__span'>
-                            {product.product_count}
-                          </span>
-                          X {product.product_name}
-                        </li>
-                      ))}
-                    </div>
-                    <button onClick={handleToCart} className='pc__button'>
-                      To Cart
+            <div className='pc__columnx'>
+              {select === 'Perifericos' ? (
+                <div className='pc__periferico'>
+                  {buttons.map((btn) => (
+                    <button
+                      onClick={() => handleFilterPeriferico(btn)}
+                      className='pc__btnn'
+                    >
+                      {btn}
                     </button>
-                  </ul>
+                  ))}
                 </div>
-              ) : (
-                productsAcept?.map((product) => (
-                  <ArmamentCard
-                    product={product}
-                    handleClickAddComponentPc={handleClickAddComponentPc}
-                  />
-                ))
-              )}
+              ) : null}
+              <div className='pc__right'>
+                {complete ? (
+                  <div className='pc__complete'>
+                    <h2 className='pc__h2'>Components Pc</h2>
+                    <ul className='pc__ul'>
+                      <div>
+                        {armamentPc?.map((product) => (
+                          <li className='pc__li' key={product?.product_id}>
+                            <span className='pc__span'>
+                              {product.product_count}
+                            </span>
+                            X {product.product_name}
+                          </li>
+                        ))}
+                      </div>
+                      <button onClick={handleToCart} className='pc__button'>
+                        IR AL CARRITO
+                      </button>
+                    </ul>
+                  </div>
+                ) : (
+                  <>
+                    {productsAcept?.map((product) => (
+                      <ArmamentCard
+                        key={product.product_id}
+                        product={product}
+                        handleClickAddComponentPc={handleClickAddComponentPc}
+                      />
+                    ))}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

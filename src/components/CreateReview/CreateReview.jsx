@@ -4,8 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
-import { ADD_REVIEW_PRODUCT_REAL_TIME } from '../../redux/actions';
-const server = io('http://localhost:3001');
+import {
+  ADD_REVIEW_PRODUCT_REAL_TIME,
+  api,
+  getAllProducts,
+  getDetailsProducts,
+} from '../../redux/actions';
+import { enviar } from '../../utils/Icons';
+const server = io(api);
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {
@@ -24,11 +30,15 @@ export function CreateReview({ productId }) {
   });
   useEffect(() => {
     const newReview = (message) => {
-      console.log(message);
       dispatch({ type: ADD_REVIEW_PRODUCT_REAL_TIME, payload: message });
       setReviews([...reviews, message]);
+      dispatch(getDetailsProducts(productId));
+      dispatch(getAllProducts());
     };
     server.on('@review/create/successful', newReview);
+    return () => {
+      server.off('@review/create/successful', newReview);
+    };
   }, [reviews]);
   const dispatch = useDispatch();
   const { userDates } = useSelector((state) => state);
@@ -66,22 +76,17 @@ export function CreateReview({ productId }) {
     return errors;
   }
   //Envio de encuesta
-  console.log(userDates.user_id, productId);
   function handleOnSubmit(e) {
     e.preventDefault();
-    // dispatch(postCreateReview(input));
-    server.emit('@review/create', [
-      {
-        review_title: input.review_title,
-        review_body: input.review_body,
-        review_score: input.review_score,
-        review_product_id: productId,
-        review_user_id: userDates.user_id,
-      },
-    ]);
-    // alert('Reseña creada');
+    server.emit('@review/create', {
+      review_title: input.review_title,
+      review_body: input.review_body,
+      review_score: input.review_score,
+      review_product_id: productId,
+      review_user_id: userDates.user_id,
+    });
     setInput({
-      initialState,
+      ...initialState,
     });
   }
   //Stars
@@ -113,22 +118,13 @@ export function CreateReview({ productId }) {
   }
   return (
     <div className='review'>
-      <h2 className='review__h2'>Deja tu reseña aquí</h2>
       <form className='review__form' onSubmit={(e) => handleOnSubmit(e)}>
         <div className='review__div'>
-          <input
-            className='review__input'
-            placeholder='Add title review'
-            type='text'
-            name='review_title'
-            value={input.review_title}
-            onChange={(e) => handleOnChange(e)}
-          />
-          {errors.review_title && <p>{errors.review_title}</p>}
           <p className='review__cstar'>
             {startState.confirmStar === null
               ? star.map((star, index) => (
                   <span
+                    key={index}
                     className='review__star'
                     onMouseEnter={() => handleMouseStar(index)}
                     onClick={handleClickStar}
@@ -138,6 +134,7 @@ export function CreateReview({ productId }) {
                 ))
               : star.map((star, index) => (
                   <span
+                    key={index}
                     className='review__star'
                     onClick={() => handleClickStar(index, 'change')}
                   >
@@ -146,25 +143,24 @@ export function CreateReview({ productId }) {
                 ))}
           </p>
         </div>
-        <div className='review__div'></div>
-        <div className='review__div'>
-          <textarea
-            placeholder='Add to opinion'
-            className='review__textarea'
+        <div className='review__msg'>
+          <input
+            placeholder='Que te parecio el producto'
+            className='review__input'
             type='text'
             name='review_body'
             value={input.review_body}
             onChange={(e) => handleOnChange(e)}
           />
-          {errors.review_body && <p>{errors.review_body}</p>}
+
+          <button
+            className='review__button'
+            type='submit'
+            // disabled={Object.entries(errors).length === 0 ? false : true}
+          >
+            <img src='../send.png' alt='' />
+          </button>
         </div>
-        <button
-          className='review__button'
-          type='submit'
-          // disabled={Object.entries(errors).length === 0 ? false : true}
-        >
-          Send
-        </button>
       </form>
     </div>
   );

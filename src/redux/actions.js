@@ -13,9 +13,24 @@ export const DELETE_PC_PRODUCT = '@armament/delete';
 export const LOGIN_USER = '@user/login';
 export const ADD_ALL_FAVORITES = '@user/add-favorites';
 export const ADD_REVIEW_PRODUCT_REAL_TIME = '@review/add-real-time';
+export const CHANGE_ID_USER = '@user/changeId';
 export const DELETE_FAVORIT = '@favorit/delete';
+export const FILTER_STAR = '@filter/star';
+export const CREATE_USER_AUTH0 = '@user/auth0';
+export const DELETE_CART = 'cart/delete-all';
+export const ORDER_VIEWS = '@order/views';
+export const SELECT_ORDER = '@order/select';
+export const ERROR = '@error';
+export const BIENVENIDO = '@bienvenido';
 // export const api = 'https://henry-tech-backend.vercel.app';
 export const api = 'http://localhost:3001';
+//ORDER
+export function orderSelect(order) {
+  return {
+    type: SELECT_ORDER,
+    payload: order,
+  };
+}
 export function getAllProducts() {
   return async function (dispatch) {
     try {
@@ -33,18 +48,6 @@ export function createUser(user) {
   return {
     type: CREATE_USER,
     payload: user,
-  };
-}
-//Llamar al stock de productos
-export function getStockProducts() {
-  return async function (dispatch) {
-    try {
-      const result = await axios.get('https://fakestoreapi.com/getstock');
-      return dispatch({
-        type: 'GET_STOCK_PRODUCTS',
-        payload: result.data,
-      });
-    } catch (error) {}
   };
 }
 
@@ -155,13 +158,8 @@ export function deleteDetailsProducts() {
     type: DELETE_DETAILS,
   };
 }
-export function filterByBrand() {}
-
-export function orderByPopularity() {}
 
 export function addToCartProductsArmamentPC(products, price) {
-
-
   return {
     type: ADD_TO_CART_PC,
     payload: {
@@ -177,40 +175,127 @@ export function deleteProductArmamentPC(id) {
   };
 }
 
-
-
 export function getUser(id) {
-  try {
-    return async function (dispatch) {
-      const result = await axios.get(`http://localhost:3001/api/user/${id}`);
+  return async function (dispatch) {
+    try {
+      const result = await axios.get(`${api}/api/user/${id}`);
+      console.log(result.data);
       return dispatch({
         type: 'GET_USER',
         payload: result.data,
       });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
+
+export function updateUser(payload, id, password) {
+  return async function (dispatch) {
+    console.log(payload);
+    try {
+      const result = await axios.put(`${api}/api/user/${id}`, payload);
+      return dispatch({
+        type: 'PUT_UPDATE_USER',
+        payload: { data: result.data, password },
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+}
+
+export function filterByRaiting(product_raiting) {
+  return {
+    type: 'FILTER_BY_RAITING',
+    payload: product_raiting,
+  };
+}
+
+export function postCreateProduct(payload) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.post(`${api}/api/product`, payload);
+      return dispatch({
+        type: 'POST_CREATE_PRODUCT',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
+
+export function getUsers() {
+  try {
+    return async function (dispatch) {
+      const result = await axios.get(`${api}/api/user`);
+      return dispatch({
+        type: 'GET_USERS',
+        payload: result.data,
+      });
     };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
-
-export function updateUser(payload, id){
+export function getInvoice() {
   try {
-    return async function(dispatch){
-      const result = await axios.put(`http://localhost:3001/api/user/${id}`,payload)
+    return async function (dispatch) {
+      const result = await axios.get(`${api}/api/invoice`);
       return dispatch({
-          type: "PUT_UPDATE_USER",
-          payload: result.data
-      })
-  }
+        type: 'GET_INVOICE',
+        payload: result.data,
+      });
+    };
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 }
 
-export function filterByRaiting (product_raiting) {
-  return ({
-      type: 'FILTER_BY_RAITING',
-      payload: product_raiting
-  })
+export function getReviews() {
+  return async function (dispatch) {
+    try {
+      const result = await axios.get(`${api}/api/review`);
+      return dispatch({
+        type: 'GET_REVIEWS',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 
+export function updateProduct(payload, id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.put(
+        `http://localhost:3001/api/product/${id}`,
+        payload
+      );
+      return dispatch({
+        type: 'PUT_UPDATE_PRODUCT',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
+export function sendMail(emails) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.post(`${api}/api/send-email`, emails);
+      return dispatch({
+        type: BIENVENIDO,
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}

@@ -7,7 +7,6 @@ const ArmamentCard = ({ product, handleClickAddComponentPc }) => {
   const handleClickInfo = (evt) => {
     evt.stopPropagation();
     setOpen(!open);
-    console.log('object');
   };
 
   return (

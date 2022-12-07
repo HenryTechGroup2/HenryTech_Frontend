@@ -2,12 +2,16 @@ import React, { useRef } from 'react';
 import { arrowTop } from '../../utils/Icons';
 
 const ButtonTop = () => {
-  const buttonRef = useRef();
+  const buttonRef = useRef(null);
   window.addEventListener('scroll', () => {
     if (window.pageYOffset < 300) {
-      buttonRef.current.classList.add('close');
+      if (buttonRef.current !== null) {
+        buttonRef.current.classList.add('close');
+      }
     } else {
-      buttonRef.current.classList.remove('close');
+      if (buttonRef.current !== null) {
+        buttonRef.current.classList.remove('close');
+      }
     }
   });
   const handleClick = () => {
