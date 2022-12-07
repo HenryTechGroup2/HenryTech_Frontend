@@ -1,11 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { updateUser } from '../../redux/actions';
-import styles from '../../scenes/FormStyle.module.css'
-
+import { ERROR, updateUser } from '../../redux/actions';
+import styles from '../../scenes/FormStyle.module.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 export function validate(input) {
   let errors = {};
@@ -30,25 +29,26 @@ export function validate(input) {
   return errors;
 }
 
-const UpdateUser = ({ user }) => {
-  const params = useParams();
-  const id = params.id;
+const UpdateUser = ({ user, id }) => {
   const dispatch = useDispatch();
-
-  const initialState = {
+  const INITIAL_STATE = {
     user_name: user.user_name,
-    user_password: user.user_password,
-    user_password_confirm: user.user_password,
+    user_password: '',
+    user_password_confirm: '',
     user_phone: user.user_phone,
     user_payment_method: user.user_payment_method,
     user_shipping_address: user.user_shipping_address,
+    user_email: user.user_email,
   };
-
-  const [input, setInput] = useState(initialState);
+  const [input, setInput] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
+  const { errorAxios } = useSelector((state) => state);
+  const [edit, setEdit] = useState(null);
 
   function handleOnChange(e) {
     e.preventDefault();
+    console.log(e.target.name, e.target.value);
+    console.log(input);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -63,94 +63,115 @@ const UpdateUser = ({ user }) => {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    dispatch(updateUser(input, id));
-    alert('Tus datos fueron actualizados');
+    dispatch(updateUser(input, id, input.user_password_confirm));
+    setTimeout(() => dispatch({ type: ERROR, payload: null }), 3500);
   }
-
-  if (Object.entries(user).length > 0) {
-    return (
-      <div style={styles.divform}>
-        <div className={styles.form}>
-          <h1>Actualiza tus datos: {user.user_name} </h1>
-          <form onSubmit={(e) => handleOnSubmit(e)}>
-            <div>
-              <label>Nombre de usuario:</label>
-              <input
-                type='text'
-                name='user_name'
-                value={input.user_name}
-                defaultValue={user.user_name}
-                onChange={(e) => handleOnChange(e)}
-              />
-              {errors.user_name && <p>{errors.user_name}</p>}
-            </div>
-            <h2>Cambia tu contraseña:</h2>
-            <div>
-              <label>Nueva Contraseña:</label>
-              <input
-                type='password'
-                name='user_password'
-                value={input.user_password}
-                defaultValue={user.user_password}
-                onChange={(e) => handleOnChange(e)}
-              />
-              {errors.user_password && <p>{errors.user_password}</p>}
-            </div>
-            <div>
-              <label>Confirma tu Contraseña:</label>
-              <input
-                type='password'
-                name='user_password_confirm'
-                value={input.user_password_confirm}
-                defaultValue={user.user_password}
-                onChange={(e) => handleOnChange(e)}
-              />
-              {errors.user_password_confirm && (
-                <p>{errors.user_password_confirm}</p>
-              )}
-            </div>
-            <div>
-              <label>Numero de contacto:</label>
-              <input
-                type='number'
-                name='user_phone'
-                value={input.user_phone}
-                defaultValue={user.user_phone}
-                onChange={(e) => handleOnChange(e)}
-              />
-              {errors.user_phone && <p>{errors.user_phone}</p>}
-            </div>
-            <div>
-              <label>Método de pago:</label>
-              <input
-                type='text'
-                name='user_payment_method'
-                value={input.user_payment_method}
-                defaultValue={user.user_payment_method}
-                onChange={(e) => handleOnChange(e)}
-              />
-            </div>
-            <div>
-              <label>Dirección de entrega:</label>
-              <input
-                type='text'
-                name='user_shipping_address'
-                value={input.user_shipping_address}
-                defaultValue={user.user_shipping_address}
-                onChange={(e) => handleOnChange(e)}
-              />
-            </div>
-            <button
-              type='submit'
-              disabled={Object.entries(errors).length === 0 ? false : true}
-            >
-              Actualizar
-            </button>
-          </form>
+  const inputDates = [
+    {
+      option: 'Nombre de usuario',
+      type: 'text',
+      date: user.user_name,
+      inputDate: input?.user_name,
+      values: 'user_name',
+    },
+    {
+      option: 'Cambiar contraseña',
+      type: 'password',
+      date: '*********',
+      inputDate: input?.user_password,
+      values: 'user_password',
+    },
+    {
+      option: 'Numero de contacto',
+      type: 'text',
+      date: user.user_phone,
+      inputDate: input?.user_phone,
+      values: 'user_phone',
+    },
+    {
+      option: 'Metodo de pago',
+      type: 'text',
+      date: user.user_payment_method,
+      inputDate: input?.user_payment_method,
+      values: 'user_payment_method',
+    },
+    {
+      option: 'Dirección de entrega',
+      type: 'text',
+      date: user.user_shipping_address,
+      inputDate: input?.user_shipping_address,
+      values: 'user_shipping_address',
+    },
+  ];
+  const handleEditOption = (index) => {
+    if (index === edit) return setEdit(null);
+    setEdit(index);
+  };
+  return (
+    <>
+      {/* <ToastContainer /> */}
+      {Object.values(user).length > 0 ? (
+        <div className='update'>
+          <div className='update__container'>
+            <form className='update__form' onSubmit={(e) => handleOnSubmit(e)}>
+              {inputDates.map((dates, index) => (
+                <div className='update__div' key={dates.option}>
+                  <div className='update__flex'>
+                    <label className='update__label'>{dates.option}</label>:
+                    {edit === index ? (
+                      <>
+                        <input
+                          className={`${
+                            dates.type === 'password'
+                              ? 'update__pass'
+                              : 'update__input'
+                          }`}
+                          name={dates?.values}
+                          value={dates?.inputDate}
+                          type={dates?.type}
+                          onChange={handleOnChange}
+                        />
+                        {dates?.type === 'password' && (
+                          <input
+                            className='update__pass'
+                            name={'user_password_confirm'}
+                            value={input.user_password_confirm}
+                            type={dates?.type}
+                            onChange={handleOnChange}
+                          />
+                        )}
+                      </>
+                    ) : (
+                      <div>{dates?.inputDate}</div>
+                    )}
+                  </div>
+                  <button
+                    className='update__btn'
+                    type='button'
+                    onClick={() => handleEditOption(index)}
+                  >
+                    Editar
+                  </button>
+                </div>
+              ))}
+              <button
+                className='update__submit'
+                type='submit'
+                // disabled={Object.entries(errors).length === 0 ? false : true}
+              >
+                Actualizar
+              </button>
+              {errorAxios !== null ? (
+                <div className='update__error'>{errorAxios}</div>
+              ) : null}
+            </form>
+          </div>
         </div>
-      </div>
-    );
-  }
+      ) : (
+        <div>Cargando...</div>
+      )}
+    </>
+  );
 };
 
 export default UpdateUser;

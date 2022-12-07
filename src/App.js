@@ -33,7 +33,6 @@ import Invoices from './scenes/Invoices.jsx';
 import Reviews from './scenes/Reviews.jsx';
 import CreateProducts from './scenes/CreateProducts';
 
-
 import { useAuth0 } from '@auth0/auth0-react';
 import EditProduct from './scenes/EditProduct';
 
@@ -85,7 +84,6 @@ function App() {
     dispatch({ type: ADD_ALL_FAVORITES });
   }, [products, dispatch]);
   return (
-  
     <Elements stripe={stripePromise}>
       <ParticlesBackground />
       <BrowserRouter>
@@ -98,16 +96,22 @@ function App() {
           <Route path='/product' element={<ProductByName />} />
           <Route path='/preguntasfrecuentes' element={<Questions />} />
           <Route path='/sobrenosotros' element={<Aboutus />} />
-          <Route exact path='/products/:id' element={<Details />} />
-          <Route exact path='/micuenta/:id' element={<MyAcount />} />
-          <Route exact path='/actualiza/:id' element={<UpdateUser />} />
-          <Route exact path='/admin' element={<Dashboard />} />
-          <Route exact path='/admin/users' element={<Users />} />
-          <Route exact path='/admin/products' element={<Products />} />
-          <Route exact path='/admin/invoices' element={<Invoices />} />
-          <Route exact path='/admin/reviews' element={<Reviews />} />
-          <Route exact path='/admin/products/crearproducto' element={<CreateProducts />} />
-          <Route exact path='/admin/products/editarproducto' element={<EditProduct />} />
+          <Route path='/products/:id' element={<Details />} />
+          <Route path='/micuenta/:id' element={<MyAcount />} />
+          <Route path='/actualiza/:id' element={<UpdateUser />} />
+          <Route path='/admin' element={<Dashboard />} />
+          <Route path='/admin/users' element={<Users />} />
+          <Route path='/admin/products' element={<Products />} />
+          <Route path='/admin/invoices' element={<Invoices />} />
+          <Route path='/admin/reviews' element={<Reviews />} />
+          <Route
+            path='/admin/products/crearproducto'
+            element={<CreateProducts />}
+          />
+          <Route
+            path='/admin/products/editarproducto'
+            element={<EditProduct />}
+          />
         </Routes>
       </BrowserRouter>
     </Elements>

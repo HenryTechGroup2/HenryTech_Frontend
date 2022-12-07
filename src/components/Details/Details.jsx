@@ -14,19 +14,23 @@ import ParticlesBackground from '../Particles/ParticlesBackground.jsx';
 import Count from '../Count/Count.jsx';
 import Footer, { images as imagesPagos } from '../Footer/Footer.jsx';
 import Star from '../Star/Star.jsx';
-import { noStock, stock } from '../../utils/Icons.js';
+import { camion, noStock, security, stock } from '../../utils/Icons.js';
 import Header from '../Header/Header.jsx';
 import { ToastContainer } from 'react-toastify';
 import ButtonTop from '../ButtonTop/ButtonTop.jsx';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite.jsx';
 import io from 'socket.io-client';
+// import loader from '../../loader.gif';
 
+const starsMap = ['★★★★★', '★★★★', '★★★', '★★', '★'];
+const INITIAL_STATE = { openSelect: null, drop: 0 };
 export function Details() {
   const params = useParams();
 
   const dispatch = useDispatch();
   const server = io(api);
-
+  const [select, setSelect] = useState(INITIAL_STATE);
+  const { openSelect, drop } = select;
   const { detailsProduct } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
@@ -54,11 +58,17 @@ export function Details() {
     setBorderImage(index);
   };
 
-  const handleFilterStar = (evt) => {
-    const { value } = evt.currentTarget;
-    dispatch({ type: FILTER_STAR, payload: value });
+  const handleFilterStar = (star) => {
+    dispatch({ type: FILTER_STAR, payload: star });
   };
-
+  const handleOpenSelect = (open) => {
+    if (select.drop === open) return setSelect(INITIAL_STATE);
+    setSelect({
+      ...select,
+      openSelect: true,
+      drop: open,
+    });
+  };
   const images = detailsProduct?.product_array_img?.concat(
     detailsProduct?.product_img
   );
@@ -101,9 +111,11 @@ export function Details() {
                   <ReactImageMagnify
                     {...{
                       smallImage: {
-                        alt: 'Wristwatch by Ted Baker London',
-                        isFluidWidth: true,
+                        alt: imagePrincipal,
+                        // isFluidWidth: true,
                         src: imagePrincipal,
+                        height: 450,
+                        width: 480,
                       },
                       largeImage: {
                         src: imagePrincipal,
@@ -111,7 +123,7 @@ export function Details() {
                         height: 850,
                       },
                       enlargedImageContainerDimensions: {
-                        width: 400,
+                        width: 550,
                         height: 640,
                       },
                       enlargedImagePortalId: 'portal',
@@ -120,26 +132,30 @@ export function Details() {
                   />
                 </div>
               ) : (
-                <ReactImageMagnify
-                  {...{
-                    smallImage: {
-                      alt: 'Wristwatch by Ted Baker London',
-                      isFluidWidth: true,
-                      src: detailsProduct?.product_img,
-                    },
-                    largeImage: {
-                      src: detailsProduct?.product_img,
-                      width: 1000,
-                      height: 850,
-                    },
-                    enlargedImageContainerDimensions: {
-                      width: 400,
-                      height: 640,
-                    },
-                    enlargedImagePortalId: 'portal',
-                    fadeDurationInMs: 0,
-                  }}
-                />
+                <div className='details__special'>
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: detailsProduct?.product_img,
+                        // isFluidWidth: true,
+                        src: detailsProduct?.product_img,
+                        height: 450,
+                        width: 480,
+                      },
+                      largeImage: {
+                        src: detailsProduct?.product_img,
+                        width: 1000,
+                        height: 850,
+                      },
+                      enlargedImageContainerDimensions: {
+                        width: 550,
+                        height: 640,
+                      },
+                      enlargedImagePortalId: 'portal',
+                      fadeDurationInMs: 0,
+                    }}
+                  />
+                </div>
               )}
             </div>
             <div className='details__description'>
@@ -155,16 +171,48 @@ export function Details() {
                     <Star detailsReviews={detailsProduct.product_rating} />
                     <ButtonFavorite product={detailsProduct} />
                   </h2>
+                  <div
+                    className='details__centerx'
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    <div className='details__brand'>
+                      {' '}
+                      Marca: {detailsProduct?.product_brand}
+                    </div>
+                    <div className='details__views'>
+                      Cantidad de visualizaciones:
+                      {detailsProduct?.product_views}
+                    </div>
+                    <div className='details__send'>
+                      Envios a todo el pais {camion}
+                    </div>
+                    <div className='details__send'>
+                      Garantia oficial de 12 meses {security}
+                    </div>
+                    <div>
+                      Podes comprar hasta {detailsProduct?.stock.stock_amount}{' '}
+                      productos
+                    </div>
+                  </div>
+
                   <div>
                     <div className='details__price'>
                       <div className='details__stock'>
                         {detailsProduct?.stock?.stock_amount > 0 ? (
                           <div>{stock} Stock</div>
                         ) : (
-                          <div>{noStock} No stock</div>
+                          <div>{noStock} Stock</div>
                         )}
                       </div>
-                      ${detailsProduct?.product_price}
+                      <div>
+                        {Number(detailsProduct?.product_price).toLocaleString(
+                          'es-Ar',
+                          {
+                            style: 'currency',
+                            currency: 'ARS',
+                          }
+                        )}
+                      </div>
                     </div>
                     <Count product={detailsProduct} />
                   </div>
@@ -192,39 +240,51 @@ export function Details() {
                 </div>
               </div>
             </div>
-            <CreateReview productId={detailsProduct.product_id} />
+
             <div className='comentarios'>
-              <h2 className='comentarios__h2'>Opiniones del producto</h2>
               <div className='comentarios__div'>
                 <div className='comentarios__star'>
                   <div className='comentarios__rating'>
                     <div className='comentarios__cal'>{Math.floor(stars)}</div>
                     <div className='comentarios__r'>
-                      <Star detailsReviews={detailsProduct.product_rating} none={false} />
+                      <Star
+                        detailsReviews={detailsProduct.product_rating}
+                        none={false}
+                      />
                       {`${detailsReviews?.length} calificaciones`}
                     </div>
                   </div>
-                  <div></div>
                 </div>
                 <div className='comentarios__coment'>
                   <div className='comentarios__select'>
-                    <select className='comentarios__slct'>
-                      <option value='Ordenar'>Ordenar</option>
-                      <option value='Ordenar'>Mas recientes</option>
-                      <option value='Ordenar'>Mas utiles</option>
-                    </select>
-                    <select
-                      onChange={handleFilterStar}
-                      className='comentarios__slct'
-                    >
-                      <option value='Calificacion'>Calificacion</option>
-                      <option value='Todas'>Todas</option>
-                      <option value='5'>5★</option>{' '}
-                      <option value='4'>4★</option>{' '}
-                      <option value='3'>3★</option>{' '}
-                      <option value='2'>2★</option>{' '}
-                      <option value='1'>1★</option>
-                    </select>
+                    <div className='drop__select'>
+                      <div className='drop'>
+                        <div className='drop__review'>CALIFICACION</div>
+                        <img
+                          onClick={() => handleOpenSelect(1)}
+                          className='drop__image'
+                          src='../assets/drop.png'
+                          alt=''
+                        />
+                      </div>
+                      <div
+                        className='drop__map'
+                        style={{
+                          display: `${
+                            openSelect && drop === 1 ? 'block' : 'none'
+                          }`,
+                        }}
+                      >
+                        {starsMap.map((star) => (
+                          <div
+                            onClick={() => handleFilterStar(star.length)}
+                            className='drop__star'
+                          >
+                            {star}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div className='comentarios__bottom'>
                     {detailsReviews?.map((review) => (
@@ -235,6 +295,7 @@ export function Details() {
                         <p className='comentarios__p'>{review.review_body}</p>
                       </div>
                     ))}
+                    <CreateReview productId={detailsProduct.product_id} />
                   </div>
                 </div>
               </div>
@@ -244,7 +305,13 @@ export function Details() {
         </>
       ) : (
         <div className='loader'>
-          <div className='spinner'> </div>
+          <div className='spinner'></div>
+          {/* <img
+            className='home__image-gif'
+            src={loader}
+            alt='Loader'
+            loading='lazy'
+          /> */}
         </div>
       )}
     </>

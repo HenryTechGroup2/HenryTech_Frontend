@@ -7,11 +7,11 @@ const ModalInfo = ({ product, open, handleClick }) => {
 
   const informacion = [
     {
-      name: 'Description',
+      name: 'Descripción',
       description: product.product_description,
     },
     {
-      name: 'Description',
+      name: 'Descripción',
       description: product.product_description,
     },
   ];
@@ -34,12 +34,16 @@ const ModalInfo = ({ product, open, handleClick }) => {
         <div className='info__acordeon'>
           {informacion.map((info, index) => (
             <div key={index}>
-              <h3
-                onClick={() => handleClickDeploy(index)}
-                className='info__name'
-              >
-                {info.name}
-              </h3>
+              <div className='info__flex'>
+                <h3 className='info__name'>{info.name}</h3>
+
+                <img
+                  onClick={() => handleClickDeploy(index)}
+                  className='info__drop'
+                  src='../assets/drop.png'
+                  alt=''
+                />
+              </div>
               <p
                 className={`info__description ${acordeon === index ? 'x' : ''}`}
               >

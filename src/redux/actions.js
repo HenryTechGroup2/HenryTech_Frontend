@@ -19,9 +19,18 @@ export const FILTER_STAR = '@filter/star';
 export const CREATE_USER_AUTH0 = '@user/auth0';
 export const DELETE_CART = 'cart/delete-all';
 export const ORDER_VIEWS = '@order/views';
-
+export const SELECT_ORDER = '@order/select';
+export const ERROR = '@error';
+export const BIENVENIDO = '@bienvenido';
 // export const api = 'https://henry-tech-backend.vercel.app';
 export const api = 'http://localhost:3001';
+//ORDER
+export function orderSelect(order) {
+  return {
+    type: SELECT_ORDER,
+    payload: order,
+  };
+}
 export function getAllProducts() {
   return async function (dispatch) {
     try {
@@ -170,7 +179,7 @@ export function getUser(id) {
   return async function (dispatch) {
     try {
       const result = await axios.get(`${api}/api/user/${id}`);
-
+      console.log(result.data);
       return dispatch({
         type: 'GET_USER',
         payload: result.data,
@@ -181,19 +190,20 @@ export function getUser(id) {
   };
 }
 
-export function updateUser(payload, id) {
+export function updateUser(payload, id, password) {
   return async function (dispatch) {
+    console.log(payload);
     try {
-      const result = await axios.put(
-        `http://localhost:3001/api/user/${id}`,
-        payload
-      );
+      const result = await axios.put(`${api}/api/user/${id}`, payload);
       return dispatch({
         type: 'PUT_UPDATE_USER',
-        payload: result.data,
+        payload: { data: result.data, password },
       });
     } catch (error) {
-      throw new Error(error.message);
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.msg,
+      });
     }
   };
 }
@@ -216,7 +226,7 @@ export function postCreateProduct(payload) {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
 }
 
 export function getUsers() {
@@ -257,7 +267,7 @@ export function getReviews() {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
 }
 
 export function updateProduct(payload, id) {
@@ -269,6 +279,19 @@ export function updateProduct(payload, id) {
       );
       return dispatch({
         type: 'PUT_UPDATE_PRODUCT',
+        payload: result.data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
+export function sendMail(emails) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.post(`${api}/api/send-email`, emails);
+      return dispatch({
+        type: BIENVENIDO,
         payload: result.data,
       });
     } catch (error) {

@@ -109,13 +109,7 @@ const ArmamentPc = () => {
     navigate('/car');
   };
   const handleFilterPeriferico = (category) => {
-    console.log(category);
     setPeriferico(category);
-    // const productPeriferico = productsAcept.filter(
-    //   (product) =>
-    //     product.product_category.toLowerCase() === category.toLowerCase()
-    // );
-    // console.log(productPeriferico);
   };
   return (
     <>
@@ -156,14 +150,20 @@ const ArmamentPc = () => {
                 />
               ))}
               <div className='pc__dates'>
-                <div className='pc__total'>Total: ${priceTotal.toFixed(2)}</div>
+                <div className='pc__total'>
+                  Total:
+                  {Number(priceTotal.toFixed(2)).toLocaleString('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                  })}
+                </div>
                 {productsCategoryUnique.length >= 6 ? (
                   <button className='pc__buy' onClick={changePageComplete}>
-                    To Buy
+                    SIGUIENTE
                   </button>
                 ) : (
                   <button className='pc__buy' onClick={handleClickNotBuy}>
-                    To Buy
+                    SIGUIENTE
                   </button>
                 )}
               </div>
@@ -197,7 +197,7 @@ const ArmamentPc = () => {
                         ))}
                       </div>
                       <button onClick={handleToCart} className='pc__button'>
-                        To Cart
+                        IR AL CARRITO
                       </button>
                     </ul>
                   </div>

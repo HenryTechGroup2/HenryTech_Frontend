@@ -8,19 +8,29 @@ import {
   FILTER_SEARCH,
   pageHome,
 } from '../../redux/actions';
-import { cartHeader, pc, userLogin } from '../../utils/Icons';
-import CardCar from '../CardCar/CardCar';
+import {
+  cartHeader,
+  close,
+  closeWhite,
+  pc,
+  userLogin,
+} from '../../utils/Icons';
 import Modal from '../Modal/Modal';
-import Payment from '../Payment/Payment';
-import UpdateInfo from '../UpdateInfo/UpdateInfo';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import ModalPayment from '../ModalPayment/ModalPayment';
+import CardCar from '../CardCar/CardCar';
+import Payment from '../Payment/Payment';
+import UpdateInfo from '../UpdateInfo/UpdateInfo';
+const INITIAL_STATE = { dropitem: null, item: 0 };
 const Header = () => {
-  const { logout, user } = useAuth0();
   const [open, setOpen] = useState(null);
-  const { userDates, car, priceTotal, filters } = useSelector((state) => state);
+  const [hover, setHover] = useState(null);
+  const [drop, setDrop] = useState(INITIAL_STATE);
+  const { dropitem, item } = drop;
+  const { logout, user } = useAuth0();
+  const { userDates, car, filters, priceTotal } = useSelector((state) => state);
   useEffect(() => {
     const auth0Autentication = async () => {
       const data = await axios.post(`${api}/api/user/login/auth0`, {
@@ -51,6 +61,16 @@ const Header = () => {
   const handleClickCloseSession = () => {
     dispatch(closeSession());
     logout({ returnTo: window.location.origin });
+  };
+  const handleOpenLeftCart = () => {
+    setHover(!hover);
+  };
+  const handleClickDrop = (itemNumber) => {
+    if (itemNumber === drop.item) return setDrop(INITIAL_STATE);
+    setDrop({
+      dropitem: true,
+      item: itemNumber,
+    });
   };
 
   return (
@@ -102,44 +122,90 @@ const Header = () => {
         <div title='Armamento PC'>
           <Link to='/armament-pc'>{pc}</Link>
         </div>
-        <div className='header__hover' title='Cart'>
+        <div
+          className='header__hover'
+          title='Cart'
+          onClick={handleOpenLeftCart}
+        >
           {cartHeader} <span className='header__length'>{car.length}</span>
-          <ul className='header__ul'>
-            <li className='carr'>
-              <span>Carrito</span>
-
-              <div className='header__carr'>
-                <div className='car__total'>
-                  {car.length <= 0
-                    ? 'No hay productos en el carrito'
-                    : `Total:$${priceTotal}.00`}
-                </div>
-                <Link className='header__carl' to='/car'>
-                  Ver de manera completa
-                </Link>
-                {car?.map((product) => (
-                  <CardCar key={product.product_id} product={product} />
-                ))}
-              </div>
-            </li>
-            {userDates?.hasOwnProperty('user_name') ? (
-              <>
-                <li className='purcharse'>
-                  <span>Cambiar Datos</span>
-                  <div className='header__purcharse'>
-                    <UpdateInfo />
-                  </div>
-                </li>
-                <li className='make'>
-                  <span>Ir a pagar</span>
-                  <div className='header__make'>
-                    <Payment />
-                  </div>
-                </li>
-              </>
-            ) : null}
-          </ul>
+          <div></div>
         </div>
+      </div>
+      <div
+        style={{ transform: `${hover ? 'translate(0)' : 'translate(310px)'}` }}
+        className='header__translate'
+      >
+        <div className='header__top'>
+          Mi carrito{' '}
+          <button className='header__btn' onClick={handleOpenLeftCart}>
+            {closeWhite}
+          </button>
+        </div>
+        <div className='header__center'>
+          {/* <Link className='header__carl' to='/car'>
+            Ver de manera completa
+          </Link> */}
+          {car.length <= 0 && (
+            <div className='header__image'>
+              <span className='header__span'>
+                No tienes producto en el carrito
+              </span>
+              <img
+                className='header__img'
+                src='../assets/cart.png'
+                alt='Cart'
+              />
+            </div>
+          )}
+          {car?.map((product) => (
+            <CardCar key={product.product_id} product={product} />
+          ))}
+        </div>
+        <div className='header__bottom'>
+          <div className='header__item'>Total</div>
+          <div className='header__total'>
+            {Number(priceTotal).toLocaleString('es-AR', {
+              style: 'currency',
+              currency: 'ARS',
+            })}
+          </div>
+        </div>
+        <>
+          <div className='header__bottom'>
+            <div className='header__item'>CAMBIAR DATOS</div>
+            <div onClick={() => handleClickDrop(2)} className='header__drop'>
+              <img src='../assets/drop.png' alt='' />
+            </div>
+          </div>
+          <div
+            style={{
+              height: `${dropitem && item === 2 ? '18em' : '0'}`,
+              opacity: `${dropitem && item === 2 ? '1' : '0'}`,
+              visibilty: `${dropitem && item === 2 ? 'visible' : 'hidden'}`,
+            }}
+            className='header__dropitem'
+          >
+            <UpdateInfo />
+          </div>
+        </>
+        <>
+          <div className='header__bottom'>
+            <div className='header__item'>FINALIZAR</div>
+            <div onClick={() => handleClickDrop(1)} className='header__drop'>
+              <img src='../assets/drop.png' alt='' />
+            </div>
+          </div>
+          <div
+            style={{
+              height: `${dropitem && item === 1 ? '18em' : '0'}`,
+              opacity: `${dropitem && item === 1 ? '1' : '0'}`,
+              visibilty: `${dropitem && item === 1 ? 'visible' : 'hidden'}`,
+            }}
+            className='header__dropitem'
+          >
+            <Payment />
+          </div>
+        </>
       </div>
     </div>
   );

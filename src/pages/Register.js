@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header/Header';
 import { useDispatch } from 'react-redux';
-import { api, CREATE_USER } from '../redux/actions';
+import { api, CREATE_USER, sendMail } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { PASSWORD } from '../redux/storage/variables';
 const INITIAL_STATE = {
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 };
 const expresiones = {
   user_name: /^[a-zA-ZÀ-ÿ\s]{5,40}$/, // Letras y espacios, pueden llevar acentos.
-  user_password: /^.{8}$/, // 4 a 12 digitos.
+  user_password: /^.{8,12}$/, // 4 a 12 digitos.
   user_email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 };
 const Register = () => {
@@ -74,6 +74,12 @@ const Register = () => {
         user_isAdmin: register.user_isAdmin,
       });
       if (data.status === 200) {
+        dispatch(
+          sendMail({
+            user_email: register.user_email,
+            user_name: register.user_name,
+          })
+        );
         dispatch({ type: CREATE_USER, payload: data.data.user });
         window.localStorage.setItem(PASSWORD, register.user_password);
         setRegister(INITIAL_STATE);
@@ -125,7 +131,7 @@ const Register = () => {
             </div>
             <div className='register__validate'>
               <div>
-                <div>
+                <div className='register__dos'>
                   <input
                     placeholder='Contraseña'
                     className='register__input register__password'

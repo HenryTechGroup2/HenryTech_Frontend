@@ -5,7 +5,7 @@ import { ADD_TO_CART } from '../../redux/actionsCar';
 import { cart } from '../../utils/Icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Count = ({ product_count = 1, product }) => {
+const Count = ({ product_count = 1, product, view = false }) => {
   const { count, handleClick } = useCount(product_count);
   const dispatch = useDispatch();
   const handleClickAddToCar = () => {
@@ -44,7 +44,7 @@ const Count = ({ product_count = 1, product }) => {
         disabled={product?.stock?.stock_amount > 0 ? false : true}
       >
         {cart}
-        Agregar
+        {view ? '' : 'Agregar'}
       </button>
     </div>
   );

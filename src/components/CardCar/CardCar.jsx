@@ -25,7 +25,12 @@ const CardCar = ({ product }) => {
             {deleteElement}
           </button>
         </div>
-        <p>${product.product_price}</p>
+        <p>
+          {Number(product.product_price).toLocaleString('es-AR', {
+            style: 'currency',
+            currency: 'ARS',
+          })}
+        </p>
       </div>
     </div>
   );

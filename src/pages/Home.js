@@ -8,6 +8,7 @@ import Products from '../components/Products/Product';
 
 import { ToastContainer } from 'react-toastify';
 import ProductsHome from '../components/ProductsHome/ProductsHome';
+// import loader from '../loader.gif';
 import Pagination from '../components/Pagination/Pagination';
 import ButtonTop from '../components/ButtonTop/ButtonTop';
 const Home = () => {
@@ -75,6 +76,12 @@ const Home = () => {
       ) : (
         <div className='loader'>
           <div className='spinner'></div>
+          {/* <img
+            className='home__image-gif'
+            src={loader}
+            alt='Loader'
+            loading='lazy'
+          /> */}
         </div>
       )}
       <ToastContainer />

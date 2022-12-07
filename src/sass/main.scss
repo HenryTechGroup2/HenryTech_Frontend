@@ -1,5 +1,38 @@
 @import './imports/reset.scss', './imports/mixins.scss',
   './imports/variables.scss';
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #fff;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
 .errors {
   color: #ff0000;
   font-weight: bold;
@@ -47,7 +80,7 @@
   height: 8em;
   border-radius: 50%;
   border: 1em solid #fff;
-  border-bottom-color: $color-principal;
+  border-bottom-color: #000;
   animation: spinner infinite 2s linear;
 }
 .btn-top {
@@ -112,10 +145,128 @@
   }
 }
 .aside {
+  height: 40em;
+  @include flex(column, nowrap, start, center, 0);
   position: sticky;
+  background: #000;
+  padding: 1em 0;
   top: 6em;
+  &__container {
+  }
+}
+.filter {
   height: 45em;
-  @include flex(column, nowrap, center, center, 0);
+  @include flex(column, nowrap, start, center, 0.5em);
+  background: #000;
+  color: #fff;
+  max-width: 20em;
+  &__input--price {
+    font-size: 1.4em;
+  }
+  &__div {
+    width: 90%;
+    @include flex(column, nowrap, center, center, 0.5em);
+    border-bottom: 1px solid #ebebeb;
+    padding: 0 0 1em;
+  }
+  &__range {
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__price {
+    font-size: 1.2em;
+  }
+  &__h3 {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  &__input {
+    width: 8em;
+  }
+  &__map {
+    @include flex(row, nowrap, start, center, 0.5em);
+  }
+  &__categorys {
+    padding: 1em;
+    height: 20em;
+    overflow: auto;
+  }
+  &__category {
+    width: 9em;
+    font-size: 1.3em;
+  }
+  &__marcas {
+    width: 100%;
+    border: 2px solid #fff;
+    border-radius: 2em;
+  }
+  &__check {
+    width: 1.3em;
+    height: 1.3em;
+    border: none;
+    outline: none;
+    &:checked {
+      width: 1.4em;
+      height: 1.4em;
+    }
+  }
+  &__aplique {
+    width: 100%;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__button {
+    @include button-principal();
+    background: #fff;
+    color: #000;
+    border-radius: 0;
+  }
+}
+.order {
+  @include flex(column, nowrap, start, center, 0);
+  max-width: 20em;
+  width: 20em;
+  height: 3em;
+  position: relative;
+  &__container {
+    background: #fff;
+    color: #000;
+    text-align: center;
+    font-size: 1em;
+    width: 85%;
+    @include flex(row, nowrap, space-between, center, 0);
+    padding: 0 0.5em;
+    position: relative;
+    z-index: 20;
+  }
+  &__div {
+    margin: 0 auto;
+    color: #fff;
+    @include flex(column, nowrap, start, start, 0.5em);
+    width: 85%;
+    position: absolute;
+    top: 3em;
+    opacity: 0;
+    background: #333;
+    visibility: hidden;
+    transform: translateY(-15em);
+    transition: 0.5s linear;
+    z-index: 10;
+  }
+  &__order {
+    width: 100%;
+    padding: 0 1em;
+    border-bottom: 1px solid #ebebeb;
+    cursor: pointer;
+  }
+  &__img {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+  }
+  &__toggle {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }
 #tsparticles {
   // height: 250vh;
@@ -135,8 +286,7 @@
   &__container {
     width: 20em;
     height: 20em;
-    @include background-defecto();
-    border-radius: 0.8em;
+    background: #000;
     @include flex(column, nowrap, center, center, 0);
   }
   &__close {
@@ -149,6 +299,7 @@
   }
   &__login {
     @include input-defecto(0.4em, 0.8em, 15em);
+    border-radius: 0;
   }
   &__acount {
     @include flex(row, nowrap, space-between, center, 0.5em);
@@ -163,6 +314,10 @@
   }
   &__button {
     @include button-principal();
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 0;
   }
 }
 .header {
@@ -174,6 +329,7 @@
   z-index: 200;
   top: 0;
   background: #333;
+  overflow: hidden;
   &__search {
     @include input-defecto(0.5em, 0.9em, 20em);
     &::placeholder {
@@ -187,57 +343,7 @@
   }
   &__hover {
     position: relative;
-  }
-  &__ul {
-    position: absolute;
-    top: 3.4em;
-    right: 2em;
-    width: 10em;
-    opacity: 0;
-    visibility: hidden;
-    @include background-defecto();
-    transition: 0.5s ease;
-    margin: 0;
-    padding: 0;
-    padding: 1em;
-    @include flex(column, nowrap, start, start, 0.5em);
-    color: #000;
-    border-radius: 1em;
-  }
-  &__make {
-    display: none;
-    position: absolute;
-    width: 20em;
-    height: 20em;
-    right: 9em;
-    top: -4em;
-    border-radius: 1em;
-    @include background-defecto();
-    color: #fff;
-  }
-  &__purcharse {
-    display: none;
-    position: absolute;
-    width: 20em;
-    height: 20em;
-    right: 9em;
-    top: -4em;
-    border-radius: 1em;
-    z-index: 40;
-    @include background-defecto();
-    color: #fff;
-  }
-  &__carr {
-    display: none;
-    position: absolute;
-    width: 20em;
-    height: 20em;
-    right: 9em;
-    top: -4em;
-    border-radius: 1em;
-    @include background-defecto();
-    color: #fff;
-    overflow: auto;
+    cursor: pointer;
   }
   &__carl {
     @include flex(row, nowrap, end, end, 0);
@@ -246,71 +352,31 @@
     color: #000;
     font-weight: bold;
   }
-  .purcharse {
-    @include car-option();
-    transition: 0.5s linear;
-    cursor: pointer;
-    &:hover {
-      background: #004b23;
-    }
-  }
-  .make {
-    @include car-option();
-    transition: 0.5s linear;
-    cursor: pointer;
-    &:hover {
-      background: #004b23;
-    }
-  }
-  .carr {
-    @include car-option();
-    transition: 0.5s linear;
-    cursor: pointer;
-    &:hover {
-      background: #004b23;
-    }
-  }
-  .purcharse:hover &__purcharse {
-    display: block;
-  }
-  .carr:hover &__carr {
-    display: block;
-  }
-  .make:hover &__make {
-    display: block;
-  }
   &__hover:hover &__ul {
     opacity: 1;
     visibility: visible;
   }
   &__henry {
-    color: $color-principal;
     margin: 0.7em 0 0 0;
     font-size: 2.2em;
     align-self: center;
-    font-weight: bold;
-    text-shadow: 0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff,
-      0.01em 0.01em 0.1em #fff, 0.01em 0.01em 0.1em #fff;
   }
   &__options {
     @include flex(row, nowrap, space-between, center, 1em);
   }
   &__login {
-    background: $color-principal;
+    background: #000;
     padding: 0.3em 0.4em;
     border: 0.1em solid #fff;
-    border-radius: 2em;
     cursor: pointer;
-    color: #000;
-  }
-  &__cart {
-    fill: $color-principal;
+    color: #fff;
   }
   &__length {
-    background: $color-principal;
-    padding: 0.2em 0.5em;
+    display: inline-block;
+    background: #fff;
+    padding: 0.1em 0.6em;
     border-radius: 50%;
-    color: #000;
+    color: $color-blueforce;
     font-weight: bold;
   }
   &__i {
@@ -327,6 +393,73 @@
     left: -1.5em;
     opacity: 0;
     visibility: hidden;
+  }
+  &__translate {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 310px;
+    background: #fff;
+    height: 100vh;
+    transition: 0.5s ease-in-out;
+    @include flex(column, nowrap, start, start, 0);
+  }
+  &__top {
+    width: 100%;
+    @include flex(row, nowrap, space-between, center, 0);
+    color: #000;
+    height: 3em;
+    padding: 0 1em;
+    border-bottom: 1px solid #ebebeb;
+    font-weight: bold;
+  }
+  &__btn {
+    background: transparent;
+  }
+  &__center {
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  &__bottom {
+    border-top: 1px solid #ebebeb;
+    @include flex(row, nowrap, space-between, start, 0);
+    width: 100%;
+    padding: 0.6em 1em;
+  }
+  &__total {
+    color: #000;
+    font-weight: bold;
+    padding: 0.2em;
+  }
+  &__item {
+    background: #000;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+  }
+  &__image {
+    @include flex(column, nowrap, center, center, 0);
+    height: 100%;
+    text-align: center;
+  }
+  &__img {
+    width: 17em;
+    height: 17em;
+  }
+  &__span {
+    color: #000;
+    font-weight: bold;
+  }
+  &__drop {
+    cursor: pointer;
+    width: 1.6em;
+    height: 1.6em;
+  }
+  &__dropitem {
+    width: 100%;
+    color: #000;
+    transition: 0.5s linear;
   }
 }
 .carruzel {
@@ -388,19 +521,24 @@
   &__form {
     width: 30em;
     height: 30em;
-    background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
-    border-radius: 1em;
+    background: #000;
     @include flex(column, nowrap, center, center, 1.4em);
   }
   &__input {
-    @include input-defecto(0.4em, 0.9em, 22em) // @include f;
-;
+    @include input-defecto(0.4em, 0.9em, 22em); // @include f;
+    border-radius: 0;
   }
   &__password {
     width: 11em;
   }
   &__button {
     @include button-principal();
+    background: #fff;
+    color: #000;
+    border-radius: 0;
+  }
+  &__dos {
+    @include flex(row, nowrap, center, center, 0.1em);
   }
   &__span {
     padding: 0;
@@ -414,9 +552,6 @@
     position: relative;
     @include flex(column, nowrap, center, center, 0);
   }
-}
-.aside {
-  flex-grow: 0.17;
 }
 .car {
   margin: 2em 0 0 0;
@@ -433,10 +568,12 @@
   &__container {
     margin: 0.5em 0 0 0;
     background: #fff;
-    border-radius: 1em;
     @include flex(row, nowrap, center, start, 0.5em);
     color: #000;
     height: 6em;
+    margin: 0.5em 0.4em;
+    border: 1px solid #ebebeb;
+    width: 100%;
   }
   &__description {
     @include flex(column, nowrap, center, center, 0.5em);
@@ -471,16 +608,16 @@
     margin: 0.5em 1em 0.5em 0.5em;
     background: transparent;
   }
+  &__count {
+    font-weight: bold;
+  }
   &__button {
-    background: linear-gradient(
-      to right,
-      $color-principal 0%,
-      $succes 70%,
-      $succes 100%
-    );
+    background: #000;
 
     // padding: 0.5em 1em;
-    padding: 0.1em 0.4em;
+    // padding: 0.1em 0.4em;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 1em;
     color: $color-white;
     text-transform: uppercase;
@@ -588,9 +725,10 @@
   position: relative;
   z-index: 30;
   @include flex(row, wrap, center, center, 1em);
-  background: linear-gradient(45deg, #ccff33 0%, #38b000 70%, #004b23 100%);
+  background: #333;
   border-radius: 1em;
   padding: 2em;
+  color: #fff;
   max-width: 76em;
   margin: 4em auto 0;
 
@@ -619,7 +757,10 @@
   }
   &__special {
     @include flex(row, nowrap, start, center, 0);
-    height: 100%;
+    height: 10em;
+    & img {
+      object-fit: contain;
+    }
   }
   &__left {
     @include flex(column, nowrap, space-between, center, 0);
@@ -632,7 +773,7 @@
     position: relative;
   }
   &__name {
-    width: 11.8em;
+    width: 100%;
     font-weight: bold;
   }
   &__favorit {
@@ -647,10 +788,12 @@
     box-sizing: border-box;
   }
   &__description {
-    width: 20em;
+    width: 30em;
+    overflow: auto;
   }
   &__price {
     font-size: 2em;
+    @include flex(row, nowrap, center, center, 0.4em);
   }
   &__border {
     border: 2px solid #000;
@@ -665,6 +808,17 @@
     @include button-principal();
     font-weight: bold;
   }
+  &__centerx {
+    height: 100%;
+    @include flex(column, nowrap, start, start, 0.5em);
+  }
+  &__brand {
+  }
+  &__views {
+  }
+  &__send {
+    @include flex(row, nowrap, start, center, 0.4em);
+  }
   &__stock {
     @include flex(row, nowrap, start, center, 0.2em);
   }
@@ -672,7 +826,7 @@
     font-size: 0.7em;
   }
   &__count {
-    @include flex(row, nowrap, start, center, 0.5em);
+    @include flex(row, nowrap, center, center, 0.5em);
   }
 
   &__span {
@@ -691,15 +845,14 @@
     padding: 2em;
     line-height: 1.5;
     font-size: 1.2em;
-    width: 35em;
     height: 26em;
     background: #333;
     box-shadow: 0.1em 0.1em 0.3em 0.1em #000;
     border-radius: 0.5em;
+    width: 50em;
+    overflow: auto;
   }
   &__pago {
-    // flex-grow: 1;
-    margin: 2em 1em 0 0;
     line-height: 1.5;
     font-size: 1.2em;
     background: #333;
@@ -722,11 +875,12 @@
 }
 .review {
   width: 100%;
+  margin: 2em 0 0 0;
+  border-top: 1px solid #000;
   @include flex(column, nowrap, center, center, 0);
-  &__h2 {
-  }
   &__form {
-    @include flex(column, nowrap, center, center, 0.6em);
+    width: 100%;
+    @include flex(column, nowrap, start, start, 0em);
   }
   &__div {
     @include flex(row, nowrap, center, center, 0.5em);
@@ -736,7 +890,12 @@
     width: 9.5em;
   }
   &__input {
-    @include input-defecto(0.5em, 0.8em, 15em);
+    width: 100%;
+    background: transparent;
+    font-size: 1em;
+    &::placeholder {
+      color: #000;
+    }
   }
   &__textarea {
     @include input-defecto(0.5em, 0.8em, 19em);
@@ -744,12 +903,20 @@
     width: 29em;
   }
   &__button {
-    @include button-principal();
+    background: transparent;
   }
   &__cstar {
-    font-size: 40px;
+    font-size: 2em;
     margin: 0;
     padding: 0;
+  }
+  &__msg {
+    @include input-defecto(0.5em, 0.8em, 15em);
+    width: 100%;
+    padding: 0 0.4em;
+    @include flex(row, nowrap, center, center, 0.5em);
+    margin: 0 0 1em 0;
+    height: 1.8em;
   }
   &__star {
     cursor: pointer;
@@ -783,32 +950,69 @@
   }
 }
 .comentarios {
-  &__h2 {
-  }
+  margin: 2em 0 2em 0;
+  @include flex(column, nowrap, start, center, 0.3em);
   &__div {
     @include flex(row, nowrap, start, center, 0.3em);
-  }
-  &__star {
+    max-width: 1250px;
   }
   &__rating {
     background: #222;
     padding: 0.5em;
     border-radius: 0.5em;
-    box-shadow: 0.4em 0.8em 0.3em #000;
+    box-shadow: 0.2em 0.2em 0.1em #000;
     @include flex(row, nowrap, start, center, 0.3em);
   }
   &__cal {
     font-size: 2em;
     font-weight: bold;
-    // margin: 0 0 0.4em 0;
     width: 2em;
     text-align: center;
   }
-  &__r {
-  }
-
   &__coment {
     align-self: flex-start;
+  }
+  &__h2 {
+    margin: 0 0 1em 0;
+    padding: 0.3em;
+  }
+  &__div {
+    @include flex(row, wrap, start, start, 1em);
+  }
+  &__star {
+    align-self: start;
+  }
+  &__rating {
+  }
+  &__cal {
+  }
+  &__r {
+  }
+  &__coment {
+    background: #fff;
+    background: #232323;
+    padding: 1em 2em;
+    box-shadow: 0.1em 0.1em 0.2em #000, -0.1em -0.1em 0.2em #000;
+    width: 80vw;
+  }
+  &__select {
+    @include flex(row, nowrap, start, center, 0.4em);
+    margin: 0 0 2em 0;
+    border-radius: 0.5em;
+  }
+  &__slct {
+    @include background-defecto();
+    padding: 0.3em;
+    border-radius: 0.2em;
+  }
+  &__mapr {
+  }
+  &__h3 {
+    font-weight: 500;
+    color: $color-star;
+    font-size: 1.5em;
+  }
+  &__p {
   }
 }
 .count {
@@ -820,102 +1024,7 @@
     font-weight: bold;
   }
 }
-.filter {
-  margin: 3em 0 0 0;
-  height: 45em;
-  padding: 1em 2em;
-  @include flex(column, nowrap, start, start, 0.5em);
-  @include background-defecto();
-  border-radius: 1em;
-  max-width: 20em;
-  &__input--price {
-    font-size: 1.4em;
-    font-weight: bold;
-  }
-  &__div {
-    border: 2px solid #ffff;
-    flex-grow: 1;
-    width: 100%;
-    border-radius: 2em;
-    @include flex(column, nowrap, center, center, 0.5em);
-  }
-  &__range {
-    @include flex(row, nowrap, center, center, 0.5em);
-  }
-  &__price {
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  &__h3 {
-    text-align: center;
-    font-size: 1.5em;
-  }
-  &__input {
-    width: 8em;
-  }
-  &__map {
-    @include flex(row, nowrap, start, center, 0.5em);
-  }
-  &__categorys {
-    padding: 1em;
-    height: 20em;
-    overflow: auto;
-  }
-  &__category {
-    width: 9em;
-    font-size: 1.3em;
-    font-weight: bold;
-  }
-  &__marcas {
-    width: 100%;
-    border: 2px solid #fff;
-    border-radius: 2em;
-  }
-  &__check {
-    width: 1.3em;
-    height: 1.3em;
-    border: none;
-    outline: none;
-    &:checked {
-      width: 1.4em;
-      height: 1.4em;
-    }
-  }
-  &__aplique {
-    width: 100%;
-    @include flex(row, nowrap, center, center, 0);
-  }
-  &__button {
-    @include button-principal();
-  }
-}
-.order {
-  @include background-defecto();
-  border-radius: 1em;
-  margin: 1em 0 0 0;
-  @include flex(column, nowrap, center, center, 0);
-  max-width: 20em;
-  width: 20em;
-  height: 16em;
-  &__h3 {
-    text-align: center;
-    font-size: 1.4em;
-  }
-  &__select {
-    padding: 0.5em 0.9em;
-    @include button-principal();
-    max-width: 15em;
-    width: 12em;
-    &:hover {
-      transform: scale(1);
-    }
-  }
-  &__option {
-    background: #004b23;
-    padding: 0.5em 1em;
-    margin: 0.3em 0 0 0;
-  }
-}
+
 .infop {
   @include flex(column, nowrap, center, center, 0.5em);
   height: 100%;
@@ -1006,13 +1115,14 @@
 .pc {
   position: relative;
   z-index: 100;
-  @include flex(row, nowrap, center, center, 0);
+  @include flex(row, nowrap, start, center, 0);
   &__container {
     max-width: 1200px;
     padding: 1em;
     @include responsive(1000px) {
       padding: 0 0.3em;
     }
+    margin: auto;
   }
   &__components {
     @include flex(row, nowrap, start, start, 2em);
@@ -1041,14 +1151,14 @@
   &__left {
     align-self: flex-start;
     padding: 1em 0;
-    width: 18em;
     border-radius: 0.5em;
     background: #fff;
     box-shadow: 0.1em 0.1em 1em #000;
+    width: 30em;
+    max-width: 346px;
   }
   &__right {
-    flex-shrink: 3;
-    @include flex(row, wrap, start, start, 1em);
+    @include flex(row, wrap, end, start, 1em);
     min-height: 500px;
   }
   &__mark {
@@ -1084,7 +1194,6 @@
     font-weight: bold;
     justify-items: start;
     height: 5em;
-    // align-self: flex-start;
   }
   &__price {
     // align-self: flex-end;
@@ -1094,14 +1203,18 @@
   &__h1 {
     font-family: 'Roboto';
     padding: 0.2em;
-    background: #444;
+    background: #fff;
+    color: #000;
+    font-family: 'Roboto';
   }
   &__description {
     font-size: 1.1em;
     padding: 0.2em;
     height: 3.5em;
     margin: 0 0 1em 0;
-    background: #444;
+    background: #fff;
+    color: #000;
+    font-family: 'Roboto';
     @include responsive(950px) {
       margin: 0 0 3em 0;
       height: 6em;
@@ -1135,16 +1248,17 @@
     @include flex(row, nowrap, space-around, center, 0);
   }
   &__total {
-    color: #000;
     padding: 0.2em;
     font-weight: bold;
-    background: #eee;
-    width: 9em;
-    border: 1px solid #000;
+    width: 12em;
+    background: #000;
+    color: #fff;
   }
   &__buy {
     @include button-principal--second(0.2em, 0.4em, 0.2em, 0.9em);
     padding: 0.5em;
+    background: #000;
+    color: #fff;
   }
   &__informacion {
     position: absolute;
@@ -1175,6 +1289,8 @@
   }
   &__columnx {
     @include flex(column, nowrap, space-between, start, 0);
+    max-width: 790px;
+    flex-grow: 1;
   }
   &__periferico {
     @include flex(row, nowrap, space-between, start, 0.5em);
@@ -1184,79 +1300,6 @@
     @include button-principal();
   }
 }
-// .portal {
-//   position: absolute;
-//   z-index: 300;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   height: 100vh;
-//   width: 100vw;
-//   backdrop-filter: blur(1em);
-//   @include flex(row, nowrap, center, center, 0);
-//   &__div {
-//     width: 50em;
-//     height: 30em;
-//     background: #33333390;
-//     border-radius: 1em;
-//     border: 2px solid #fff;
-//     @include flex(column, nowrap, center, center, 1em);
-//     position: relative;
-//   }
-//   &__carruzel {
-//     width: 35em;
-//     overflow: hidden;
-//     @include flex(row, nowrap, start, center, 0);
-//     margin: auto;
-//   }
-//   &__carruzell {
-//     width: 25em;
-//     transition: 0.5s ease;
-//     @include flex(row, nowrap, start, center, 3em);
-//     transform: translateX(-0em);
-//   }
-//   &__acordeon {
-//     width: 25em;
-//     margin: 2em 0 0 0;
-//     overflow: auto;
-//     position: relative;
-//   }
-//   &__absolute {
-//     width: 100%;
-//     height: 20em;
-//     background: red;
-//   }
-//   &__map {
-//     // width: 25em;
-//     // width: 600px;
-//     width: 35em;
-//     @include flex(row, nowrap, start, start, 0.4em);
-//   }
-//   &__img {
-//     width: 10em;
-//     height: 10em;
-//     margin: 2em 0 0 0;
-//     object-fit: contain;
-//     background: #fff;
-//   }
-//   &__buttons {
-//     @include flex(row, nowrap, center, center, 0.5em);
-//     height: 3em;
-//     width: 10em;
-//   }
-//   &__btn {
-//     width: 1em;
-//     height: 1em;
-//     border-radius: 50%;
-//   }
-//   &__close {
-//     background: transparent;
-//     position: absolute;
-//     right: 1em;
-//     top: 0.2em;
-//   }
-// }
 .portal {
   position: absolute;
   z-index: 300;
@@ -1347,7 +1390,19 @@
     margin-bottom: 0;
     padding: 0 2em;
     cursor: pointer;
-    background: #222;
+    text-transform: uppercase;
+    color: #000;
+  }
+  &__flex {
+    background: #fff;
+    width: 85%;
+    margin: auto;
+    @include flex(row, nowrap, space-around, center, 0);
+  }
+  &__drop {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
   }
   &__acordeon {
     margin: 2em 0 0 0;
@@ -1364,50 +1419,6 @@
     height: 14em;
   }
   &__open {
-  }
-}
-.comentarios {
-  &__h2 {
-    margin: 0 0 1em 0;
-    padding: 0.3em;
-  }
-  &__div {
-    @include flex(row, wrap, start, start, 1em);
-  }
-  &__star {
-    align-self: start;
-  }
-  &__rating {
-  }
-  &__cal {
-  }
-  &__r {
-  }
-  &__coment {
-    background: #fff;
-    flex-grow: 1;
-    background: #232323;
-    padding: 1em 2em;
-    box-shadow: -0.2em -0.2em 0.3em #000;
-  }
-  &__select {
-    @include flex(row, nowrap, start, center, 0.4em);
-    margin: 0 0 2em 0;
-    border-radius: 0.5em;
-  }
-  &__slct {
-    @include background-defecto();
-    padding: 0.3em;
-    border-radius: 0.2em;
-  }
-  &__mapr {
-  }
-  &__h3 {
-    font-weight: 500;
-    color: $color-star;
-    font-size: 1.5em;
-  }
-  &__p {
   }
 }
 .espera {
@@ -1433,6 +1444,162 @@
     @include flex(row, wrap, center, center, 0);
   }
 }
+.drop {
+  width: 10em;
+  height: 1.6em;
+  background: #fff;
+  padding: 0.1em 0.3em;
+  color: #000;
+  @include flex(row, nowrap, space-between, center, 0);
+  &__select {
+    position: relative;
+    @include flex(column, nowrap, start, start, 0);
+  }
+  &__img {
+  }
+  &__review {
+    align-self: center;
+  }
+  &__image {
+    width: 1.5em;
+    height: 1.5em;
+    align-self: center;
+    cursor: pointer;
+  }
+  &__map {
+    background: #000;
+    padding: 0 0.3em;
+    width: 10em;
+    position: absolute;
+    top: 1.6em;
+  }
+  &__star {
+    font-size: 1.2em;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+    color: $color-star;
+  }
+}
+.acount {
+  //PANEL IZQUIERDO
+  @include flex(row, nowrap, start, start, 2em);
+  height: 80vh;
+  &__drop {
+    position: relative;
+    width: 20em;
+    height: 90vh;
+  }
+  &__flex {
+    @include flex(row, nowrap, center, center, 0);
+    flex-grow: 1;
+  }
+  &__left {
+    background: #333;
+    position: relative;
+    z-index: 300;
+    width: 20em;
+    padding: 2em 1em 0;
+    height: 80vh;
+    flex-grow: 1;
+    position: fixed;
+    top: 5.5em;
+  }
+  &__div {
+    @include flex(row, nowrap, space-between, start, 0);
+    width: 18em;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ebebeb;
+    cursor: pointer;
+  }
+  &__image {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  //PANEL DERECHO QUE SE RENDIRZA DEPENDDIENDO LO DEL IZQUIERDO
+  &__right {
+    @include flex(row, wrap, center, start, 1em);
+    max-width: 1000px;
+    color: #000;
+    flex-shrink: 1.5;
+    flex-grow: 1;
+  }
+  &__favorites {
+    @include flex(row, wrap, center, center, 1em);
+    width: 100%;
+    color: #000;
+    flex-shrink: 1.5;
+    margin: 2em 0 0 0;
+    position: relative;
+    z-index: 300;
+  }
+  &__add {
+    color: #fff;
+    @include flex(column, nowrap, center, center, 4em);
+  }
+  &__text {
+    font-size: 1.5em;
+  }
+}
+.update {
+  padding: 2em;
+  color: #fff;
+  position: relative;
+  z-index: 300;
+  align-self: flex-start;
+  width: 75vw;
+  background: #333;
+  flex-grow: 1.5;
+  &__container {
+  }
+  &__form {
+  }
+  &__div {
+    @include flex(row, nowrap, space-between, start, 0);
+    width: 100%;
+    padding: 0.5em 0;
+  }
+  &__label {
+    width: 10em;
+    // background: red;
+  }
+  &__flex {
+    @include flex(row, nowrap, space-between, start, 0.5em);
+  }
+  &__input {
+    width: 21em;
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    font-size: 1em;
+  }
+  &__pass {
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    font-size: 1em;
+    width: 9.5em;
+    margin: 0 0.5em 0 0;
+  }
+  &__btn {
+    color: #fff;
+    background: transparent;
+    padding: 0.2em;
+    font-size: 1.1em;
+    font-family: 'Roboto';
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
+  }
+  &__submit {
+    @include button-principal();
+    background: #000;
+    color: #fff;
+  }
+  &__error {
+    color: #ff0000;
+  }
+}
 @keyframes spinner {
   from {
     transform: rotate(0deg);
@@ -1440,4 +1607,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+.home__image-gif {
+  width: 15em;
+  height: 15em;
 }
