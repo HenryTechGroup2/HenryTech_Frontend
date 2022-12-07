@@ -32,7 +32,10 @@
     "sass": "^1.56.1",
     "socket.io-client": "^4.5.4",
     "tsparticles": "^2.5.3",
+
     "web-vitals": "^2.1.4"
+=======
+
   },
   "scripts": {
     "start": "react-scripts start",
