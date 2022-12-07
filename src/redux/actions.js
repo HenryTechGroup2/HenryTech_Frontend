@@ -22,8 +22,8 @@ export const ORDER_VIEWS = '@order/views';
 export const SELECT_ORDER = '@order/select';
 export const ERROR = '@error';
 export const BIENVENIDO = '@bienvenido';
-// export const api = 'https://henry-tech-backend.vercel.app';
-export const api = 'http://localhost:3001';
+export const api = 'https://henry-tech-backend.vercel.app';
+// export const api = 'http://localhost:3001';
 //ORDER
 export function orderSelect(order) {
   return {

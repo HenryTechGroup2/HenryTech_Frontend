@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { DELETE_CART } from '../../redux/actions';
+import { api, DELETE_CART } from '../../redux/actions';
 import ModalPayment from '../ModalPayment/ModalPayment';
 import ModalEspere from '../ModalEspere/ModalEspere';
 const INITIAL_STATE = {
@@ -26,7 +26,7 @@ const Payment = () => {
     if (!error) {
       setLoading(true);
       const { id } = paymentMethod;
-      const data = await axios.post('http://localhost:3001/api/payment', {
+      const data = await axios.post(`${api}/api/payment`, {
         id,
         amount: car,
       });
