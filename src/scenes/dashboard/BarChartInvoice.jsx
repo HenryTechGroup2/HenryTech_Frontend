@@ -6,8 +6,9 @@ import { getInvoice } from "../../redux/actions.js"
 export function BarChartInvoice() {
 
   const dispatch = useDispatch();
-  useEffect(() =>
-      dispatch(getInvoice()), [])
+  useEffect(() => {
+      dispatch(getInvoice())
+    }, [])
   const invoices = useSelector(state => state.invoices)
 
 //   const invoices = [

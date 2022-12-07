@@ -5,7 +5,9 @@ import { getReviews } from '../../redux/actions.js';
 
 export function BarChart() {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getReviews()), []);
+  useEffect(() => {
+    dispatch(getReviews())
+  }, []);
   const reviews = useSelector((state) => state.reviews);
 
   // const reviews = [

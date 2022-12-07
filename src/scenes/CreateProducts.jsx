@@ -20,8 +20,9 @@ export function CreateProducts() {
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  useEffect(() =>
-    dispatch(getAllProducts()), [])
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [])
   const products = useSelector(state => state.products)
   const category = []
   const allcategory = products.forEach(e => {
@@ -184,6 +185,7 @@ export function CreateProducts() {
               onChange={(e) => handleOnChange(e)}
             />
             {errors.product_img && <p>{errors.product_img}</p>}
+            <img src={input.product_img} alt={`imagen de ${input.product_name}`} width="50" height="60" />
           </div>
           <div>
             <label>Imagenes secundarias</label>

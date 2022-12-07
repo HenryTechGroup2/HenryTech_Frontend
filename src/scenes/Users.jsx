@@ -16,26 +16,28 @@ export function Users() {
     { field: 'user_favorites', headerName: 'Productos favoritos' },
   ];
 
-
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getUsers()), []);
+  useEffect(() => {
+    dispatch(getUsers())
+  }, []);
   const { users } = useSelector((state) => state);
 
-  return (
+  if (users.length === 0) {
+    return (<div className='loader'>
+      <div className='spinner'></div>
+    </div>)
+  }
+  else return (
     <div>
-      {users?.length > 0 ? (
-        <>
-          <h1>USUARIOS REGISTRADOS</h1>
-          <div style={{ height: 450, width: '100%' }}>
-            <DataGrid
-              checkboxSelection
-              getRowId={(row) => row.user_id}
-              rows={users}
-              columns={columns}
-            />
-          </div>
-        </>
-      ) : null}
+      <h1>USUARIOS REGISTRADOS</h1>
+      <div style={{ height: 450, width: '100%' }}>
+        <DataGrid
+          checkboxSelection
+          getRowId={(row) => row.user_id}
+          rows={users}
+          columns={columns}
+        />
+      </div>
     </div>
   );
 

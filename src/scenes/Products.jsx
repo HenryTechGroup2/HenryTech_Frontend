@@ -23,8 +23,11 @@ export function Products() {
     const [id, setId] = useState(1)
 
     const dispatch = useDispatch();
-    useEffect(() =>
-        dispatch(getAllProducts()), [])
+    
+    useEffect(() => {
+        dispatch(getAllProducts())
+    }, [])
+
     const products = useSelector(state => state.products)
 
     const newProducts = products.map((product) => {
@@ -40,8 +43,11 @@ export function Products() {
         dispatch(updateProduct())
     }
 
-    if (products.length > 0) {
-        return (
+    if (products.length === 0) {
+        return (<div className='loader'>
+            <div className='spinner'></div>
+        </div>)
+    } else return (
             <div>
                 <h1>PRODUCTOS</h1>
                 <div style={{ height: 450, width: '100%' }}>
@@ -82,8 +88,6 @@ export function Products() {
                 </div>
             </div>
         )
-    }
-
 }
 
 export default Products;

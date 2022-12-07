@@ -15,30 +15,32 @@ export function Reviews() {
   ];
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getReviews()), []);
+  useEffect(() => {
+    dispatch(getReviews())
+  }, []);
   const reviews = useSelector((state) => state.reviews);
 
-  return (
+
+  if (reviews.length === 0) {
+    return (<div className='loader'>
+      <div className='spinner'></div>
+    </div>)
+  }
+  else return (
     <div>
-      {reviews.length > 0 ? (
-        <>
-          <h1>RESEÑAS</h1>
-          <div>
-            <div style={{ height: 450, width: '100%' }}>
-              <DataGrid
-                checkboxSelection
-                getRowId={(row) => row.review_id}
-                rows={reviews}
-                columns={columns}
-              />
-            </div>
-          </div>
-        </>
-      ) : null}
+      <h1>RESEÑAS</h1>
+      <div>
+        <div style={{ height: 450, width: '100%' }}>
+          <DataGrid
+            checkboxSelection
+            getRowId={(row) => row.review_id}
+            rows={reviews}
+            columns={columns}
+          />
+        </div>
+      </div>
     </div>
   );
-
-
 }
 
 export default Reviews;
