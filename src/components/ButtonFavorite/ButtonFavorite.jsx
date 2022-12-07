@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_FAVORIT, DELETE_FAVORIT } from '../../redux/actions';
+import { ADD_FAVORIT, api, DELETE_FAVORIT } from '../../redux/actions';
 import { favorit, notFavorit } from '../../utils/Icons';
 
 const ButtonFavorite = ({ product }) => {
@@ -15,11 +15,11 @@ const ButtonFavorite = ({ product }) => {
     setFavoritState(!favoritState);
     if (product?.product_favorite === true) {
       await axios.delete(
-        `http://localhost:3001/api/favorite/${userDates.user_id}/${product.product_id}`
+        `${api}/api/favorite/${userDates.user_id}/${product.product_id}`
       );
       return dispatch({ type: DELETE_FAVORIT, payload: product.product_id });
     }
-    await axios.post('http://localhost:3001/api/favorite', {
+    await axios.post(`${api}/api/favorite`, {
       user_id: userDates.user_id,
       product_id: product.product_id,
     });
