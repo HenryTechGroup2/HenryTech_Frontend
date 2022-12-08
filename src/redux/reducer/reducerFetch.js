@@ -649,6 +649,30 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
 
+    case 'DELETE_PRODUCT': {
+      return {
+        ...state,
+      };
+    }
+
+    case 'DELETE_REVIEW': {
+      return {
+        ...state,
+      };
+    }
+
+    case 'DELETE_USER': {
+      return {
+        ...state,
+      };
+    }
+
+    // case 'DELETE_INVOICE': {
+    //   return {
+    //     ...state,
+    //   };
+    // }
+
     default:
       return state;
   }

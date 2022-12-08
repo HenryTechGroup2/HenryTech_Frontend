@@ -276,3 +276,55 @@ export function updateProduct(payload, id) {
     }
   };
 }
+
+export function deleteProduct(id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.delete(`${api}/api/product/${id}`);
+      return dispatch({
+        type: 'DELETE_PRODUCT',
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+}
+
+export function deleteReview(id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.delete(`${api}/api/review/${id}`);
+      return dispatch({
+        type: 'DELETE_REVIEW',
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+}
+
+export function deleteUser(id) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.delete(`${api}/api/user/${id}`);
+      return dispatch({
+        type: 'DELETE_USER',
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+}
+
+// export function deleteInvoice(id) {
+//   return async function (dispatch) {
+//     try {
+//       const result = await axios.delete(`${api}/api/invoice/${id}`);
+//       return dispatch({
+//         type: 'DELETE_INVOICE',
+//       });
+//     } catch (error) {
+//       throw new Error(error.message);
+//     }
+//   }
+// }

@@ -3,12 +3,17 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 // import { mockDataProducts } from "../data/mockData";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts, updateProduct } from "../redux/actions.js"
+import { getAllProducts, deleteProduct } from "../redux/actions.js"
 import BarChart from "./dashboard/BarChart.jsx";
 import styles from './FormStyle.module.css'
+import { useNavigate } from 'react-router-dom';
 
 //Users, products, invoice, reviews
 export function Products() {
+
+    const [pageSize, setPageSize] = useState(5);
+    const navigate = useNavigate()
+
     const columns = [{ field: "product_id", headerName: "ID" },
     { field: "product_name", headerName: "Nombre" },
     { field: "product_description", headerName: "Descripción" },
@@ -18,12 +23,32 @@ export function Products() {
     { field: "product_img", headerName: "Imagen principal" },
     { field: "product_array_img", headerName: "Imagenes secundarias" },
     { field: "product_stock", headerName: "Cantidad en Stock" },
+    {
+        field: "Editar",
+        renderCell: (cellValues) => {
+            return (
+                <Link to={`/admin/products/editarproducto/${cellValues.row.product_id}`}>
+                <button onClick={(e) => handleOnClick(e, cellValues)}>Editar</button>
+                 </Link>  
+            )
+        }
+    },
+    {
+        field: "Eliminar",
+        renderCell: (cellValues) => {
+            return (
+                <button onClick={(e) => {
+                    handleOnDelete(e, cellValues)
+                }}>Eliminar</button>
+            )
+        }
+    }
     ]
 
     const [id, setId] = useState(1)
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
@@ -34,13 +59,20 @@ export function Products() {
         return { ...product, product_stock: product.stock.stock_amount }
     })
 
-    function handleOnEdit(e) {
-        console.log(e)
-        setId(e)
-    }
 
-    const clickOnEdit = () => {
-        dispatch(updateProduct())
+    const handleCellClick = (param, e) => {
+        e.stopPropagation();
+    }
+    const handleRowClick = (param, e) => {
+        e.stopPropagation();
+    }
+    const handleOnClick = (e, cellValues) => {
+        console.log(cellValues)
+    }
+    const handleOnDelete = (e, cellValues) => {
+        dispatch(deleteProduct(cellValues.row.product_id))
+        alert(`El producto ${cellValues.row.product_name} fue eliminado con éxito`)
+        // navigate('/admin/product')
     }
 
     if (products.length === 0) {
@@ -48,21 +80,27 @@ export function Products() {
             <div className='spinner'></div>
         </div>)
     } else return (
-            <div>
-                <h1>PRODUCTOS</h1>
-                <div style={{ height: 450, width: '100%' }}>
-                    <BarChart />
-                </div>
-                <div style={{ height: 450, width: '80%' }}>
-                    <DataGrid
-                    // checkboxSelection
+        <div>
+            <h1>PRODUCTOS</h1>
+            <div style={{ height: 450, width: '100%' }}>
+                <BarChart />
+            </div>
+            <div style={{ height: 450, width: '80%' }}>
+                <DataGrid
+                    checkboxSelection
                     // onSelectionChange={ e => handleOnEdit(e)}
                     //isCellEditable={(params) => params.row.age % 2 === 0}
-                    
+
                     getRowId={(row) => row.product_id}
                     rows={newProducts}
                     columns={columns}
                     components={{ Toolbar: GridToolbar }}
+                    pageSize={pageSize}
+                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                    rowsPerPageOptions={[5, 10, 20]}
+                    pagination
+                    onCellClick={handleCellClick}
+                    onRowClick={handleRowClick}
                     sx={{
                         boxShadow: 2,
                         border: 2,
@@ -74,20 +112,15 @@ export function Products() {
                         weigth: "80%",
                         marginLeft: "20%",
                     }}
-                    />
-                </div>
-                <div className={styles.divform}>
-                    <Link to="/admin/products/crearproducto">
-                        <button >Crear producto</button>
-                    </Link>
-                </div>
-                <div className={styles.divform}>
-                    <Link to={`/admin/products/editarproducto/`}>
-                        <button >Editar producto</button>
-                    </Link>
-                </div>
+                />
             </div>
-        )
+            <div className={styles.divform}>
+                <Link to="/admin/products/crearproducto">
+                    <button >Crear producto</button>
+                </Link>
+            </div>
+        </div>
+    )
 }
 
 export default Products;

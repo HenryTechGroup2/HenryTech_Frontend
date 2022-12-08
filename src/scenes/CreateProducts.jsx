@@ -3,18 +3,20 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postCreateProduct, getAllProducts } from '../redux/actions.js';
 import styles from './FormStyle.module.css'
+import Bar from './dashboard/Bar.jsx'
 
 export function CreateProducts() {
   const initialState = {
     product_name: '',
     product_description: '',
+    product_brand:'',
     product_price: '',
     product_ofer: true,
     product_rating: '',
     product_category: '',
     product_img: '',
     product_array_img: [],
-    // stock: '',
+    product_stock: '',
   };
 
   const [input, setInput] = useState(initialState);
@@ -73,11 +75,11 @@ export function CreateProducts() {
     if (!input.product_img) {
       errors.product_img = 'Ingresa el link de la imagen';
     }
-    // if (!input.stock) {
-    //   errors.stock = 'Ingrese una cantidad del producto';
-    // } else if (!/[0-9]/.test(input.stock)){
-    //   errors.stock = "El stock solo admite numeros"
-    // }
+    if (!input.product_stock) {
+      errors.product_stock = 'Ingrese una cantidad del producto';
+    } else if (!/[0-9]/.test(input.product_stock)){
+      errors.product_stock = "El stock solo admite numeros"
+    }
     return errors;
   }
 
@@ -112,6 +114,7 @@ export function CreateProducts() {
 
   return (
     <div className={styles.divform} >
+      <Bar/>
       <div className={styles.form}>
         <h2>Crea tu producto</h2>
         <form onSubmit={(e) => handleOnSubmit(e)}>
@@ -137,6 +140,17 @@ export function CreateProducts() {
             />
             {errors.product_description && <p>{errors.product_description}</p>}
           </div>
+          <div>
+              <label>Marca:</label>
+              <input
+                type='text'
+                name='product_brand'
+                value={input.product_brand}
+                // defaultValue={product.product_name}
+                onChange={(e) => handleOnChange(e)}
+              />
+              {errors.product_brand && <p>{errors.product_brand}</p>}
+            </div>
           <div>
             <label>¿El producto está en oferta?</label>
             <select onChange={e => handleOnSelect(e)}>
@@ -185,7 +199,7 @@ export function CreateProducts() {
               onChange={(e) => handleOnChange(e)}
             />
             {errors.product_img && <p>{errors.product_img}</p>}
-            <img src={input.product_img} alt={`imagen de ${input.product_name}`} width="50" height="60" />
+            {input.product_img? <img src={input.product_img} alt={`imagen de ${input.product_name}`} width="50" height="60" />: null }
           </div>
           <div>
             <label>Imagenes secundarias</label>
@@ -197,17 +211,17 @@ export function CreateProducts() {
               onChange={(e) => handleOnChange(e)}
             />
           </div>
-          {/* <div>
-        <label>Cantidad en stock</label>
+          <div>
+          <label>Cantidad en stock</label>
           <input
             placeholder='Igresa la cantidad existente para el producto'
             type='number'
-            name='stock'
-            value={input.stock}
+            name='product_stock'
+            value={input.product_stock}
             onChange={(e) => handleOnChange(e)}
           />
-          {errors.stock && <p>{errors.stock}</p>}
-        </div> */}
+          {errors.product_stock && <p>{errors.product_stock}</p>}
+        </div>
           <button type='submit' disabled={Object.entries(errors).length === 0 ? false : true}
             onClick={(e) => handleOnSubmit(e)}
           > Send
