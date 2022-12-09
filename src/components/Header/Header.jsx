@@ -8,18 +8,11 @@ import {
   FILTER_SEARCH,
   pageHome,
 } from '../../redux/actions';
-import {
-  cartHeader,
-  close,
-  closeWhite,
-  pc,
-  userLogin,
-} from '../../utils/Icons';
+import { cartHeader, closeWhite, pc, userLogin } from '../../utils/Icons';
 import Modal from '../Modal/Modal';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import ModalPayment from '../ModalPayment/ModalPayment';
 import CardCar from '../CardCar/CardCar';
 import Payment from '../Payment/Payment';
 import UpdateInfo from '../UpdateInfo/UpdateInfo';
@@ -75,7 +68,6 @@ const Header = () => {
 
   return (
     <div className='header'>
-      <ModalPayment />
       <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
       <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../components/Aside/Aside';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
@@ -11,6 +11,7 @@ import ProductsHome from '../components/ProductsHome/ProductsHome';
 // import loader from '../loader.gif';
 import Pagination from '../components/Pagination/Pagination';
 import ButtonTop from '../components/ButtonTop/ButtonTop';
+import { getAllProducts } from '../redux/actions';
 const Home = () => {
   const {
     filters,
@@ -22,7 +23,10 @@ const Home = () => {
     copieProducts,
     loadingHome,
   } = useSelector((state) => state);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
   const [actualPage, setActualPage] = useState(1);
   const productsPage = 16;
   const page = actualPage * productsPage;

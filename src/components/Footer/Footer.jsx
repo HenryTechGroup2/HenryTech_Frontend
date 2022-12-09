@@ -22,9 +22,7 @@ function Footer() {
           <Link to='/sobrenosotros'>
             <li className='footer__li'>Sobre nosotros</li>
           </Link>
-          <Link to="/admin"> 
-          <button>ADMINISTRADOR</button>
-          </Link>
+          <Link to='/admin'>ADMINISTRADOR</Link>
         </ul>
       </div>
       <div>

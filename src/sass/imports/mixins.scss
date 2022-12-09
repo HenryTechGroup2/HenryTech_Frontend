@@ -32,6 +32,17 @@
     transform: scale(1.1);
   }
 }
+@mixin modal() {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include flex(column, nowrap, center, center, 0);
+  backdrop-filter: blur(1em);
+  transition: 0.5s linear;
+  z-index: 200;
+}
 @mixin input-defecto($a, $b, $c) {
   padding: $a $b;
   font-size: 1.2em;

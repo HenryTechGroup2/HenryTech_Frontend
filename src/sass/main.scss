@@ -40,7 +40,19 @@
 .loader {
   width: 100vw;
   height: calc(100vh - 5.5em);
-  @include flex(row, nowrap, center, center, 0);
+  @include flex(column, nowrap, center, center, 0);
+  &__container {
+    width: 20em;
+    height: 20em;
+    background: #ebebeb;
+    @include flex(column, nowrap, center, center, 2em);
+    color: #000;
+    font-size: 1.2em;
+    border-radius: 0.5em;
+  }
+}
+.loading {
+  @include modal();
 }
 .stripe {
   position: fixed;
@@ -49,13 +61,15 @@
   top: 0;
   backdrop-filter: blur(1em);
   @include flex(row, nowrap, center, center, 0);
-  z-index: 500;
+  z-index: 1001;
   &__div {
     position: relative;
     width: 18em;
     height: 18em;
     background: #fff;
-    color: #000;
+    color: #004b23;
+    text-align: center;
+    font-size: 1.5em;
     border-radius: 0.5em;
     @include flex(column, nowrap, center, center, 0);
   }
@@ -326,7 +340,7 @@
   border-bottom: 2px solid #fff;
   height: 5.5em;
   position: sticky;
-  z-index: 200;
+  z-index: 1000;
   top: 0;
   background: #333;
   overflow: hidden;
@@ -731,7 +745,9 @@
   color: #fff;
   max-width: 76em;
   margin: 4em auto 0;
-
+  &__mar {
+    margin: 0 0 2em 0;
+  }
   &__portal {
     box-shadow: 0.5em 0.8em 1em #000;
     position: absolute;
@@ -796,7 +812,7 @@
     @include flex(row, nowrap, center, center, 0.4em);
   }
   &__border {
-    border: 2px solid #000;
+    border: 2px solid $color-star;
   }
   &__p {
     font-size: 2em;
@@ -1359,7 +1375,7 @@
   }
 }
 .info {
-  position: absolute;
+  position: fixed;
   z-index: 3000;
   top: 0;
   left: 0;
@@ -1421,6 +1437,64 @@
   &__open {
   }
 }
+.informacion {
+  &__close {
+    @include flex(row, nowrap, end, end, 0);
+    cursor: pointer;
+    padding: 0.5em;
+  }
+  &__name {
+    padding: 0 0 0 1em;
+  }
+  &__image {
+    padding: 0 0 0 1em;
+  }
+  &__flex {
+    margin: 2em 0 0 0;
+    @include flex(row, nowrap, start, start, 0);
+    width: 100%;
+  }
+  &__img {
+    width: 12em;
+    height: 16em;
+  }
+  &__div {
+    font-size: 1.1em;
+    width: 15em;
+    @include flex(row, nowrap, space-between, center, 0);
+  }
+  &__span {
+    display: inline-block;
+    width: 5em;
+  }
+  &__edit {
+    background: transparent;
+    color: #fff;
+    font-size: 1em;
+    font-family: 'Exo';
+  }
+  &__info {
+    padding: 0 0 0 1em;
+    @include flex(column, nowrap, start, center, 0.5em);
+  }
+  &__divs {
+    padding: 0 0 0 1em;
+  }
+  &__input {
+    background: transparent;
+    width: 110px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    font-family: 'Exo';
+    font-size: 1em;
+  }
+  &__update {
+    margin: 2em 0 0 0;
+    @include button-principal();
+    background: #fff;
+    color: #000;
+  }
+}
 .espera {
   position: fixed;
   left: 0;
@@ -1428,13 +1502,14 @@
   top: 0;
   bottom: 0;
   @include flex(row, wrap, center, center, 0);
-  height: 100vw;
+  height: 100vh;
   width: 100vw;
   backdrop-filter: blur(1em);
+  z-index: 1001;
 
   &__div {
-    width: 22em;
-    height: 18em;
+    width: 15em;
+    height: 15em;
     background: #fff;
     color: #000;
     font-weight: bold;
@@ -1611,4 +1686,317 @@
 .home__image-gif {
   width: 15em;
   height: 15em;
+}
+.admin {
+  max-width: 1250px;
+  margin: 3em auto 0;
+  &__links {
+    margin: 1em auto 0;
+    position: relative;
+    z-index: 300;
+    max-width: 800px;
+    background: #333;
+    padding: 1em 0;
+    @include flex(row, nowrap, space-around, center, 1em);
+  }
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-template-rows: repeat(2, 300px);
+  gap: 1em;
+  position: relative;
+  z-index: 300;
+  &__graph {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background: #ebebeb;
+    @include flex(row, nowrap, center, center, 1em);
+  }
+  &__total {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    background: #333;
+  }
+}
+.enlaces {
+  margin-bottom: 1em;
+  position: relative;
+  z-index: 300;
+  @include flex(row, nowrap, center, center, 1em);
+  &__item {
+    width: 200px;
+    background: #333;
+    @include flex(row, nowrap, space-between, center, 1em);
+    padding: 0 2em;
+    flex-grow: 1;
+    cursor: pointer;
+    transition: 0.5s ease;
+    // box-shadow: 10px 10px 5px 0px #fff, -10px -10px -5px 0px #fff;
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0.1em 0.1em 0.2em #fff, -0.1em -0.1em 0.2em #fff;
+    }
+  }
+  &__img {
+    width: 5em;
+    height: 5em;
+  }
+}
+.dashp {
+  @include flex(column, nowrap, center, center, 0);
+  position: relative;
+  z-index: 300;
+  width: 100vw;
+  margin: 2em 0 0 0;
+  &__contain {
+  }
+  &__aux {
+    width: 100vw;
+    max-width: 1400px;
+    @include flex(row, nowrap, end, end, 0);
+  }
+  &__flex {
+    display: grid;
+    width: 100vw;
+    max-width: 1400px;
+    margin: 0;
+    background: #333;
+    grid-template-columns: 1fr 0.8fr 5fr 1fr 0.5fr 0.2fr;
+    border: 1px solid #fff;
+    padding: 0.5em 0;
+  }
+  &__check {
+  }
+  &__suspense {
+    filter: grayscale(1);
+  }
+  &__btn {
+    background: transparent;
+    font-size: 1em;
+    color: #fff;
+  }
+  &__number {
+    width: 2em;
+  }
+  &__id {
+    place-self: center;
+    padding: 0 0 0 0.5em;
+
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__image {
+    place-self: center;
+  }
+  &__img {
+    width: 2.5em;
+    height: 2.5em;
+  }
+  &__name {
+    justify-self: start;
+    align-self: center;
+  }
+  &__ofer {
+    place-self: center;
+  }
+  &__button {
+    place-self: center;
+    padding: 0 0.5em 0 0;
+  }
+  &__add {
+    border-radius: 50%;
+    // padding: 0.8em 1em;
+  }
+  &__add--img {
+    width: 3em;
+    height: 3em;
+    align-self: end;
+    cursor: pointer;
+    margin: 0 2em 2em;
+  }
+  &__btn {
+    align-self: center;
+    justify-self: center;
+    background: transparent;
+    color: #fff;
+    font-family: 'Exo';
+  }
+  &__delete {
+    @include flex(row, nowrap, center, center, 0.5em);
+    background: transparent;
+  }
+  &__dlt {
+    fill: #fff;
+    background: transparent;
+    justify-self: center;
+  }
+}
+.post {
+  &__container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    backdrop-filter: blur(1em);
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__contain {
+    @include flex(row, nowrap, start, start, 0);
+  }
+  &__div--x {
+    width: 5em;
+  }
+  &__alldiv {
+    @include flex(column, nowrap, center, start, 0.5em);
+  }
+  &__flexx {
+    @include flex(row, nowrap, start, start, 0.5em);
+  }
+  &__mid {
+    @include flex(row, nowrap, center, center, 0.5em);
+  }
+  &__allimages {
+    width: 4em;
+    height: 4em;
+  }
+  &__carruzel {
+    width: 30em;
+    @include flex(row, nowrap, start, start, 0);
+    overflow: hidden;
+  }
+  &__carruzell {
+    @include flex(row, nowrap, start, start, 0);
+    transition: 0.5s ease;
+  }
+  &__view {
+    width: 30em;
+    height: 32em;
+    background: #22222250;
+    border: 1px solid #fff;
+  }
+  &__form {
+    width: 30em;
+    background: #22222250;
+    border: 1px solid #fff;
+    border-radius: 0.4em;
+    padding: 0 0 0 1em;
+    height: 32em;
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__aux {
+    width: 100%;
+    align-self: flex-start;
+    @include flex(column, nowrap, end, end, 0);
+    padding: 1em 2em 0 0;
+  }
+  &__close {
+    cursor: pointer;
+  }
+  &__div {
+    width: 19.7em;
+  }
+  &__flex {
+    @include flex(row, nowrap, space-between, center, 2em);
+  }
+  &__check {
+    @include flex(row, nowrap, space-between, center, 2em);
+  }
+  &__input {
+    background: #000;
+    border: 1px solid #fff;
+    width: 18em;
+    height: 2em;
+    font-size: 1.1em;
+    font-family: 'Roboto';
+    padding: 0.2em 0.5em;
+    color: #fff;
+  }
+  &__textarea {
+    width: 18em;
+    min-height: 6em;
+    color: #fff;
+  }
+  &__files {
+    position: relative;
+    width: 8.5em;
+    overflow: hidden;
+  }
+  &__span {
+    cursor: pointer;
+    display: inline-block;
+    width: 8.5em;
+    position: relative;
+    background: #000;
+    border: 1px solid #fff;
+    z-index: 1;
+    font-family: 'Roboto';
+    padding: 0.2em;
+  }
+  &__ofert {
+    background: #000;
+    border: 1px solid #fff;
+    font-family: 'Roboto';
+    padding: 0.2em;
+  }
+  &__names {
+    padding: 1em 0 1em 2em;
+  }
+  &__file {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    opacity: 0;
+  }
+  &__button {
+    padding: 0 0 0 2em;
+  }
+  &__btn {
+    @include button-principal();
+    background: #000;
+    color: #fff;
+  }
+  &__img {
+    width: 16em;
+    height: 18em;
+  }
+}
+.response {
+  @include modal();
+  &__container {
+    background: #ebebeb;
+    width: 25em;
+    height: 20em;
+    @include flex(column, nowrap, center, center, 0);
+    border-radius: 0.5em;
+    border: 1px solid #004b23;
+  }
+  &__response {
+    font-size: 1.5em;
+    color: #004b23;
+    text-align: center;
+    font-weight: bold;
+  }
+  &__div {
+    width: 6em;
+    height: 6em;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    // width: 8em;
+    // height: 8em;
+    // border-radius: 50%;
+  }
+  &__buttons {
+    @include flex(row, nowrap, space-between, center, 0);
+  }
+  &__btn {
+    @include button-principal();
+  }
 }

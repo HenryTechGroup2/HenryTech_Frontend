@@ -26,7 +26,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import UpdateUser from './components/UpdateUser/UpdateUser';
 import MyAcount from './pages/MyAcount';
 
-import Dashboard from './scenes/dashboard/Dashboard.jsx';
+// import Dashboard from './scenes/dashboard/Dashboard.jsx';
+import Dashboard from './pages/Dashboard';
 import Users from './scenes/Users.jsx';
 import Products from './scenes/Products.jsx';
 import Invoices from './scenes/Invoices.jsx';
@@ -35,6 +36,9 @@ import CreateProducts from './scenes/CreateProducts';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import EditProduct from './scenes/EditProduct';
+import AdminProducts from './components/AdminProducts/AdminProducts';
+import AdminUser from './components/AdminUser/AdminUser';
+import AdminOrder from './components/AdminOrder/AdminOrder';
 
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
@@ -100,10 +104,13 @@ function App() {
           <Route path='/micuenta/:id' element={<MyAcount />} />
           <Route path='/actualiza/:id' element={<UpdateUser />} />
           <Route path='/admin' element={<Dashboard />} />
-          <Route path='/admin/users' element={<Users />} />
+          <Route path='/admin-products' element={<AdminProducts />} />
+          <Route path='/admin-user' element={<AdminUser />} />
+          <Route path='/admin-orders' element={<AdminOrder />} />
+          {/* <Route path='/admin/users' element={<Users />} />
           <Route path='/admin/products' element={<Products />} />
           <Route path='/admin/invoices' element={<Invoices />} />
-          <Route path='/admin/reviews' element={<Reviews />} />
+          <Route path='/admin/reviews' element={<Reviews />} /> */}
           <Route
             path='/admin/products/crearproducto'
             element={<CreateProducts />}

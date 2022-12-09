@@ -22,8 +22,8 @@ export const ORDER_VIEWS = '@order/views';
 export const SELECT_ORDER = '@order/select';
 export const ERROR = '@error';
 export const BIENVENIDO = '@bienvenido';
-export const api = 'https://henry-tech-backend.vercel.app';
-// export const api = 'http://localhost:3001';
+// export const api = 'https://henry-tech-backend.vercel.app';
+export const api = 'http://localhost:3001';
 //ORDER
 export function orderSelect(order) {
   return {
@@ -50,7 +50,6 @@ export function createUser(user) {
     payload: user,
   };
 }
-
 export function getDetailsProducts(id) {
   try {
     return async function (dispatch) {
@@ -224,23 +223,26 @@ export function postCreateProduct(payload) {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      return dispatch({
+        type: ERROR,
+        payload: error.data.response.data,
+      });
     }
   };
 }
 
 export function getUsers() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/user`);
       return dispatch({
         type: 'GET_USERS',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 export function getInvoice() {
   try {
