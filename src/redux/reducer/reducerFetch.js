@@ -7,20 +7,29 @@ import {
   ARMAMENT_PC_PRODUCT,
   BIENVENIDO,
   CAR_MODIFIER,
+  CHANGE_USER,
   CREATE_USER,
   CREATE_USER_AUTH0,
   DELETE_CART,
   DELETE_DETAILS,
   DELETE_FAVORIT,
   DELETE_PC_PRODUCT,
+  DELETE_USERS,
   ERROR,
   FILTER_SEARCH,
   FILTER_STAR,
   LOGIN_USER,
+  MESSAGE,
+  MESSAGE_ADMIN,
+  MESSAGE_USER,
+  MSG,
+  MSG_ADMIN,
   ORDER_VIEWS,
   PAGES_HOME,
   SELECT_ORDER,
+  USER_ALL_MSG,
   USER_CLOSE,
+  WIDTH,
 } from '../actions';
 import { ADD_TO_CART, DELETE_TO_CAR } from '../actionsCar';
 import { AUTH0, CAR, PASSWORD, USER } from '../storage/variables';
@@ -45,6 +54,10 @@ const initialState = {
   userlogin: false,
   loadingReviews: false,
   loadingHome: false,
+  messageUser: [],
+  messageAllUser: [],
+  userAllMessages: [],
+  userMessage: [],
   filters: {
     search: '',
   },
@@ -55,11 +68,18 @@ const initialState = {
     confirmPassword: false,
   },
   errorAxios: null,
+  width: 0,
 };
 
 export const reducerFetch = (state = initialState, action) => {
   switch (action.type) {
     //FETCH
+    case DELETE_USERS: {
+      return {
+        ...state,
+        users: [],
+      };
+    }
     case 'GET_PRODUCTS': {
       console.log(action.payload);
       const ofertDay = action.payload.filter(
@@ -651,6 +671,12 @@ export const reducerFetch = (state = initialState, action) => {
         errorAxios: action.payload,
       };
     }
+    case WIDTH: {
+      return {
+        ...state,
+        width: action.payload,
+      };
+    }
     case 'PUT_UPDATE_PRODUCT': {
       return {
         ...state,
@@ -663,7 +689,64 @@ export const reducerFetch = (state = initialState, action) => {
         bienvenido: action.payload,
       };
     }
-
+    case MESSAGE: {
+      console.log(action.payload);
+      const newMessage = {
+        ...action.payload,
+        msgreceiveds: [],
+      };
+      return {
+        ...state,
+        userDates: {
+          ...state.userDates,
+          msgposts: [...state.userDates.msgposts, newMessage],
+        },
+      };
+    }
+    case MSG: {
+      const newMessage = state.userDates;
+      newMessage?.msgposts[
+        state.userDates?.msgposts?.length - 1
+      ]?.msgreceiveds?.push(action.payload);
+      console.log(newMessage);
+      return {
+        ...state,
+        userDates: {
+          ...state.userDates,
+          msgposts: newMessage.msgposts,
+        },
+      };
+    }
+    case MSG_ADMIN: {
+      return state;
+    }
+    case MESSAGE_ADMIN: {
+      return state;
+    }
+    case USER_ALL_MSG: {
+      return {
+        ...state,
+        userAllMessages: action.payload,
+        userMessage: [action.payload[0]],
+      };
+    }
+    case MESSAGE_USER: {
+      const newUserMessage = state.userMessage[0];
+      console.log(newUserMessage);
+      newUserMessage.msgposts[
+        newUserMessage.msgposts.length - 1
+      ].msgreceiveds.push(action.payload);
+      return {
+        ...state,
+        userMessage: [newUserMessage],
+      };
+    }
+    case CHANGE_USER: {
+      return {
+        ...state,
+        userMessage: [action.payload],
+      };
+    }
     default:
       return state;
   }

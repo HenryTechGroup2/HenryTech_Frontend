@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../redux/actions';
+import { deleteUsers, getUsers } from '../../redux/actions';
 import AdminLinks from '../AdminLinks/AdminLinks';
 import Header from '../Header/Header';
 import OneUser from './OneUser';
@@ -9,6 +9,9 @@ const AdminUser = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
+    return () => {
+      dispatch(deleteUsers());
+    };
   }, []);
   const { users } = useSelector((state) => state);
   console.log(users);

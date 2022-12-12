@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ADD_ALL_FAVORITES } from '../../redux/actions';
+import { ADD_ALL_FAVORITES, WIDTH } from '../../redux/actions';
 import { stock as stockIcon, noStock } from '../../utils/Icons';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
 import Count from '../Count/Count';
@@ -14,16 +15,24 @@ const Card = ({
   view = false,
 }) => {
   const dispatch = useDispatch();
+
   dispatch({ type: ADD_ALL_FAVORITES });
+  const divRef = useRef(null);
+  const width = divRef === null ? 0 : divRef.current?.clientWidth / 16;
+  useEffect(() => {
+    dispatch({ type: WIDTH, payload: width });
+    console.log(width);
+  }, [divRef, dispatch, width]);
 
   return (
     <>
       {product.product_suspense === true ? null : (
         <article
+          ref={divRef}
           className={`product__article ${
             isFlex === true ? 'product__flex' : ''
           }`}
-          style={{ width: `${view ? '14em' : '20em'}` }}
+          style={{ width: `${view ? '14em' : ''}` }}
         >
           <div className='product__container'>
             <div className='product__favorit'>
@@ -42,8 +51,8 @@ const Card = ({
                 src={`${product.product_img}`}
                 alt={product.product_name}
                 style={{
-                  width: `${ancho ? `${ancho}em` : '15em'}`,
-                  height: `${alto ? `${alto}em` : '18em;'}`,
+                  width: `${ancho ? `${ancho}em` : ''}`,
+                  height: `${alto ? `${alto}em` : ''}`,
                 }}
               />
             </Link>
@@ -51,8 +60,8 @@ const Card = ({
               <h4
                 className='product__name'
                 style={{
-                  width: `${view ? '13em' : '15em'}`,
-                  fontSize: `${view ? '.7em' : '1em'}`,
+                  width: `${view ? '13em' : ''}`,
+                  fontSize: `${view ? '.7em' : ''}`,
                 }}
               >
                 {product.product_name?.length > 70
@@ -64,8 +73,8 @@ const Card = ({
               <h4
                 className='product__price'
                 style={{
-                  width: `${view ? '14em' : '15em'}`,
-                  fontSize: `${view ? '.7em' : '1em'}`,
+                  width: `${view ? '14em' : ''}`,
+                  fontSize: `${view ? '.7em' : ''}`,
                 }}
               >
                 {Number(product.product_price).toLocaleString('es-AR', {

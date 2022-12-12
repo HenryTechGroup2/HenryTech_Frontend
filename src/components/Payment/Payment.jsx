@@ -30,6 +30,7 @@ const Payment = () => {
         const data = await axios.post(`${api}/api/payment`, {
           id,
           amount: car,
+          userid: userDates?.user_id,
         });
         console.log(data);
         elements.getElement(CardElement).clear();

@@ -11,7 +11,7 @@
   }
 }
 @mixin responsive($medida: 600px) {
-  @media (max-width: $medida) {
+  @media screen and (max-width: $medida) {
     @content;
   }
 }
@@ -41,7 +41,7 @@
   @include flex(column, nowrap, center, center, 0);
   backdrop-filter: blur(1em);
   transition: 0.5s linear;
-  z-index: 200;
+  z-index: 10000;
 }
 @mixin input-defecto($a, $b, $c) {
   padding: $a $b;

@@ -129,6 +129,9 @@ const UpdateUser = ({ user, id }) => {
                           name={dates?.values}
                           value={dates?.inputDate}
                           type={dates?.type}
+                          placeholder={
+                            dates?.type === 'password' ? 'Contraseña' : null
+                          }
                           onChange={handleOnChange}
                         />
                         {dates?.type === 'password' && (
@@ -137,6 +140,7 @@ const UpdateUser = ({ user, id }) => {
                             name={'user_password_confirm'}
                             value={input.user_password_confirm}
                             type={dates?.type}
+                            placeholder='Nueva contraseña'
                             onChange={handleOnChange}
                           />
                         )}

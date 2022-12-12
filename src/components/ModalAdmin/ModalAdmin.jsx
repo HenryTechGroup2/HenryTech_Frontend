@@ -92,7 +92,10 @@ const ModalAdmin = ({ product, open, handleOpenModal }) => {
         <ModalResponse response={responseBackend} yes={''} no={''} />
       ) : null}
       <div className='info__container'>
-        <div onClick={handleOpenModal} className='informacion__close'>
+        <div
+          onClick={() => handleOpenModal(false)}
+          className='informacion__close'
+        >
           {close}
         </div>
         <div className='informacion__name'>{product.product_name}</div>

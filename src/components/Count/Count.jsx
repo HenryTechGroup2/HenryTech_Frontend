@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useCount from '../../hooks/useCount';
 import { ADD_TO_CART } from '../../redux/actionsCar';
@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Count = ({ product_count = 1, product, view = false }) => {
   const { count, handleClick } = useCount(product_count);
   const dispatch = useDispatch();
+  const [wind, setWind] = useState(document.documentElement.clientWidth);
   const handleClickAddToCar = () => {
     dispatch({
       type: ADD_TO_CART,
@@ -27,6 +28,9 @@ const Count = ({ product_count = 1, product, view = false }) => {
       theme: 'dark',
     });
   };
+  window.addEventListener('resize', () =>
+    setWind(document.documentElement.clientWidth)
+  );
   return (
     <div className='details__count'>
       <button className='details__button' onClick={handleClick}>
@@ -44,7 +48,7 @@ const Count = ({ product_count = 1, product, view = false }) => {
         disabled={product?.stock?.stock_amount > 0 ? false : true}
       >
         {cart}
-        {view ? '' : 'Agregar'}
+        {wind <= 950 ? null : view ? '' : 'Agregar'}
       </button>
     </div>
   );

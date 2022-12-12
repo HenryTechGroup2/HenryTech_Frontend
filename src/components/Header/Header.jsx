@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -8,7 +8,13 @@ import {
   FILTER_SEARCH,
   pageHome,
 } from '../../redux/actions';
-import { cartHeader, closeWhite, pc, userLogin } from '../../utils/Icons';
+import {
+  cartHeader,
+  closeWhite,
+  pc,
+  search,
+  userLogin,
+} from '../../utils/Icons';
 import Modal from '../Modal/Modal';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
@@ -20,10 +26,15 @@ const INITIAL_STATE = { dropitem: null, item: 0 };
 const Header = () => {
   const [open, setOpen] = useState(null);
   const [hover, setHover] = useState(null);
+  const [wind, setWind] = useState(document.documentElement.clientWidth);
   const [drop, setDrop] = useState(INITIAL_STATE);
   const { dropitem, item } = drop;
   const { logout, user } = useAuth0();
+  const inputRef = useRef(null);
   const { userDates, car, filters, priceTotal } = useSelector((state) => state);
+  window.addEventListener('resize', () =>
+    setWind(document.documentElement.clientWidth)
+  );
   useEffect(() => {
     const auth0Autentication = async () => {
       const data = await axios.post(`${api}/api/user/login/auth0`, {
@@ -65,21 +76,26 @@ const Header = () => {
       item: itemNumber,
     });
   };
-
+  const handleViewSearch = () => {
+    console.log('hoxd');
+    inputRef.current.classList.toggle('header__viewsearch');
+  };
   return (
     <div className='header'>
-      <Modal open={open} handleOpenModalSession={handleOpenModalSession} />
+      {open === null ? null : (
+        <Modal handleOpenModalSession={handleOpenModalSession} />
+      )}
       <div className='header__logo' title='Home'>
         <Link to='/' className='header__henry' onClick={handleClick}>
           <img
             className='header__logo--img'
-            src='https://images-ext-1.discordapp.net/external/hqPSUdM9YLb7X0FIFb1I2YfpVuTXma5eLBNlr0oIDvs/https/res.cloudinary.com/dd9tlax1c/image/upload/v1670195957/Logo/Henry-removebg-sin-proyect.png.png'
+            src='../assets/logoh.png'
             alt='Logo_Henry'
             loading='lazy'
           />
         </Link>
       </div>
-      <div>
+      <div className='header__barra'>
         <input
           className='header__search'
           placeholder='Buscar Productos'
@@ -89,6 +105,12 @@ const Header = () => {
         />
       </div>
       <div className='header__options'>
+        {wind <= 538 ? (
+          <div className='header__opensearch' onClick={handleViewSearch}>
+            {search}
+          </div>
+        ) : null}
+
         {userDates?.hasOwnProperty('user_name') ? (
           <div className='header__i'>
             <Link to={`/micuenta/${userDates.user_id}`}>
@@ -116,13 +138,39 @@ const Header = () => {
         </div>
         <div
           className='header__hover'
-          title='Cart'
+          title='Carrito'
           onClick={handleOpenLeftCart}
         >
-          {cartHeader} <span className='header__length'>{car.length}</span>
+          <div className='header__carrito'>
+            {cartHeader}{' '}
+            <div className='header__length'>
+              <div>{car.length}</div>
+            </div>
+          </div>
+
           <div></div>
         </div>
+        <div className='header__absolutesearch'>
+          <input
+            ref={inputRef}
+            onBlur={handleViewSearch}
+            className='header__absolutes '
+            placeholder='Buscar Productos'
+            value={filters.search}
+            onChange={handleChangeProductFilter}
+            type='text'
+          />
+        </div>
       </div>
+      {/* <div>
+      <input
+          className='header__search'
+          placeholder='Buscar Productos'
+          value={filters.search}
+          onChange={handleChangeProductFilter}
+          type='text'
+        />
+      </div> */}
       <div
         style={{ transform: `${hover ? 'translate(0)' : 'translate(310px)'}` }}
         className='header__translate'

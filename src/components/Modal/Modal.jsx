@@ -47,7 +47,6 @@ const Modal = ({ open, handleOpenModalSession }) => {
       className='modal'
       style={{
         backdropFilter: `${open === null ? 'blur(0)' : 'blur(1em)'}`,
-        transform: `${open === null ? 'scale(0)' : 'scale(1)'}`,
       }}
     >
       <div className='modal__container'>

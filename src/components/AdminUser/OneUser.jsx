@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { api } from '../../redux/actions';
+import ModalResponse from '../ModalResponse/ModalResponse';
 
 const OneUser = ({ user }) => {
   const [admin, setAdmin] = useState(user.user_isAdmin);
   const [suspense, setSuspense] = useState(user.user_suspense);
+  const [responseBackend, setResponseBackend] = useState(null);
   const handleChangeAdmin = async (evt) => {
     const { checked } = evt.currentTarget;
     try {
@@ -13,11 +15,15 @@ const OneUser = ({ user }) => {
         user_id: user.user_id,
       });
       setAdmin(checked);
-      console.log(data);
+      setResponseBackend(data.msg);
+      setTimeout(() => {
+        setResponseBackend(null);
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
   };
+  //
   const handleChangeSuspense = async (evt) => {
     const { checked } = evt.currentTarget;
     try {
@@ -25,6 +31,10 @@ const OneUser = ({ user }) => {
         user_suspense: checked,
         user_id: user.user_id,
       });
+      setResponseBackend(data.msg);
+      setTimeout(() => {
+        setResponseBackend(null);
+      }, 2000);
       console.log(data);
       setSuspense(checked);
     } catch (error) {
@@ -33,6 +43,10 @@ const OneUser = ({ user }) => {
   };
   return (
     <div>
+      {responseBackend === null ? null : (
+        <ModalResponse response={responseBackend} />
+      )}
+
       <div className='dashp__flex'>
         <div className='dashp__id'>
           <div className='dashp__check'>

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 const question = [
   {
     title: '¿Qué productos puedo encontrar en HENRYTECH?',
@@ -48,29 +51,36 @@ const Questions = () => {
     setOpen(index);
   };
   return (
-    <div className='questions'>
-      <h1 className='questions__h1'>Preguntas frecuentes HENRYTECH</h1>
-      <p className='questions__text'>
-        ¡Hola! Sabemos que es posible que surjan algunas dudas antes de hacer
-        una compra y queremos que estés muy seguro de que el paso que vas a
-        tomar es totalmente satisfactorio. Por esta razón creamos esta sección
-        en donde encontrarás las preguntas más frecuentes y así poderte
-        garantizar que la inversión que harás con nosotros sea tu mejor
-        decisión.
-      </p>
-      <div className='questions__div'>
-        {question.map((quest, index) => (
-          <React.Fragment key={index}>
-            <h2 onClick={() => handleClick(index)} className='questions__h2'>
-              {quest.title}
-            </h2>
-            <p className={`questions__p ${open === index ? 'v' : ''}`}>
-              {quest.description}{' '}
-            </p>
-          </React.Fragment>
-        ))}
+    <>
+      <Header />
+      <div className='questions'>
+        <h1 className='questions__h1'>Preguntas frecuentes HENRYTECH</h1>
+        <p className='questions__text'>
+          ¡Hola! Sabemos que es posible que surjan algunas dudas antes de hacer
+          una compra y queremos que estés muy seguro de que el paso que vas a
+          tomar es totalmente satisfactorio. Por esta razón creamos esta sección
+          en donde encontrarás las preguntas más frecuentes y así poderte
+          garantizar que la inversión que harás con nosotros sea tu mejor
+          decisión.
+        </p>
+        <div className='questions__div'>
+          {question.map((quest, index) => (
+            <React.Fragment key={index}>
+              <h2 onClick={() => handleClick(index)} className='questions__h2'>
+                {quest.title}
+              </h2>
+              <p className={`questions__p ${open === index ? 'v' : ''}`}>
+                {quest.description}{' '}
+              </p>
+            </React.Fragment>
+          ))}
+        </div>
+        <div className='questions__pos'>
+          <Link to={'/preguntas'}>¿Tienes mas dudas?</Link>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
