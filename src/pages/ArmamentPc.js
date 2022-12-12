@@ -7,6 +7,8 @@ import { addProductPC, addToCartProductsArmamentPC } from '../redux/actions';
 import { armamentPcImages } from '../utils/helpers';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
+import { useRef } from 'react';
 const brand = [
   { name: '../assets/amd.png', marca: 'AMD' },
   { name: '../assets/intel.png', marca: 'INTEL' },
@@ -51,7 +53,7 @@ const ArmamentPc = () => {
     }
     return product?.product_category.toLowerCase() === select.toLowerCase();
   });
-  let x = 0;
+  const divLeftRef = useRef(null);
   if (select === 'Perifericos') {
     productsAcept = productsAcept.filter(
       (product) =>
@@ -111,6 +113,10 @@ const ArmamentPc = () => {
   const handleFilterPeriferico = (category) => {
     setPeriferico(category);
   };
+  const handleOpenConfigArmamentPc = () => {
+    console.log('xd');
+    divLeftRef.current.classList.toggle('pc__viewitem');
+  };
   return (
     <>
       <Header />
@@ -120,6 +126,18 @@ const ArmamentPc = () => {
           <h1 className='pc__h1'>Elegi tu {descriptionH1.name} </h1>
           <p className='pc__description'>{descriptionH1.description}</p>
           <div className='pc__mark'>
+            <div className='pc__responsive--div'>
+              <button
+                className='pc__responsive--btn'
+                onClick={handleOpenConfigArmamentPc}
+              >
+                <img
+                  className='pc__responsive--img'
+                  src='../assets/responsive/config.png'
+                  alt=''
+                />
+              </button>
+            </div>
             <div className='pc__brand'>
               {brand.map((item) => (
                 <img
@@ -139,7 +157,7 @@ const ArmamentPc = () => {
             </div>
           </div>
           <div className='pc__components'>
-            <div className='pc__left'>
+            <div className='pc__left' ref={divLeftRef}>
               {armamentPcImages.map((image) => (
                 <PCComponetn
                   key={image.img1.name}
@@ -217,6 +235,7 @@ const ArmamentPc = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

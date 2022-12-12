@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { api, DELETE_CART } from '../../redux/actions';
+import { api, DELETE_CART, ERROR } from '../../redux/actions';
 import ModalPayment from '../ModalPayment/ModalPayment';
 import ModalEspere from '../ModalEspere/ModalEspere';
 const INITIAL_STATE = {
@@ -15,37 +15,48 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(INITIAL_STATE);
-  const [loading, setLoading] = useState(false);
+  const [responseBackend, setResponseBackend] = useState(INITIAL_STATE);
+  const [loading, setLoading] = useState(null);
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-    });
-    if (!error) {
-      setLoading(true);
-      const { id } = paymentMethod;
-      const data = await axios.post(`${api}/api/payment`, {
-        id,
-        amount: car,
+    try {
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: elements.getElement(CardElement),
       });
-      console.log(data);
-      elements.getElement(CardElement).clear();
-      dispatch({ type: DELETE_CART });
-      setOpen({
-        ...open,
-        open: true,
-        total: data.data.payment.amount,
+      if (!error) {
+        setLoading(() => true);
+        const { id } = paymentMethod;
+        const data = await axios.post(`${api}/api/payment`, {
+          id,
+          amount: car,
+          userid: userDates?.user_id,
+        });
+        console.log(data);
+        elements.getElement(CardElement).clear();
+        dispatch({ type: DELETE_CART });
+        setLoading(() => null);
+        setResponseBackend({
+          ...responseBackend,
+          open: true,
+          total: data.data.payment.amount,
+        });
+        setTimeout(() => setResponseBackend(INITIAL_STATE), 4000);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
       });
-      setLoading(false);
-      setTimeout(() => setOpen(INITIAL_STATE), 4000);
     }
   }
+  console.log(responseBackend.open);
   return (
     <div className='payment'>
-      <ModalPayment open={open.open} total={open.total} />
-      <ModalEspere loading={loading} />
+      {responseBackend.open === true ? (
+        <ModalPayment total={responseBackend.total} />
+      ) : null}
+      {loading === null ? null : <ModalEspere />}
       <h3 className='payment__h3'>Tus datos</h3>
       <div className='payment__dates'>
         <p className='payment__name'>

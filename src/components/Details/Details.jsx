@@ -195,7 +195,7 @@ export function Details() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className='details__mar'>
                     <div className='details__price'>
                       <div className='details__stock'>
                         {detailsProduct?.stock?.stock_amount > 0 ? (

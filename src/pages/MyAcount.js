@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../redux/actions.js';
 import Card from '../components/Card/Card.jsx';
-import Invoice from '../components/Invoice/Invoice.jsx';
 import UpdateUser from '../components/UpdateUser/UpdateUser.jsx';
-import { favorit } from '../utils/Icons.js';
 import Header from '../components/Header/Header.jsx';
-import { render } from 'react-dom';
 import { useState } from 'react';
 import Footer from '../components/Footer/Footer.jsx';
+import Facturas from '../components/Facturas/Facturas.jsx';
+import { useRef } from 'react';
 
 export function MyAcount() {
   const params = useParams();
   const id = params.id;
+  const [wind, setWind] = useState(document.documentElement.clientWidth);
   const dispatch = useDispatch();
   const [renderMap, setRenderMap] = useState('Configuracion');
   useEffect(() => {
@@ -37,13 +37,24 @@ export function MyAcount() {
   const handleMapRender = (render) => {
     setRenderMap(render);
   };
+  window.addEventListener('resize', () =>
+    setWind(document.documentElement.clientWidth)
+  );
+  const divRef = useRef(null);
+  const closeLeftDiv = useRef(null);
+  const handleOpenConfig = () => {
+    divRef.current.classList.toggle('acount__dropview');
+  };
+  const handleCLoseLeftDiv = () => {
+    closeLeftDiv.current.classList.toggle('acount__toggle');
+  };
   return (
     <>
       <Header />
       {Object.values(userDates).length > 0 ? (
         <div className='acount'>
           <div className='acount__drop'>
-            <div className='acount__left'>
+            <div className='acount__left' ref={divRef}>
               {leftMap.map((item) => (
                 <div
                   className='acount__div'
@@ -59,8 +70,16 @@ export function MyAcount() {
               ))}
             </div>
           </div>
-          <div className='acount__flex'>
+          <div className='acount__flex' ref={closeLeftDiv}>
             <div className='acount__right'>
+              <div className='update__config'>
+                <img
+                  src='../assets/responsive/config.png'
+                  alt=''
+                  className='update__buttonopen'
+                  onClick={handleOpenConfig}
+                />
+              </div>
               {renderMap === 'Favoritos' ? (
                 <div className='acount__favorites'>
                   {userDates.user_favorites.length === 0 ? (
@@ -85,7 +104,9 @@ export function MyAcount() {
                 </div>
               ) : renderMap === 'Configuracion' ? (
                 <UpdateUser user={userDates} id={id} />
-              ) : renderMap === 'Facturas' ? null : null}
+              ) : renderMap === 'Facturas' ? (
+                <Facturas handleCLoseLeftDiv={handleCLoseLeftDiv} />
+              ) : null}
             </div>
           </div>
         </div>

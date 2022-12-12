@@ -1,5 +1,13 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './css/main.css';
+import UpdateUser from './components/UpdateUser/UpdateUser';
+import MyAcount from './pages/MyAcount';
+import Dashboard from './pages/Dashboard';
+import CreateProducts from './scenes/CreateProducts';
+import EditProduct from './scenes/EditProduct';
+import AdminProducts from './components/AdminProducts/AdminProducts';
+import AdminUser from './components/AdminUser/AdminUser';
+import AdminOrder from './components/AdminOrder/AdminOrder';
+import ResponseRobot from './pages/ResponseRobot';
 import Home from './pages/Home';
 import Questions from './pages/Questions.js';
 import Aboutus from './pages/Aboutus.js';
@@ -7,12 +15,8 @@ import Details from './components/Details/Details.jsx';
 import Register from './pages/Register';
 import Car from './pages/Car';
 import ProductByName from './pages/ProductsByName.js';
-import './css/main.css';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import TemporaryData from './pages/TemporaryData';
 import ArmamentPc from './pages/ArmamentPc';
-import ParticlesBackground from './components/Particles/ParticlesBackground';
 import { AUTH0, CAR, PASSWORD, USER } from './redux/storage/variables';
 import axios from 'axios';
 import {
@@ -22,19 +26,14 @@ import {
   getAllProducts,
   LOGIN_USER,
 } from './redux/actions';
+
+import ParticlesBackground from './components/Particles/ParticlesBackground';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useDispatch, useSelector } from 'react-redux';
-import UpdateUser from './components/UpdateUser/UpdateUser';
-import MyAcount from './pages/MyAcount';
-
-import Dashboard from './scenes/dashboard/Dashboard.jsx';
-import Users from './scenes/Users.jsx';
-import Products from './scenes/Products.jsx';
-import Invoices from './scenes/Invoices.jsx';
-import Reviews from './scenes/Reviews.jsx';
-import CreateProducts from './scenes/CreateProducts';
-
-import { useAuth0 } from '@auth0/auth0-react';
-import EditProduct from './scenes/EditProduct';
+import MessagesPage from './pages/Messages';
 
 const stripePromise = loadStripe(
   'pk_test_51M77H2KiwPMfuM1YXkNCH93JIkwQGuApdRkcPsAGZEcZAvS3J5hjJRA6KOohvbPesLoToFn9R2IczZxC5rpFh5D4008JRks0Sh'
@@ -100,10 +99,10 @@ function App() {
           <Route path='/micuenta/:id' element={<MyAcount />} />
           <Route path='/actualiza/:id' element={<UpdateUser />} />
           <Route path='/admin' element={<Dashboard />} />
-          <Route path='/admin/users' element={<Users />} />
-          <Route path='/admin/products' element={<Products />} />
-          <Route path='/admin/invoices' element={<Invoices />} />
-          <Route path='/admin/reviews' element={<Reviews />} />
+          <Route path='/admin-products' element={<AdminProducts />} />
+          <Route path='/admin-user' element={<AdminUser />} />
+          <Route path='/admin-orders' element={<AdminOrder />} />
+          <Route path='/preguntas' element={<ResponseRobot />} />
           <Route
             path='/admin/products/crearproducto'
             element={<CreateProducts />}
@@ -112,6 +111,7 @@ function App() {
             path='/admin/products/editarproducto'
             element={<EditProduct />}
           />
+          <Route path='/admin-messages' element={<MessagesPage />} />
         </Routes>
       </BrowserRouter>
     </Elements>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const CREATE_USER = '@user/create';
+export const DELETE_USERS = '@users/delete';
 export const DELETE_DETAILS = '@detail/delete';
 export const CAR_MODIFIER = '@car/modifier';
 export const FILTER_SEARCH = '@filter/search';
@@ -22,13 +23,27 @@ export const ORDER_VIEWS = '@order/views';
 export const SELECT_ORDER = '@order/select';
 export const ERROR = '@error';
 export const BIENVENIDO = '@bienvenido';
-export const api = 'https://henry-tech-backend.vercel.app';
-// export const api = 'http://localhost:3001';
+export const WIDTH = '@width';
+export const MESSAGE = '@message/message';
+export const MSG = '@message/msg';
+export const MSG_ADMIN = '@message/msg-admin';
+export const MESSAGE_ADMIN = '@message/message-admin';
+export const USER_ALL_MSG = '@message/user-all-msg';
+export const MESSAGE_USER = '@message/user-all-admin';
+export const CHANGE_USER = '@message/change-user';
+// export const api = 'https://henry-tech-backend.vercel.app';
+export const api = 'http://localhost:3001';
 //ORDER
 export function orderSelect(order) {
   return {
     type: SELECT_ORDER,
     payload: order,
+  };
+}
+export function newMessageSocket(msg) {
+  return {
+    type: MESSAGE,
+    payload: msg,
   };
 }
 export function getAllProducts() {
@@ -40,7 +55,11 @@ export function getAllProducts() {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -50,19 +69,22 @@ export function createUser(user) {
     payload: user,
   };
 }
-
 export function getDetailsProducts(id) {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/product/${id}`);
       return dispatch({
         type: 'GET_DETAILS_PRODUCTS',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
 }
 export function postCreateReview(payload) {
   return async function (dispatch) {
@@ -76,7 +98,11 @@ export function postCreateReview(payload) {
         payload: result4.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -90,8 +116,12 @@ export function productByname(title) {
         type: 'PRODUCT_BY_NAME',
         payload: productName.data,
       });
-    } catch (e) {
-      throw new Error(e);
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -185,7 +215,11 @@ export function getUser(id) {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -224,36 +258,47 @@ export function postCreateProduct(payload) {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      return dispatch({
+        type: ERROR,
+        payload: error.data.response.data,
+      });
     }
   };
 }
 
 export function getUsers() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/user`);
       return dispatch({
         type: 'GET_USERS',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
 }
 export function getInvoice() {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const result = await axios.get(`${api}/api/invoice`);
       return dispatch({
         type: 'GET_INVOICE',
         payload: result.data,
       });
-    };
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
 }
 
 export function getReviews() {
@@ -265,7 +310,11 @@ export function getReviews() {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -273,16 +322,17 @@ export function getReviews() {
 export function updateProduct(payload, id) {
   return async function (dispatch) {
     try {
-      const result = await axios.put(
-        `http://localhost:3001/api/product/${id}`,
-        payload
-      );
+      const result = await axios.put(`${api}/api/product/${id}`, payload);
       return dispatch({
         type: 'PUT_UPDATE_PRODUCT',
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
   };
 }
@@ -295,7 +345,34 @@ export function sendMail(emails) {
         payload: result.data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
     }
+  };
+}
+//TODO TERMINAR HOY
+export function sendMailCar(emails) {
+  return async function (dispatch) {
+    try {
+      const result = await axios.post(`${api}/api/cart-email`, emails);
+      return dispatch({
+        type: BIENVENIDO,
+        payload: result.data,
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
+}
+export function deleteUsers() {
+  return {
+    type: DELETE_USERS,
   };
 }

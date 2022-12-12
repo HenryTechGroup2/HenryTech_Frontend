@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { postCreateReview } from '../../redux/actions.js';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
 import {
@@ -10,7 +9,6 @@ import {
   getAllProducts,
   getDetailsProducts,
 } from '../../redux/actions';
-import { enviar } from '../../utils/Icons';
 const server = io(api);
 
 const star = ['☆', '☆', '☆', '☆', '☆'];
@@ -156,7 +154,7 @@ export function CreateReview({ productId }) {
           <button
             className='review__button'
             type='submit'
-            // disabled={Object.entries(errors).length === 0 ? false : true}
+            disabled={Object.values(userDates).length === 0 ? false : true}
           >
             <img src='../send.png' alt='' />
           </button>

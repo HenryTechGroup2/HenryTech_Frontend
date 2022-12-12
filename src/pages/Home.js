@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../components/Aside/Aside';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
@@ -11,6 +11,8 @@ import ProductsHome from '../components/ProductsHome/ProductsHome';
 // import loader from '../loader.gif';
 import Pagination from '../components/Pagination/Pagination';
 import ButtonTop from '../components/ButtonTop/ButtonTop';
+import { getAllProducts } from '../redux/actions';
+import Messages from '../Messages/Messages';
 const Home = () => {
   const {
     filters,
@@ -22,11 +24,19 @@ const Home = () => {
     copieProducts,
     loadingHome,
   } = useSelector((state) => state);
-
+  const [wind, setWind] = useState(document.documentElement.clientWidth);
+  window.addEventListener('resize', () =>
+    setWind(document.documentElement.clientWidth)
+  );
+  const dispatch = useDispatch();
+  const filterRef = useRef(null);
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
   const [actualPage, setActualPage] = useState(1);
+
   const productsPage = 16;
   const page = actualPage * productsPage;
-
   function next() {
     const numberPage = Math.ceil(copieProducts.length / productsPage);
     if (actualPage !== numberPage) {
@@ -44,6 +54,10 @@ const Home = () => {
   const productsView = products.slice(0, 13);
   const productsMostViewHome = productsMostView.slice(0, 24);
   const productsRating = productsMostRating.slice(0, 40);
+  function handleOpenConfigFilter() {
+    filterRef.current.classList.toggle('aside__view');
+  }
+
   return (
     <div className='home'>
       <ButtonTop />
@@ -53,8 +67,18 @@ const Home = () => {
         <div>
           {filters?.search.length > 0 || viewHome === true ? (
             <div className='home__main'>
-              <Aside />
+              <Aside filterRef={filterRef} />
               <div className='home__pages'>
+                {wind <= 600 ? (
+                  <div className='home__res'>
+                    <img
+                      onClick={handleOpenConfigFilter}
+                      className='home__imagesp'
+                      src='../assets/responsive/config.png'
+                      alt=''
+                    />
+                  </div>
+                ) : null}
                 <Products page={page} productsPage={productsPage} />
                 <Pagination
                   handleClick={handleClick}
@@ -66,22 +90,22 @@ const Home = () => {
             </div>
           ) : (
             <div className='home__products'>
+              Productos en oferta
               <ProductsHome products={productsOfer} />
+              Productos mas vistos
               <ProductsHome products={productsMostViewHome} />
-              <ProductsHome products={productsView} />
+              Productos con mas rating
               <ProductsHome products={productsRating} />
+              <ProductsHome products={productsView} />
             </div>
           )}
+          <div className='home__message'>
+            <Messages />
+          </div>
         </div>
       ) : (
         <div className='loader'>
           <div className='spinner'></div>
-          {/* <img
-            className='home__image-gif'
-            src={loader}
-            alt='Loader'
-            loading='lazy'
-          /> */}
         </div>
       )}
       <ToastContainer />
