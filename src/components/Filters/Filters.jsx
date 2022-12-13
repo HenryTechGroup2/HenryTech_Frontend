@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filters } from '../../redux/actions';
 
-export default function GetFilters() {
+export default function GetFilters({ handleClickPage }) {
   let products = useSelector((state) => state.products);
 
   let allprices = [];
@@ -35,7 +36,8 @@ export default function GetFilters() {
 
   function filtersOnClick(e) {
     e.preventDefault();
-    dispatch(filters(input));
+    handleClickPage(1);
+    dispatch(filters({ ...input, active: true }));
   }
 
   let priceOnChange = (e) => {
@@ -64,6 +66,13 @@ export default function GetFilters() {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(filters({ ...inicialstate, active: false }));
+      handleClickPage(1);
+    }
+
+  }, []);
   return (
     <div className='filter'>
       <div className='filter__div'>
