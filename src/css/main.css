@@ -316,7 +316,7 @@ li {
   position: fixed;
   bottom: 5.5em;
   right: 1em;
-  z-index: 2000;
+  z-index: 600;
 }
 .home__messagees {
   height: 25em;
@@ -964,7 +964,7 @@ li {
   width: 310px;
   background: #fff;
   height: 100vh;
-  z-index: 1100;
+  z-index: 11000;
   transition: 0.5s ease-in-out;
   display: flex;
   flex-flow: column nowrap;
@@ -2228,7 +2228,7 @@ li {
 .pc__right {
   display: flex;
   flex-flow: row wrap;
-  justify-content: end;
+  justify-content: center;
   gap: 1em;
   align-content: start;
   min-height: 500px;
@@ -2441,10 +2441,11 @@ li {
 .pc__periferico {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.5em;
   align-items: start;
   margin: 0 0 1em 0;
+  width: 100%;
 }
 @media screen and (max-width: 600px) {
   .pc__periferico {
@@ -2797,6 +2798,7 @@ li {
   width: 10em;
   position: absolute;
   top: 1.6em;
+  z-index: 1001;
 }
 .drop__star {
   font-size: 1.2em;
@@ -3099,6 +3101,13 @@ li {
   justify-content: center;
   gap: 0;
   align-items: center;
+}
+.dashboard__message {
+  position: fixed;
+  bottom: 6em;
+  right: 1em;
+  z-index: 600;
+  border: 4px solid #000;
 }
 .dashboard__graph {
   grid-column: 1/3;

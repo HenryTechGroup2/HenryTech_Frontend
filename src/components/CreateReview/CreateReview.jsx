@@ -151,11 +151,7 @@ export function CreateReview({ productId }) {
             onChange={(e) => handleOnChange(e)}
           />
 
-          <button
-            className='review__button'
-            type='submit'
-            disabled={Object.values(userDates).length === 0 ? false : true}
-          >
+          <button className='review__button' type='submit'>
             <img src='../send.png' alt='' />
           </button>
         </div>

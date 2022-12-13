@@ -163,7 +163,7 @@
     position: fixed;
     bottom: 5.5em;
     right: 1em;
-    z-index: 2000;
+    z-index: 600;
   }
   &__messagees {
     height: 25em;
@@ -609,7 +609,7 @@
     width: 310px;
     background: #fff;
     height: 100vh;
-    z-index: 1100;
+    z-index: 11000;
     transition: 0.5s ease-in-out;
     @include flex(column, nowrap, start, start, 0);
   }
@@ -1495,7 +1495,7 @@
     transform: translateX(0);
   }
   &__right {
-    @include flex(row, wrap, end, start, 1em);
+    @include flex(row, wrap, center, start, 1em);
     min-height: 500px;
     @include responsive(600px) {
       @include flex(row, wrap, center, center, 1em);
@@ -1638,8 +1638,9 @@
     // }
   }
   &__periferico {
-    @include flex(row, nowrap, space-between, start, 0.5em);
+    @include flex(row, nowrap, center, start, 0.5em);
     margin: 0 0 1em 0;
+    width: 100%;
     @include responsive(600px) {
       margin: 0 auto 1em auto;
     }
@@ -1884,6 +1885,7 @@
     width: 10em;
     position: absolute;
     top: 1.6em;
+    z-index: 1001;
   }
   &__star {
     font-size: 1.2em;
@@ -2109,6 +2111,13 @@
   }
   &__mon {
     @include flex(row, nowrap, center, center, 0);
+  }
+  &__message {
+    position: fixed;
+    bottom: 6em;
+    right: 1em;
+    z-index: 600;
+    border: 4px solid #000;
   }
   &__graph {
     grid-column: 1/3;

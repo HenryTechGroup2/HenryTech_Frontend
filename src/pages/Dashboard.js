@@ -16,6 +16,7 @@ import Graficas from '../components/Graficas/Graficas';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 import { api } from '../redux/actions';
+import { message } from '../utils/Icons';
 
 ChartJS.register(
   CategoryScale,
@@ -200,8 +201,8 @@ const Dashboard = () => {
             filtr={true}
           />
         </div>
-        <div className='dashboard__messages'>
-          <Link to={'/admin-messages'}>Messages</Link>
+        <div className='home__msg dashboard__message'>
+          <Link to={'/admin-messages'}>{message}</Link>
         </div>
       </div>
       <Footer />

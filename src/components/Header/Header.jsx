@@ -6,6 +6,7 @@ import {
   closeSession,
   CREATE_USER_AUTH0,
   FILTER_SEARCH,
+  HOVER,
   pageHome,
 } from '../../redux/actions';
 import {
@@ -25,13 +26,15 @@ import UpdateInfo from '../UpdateInfo/UpdateInfo';
 const INITIAL_STATE = { dropitem: null, item: 0 };
 const Header = () => {
   const [open, setOpen] = useState(null);
-  const [hover, setHover] = useState(null);
+  // const [hover, setHover] = useState(null);
   const [wind, setWind] = useState(document.documentElement.clientWidth);
   const [drop, setDrop] = useState(INITIAL_STATE);
   const { dropitem, item } = drop;
   const { logout, user } = useAuth0();
   const inputRef = useRef(null);
-  const { userDates, car, filters, priceTotal } = useSelector((state) => state);
+  const { userDates, car, filters, hover, priceTotal } = useSelector(
+    (state) => state
+  );
   window.addEventListener('resize', () =>
     setWind(document.documentElement.clientWidth)
   );
@@ -67,7 +70,8 @@ const Header = () => {
     logout({ returnTo: window.location.origin });
   };
   const handleOpenLeftCart = () => {
-    setHover(!hover);
+    // setHover(!hover);
+    dispatch({ type: HOVER });
   };
   const handleClickDrop = (itemNumber) => {
     if (itemNumber === drop.item) return setDrop(INITIAL_STATE);
@@ -162,15 +166,6 @@ const Header = () => {
           />
         </div>
       </div>
-      {/* <div>
-      <input
-          className='header__search'
-          placeholder='Buscar Productos'
-          value={filters.search}
-          onChange={handleChangeProductFilter}
-          type='text'
-        />
-      </div> */}
       <div
         style={{ transform: `${hover ? 'translate(0)' : 'translate(310px)'}` }}
         className='header__translate'
@@ -182,9 +177,6 @@ const Header = () => {
           </button>
         </div>
         <div className='header__center'>
-          {/* <Link className='header__carl' to='/car'>
-            Ver de manera completa
-          </Link> */}
           {car.length <= 0 && (
             <div className='header__image'>
               <span className='header__span'>
@@ -210,42 +202,46 @@ const Header = () => {
             })}
           </div>
         </div>
-        <>
-          <div className='header__bottom'>
-            <div className='header__item'>CAMBIAR DATOS</div>
-            <div onClick={() => handleClickDrop(2)} className='header__drop'>
-              <img src='../assets/drop.png' alt='' />
+        {userDates.hasOwnProperty('user_name') ? (
+          <>
+            <div className='header__bottom'>
+              <div className='header__item'>CAMBIAR DATOS</div>
+              <div onClick={() => handleClickDrop(2)} className='header__drop'>
+                <img src='../assets/drop.png' alt='' />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              height: `${dropitem && item === 2 ? '18em' : '0'}`,
-              opacity: `${dropitem && item === 2 ? '1' : '0'}`,
-              visibilty: `${dropitem && item === 2 ? 'visible' : 'hidden'}`,
-            }}
-            className='header__dropitem'
-          >
-            <UpdateInfo />
-          </div>
-        </>
-        <>
-          <div className='header__bottom'>
-            <div className='header__item'>FINALIZAR</div>
-            <div onClick={() => handleClickDrop(1)} className='header__drop'>
-              <img src='../assets/drop.png' alt='' />
+            <div
+              style={{
+                height: `${dropitem && item === 2 ? '18em' : '0'}`,
+                opacity: `${dropitem && item === 2 ? '1' : '0'}`,
+                visibilty: `${dropitem && item === 2 ? 'visible' : 'hidden'}`,
+              }}
+              className='header__dropitem'
+            >
+              <UpdateInfo />
             </div>
-          </div>
-          <div
-            style={{
-              height: `${dropitem && item === 1 ? '18em' : '0'}`,
-              opacity: `${dropitem && item === 1 ? '1' : '0'}`,
-              visibilty: `${dropitem && item === 1 ? 'visible' : 'hidden'}`,
-            }}
-            className='header__dropitem'
-          >
-            <Payment />
-          </div>
-        </>
+          </>
+        ) : null}
+        {userDates.hasOwnProperty('user_name') ? (
+          <>
+            <div className='header__bottom'>
+              <div className='header__item'>FINALIZAR</div>
+              <div onClick={() => handleClickDrop(1)} className='header__drop'>
+                <img src='../assets/drop.png' alt='' />
+              </div>
+            </div>
+            <div
+              style={{
+                height: `${dropitem && item === 1 ? '18em' : '0'}`,
+                opacity: `${dropitem && item === 1 ? '1' : '0'}`,
+                visibilty: `${dropitem && item === 1 ? 'visible' : 'hidden'}`,
+              }}
+              className='header__dropitem'
+            >
+              <Payment />
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

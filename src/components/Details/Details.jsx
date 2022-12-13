@@ -28,10 +28,12 @@ export function Details() {
   const params = useParams();
 
   const dispatch = useDispatch();
-  const server = io(api);
+  const server = io(api, {
+    transports: ['websocket', 'polling'],
+  });
   const [select, setSelect] = useState(INITIAL_STATE);
   const { openSelect, drop } = select;
-  const { detailsProduct } = useSelector((state) => state);
+  const { detailsProduct, userDates } = useSelector((state) => state);
   const [imagePrincipal, setImagePrincipal] = useState('');
   const [borderImage, setBorderImage] = useState(null);
 
@@ -47,6 +49,7 @@ export function Details() {
       top: 0,
       behavior: 'auto',
     });
+
     server.emit('@product/view', params.id);
     return () => {
       dispatch(deleteDetailsProducts());
@@ -295,7 +298,9 @@ export function Details() {
                         <p className='comentarios__p'>{review.review_body}</p>
                       </div>
                     ))}
-                    <CreateReview productId={detailsProduct.product_id} />
+                    {userDates.hasOwnProperty('user_name') ? (
+                      <CreateReview productId={detailsProduct.product_id} />
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -306,12 +311,6 @@ export function Details() {
       ) : (
         <div className='loader'>
           <div className='spinner'></div>
-          {/* <img
-            className='home__image-gif'
-            src={loader}
-            alt='Loader'
-            loading='lazy'
-          /> */}
         </div>
       )}
     </>

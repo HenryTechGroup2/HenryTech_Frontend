@@ -18,6 +18,7 @@ import {
   ERROR,
   FILTER_SEARCH,
   FILTER_STAR,
+  HOVER,
   LOGIN_USER,
   MESSAGE,
   MESSAGE_ADMIN,
@@ -72,6 +73,7 @@ const initialState = {
   errorAxios: null,
   width: 0,
   msgReceivdes: '',
+  hover: null,
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -119,6 +121,31 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'GET_DETAILS_PRODUCTS': {
       //Eliminar el reviews cuando haga el push
+      console.log(state.userDates);
+      console.log(state);
+      if (state.userDates.hasOwnProperty('user_name')) {
+        console.log(state.userDates);
+        if (state.userDates.user_favorites.length > 0) {
+          const favoritProduct = state.userDates.user_favorites.find(
+            ({ product_id }) => product_id === action.payload.product_id
+          );
+          console.log(favoritProduct);
+          if (favoritProduct) {
+            action.payload.product_favorite = true;
+            console.log(action.payload);
+
+            return {
+              ...state,
+              detailsProduct: action.payload,
+              detailsReviews: action.payload.reviews,
+              reviews: action.payload.reviews,
+              loadingReviews: true,
+            };
+          }
+        }
+        action.payload.product_favorite = false;
+      }
+      console.log(action.payload);
       return {
         ...state,
         detailsProduct: action.payload,
@@ -139,6 +166,26 @@ export const reducerFetch = (state = initialState, action) => {
         reviews: [...state.reviews, { ...action.payload }],
       };
     }
+    case DELETE_FAVORIT: {
+      const productCopie = state.copieProducts.find(
+        (product) => product.product_id === action.payload
+      );
+      productCopie.product_favorite = false;
+      const product = state.products.find(
+        (product) => product.product_id === action.payload
+      );
+      product.product_favorite = false;
+      const newFavorits = state.userDates.user_favorites.filter(
+        ({ product_id }) => product_id !== action.payload
+      );
+      return {
+        ...state,
+        userDates: {
+          ...state.userDates,
+          user_favorites: newFavorits,
+        },
+      };
+    }
     case ADD_FAVORIT: {
       const productNewFavorit = state.copieProducts.find(
         (product) => product.product_id === Number(action.payload)
@@ -148,7 +195,16 @@ export const reducerFetch = (state = initialState, action) => {
         (product) => product.product_id === Number(action.payload)
       );
       productFavorit.product_favorite = true;
-      return state;
+      return {
+        ...state,
+        userDates: {
+          ...state.userDates,
+          user_favorites: [
+            ...state.userDates.user_favorites,
+            productNewFavorit,
+          ],
+        },
+      };
     }
     case 'GET_STOCK_PRODUCTS': {
       return {
@@ -197,17 +253,7 @@ export const reducerFetch = (state = initialState, action) => {
         userDates: {},
       };
     }
-    case DELETE_FAVORIT: {
-      const productCopie = state.copieProducts.find(
-        (product) => product.product_id === action.payload
-      );
-      productCopie.product_favorite = false;
-      const product = state.products.find(
-        (product) => product.product_id === action.payload
-      );
-      product.product_favorite = false;
-      return state;
-    }
+
     case ADD_ALL_FAVORITES: {
       if (state.userDates?.hasOwnProperty('user_favorites')) {
         state.products.forEach((product) => {
@@ -299,6 +345,8 @@ export const reducerFetch = (state = initialState, action) => {
       return state;
     }
     case DELETE_CART: {
+      window.localStorage.removeItem(CAR);
+
       return {
         ...state,
         car: [],
@@ -779,6 +827,12 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         msgReceivdes: action.payload,
+      };
+    }
+    case HOVER: {
+      return {
+        ...state,
+        hover: !state.hover,
       };
     }
     default:
