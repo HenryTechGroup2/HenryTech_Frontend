@@ -142,7 +142,6 @@ const ProductAdd = ({ handleAddProduct }) => {
           specificArrayInObject.push(fileURL);
           const newobj = { ...product, specificArrayInObject };
           setProduct(newobj);
-          console.log(product);
         })
     });
     axios.all(uploaders).then(() => {
@@ -163,12 +162,9 @@ const ProductAdd = ({ handleAddProduct }) => {
       }
     )
     const file = await res.json();
-    // console.log(res);
     setProduct({...product, product_img: file.secure_url});
-    console.log(file.secure_url);
     setLoadings2(false);
   }
-  console.log(product);
   return (
     <div className='post__container'>
       {loading === null ? null : <ModalLoading />}
