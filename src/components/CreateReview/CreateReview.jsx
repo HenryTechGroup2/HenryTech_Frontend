@@ -76,6 +76,7 @@ export function CreateReview({ productId }) {
   //Envio de encuesta
   function handleOnSubmit(e) {
     e.preventDefault();
+    console.log('XD')
     server.emit('@review/create', {
       review_title: input.review_title,
       review_body: input.review_body,
@@ -121,24 +122,24 @@ export function CreateReview({ productId }) {
           <p className='review__cstar'>
             {startState.confirmStar === null
               ? star.map((star, index) => (
-                  <span
-                    key={index}
-                    className='review__star'
-                    onMouseEnter={() => handleMouseStar(index)}
-                    onClick={handleClickStar}
-                  >
-                    {startState.cantityStar >= index ? '★' : star}
-                  </span>
-                ))
+                <span
+                  key={index}
+                  className='review__star'
+                  onMouseEnter={() => handleMouseStar(index)}
+                  onClick={handleClickStar}
+                >
+                  {startState.cantityStar >= index ? '★' : star}
+                </span>
+              ))
               : star.map((star, index) => (
-                  <span
-                    key={index}
-                    className='review__star'
-                    onClick={() => handleClickStar(index, 'change')}
-                  >
-                    {startState.cantityStar >= index ? '★' : star}
-                  </span>
-                ))}
+                <span
+                  key={index}
+                  className='review__star'
+                  onClick={() => handleClickStar(index, 'change')}
+                >
+                  {startState.cantityStar >= index ? '★' : star}
+                </span>
+              ))}
           </p>
         </div>
         <div className='review__msg'>
@@ -154,7 +155,7 @@ export function CreateReview({ productId }) {
           <button
             className='review__button'
             type='submit'
-            disabled={Object.values(userDates).length === 0 ? false : true}
+          // disabled={Object.values(userDates).length === 0 ? false : true}
           >
             <img src='../send.png' alt='' />
           </button>
