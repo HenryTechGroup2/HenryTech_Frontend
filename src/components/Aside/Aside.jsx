@@ -6,7 +6,7 @@ const Aside = ({ filterRef, handleClickPage }) => {
     <div className='aside' ref={filterRef}>
       <div className='aside__container'>
         <Orders />
-        <Filters handleClick={handleClickPage} />
+        <Filters handleClickPage={handleClickPage} />
       </div>
     </div>
   );
