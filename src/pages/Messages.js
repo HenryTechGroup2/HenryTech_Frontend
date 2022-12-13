@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer/Footer';
@@ -10,23 +9,21 @@ import {
   CHANGE_USER,
   ERROR,
   MESSAGE_USER,
+  MESSAGE_USER_POST,
+  MSG_RECEIVED_INPUT,
   USER_ALL_MSG,
 } from '../redux/actions';
 import io from 'socket.io-client';
 const server = io(api);
 const MessagesPage = () => {
-  const [user, setUser] = useState([]);
-  const [messagesUser, setMessagesUser] = useState([]);
-  const [msg, setMsg] = useState('');
   const dispatch = useDispatch();
-  const { userAllMessages, userMessage } = useSelector((state) => state);
-  console.log(userAllMessages, userMessage);
+  const { userAllMessages, userMessage, msgReceivdes } = useSelector(
+    (state) => state
+  );
   useEffect(() => {
     const messagesUser = async () => {
       try {
         const { data } = await axios.get(`${api}/api/user/messages`);
-        setUser(data);
-        setMessagesUser([data[0]]);
         dispatch({ type: USER_ALL_MSG, payload: data });
       } catch (error) {
         dispatch({ type: ERROR, payload: error });
@@ -35,66 +32,46 @@ const MessagesPage = () => {
     if (userAllMessages.length === 0) {
       messagesUser();
     }
-  }, []);
-  // console.log('Renderizado');
-  console.log(messagesUser);
-  useEffect(() => {
     const upNewMessage = (mesage) => {
-      const newUserMessage = messagesUser[0];
-      newUserMessage?.msgposts[
-        newUserMessage?.msgposts?.length - 1
-      ]?.msgreceiveds?.push(mesage);
-      console.log(newUserMessage);
+      console.log(mesage);
       dispatch({ type: MESSAGE_USER, payload: mesage });
-      setMessagesUser([newUserMessage]);
-      // setMsg('');
-      console.log('Renderizado');
       return;
     };
 
     function newMessage(message) {
-      const newMessage = messagesUser[0];
-      newMessage?.msgposts.push(message);
       console.log(message);
-      console.log(newMessage);
-      dispatch({ type: USER_ALL_MSG, payload: message });
-
-      const newMessages = {
-        ...message,
-        msgreceiveds: [],
-      };
-      const userExist = user.find(
-        ({ user_id }) => user_id === message.userUserId
-      );
-      userExist?.msgposts.push(newMessages);
-      console.log(userExist);
-      // setMessagesUser([newMessage]);
+      dispatch({ type: MESSAGE_USER_POST, payload: message });
       return;
     }
     server.on('@server/received', upNewMessage);
     server.on('@server/post', newMessage);
-  }, [messagesUser]);
+  }, []);
+  // useEffect(() => {
+  // }, [userMessage, userAllMessages]);
   const handleClickChangeUserMessage = (index) => {
-    setMessagesUser([user[index]]);
     dispatch({ type: CHANGE_USER, payload: userAllMessages[index] });
   };
   const handleSubmitMessage = (evt) => {
     evt.preventDefault();
+    if (msgReceivdes.trim() === '') {
+      return;
+    }
     const idMessage = [];
-    messagesUser[0].msgposts.forEach((msg) => {
+    userMessage[0].msgposts.forEach((msg) => {
       idMessage.push(msg.msgpost_id);
     });
     const newMessage = {
-      msgreceived_post: msg,
-      id: messagesUser[0].user_id,
+      msgreceived_post: msgReceivdes,
+      id: userAllMessages[0].user_id,
       idPost: Math.max(...idMessage),
     };
     server.emit('@client/received', newMessage);
   };
   const handleChangeInput = (evt) => {
     const { value } = evt.currentTarget;
-    setMsg(value);
+    dispatch({ type: MSG_RECEIVED_INPUT, payload: value });
   };
+  console.log(userAllMessages);
   return (
     <>
       <Header />
@@ -139,7 +116,7 @@ const MessagesPage = () => {
                     className='review__input'
                     type='text'
                     name='review_body'
-                    value={msg}
+                    value={msgReceivdes}
                     onChange={handleChangeInput}
                   />
 

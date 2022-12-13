@@ -17,9 +17,9 @@ const Messages = () => {
   useEffect(() => {
     function newMessage(message) {
       dispatch(newMessageSocket(message));
+      setMsgPost('');
     }
     function upNewMessage(message) {
-      console.log(message);
       dispatch({
         type: MSG,
         payload: message,
@@ -28,7 +28,6 @@ const Messages = () => {
     server.on('@server/post', newMessage);
     server.on('@server/received', upNewMessage);
   }, []);
-
   function handleChangeMsg(evt) {
     const { value } = evt.currentTarget;
     setMsgPost(value);
@@ -48,7 +47,6 @@ const Messages = () => {
       });
     }
   }
-  console.log(userDates, 'hola');
   return (
     <>
       <div className='home__msg' onClick={handleOpenMessage}>

@@ -22,8 +22,10 @@ import {
   MESSAGE,
   MESSAGE_ADMIN,
   MESSAGE_USER,
+  MESSAGE_USER_POST,
   MSG,
   MSG_ADMIN,
+  MSG_RECEIVED_INPUT,
   ORDER_VIEWS,
   PAGES_HOME,
   SELECT_ORDER,
@@ -69,6 +71,7 @@ const initialState = {
   },
   errorAxios: null,
   width: 0,
+  msgReceivdes: '',
 };
 
 export const reducerFetch = (state = initialState, action) => {
@@ -730,14 +733,39 @@ export const reducerFetch = (state = initialState, action) => {
         userMessage: [action.payload[0]],
       };
     }
+    case MESSAGE_USER_POST: {
+      const newState = state;
+      console.log(action.payload, newState);
+
+      const userExist = newState.userAllMessages.find(
+        ({ user_id }) => user_id === action.payload.userUserId
+      );
+      if (
+        userExist?.msgposts[userExist.msgposts.length - 1].msgpost_id !==
+        action.payload.msgpost_id
+      ) {
+        const newMessages = {
+          ...action.payload,
+          msgreceiveds: [],
+        };
+        console.log(newMessages);
+        userExist?.msgposts.push(newMessages);
+        console.log(userExist);
+        return {
+          ...newState,
+        };
+      }
+      return state;
+    }
     case MESSAGE_USER: {
       const newUserMessage = state.userMessage[0];
-      console.log(newUserMessage);
+
       newUserMessage.msgposts[
         newUserMessage.msgposts.length - 1
       ].msgreceiveds.push(action.payload);
       return {
         ...state,
+        msgReceivdes: '',
         userMessage: [newUserMessage],
       };
     }
@@ -745,6 +773,12 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         userMessage: [action.payload],
+      };
+    }
+    case MSG_RECEIVED_INPUT: {
+      return {
+        ...state,
+        msgReceivdes: action.payload,
       };
     }
     default:

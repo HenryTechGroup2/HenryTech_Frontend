@@ -32,7 +32,6 @@ const Payment = () => {
           amount: car,
           userid: userDates?.user_id,
         });
-        console.log(data);
         elements.getElement(CardElement).clear();
         dispatch({ type: DELETE_CART });
         setLoading(() => null);
@@ -44,13 +43,11 @@ const Payment = () => {
         setTimeout(() => setResponseBackend(INITIAL_STATE), 4000);
       }
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
       });
     }
   }
-  console.log(responseBackend.open);
   return (
     <div className='payment'>
       {responseBackend.open === true ? (
