@@ -1,5 +1,8 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import Dropzone from 'react-dropzone';
 import { useDispatch } from 'react-redux';
+import { Container } from 'reactstrap';
 import { ERROR, postCreateProduct } from '../../redux/actions';
 import { close } from '../../utils/Icons';
 import ModalLoading from '../ModalLoading/ModalLoading';
@@ -24,6 +27,8 @@ const ProductAdd = ({ handleAddProduct }) => {
   const [responseBackend, setResponseBacked] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(null);
+  const [loadings, setLoadings] = useState("");
+  const [image, setImage] = useState(INITITAL_STATE);
   const inputs = [
     {
       type: 'text',
@@ -126,6 +131,56 @@ const ProductAdd = ({ handleAddProduct }) => {
       [name]: checked,
     });
   };
+
+  const handleDrop = (files) => {
+    const uploaders = files.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("tags", `codeinfuse, medium, gist`);
+      formData.append("upload_preset", "Learning");
+      formData.append("api_key", "913529548732914");
+      formData.append("timestamp", (Date.now() / 1000) | 0);
+      setLoadings("true");
+      return axios
+        .post("https://api.cloudinary.com/v1_1/dpte23mmk/image/upload", formData, {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        })
+        .then((response) => {
+          const data = response.data
+          const fileURL = data.secure_url;
+          let specificArrayInObject = image.product_array_img;
+          specificArrayInObject.push(fileURL);
+          const newobj = { ...image, specificArrayInObject };
+          setImage(newobj);
+          console.log(image);
+        })
+    });
+    axios.all(uploaders).then(() => {
+      setLoadings("false");
+    });
+  };
+  function imagePreview() {
+    if (loadings === "true") {
+      return <h3>Cargando imagenes...</h3>
+    }
+    if (loading === "false") {
+      return (
+        <h3>
+          {image.product_array_img.length <= 0
+            ? "No hay imagenes"
+            : image.product_array_img.map((item, index) => (
+              <img
+                alt='product_array_img'
+                style={{
+                  width: "125px", height: "70px", backgroundSize: "cover", paddingRight: "15px"
+                }}
+                src={item} />
+            ))
+          }
+        </h3>
+      )
+    }
+  }
   console.log(product);
   return (
     <div className='post__container'>
@@ -176,13 +231,30 @@ const ProductAdd = ({ handleAddProduct }) => {
                   />
                 </div>
                 <div className='post__files'>
-                  <span className='post__span'>Añadir Imagenes</span>
-                  <input
-                    onChange={handleChangeAllFIles}
-                    type='file'
-                    className='post__file'
-                    name='product_array_img'
-                  />
+                  <Container>
+                    <Dropzone
+                      className="dropzone"
+                      onDrop={handleDrop}
+                      onChange={(e) => setImage(e.target.value)}
+                      value={image}
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <section>
+                          <div {...getRootProps({ className: "dropzone" })}>
+                            <input
+                              {...getInputProps()}
+                              onChange={handleChangeAllFIles}
+                              type='file'
+                              className='post__file'
+                              name='product_array_img'
+                            />
+                            <span className='post__span'>Añadir Imagenes</span>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                    {imagePreview()}
+                  </Container>
                 </div>
               </div>
               <div className='post__div post__check'>
