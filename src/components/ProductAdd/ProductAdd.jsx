@@ -164,7 +164,8 @@ const ProductAdd = ({ handleAddProduct }) => {
     const file = await res.json();
     setProduct({...product, product_img: file.secure_url});
     setLoadings2(false);
-  }
+  };
+  console.log(product);
   return (
     <div className='post__container'>
       {loading === null ? null : <ModalLoading />}
