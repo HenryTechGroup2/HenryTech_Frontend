@@ -6,7 +6,9 @@ import io from 'socket.io-client';
 import { useEffect } from 'react';
 import MessagePost from './MessagePost';
 const server = io(api, {
-  transports: ['websocket', 'polling'],
+  transports: ['polling', 'websocket'],
+
+  withCredentials: true,
 });
 const Messages = () => {
   const messageRef = useRef(null);

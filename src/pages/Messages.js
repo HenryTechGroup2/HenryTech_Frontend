@@ -15,7 +15,9 @@ import {
 } from '../redux/actions';
 import io from 'socket.io-client';
 const server = io(api, {
-  transports: ['websocket', 'polling'],
+  transports: ['polling', 'websocket'],
+
+  withCredentials: true,
 });
 const MessagesPage = () => {
   const dispatch = useDispatch();
