@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { useDispatch } from 'react-redux';
-import { Container } from 'reactstrap';
+import { Container, FormGroup, Input } from 'reactstrap';
 import { ERROR, postCreateProduct } from '../../redux/actions';
 import { close } from '../../utils/Icons';
 import ModalLoading from '../ModalLoading/ModalLoading';
@@ -28,7 +28,8 @@ const ProductAdd = ({ handleAddProduct }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(null);
   const [loadings, setLoadings] = useState("");
-  const [image, setImage] = useState(INITITAL_STATE);
+  const [loadings2, setLoadings2] = useState(false);
+
   const inputs = [
     {
       type: 'text',
@@ -80,17 +81,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       ...product,
       [name]: value,
     });
-  };
-  const handleChangeFiles = (evt) => {
-    const { name, files } = evt.currentTarget;
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onloadend = () => {
-      setProduct({
-        ...product,
-        [name]: reader.result.toString(),
-      });
-    };
   };
   const handleChangeAllFIles = (evt) => {
     const { name, files } = evt.currentTarget;
@@ -148,38 +138,35 @@ const ProductAdd = ({ handleAddProduct }) => {
         .then((response) => {
           const data = response.data
           const fileURL = data.secure_url;
-          let specificArrayInObject = image.product_array_img;
+          let specificArrayInObject = product.product_array_img;
           specificArrayInObject.push(fileURL);
-          const newobj = { ...image, specificArrayInObject };
-          setImage(newobj);
-          console.log(image);
+          const newobj = { ...product, specificArrayInObject };
+          setProduct(newobj);
+          console.log(product);
         })
     });
     axios.all(uploaders).then(() => {
       setLoadings("false");
     });
   };
-  function imagePreview() {
-    if (loadings === "true") {
-      return <h3>Cargando imagenes...</h3>
-    }
-    if (loading === "false") {
-      return (
-        <h3>
-          {image.product_array_img.length <= 0
-            ? "No hay imagenes"
-            : image.product_array_img.map((item, index) => (
-              <img
-                alt='product_array_img'
-                style={{
-                  width: "125px", height: "70px", backgroundSize: "cover", paddingRight: "15px"
-                }}
-                src={item} />
-            ))
-          }
-        </h3>
-      )
-    }
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Learning");
+    setLoadings2(true);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dpte23mmk/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+    const file = await res.json();
+    // console.log(res);
+    setProduct({...product, product_img: file.secure_url});
+    console.log(file.secure_url);
+    setLoadings2(false);
   }
   console.log(product);
   return (
@@ -222,21 +209,25 @@ const ProductAdd = ({ handleAddProduct }) => {
               ))}
               <div className='post__div post__flex'>
                 <div className='post__files'>
-                  <span className='post__span'>Añadir Imagen</span>
-                  <input
-                    onChange={handleChangeFiles}
-                    name='product_img'
-                    type='file'
-                    className='post__file'
-                  />
+                  <Container>
+                    <FormGroup>
+                      <span className='post__span'>Añadir Imagen</span>
+                      <Input
+                        onChange={uploadImage}
+                        name='product_img'
+                        type='file'
+                        className='post__file'
+                      />
+                    </FormGroup>
+                  </Container>
                 </div>
                 <div className='post__files'>
                   <Container>
                     <Dropzone
                       className="dropzone"
                       onDrop={handleDrop}
-                      onChange={(e) => setImage(e.target.value)}
-                      value={image}
+                      onChange={(e) => setProduct(e.target.value)}
+                      value={product}
                     >
                       {({ getRootProps, getInputProps }) => (
                         <section>
@@ -253,7 +244,6 @@ const ProductAdd = ({ handleAddProduct }) => {
                         </section>
                       )}
                     </Dropzone>
-                    {imagePreview()}
                   </Container>
                 </div>
               </div>
