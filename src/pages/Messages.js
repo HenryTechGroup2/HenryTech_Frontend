@@ -16,8 +16,6 @@ import {
 import io from 'socket.io-client';
 const server = io(api, {
   transports: ['polling', 'websocket'],
-
-  withCredentials: true,
 });
 const MessagesPage = () => {
   const dispatch = useDispatch();

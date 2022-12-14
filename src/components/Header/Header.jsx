@@ -26,7 +26,6 @@ import UpdateInfo from '../UpdateInfo/UpdateInfo';
 const INITIAL_STATE = { dropitem: null, item: 0 };
 const Header = () => {
   const [open, setOpen] = useState(null);
-  // const [hover, setHover] = useState(null);
   const [wind, setWind] = useState(document.documentElement.clientWidth);
   const [drop, setDrop] = useState(INITIAL_STATE);
   const { dropitem, item } = drop;
@@ -70,7 +69,6 @@ const Header = () => {
     logout({ returnTo: window.location.origin });
   };
   const handleOpenLeftCart = () => {
-    // setHover(!hover);
     dispatch({ type: HOVER });
   };
   const handleClickDrop = (itemNumber) => {
@@ -81,7 +79,6 @@ const Header = () => {
     });
   };
   const handleViewSearch = () => {
-    console.log('hoxd');
     inputRef.current.classList.toggle('header__viewsearch');
   };
   return (

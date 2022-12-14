@@ -302,6 +302,9 @@ li {
   background-size: contain;
   background-repeat: repeat;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
 }
 .home__span {
   cursor: pointer;
@@ -1804,6 +1807,7 @@ li {
   justify-content: space-around;
   gap: 1em;
   align-items: center;
+  font-family: "Roboto";
 }
 .footer__li {
   list-style: none;
@@ -2010,7 +2014,24 @@ li {
 
 .about {
   height: calc(100vh - 203px);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  gap: 0;
+  align-items: center;
+  font-family: "Roboto";
 }
+.about__h1 {
+  margin: 2em 0 0 0;
+}
+.about__h2 {
+  font-family: "Roboto";
+}
+.about__p {
+  text-align: center;
+  max-width: 35em;
+}
+
 .questions {
   display: flex;
   flex-flow: column nowrap;
@@ -3878,7 +3899,7 @@ li {
   width: 100%;
 }
 .message__name {
-  width: 15em;
+  width: 100%;
   border: 1px solid #ebebeb;
   padding: 0.5em;
   text-transform: uppercase;
@@ -3928,6 +3949,9 @@ li {
   gap: 0;
   align-items: start;
   width: 100%;
+}
+.message__div:nth-child(1) {
+  overflow: auto;
 }
 .message__div:nth-child(2) {
   background: url("../../public/assets/responsive/bak.jpg");

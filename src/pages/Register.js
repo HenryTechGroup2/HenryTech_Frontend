@@ -73,6 +73,7 @@ const Register = () => {
         user_shipping_address: register.user_shipping_address,
         user_isAdmin: register.user_isAdmin,
       });
+
       if (data.status === 200) {
         dispatch(
           sendMail({

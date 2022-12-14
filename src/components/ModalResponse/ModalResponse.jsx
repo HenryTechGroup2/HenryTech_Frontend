@@ -1,12 +1,25 @@
 import React from 'react';
 
-const ModalResponse = ({ response }) => {
+const ModalResponse = ({ response, rechazed = true }) => {
   return (
     <div className='response'>
       <div className='response__container'>
-        <div className='response__response'>{response}</div>
+        <div
+          className='response__response'
+          style={{ color: `${rechazed ? '#004b23' : '#ff0000'}` }}
+        >
+          {response}
+        </div>
         <div className='response__div'>
-          <img className='response__image' src='../assets/nice.gif' alt='' />
+          {rechazed ? (
+            <img className='response__image' src='../assets/nice.gif' alt='' />
+          ) : (
+            <img
+              className='response__image'
+              src='../assets/cancel.png'
+              alt=''
+            />
+          )}
         </div>
       </div>
     </div>

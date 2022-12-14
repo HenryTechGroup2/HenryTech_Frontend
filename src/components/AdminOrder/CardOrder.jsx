@@ -46,20 +46,9 @@ const CardOrder = ({ order }) => {
         </div>
         <div className='dashp__number'>{order.order_id}</div>
       </div>
-      <div className='dashp__image'>
-        {/* <img
-      // ${suspense ? 'dashp__suspense' : ''}
-        className={`dashp__img `}
-        loading='lazy'
-        src={product.product_img}
-        alt={product.product_name}
-      /> */}
-      </div>
+      <div className='dashp__image'></div>
       <div className='dashp__name'>{order.user.user_email}</div>
-      <div className='dashp__ofer'>
-        {status}
-        {/* {String(ofert) === 'true' ? 'Si' : 'No'} */}
-      </div>
+      <div className='dashp__ofer'>{status}</div>
       <div className='dashp__button'>
         <button className='dashp__btn' onClick={() => handleEdit()}>
           Editar
@@ -74,11 +63,7 @@ const CardOrder = ({ order }) => {
           </div>
         )}
       </div>
-      <div className='dashp__delete'>
-        {/* <button onClick={handleDeleteProduct} className='dashp__dlt'>
-        {deleteProduct}
-      </button> */}
-      </div>
+      <div className='dashp__delete'></div>
     </div>
   );
 };

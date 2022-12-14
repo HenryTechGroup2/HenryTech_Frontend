@@ -30,7 +30,6 @@ export function Details() {
   const dispatch = useDispatch();
   const server = io(api, {
     transports: ['polling', 'websocket'],
-    withCredentials: true,
   });
   const [select, setSelect] = useState(INITIAL_STATE);
   const { openSelect, drop } = select;

@@ -22,15 +22,16 @@ const ProductsHome = ({ products }) => {
     setSelect(Number(name));
   };
   let buttons = [];
-  const sobra = wind <= 600 ? products.length % 2 : products.length % 3;
+  // const sobra = wind <= 600 ? products.length % 2 : products.length % 3;
+  //TODO SI QUIERO QUE NO ME MUESTRE VACIOS EN EL CARRUZEL COLOCAR EL PRODUCTS.LENGTH - SOBRA Y LISTO
   for (
     let i = 1;
-    i <= Math.ceil((products.length - sobra) / (wind <= 600 ? 2 : 3));
+    i <= Math.ceil(products.length / (wind <= 600 ? 2 : 3));
     i++
   ) {
     buttons.push(i);
   }
-  console.log(sobra, buttons, 'hola');
+  console.log(buttons, 'hola');
   return (
     <div className='home__cards'>
       <ProductsCarruzel translate={transform} products={products} />
