@@ -14,7 +14,9 @@ import {
   USER_ALL_MSG,
 } from '../redux/actions';
 import io from 'socket.io-client';
-const server = io(api);
+const server = io(api, {
+  transports: ['polling', 'websocket'],
+});
 const MessagesPage = () => {
   const dispatch = useDispatch();
   const { userAllMessages, userMessage, msgReceivdes } = useSelector(

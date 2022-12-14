@@ -23,6 +23,7 @@ const Home = () => {
     productsMostRating,
     copieProducts,
     loadingHome,
+    userDates,
   } = useSelector((state) => state);
   const [wind, setWind] = useState(document.documentElement.clientWidth);
   window.addEventListener('resize', () =>
@@ -57,7 +58,7 @@ const Home = () => {
   function handleOpenConfigFilter() {
     filterRef.current.classList.toggle('aside__view');
   }
-
+  console.log(productsOfer);
   return (
     <div className='home'>
       <ButtonTop />
@@ -100,7 +101,11 @@ const Home = () => {
             </div>
           )}
           <div className='home__message'>
-            <Messages />
+            {userDates?.hasOwnProperty('user_name') ? (
+              userDates.user_isAdmin === true ? null : (
+                <Messages />
+              )
+            ) : null}
           </div>
         </div>
       ) : (

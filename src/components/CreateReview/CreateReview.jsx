@@ -11,13 +11,14 @@ import {
 } from '../../redux/actions';
 const server = io(api);
 
+console.log('xd');
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {
   const [reviews, setReviews] = useState([]);
   const initialState = {
     review_title: '',
     review_body: '',
-    review_score: '',
+    review_score: 1,
   };
 
   const [input, setInput] = useState(initialState);
@@ -76,7 +77,7 @@ export function CreateReview({ productId }) {
   //Envio de encuesta
   function handleOnSubmit(e) {
     e.preventDefault();
-    console.log('XD')
+
     server.emit('@review/create', {
       review_title: input.review_title,
       review_body: input.review_body,
@@ -152,11 +153,8 @@ export function CreateReview({ productId }) {
             onChange={(e) => handleOnChange(e)}
           />
 
-          <button
-            className='review__button'
-            type='submit'
-          // disabled={Object.values(userDates).length === 0 ? false : true}
-          >
+          <button className='review__button' type='submit'>
+
             <img src='../send.png' alt='' />
           </button>
         </div>

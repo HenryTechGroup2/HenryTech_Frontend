@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import ArmamentCard from '../components/AramamentCard/ArmamentCard';
 import Header from '../components/Header/Header';
 import PCComponetn from '../components/PCComponent/PCComponetn';
-import { addProductPC, addToCartProductsArmamentPC } from '../redux/actions';
+import {
+  addProductPC,
+  addToCartProductsArmamentPC,
+  HOVER,
+} from '../redux/actions';
 import { armamentPcImages } from '../utils/helpers';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -108,7 +112,8 @@ const ArmamentPc = () => {
   };
   const handleToCart = () => {
     dispatch(addToCartProductsArmamentPC(armamentPc, priceTotal));
-    navigate('/car');
+    dispatch({ type: HOVER });
+    navigate('/');
   };
   const handleFilterPeriferico = (category) => {
     setPeriferico(category);

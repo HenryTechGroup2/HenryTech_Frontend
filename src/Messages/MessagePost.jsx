@@ -5,7 +5,12 @@ const MessagePost = ({ msg }) => {
   console.log(msg);
   return (
     <div className='message__messagesposts'>
-      <div className='message__postuser msg__postuser'>{msg.msgpost_post}</div>
+      {msg.msgpost_post === '' ? null : (
+        <div className='message__postuser msg__postuser'>
+          {msg.msgpost_post}
+        </div>
+      )}
+
       {msg.hasOwnProperty('msgreceiveds')
         ? msg?.msgreceiveds
             .sort((a, b) => {

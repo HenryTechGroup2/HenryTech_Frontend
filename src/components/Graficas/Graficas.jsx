@@ -41,7 +41,17 @@ const Graficas = ({ products, titleG, cls, filtr }) => {
         label: 'Producto',
         data: filtr
           ? products.slice(0, 2).map(({ product_count }) => product_count)
-          : products.map(({ product_views }) => product_views),
+          : products
+              .sort((a, b) => {
+                if (a.product_views < b.product_views) {
+                  return 1;
+                }
+                if (a.product_views > b.product_views) {
+                  return -1;
+                }
+                return 0;
+              })
+              .map(({ product_views }) => product_views),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         color: '#000',
       },

@@ -302,6 +302,9 @@ li {
   background-size: contain;
   background-repeat: repeat;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
 }
 .home__span {
   cursor: pointer;
@@ -316,7 +319,7 @@ li {
   position: fixed;
   bottom: 5.5em;
   right: 1em;
-  z-index: 2000;
+  z-index: 600;
 }
 .home__messagees {
   height: 25em;
@@ -964,7 +967,7 @@ li {
   width: 310px;
   background: #fff;
   height: 100vh;
-  z-index: 1100;
+  z-index: 11000;
   transition: 0.5s ease-in-out;
   display: flex;
   flex-flow: column nowrap;
@@ -1804,6 +1807,7 @@ li {
   justify-content: space-around;
   gap: 1em;
   align-items: center;
+  font-family: "Roboto";
 }
 .footer__li {
   list-style: none;
@@ -2010,7 +2014,24 @@ li {
 
 .about {
   height: calc(100vh - 203px);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  gap: 0;
+  align-items: center;
+  font-family: "Roboto";
 }
+.about__h1 {
+  margin: 2em 0 0 0;
+}
+.about__h2 {
+  font-family: "Roboto";
+}
+.about__p {
+  text-align: center;
+  max-width: 35em;
+}
+
 .questions {
   display: flex;
   flex-flow: column nowrap;
@@ -2228,7 +2249,7 @@ li {
 .pc__right {
   display: flex;
   flex-flow: row wrap;
-  justify-content: end;
+  justify-content: center;
   gap: 1em;
   align-content: start;
   min-height: 500px;
@@ -2441,10 +2462,11 @@ li {
 .pc__periferico {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.5em;
   align-items: start;
   margin: 0 0 1em 0;
+  width: 100%;
 }
 @media screen and (max-width: 600px) {
   .pc__periferico {
@@ -2797,6 +2819,7 @@ li {
   width: 10em;
   position: absolute;
   top: 1.6em;
+  z-index: 1001;
 }
 .drop__star {
   font-size: 1.2em;
@@ -3099,6 +3122,13 @@ li {
   justify-content: center;
   gap: 0;
   align-items: center;
+}
+.dashboard__message {
+  position: fixed;
+  bottom: 6em;
+  right: 1em;
+  z-index: 600;
+  border: 4px solid #000;
 }
 .dashboard__graph {
   grid-column: 1/3;
@@ -3869,7 +3899,7 @@ li {
   width: 100%;
 }
 .message__name {
-  width: 15em;
+  width: 100%;
   border: 1px solid #ebebeb;
   padding: 0.5em;
   text-transform: uppercase;
@@ -3919,6 +3949,9 @@ li {
   gap: 0;
   align-items: start;
   width: 100%;
+}
+.message__div:nth-child(1) {
+  overflow: auto;
 }
 .message__div:nth-child(2) {
   background: url("../../public/assets/responsive/bak.jpg");

@@ -16,6 +16,7 @@ import Graficas from '../components/Graficas/Graficas';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 import { api } from '../redux/actions';
+import { message } from '../utils/Icons';
 
 ChartJS.register(
   CategoryScale,
@@ -58,7 +59,8 @@ const Dashboard = () => {
   const labels = productsRating
     .slice(0, 10)
     .map(({ product_name }) => product_name.slice(0, 4));
-  const productsViews = productsRating.sort((a, b) => {
+  let productsViews = productsRating;
+  productsViews = productsViews.sort((a, b) => {
     if (a.product_views < b.product_views) {
       return 1;
     }
@@ -200,8 +202,8 @@ const Dashboard = () => {
             filtr={true}
           />
         </div>
-        <div className='dashboard__messages'>
-          <Link to={'/admin-messages'}>Messages</Link>
+        <div className='home__msg dashboard__message'>
+          <Link to={'/admin-messages'}>{message}</Link>
         </div>
       </div>
       <Footer />

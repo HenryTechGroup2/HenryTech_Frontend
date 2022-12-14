@@ -33,6 +33,7 @@ export const MESSAGE_USER = '@message/user-all-admin';
 export const CHANGE_USER = '@message/change-user';
 export const MESSAGE_USER_POST = '@message/message-user-post';
 export const MSG_RECEIVED_INPUT = '@message/message-input';
+export const HOVER = '@hover';
 // export const api = 'https://backend-tech.vercel.app';
 export const api = 'http://localhost:3001';
 //ORDER
@@ -236,6 +237,7 @@ export function updateUser(payload, id, password) {
         payload: { data: result.data, password },
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: ERROR,
         payload: error.response.data.msg,

@@ -16,11 +16,15 @@ export function MyAcount() {
   const [wind, setWind] = useState(document.documentElement.clientWidth);
   const dispatch = useDispatch();
   const [renderMap, setRenderMap] = useState('Configuracion');
-  useEffect(() => {
-    dispatch(getUser(id));
-  }, []);
+
   const route = '../assets/config';
   const { userDates } = useSelector((state) => state);
+  useEffect(() => {
+    dispatch(getUser(id));
+    userDates?.user_favorites?.forEach(
+      (product) => (product.product_favorite = true)
+    );
+  }, []);
   const leftMap = [
     {
       name: userDates?.user_name,

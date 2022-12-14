@@ -153,6 +153,9 @@
     background-size: contain;
     background-repeat: repeat;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
   }
   &__span {
     cursor: pointer;
@@ -163,7 +166,7 @@
     position: fixed;
     bottom: 5.5em;
     right: 1em;
-    z-index: 2000;
+    z-index: 600;
   }
   &__messagees {
     height: 25em;
@@ -609,7 +612,7 @@
     width: 310px;
     background: #fff;
     height: 100vh;
-    z-index: 1100;
+    z-index: 11000;
     transition: 0.5s ease-in-out;
     @include flex(column, nowrap, start, start, 0);
   }
@@ -1175,6 +1178,7 @@
   background: #282c34;
   border-top: 2px solid #fff;
   @include flex(row, nowrap, space-around, center, 1em);
+  font-family: 'Roboto';
   &__h1 {
   }
   &__ul {
@@ -1323,9 +1327,17 @@
 }
 .about {
   height: calc(100vh - 203px);
+  @include flex(column, nowrap, start, center, 0);
+  font-family: 'Roboto';
   &__h1 {
+    margin: 2em 0 0 0;
+  }
+  &__h2 {
+    font-family: 'Roboto';
   }
   &__p {
+    text-align: center;
+    max-width: 35em;
   }
 }
 .questions {
@@ -1495,7 +1507,7 @@
     transform: translateX(0);
   }
   &__right {
-    @include flex(row, wrap, end, start, 1em);
+    @include flex(row, wrap, center, start, 1em);
     min-height: 500px;
     @include responsive(600px) {
       @include flex(row, wrap, center, center, 1em);
@@ -1638,8 +1650,9 @@
     // }
   }
   &__periferico {
-    @include flex(row, nowrap, space-between, start, 0.5em);
+    @include flex(row, nowrap, center, start, 0.5em);
     margin: 0 0 1em 0;
+    width: 100%;
     @include responsive(600px) {
       margin: 0 auto 1em auto;
     }
@@ -1884,6 +1897,7 @@
     width: 10em;
     position: absolute;
     top: 1.6em;
+    z-index: 1001;
   }
   &__star {
     font-size: 1.2em;
@@ -2109,6 +2123,13 @@
   }
   &__mon {
     @include flex(row, nowrap, center, center, 0);
+  }
+  &__message {
+    position: fixed;
+    bottom: 6em;
+    right: 1em;
+    z-index: 600;
+    border: 4px solid #000;
   }
   &__graph {
     grid-column: 1/3;
@@ -2631,7 +2652,7 @@
     width: 100%;
   }
   &__name {
-    width: 15em;
+    width: 100%;
     border: 1px solid #ebebeb;
     padding: 0.5em;
     text-transform: uppercase;
@@ -2675,6 +2696,9 @@
   &__div {
     @include flex(column, nowrap, start, start, 0);
     width: 100%;
+  }
+  &__div:nth-child(1) {
+    overflow: auto;
   }
   &__div:nth-child(2) {
     background: url('../../public/assets/responsive/bak.jpg');

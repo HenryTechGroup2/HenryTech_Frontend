@@ -1,5 +1,8 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import Dropzone from 'react-dropzone';
 import { useDispatch } from 'react-redux';
+import { Container, FormGroup, Input } from 'reactstrap';
 import { ERROR, postCreateProduct } from '../../redux/actions';
 import { close } from '../../utils/Icons';
 import ModalLoading from '../ModalLoading/ModalLoading';
@@ -24,6 +27,9 @@ const ProductAdd = ({ handleAddProduct }) => {
   const [responseBackend, setResponseBacked] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(null);
+  const [loadings, setLoadings] = useState("");
+  const [loadings2, setLoadings2] = useState(false);
+
   const inputs = [
     {
       type: 'text',
@@ -31,7 +37,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       description: 'Nombre del producto',
       values: product.product_name,
     },
-    // { type: 'checkbox', name: 'product_ofer' },
     {
       type: 'textarea',
       name: 'product_description',
@@ -50,8 +55,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       description: 'Categoria',
       values: product.product_category,
     },
-    // { type: 'file', name: 'product_img' },
-    // { type: 'file', name: 'product_array_img' },
     {
       type: 'number',
       name: 'product_stock',
@@ -75,17 +78,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       ...product,
       [name]: value,
     });
-  };
-  const handleChangeFiles = (evt) => {
-    const { name, files } = evt.currentTarget;
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onloadend = () => {
-      setProduct({
-        ...product,
-        [name]: reader.result.toString(),
-      });
-    };
   };
   const handleChangeAllFIles = (evt) => {
     const { name, files } = evt.currentTarget;
@@ -145,6 +137,50 @@ const ProductAdd = ({ handleAddProduct }) => {
       [name]: checked,
     });
   };
+
+  const handleDrop = (files) => {
+    const uploaders = files.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("tags", `codeinfuse, medium, gist`);
+      formData.append("upload_preset", "Learning");
+      formData.append("api_key", "913529548732914");
+      formData.append("timestamp", (Date.now() / 1000) | 0);
+      setLoadings("true");
+      return axios
+        .post("https://api.cloudinary.com/v1_1/dpte23mmk/image/upload", formData, {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        })
+        .then((response) => {
+          const data = response.data
+          const fileURL = data.secure_url;
+          let specificArrayInObject = product.product_array_img;
+          specificArrayInObject.push(fileURL);
+          const newobj = { ...product, specificArrayInObject };
+          setProduct(newobj);
+        })
+    });
+    axios.all(uploaders).then(() => {
+      setLoadings("false");
+    });
+  };
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Learning");
+    setLoadings2(true);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dpte23mmk/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+    const file = await res.json();
+    setProduct({...product, product_img: file.secure_url});
+    setLoadings2(false);
+  };
   console.log(product);
   return (
     <div className='post__container'>
@@ -186,22 +222,42 @@ const ProductAdd = ({ handleAddProduct }) => {
               ))}
               <div className='post__div post__flex'>
                 <div className='post__files'>
-                  <span className='post__span'>Añadir Imagen</span>
-                  <input
-                    onChange={handleChangeFiles}
-                    name='product_img'
-                    type='file'
-                    className='post__file'
-                  />
+                  <Container>
+                    <FormGroup>
+                      <span className='post__span'>Añadir Imagen</span>
+                      <Input
+                        onChange={uploadImage}
+                        name='product_img'
+                        type='file'
+                        className='post__file'
+                      />
+                    </FormGroup>
+                  </Container>
                 </div>
                 <div className='post__files'>
-                  <span className='post__span'>Añadir Imagenes</span>
-                  <input
-                    onChange={handleChangeAllFIles}
-                    type='file'
-                    className='post__file'
-                    name='product_array_img'
-                  />
+                  <Container>
+                    <Dropzone
+                      className="dropzone"
+                      onDrop={handleDrop}
+                      onChange={(e) => setProduct(e.target.value)}
+                      value={product}
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <section>
+                          <div {...getRootProps({ className: "dropzone" })}>
+                            <input
+                              {...getInputProps()}
+                              onChange={handleChangeAllFIles}
+                              type='file'
+                              className='post__file'
+                              name='product_array_img'
+                            />
+                            <span className='post__span'>Añadir Imagenes</span>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </Container>
                 </div>
               </div>
               <div className='post__div post__check'>

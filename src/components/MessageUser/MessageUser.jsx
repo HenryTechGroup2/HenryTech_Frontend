@@ -4,7 +4,10 @@ import MessageAdmin from '../MessageAdmin/MessageAdmin';
 const MessageUser = ({ post }) => {
   return (
     <div className='message__messagesposts'>
-      <div className='message__postuser'>{post.msgpost_post}</div>
+      {post.msgpost_post === '' ? null : (
+        <div className='message__postuser'>{post.msgpost_post}</div>
+      )}
+
       {post.hasOwnProperty('msgreceiveds')
         ? post?.msgreceiveds
             .sort((a, b) => {

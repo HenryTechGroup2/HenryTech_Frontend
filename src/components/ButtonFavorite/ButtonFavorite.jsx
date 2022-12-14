@@ -8,7 +8,6 @@ const ButtonFavorite = ({ product }) => {
   const [favoritState, setFavoritState] = useState(product?.product_favorite);
   const { userDates } = useSelector((state) => state);
   const state = useSelector((state) => state);
-
   const dispatch = useDispatch();
   const handleAddFavorit = async (evt) => {
     evt.stopPropagation();
