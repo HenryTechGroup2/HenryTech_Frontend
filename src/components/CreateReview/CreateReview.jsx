@@ -11,6 +11,7 @@ import {
 } from '../../redux/actions';
 const server = io(api);
 
+console.log('xd');
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {
   const [reviews, setReviews] = useState([]);
