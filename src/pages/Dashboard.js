@@ -183,10 +183,12 @@ const Dashboard = () => {
               ))}
               <div className='dashboard__ganancia'>TOTAL</div>
               <div className='dashboard__ganancia2'>
-                {Number(total).toLocaleString('es-AR', {
-                  style: 'currency',
-                  currency: 'ARS',
-                })}
+                {isNaN(total)
+                  ? 0
+                  : Number(total).toLocaleString('es-AR', {
+                      style: 'currency',
+                      currency: 'ARS',
+                    })}
               </div>
             </div>
           </div>

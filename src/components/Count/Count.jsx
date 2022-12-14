@@ -17,7 +17,7 @@ const Count = ({ product_count = 1, product, view = false }) => {
         count,
       },
     });
-    toast.success(`Add to car`, {
+    toast.success(`Agregado al carrito`, {
       position: 'bottom-right',
       autoClose: 1500,
       hideProgressBar: false,

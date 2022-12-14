@@ -47,10 +47,10 @@ const Header = ({ handleClickPage }) => {
         });
         dispatch({ type: CREATE_USER_AUTH0, payload: data.data });
       } catch (error) {
-        dispatch({
-          type: ERROR,
-          payload: 'LINEA 52 HEADER',
-        });
+        // dispatch({
+        //   type: ERROR,
+        //   payload: 'LINEA 52 HEADER',
+        // });
       }
     };
     auth0Autentication();
