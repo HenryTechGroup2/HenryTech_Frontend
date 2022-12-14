@@ -21,6 +21,7 @@ export const CREATE_USER_AUTH0 = '@user/auth0';
 export const DELETE_CART = 'cart/delete-all';
 export const ORDER_VIEWS = '@order/views';
 export const SELECT_ORDER = '@order/select';
+export const CHANGE_PASSWORD = '@change/password';
 export const ERROR = '@error';
 export const BIENVENIDO = '@bienvenido';
 export const WIDTH = '@width';

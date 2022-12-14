@@ -79,6 +79,7 @@ const MessagesPage = () => {
           <div className='message__div'>
             {userAllMessages?.map((msg, index) => (
               <div
+                key={index}
                 onClick={() => handleClickChangeUserMessage(index)}
                 className='message__name'
               >
@@ -87,8 +88,9 @@ const MessagesPage = () => {
             ))}
           </div>
           <div className='message__div'>
+            {console.log(userMessage)}
             {userMessage?.map((msg) => (
-              <div className='message__map'>
+              <div className='message__map' key={msg.user_id}>
                 <div className='message__user'>{msg?.user_name}</div>
                 <div className='message__post'>
                   {msg?.msgposts
@@ -102,7 +104,7 @@ const MessagesPage = () => {
                       return 0;
                     })
                     .map((post) => (
-                      <MessageUser post={post} />
+                      <MessageUser post={post} key={post.msgpost_id} />
                     ))}
                 </div>
               </div>

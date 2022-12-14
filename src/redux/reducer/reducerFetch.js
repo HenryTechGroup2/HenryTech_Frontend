@@ -7,6 +7,7 @@ import {
   ARMAMENT_PC_PRODUCT,
   BIENVENIDO,
   CAR_MODIFIER,
+  CHANGE_PASSWORD,
   CHANGE_USER,
   CREATE_USER,
   CREATE_USER_AUTH0,
@@ -65,7 +66,7 @@ const initialState = {
     search: '',
     price: 0,
     category: [],
-    active: false
+    active: false,
   },
   validateRegister: {
     name: false,
@@ -408,18 +409,23 @@ export const reducerFetch = (state = initialState, action) => {
     case FILTER_SEARCH: {
       let filterproducts = [];
       state.products.forEach((product) => {
-        const matchName = product.product_name.toLowerCase().indexOf(action.payload.toLowerCase()) !== -1;
+        const matchName =
+          product.product_name
+            .toLowerCase()
+            .indexOf(action.payload.toLowerCase()) !== -1;
         if (state.filters.active) {
-          const matchPrice = Number(product.product_price) <= Number(state.filters.price);
+          const matchPrice =
+            Number(product.product_price) <= Number(state.filters.price);
           if (state.filters.category.length) {
-            const matchCategory = state.filters.category.includes(product.product_category);
-            if (matchName && matchPrice && matchCategory) filterproducts.push(product);
-          }
-          else {
+            const matchCategory = state.filters.category.includes(
+              product.product_category
+            );
+            if (matchName && matchPrice && matchCategory)
+              filterproducts.push(product);
+          } else {
             if (matchName && matchPrice) filterproducts.push(product);
           }
-        }
-        else {
+        } else {
           if (matchName) filterproducts.push(product);
         }
       });
@@ -449,15 +455,20 @@ export const reducerFetch = (state = initialState, action) => {
     case 'FILTERS': {
       let filterproducts = [];
       state.products.forEach((product) => {
-        const matchName = product.product_name.toLowerCase().indexOf(state.filters.search.toLowerCase()) !== -1;
-        const matchPrice = Number(product.product_price) <= Number(action.payload.price);
+        const matchName =
+          product.product_name
+            .toLowerCase()
+            .indexOf(state.filters.search.toLowerCase()) !== -1;
+        const matchPrice =
+          Number(product.product_price) <= Number(action.payload.price);
         if (action.payload.category.length) {
-          const matchCategory = action.payload.category.includes(product.product_category);
+          const matchCategory = action.payload.category.includes(
+            product.product_category
+          );
           if (matchName && matchPrice && matchCategory) {
             filterproducts.push(product);
           }
-        }
-        else {
+        } else {
           if (matchName && matchPrice) {
             filterproducts.push(product);
           }
@@ -471,7 +482,7 @@ export const reducerFetch = (state = initialState, action) => {
           price: action.payload.price,
           category: action.payload.category,
           active: action.payload.active,
-        }
+        },
       };
     }
     case FILTER_STAR: {
@@ -852,6 +863,15 @@ export const reducerFetch = (state = initialState, action) => {
       return {
         ...state,
         hover: !state.hover,
+      };
+    }
+    case CHANGE_PASSWORD: {
+      return {
+        ...state,
+        userDates: {
+          ...state.userDates,
+          user_password: action.payload,
+        },
       };
     }
     default:

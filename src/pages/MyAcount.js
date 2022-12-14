@@ -59,8 +59,9 @@ export function MyAcount() {
         <div className='acount'>
           <div className='acount__drop'>
             <div className='acount__left' ref={divRef}>
-              {leftMap.map((item) => (
+              {leftMap.map((item, index) => (
                 <div
+                  key={index}
                   className='acount__div'
                   onClick={() => handleMapRender(item.component)}
                 >
@@ -97,6 +98,7 @@ export function MyAcount() {
                   ) : (
                     userDates.user_favorites.map((favorites) => (
                       <Card
+                        key={favorites.product_id}
                         product={favorites}
                         alto='8'
                         ancho='8'

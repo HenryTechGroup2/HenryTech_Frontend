@@ -51,8 +51,12 @@ const CardOrder = ({ order }) => {
         </button>
         {view === null ? null : (
           <div className='dashp__divs'>
-            {btn.map((btns) => (
-              <button onClick={() => handleClick(btns)} className='dashp__btns'>
+            {btn.map((btns, index) => (
+              <button
+                onClick={() => handleClick(btns)}
+                className='dashp__btns'
+                key={index}
+              >
                 {btns}
               </button>
             ))}

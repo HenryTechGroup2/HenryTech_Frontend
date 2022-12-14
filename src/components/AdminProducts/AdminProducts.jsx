@@ -39,7 +39,7 @@ const AdminProducts = () => {
             <div className='dashp__ofer'>En oferta</div>
           </div>
           {products.slice(0, more).map((product) => (
-            <CardProduct product={product} />
+            <CardProduct product={product} key={product.product_id} />
           ))}
         </div>
         <div>

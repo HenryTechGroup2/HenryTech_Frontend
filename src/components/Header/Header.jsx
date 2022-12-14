@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   api,
+  CHANGE_PASSWORD,
   closeSession,
   CREATE_USER_AUTH0,
   ERROR,
@@ -24,11 +25,23 @@ import axios from 'axios';
 import CardCar from '../CardCar/CardCar';
 import Payment from '../Payment/Payment';
 import UpdateInfo from '../UpdateInfo/UpdateInfo';
+import ModalResponse from '../ModalResponse/ModalResponse';
 const INITIAL_STATE = { dropitem: null, item: 0 };
+const STATE_PASSWORD = {
+  password: false,
+  passwordConfirm: true,
+  formulario: true,
+};
 const Header = ({ handleClickPage }) => {
   const [open, setOpen] = useState(null);
   const [wind, setWind] = useState(document.documentElement.clientWidth);
+  const [listPassword, setListPassword] = useState(null);
+  const [userPassword, setUserPassword] = useState({
+    password: '',
+    passwordConfirm: '',
+  });
   const [drop, setDrop] = useState(INITIAL_STATE);
+  const [validatePassword, setValidatePassword] = useState(STATE_PASSWORD);
   const { dropitem, item } = drop;
   const { logout, user } = useAuth0();
   const inputRef = useRef(null);
@@ -38,6 +51,36 @@ const Header = ({ handleClickPage }) => {
   window.addEventListener('resize', () =>
     setWind(document.documentElement.clientWidth)
   );
+  const passwordAuth0 = async (evt) => {
+    evt.preventDefault();
+    if (!userPassword.password || !userPassword.passwordConfirm) {
+      setValidatePassword({
+        ...validatePassword,
+        formulario: false,
+      });
+      return setTimeout(() => {
+        setValidatePassword({
+          ...validatePassword,
+          formulario: true,
+        });
+      }, 2000);
+    }
+    try {
+      if (userDates.user_password === 'Password') {
+        await axios.put(`${api}/api/user/password`, {
+          user_password: userPassword.password,
+          user_id: userDates.user_id,
+        });
+      }
+      dispatch({ type: CHANGE_PASSWORD, payload: userPassword.password });
+      setListPassword(true);
+      setTimeout(() => {
+        setListPassword(null);
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     const auth0Autentication = async () => {
       try {
@@ -55,6 +98,38 @@ const Header = ({ handleClickPage }) => {
     };
     auth0Autentication();
   }, [user]);
+  useEffect(() => {
+    console.log(userPassword.password.length);
+
+    if (Number(userPassword.password.length) >= 8) {
+      if (userPassword.passwordConfirm === userPassword.password) {
+        return setValidatePassword(() => ({
+          ...validatePassword,
+          passwordConfirm: true,
+          password: true,
+        }));
+      }
+      setValidatePassword(() => ({
+        ...validatePassword,
+        passwordConfirm: false,
+        password: true,
+      }));
+    } else {
+      if (userPassword.passwordConfirm !== userPassword.password) {
+        setValidatePassword(() => ({
+          ...validatePassword,
+          passwordConfirm: false,
+          password: false,
+        }));
+      }
+      setValidatePassword(() => ({
+        ...validatePassword,
+        passwordConfirm: true,
+
+        password: false,
+      }));
+    }
+  }, [userPassword]);
 
   const handleOpenModalSession = (change) => {
     setOpen(change);
@@ -89,8 +164,61 @@ const Header = ({ handleClickPage }) => {
   const handleViewSearch = () => {
     inputRef.current.classList.toggle('header__viewsearch');
   };
+  const handleChangePassword = (evt) => {
+    const { name, value } = evt.currentTarget;
+    setUserPassword({
+      ...userPassword,
+      [name]: value,
+    });
+  };
   return (
     <div className='header'>
+      {listPassword === null ? null : (
+        <ModalResponse response={'Contraseña establecida'} />
+      )}
+      {userDates.user_password === 'Password' ? (
+        <form className='form__modal' onSubmit={passwordAuth0}>
+          <div className='form__container'>
+            <div className='form__div'>
+              <div className='form__itd'>
+                <input
+                  type='password'
+                  className='form__inp'
+                  onChange={handleChangePassword}
+                  name='password'
+                  value={userPassword.password}
+                  placeholder='Contraseña'
+                />
+                {validatePassword.password === true ? null : (
+                  <div className='form__span'>Mas de 8 caracteres</div>
+                )}
+              </div>
+              <div className='form__itd'>
+                <input
+                  value={userPassword.passwordConfirm}
+                  type='password'
+                  className='form__inp'
+                  name='passwordConfirm'
+                  onChange={handleChangePassword}
+                  placeholder='Confirme Contraseña'
+                />
+                {validatePassword.passwordConfirm === true ? null : (
+                  <div className='form__span'>Las contraseñas no coinciden</div>
+                )}
+              </div>
+              <p className='form__p'>
+                Coloque su nueva contraseña para HenryTech
+              </p>
+            </div>
+            <button className='form__btn'>Enviar</button>
+            {validatePassword.formulario === true ? null : (
+              <div className='form__formulario'>
+                Porfavor complete bien los campos solicitados
+              </div>
+            )}
+          </div>
+        </form>
+      ) : null}
       {open === null ? null : (
         <Modal handleOpenModalSession={handleOpenModalSession} />
       )}

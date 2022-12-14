@@ -18,6 +18,7 @@ const Facturas = ({ handleCLoseLeftDiv }) => {
           handleOpenFactura={handleOpenFactura}
           open={view === index ? true : null}
           index={index}
+          key={index}
         />
       ))}
     </div>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { ERROR, updateUser } from '../../redux/actions';
 import ModalResponse from '../ModalResponse/ModalResponse';
+import { PASSWORD } from '../../redux/storage/variables';
 
 export function validate(input) {
   let errors = {};
@@ -41,9 +42,11 @@ const UpdateUser = ({ user, id }) => {
   const [responseBackend, setResponseBackend] = useState(null);
   const [input, setInput] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
-  const { errorAxios } = useSelector((state) => state);
+  // const { errorAxios } = useSelector((state) => state);
+  const [passwordConfirm, setPasswordConfirm] = useState(null);
   const [edit, setEdit] = useState(null);
   const [modal, setModal] = useState(null);
+  const password = window.localStorage.getItem(PASSWORD);
   function handleOnChange(e) {
     e.preventDefault();
     setInput({
@@ -60,11 +63,17 @@ const UpdateUser = ({ user, id }) => {
 
   async function handleOnSubmit(e) {
     e.preventDefault();
+    console.log(user.user_password, password);
+    if (input.user_password !== password) {
+      setTimeout(() => setPasswordConfirm(null), 2500);
+      return setPasswordConfirm('La contraseña es incorrecta');
+    }
     const res = await dispatch(
       updateUser(input, id, input.user_password_confirm)
     );
     setModal(true);
     setResponseBackend(res.payload.data.msg);
+    console.log('UPDATE');
     setTimeout(() => {
       setModal(null);
       setResponseBackend(null);
@@ -80,7 +89,7 @@ const UpdateUser = ({ user, id }) => {
       values: 'user_name',
     },
     {
-      option: 'Cambiar contraseña',
+      option: 'Contraseña',
       type: 'password',
       date: '*********',
       inputDate: input?.user_password,
@@ -151,7 +160,11 @@ const UpdateUser = ({ user, id }) => {
                         )}
                       </>
                     ) : (
-                      <div>{dates?.inputDate}</div>
+                      <div>
+                        {dates?.type === 'password'
+                          ? '◉'.repeat(dates?.inputDate.length)
+                          : dates?.inputDate}
+                      </div>
                     )}
                   </div>
                   <button
@@ -166,8 +179,8 @@ const UpdateUser = ({ user, id }) => {
               <button className='update__submit' type='submit'>
                 Actualizar
               </button>
-              {errorAxios !== null ? (
-                <div className='update__error'>{errorAxios}</div>
+              {passwordConfirm !== null ? (
+                <div className='update__error'>{passwordConfirm}</div>
               ) : null}
             </form>
           </div>

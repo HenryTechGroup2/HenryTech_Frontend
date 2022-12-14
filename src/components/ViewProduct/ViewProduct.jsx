@@ -17,8 +17,9 @@ const ViewProduct = ({ product, handleClick }) => {
       <div className='post__mid'>
         <div className='post__flexx'>
           <div className='post__alldiv'>
-            {product?.product_array_img?.map((image) => (
+            {product?.product_array_img?.map((image, index) => (
               <img
+                key={index}
                 className='post__allimages'
                 src={image}
                 alt={image}

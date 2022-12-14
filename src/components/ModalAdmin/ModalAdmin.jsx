@@ -108,7 +108,7 @@ const ModalAdmin = ({ product, open, handleOpenModal }) => {
           </div>
           <div className='informacion__info'>
             {productModal.map((item, index) => (
-              <div className='informacion__div'>
+              <div className='informacion__div' key={index}>
                 <div>
                   <span className='informacion__span'>{item.title}</span>
                   {item.title === 'Oferta' ? (

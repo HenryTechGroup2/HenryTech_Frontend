@@ -26,8 +26,8 @@ const CardFactura = ({ item, open, handleOpenFactura, index }) => {
           </div>
           <div className='facturas__fact'>
             <div className='facturas__map'>
-              {products.slice(0, products.length - 1)?.map((product) => (
-                <PartFacture product={product} />
+              {products.slice(0, products.length - 1)?.map((product, index) => (
+                <PartFacture product={product} key={index} />
               ))}
             </div>
             <div className='facturas__state'>

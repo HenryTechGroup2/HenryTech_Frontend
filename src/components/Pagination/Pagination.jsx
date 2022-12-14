@@ -16,6 +16,7 @@ export function Pagination({ handleClick, next, prev, actualPage }) {
         <div className='pagination__div'>
           {countButtons.map((btn) => (
             <button
+              key={btn}
               style={{
                 background: `${actualPage === btn ? '#fff' : ''}`,
                 color: `${actualPage === btn ? '#000' : '#fff'}`,

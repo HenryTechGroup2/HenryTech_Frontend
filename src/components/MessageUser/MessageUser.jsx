@@ -19,7 +19,9 @@ const MessageUser = ({ post }) => {
               }
               return 0;
             })
-            .map((message) => <MessageAdmin message={message} />)
+            .map((message) => (
+              <MessageAdmin message={message} key={message.msgreceived_id} />
+            ))
         : null}
     </div>
   );

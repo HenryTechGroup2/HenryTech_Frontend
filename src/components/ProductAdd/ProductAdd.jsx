@@ -13,7 +13,7 @@ const INITITAL_STATE = {
   product_ofer: false,
   product_price: '',
   product_category: '',
-  product_img: '',
+  product_img: null,
   product_array_img: [],
   product_stock: '',
   product_brand: '',
@@ -123,8 +123,15 @@ const ProductAdd = ({ handleAddProduct }) => {
     const product_price_bool =
       product.product_price > 0 && product.product_price < 9999999;
     const product_stock_bool =
-      product.product_stock > 0 && product.product_price < 500;
-
+      product.product_stock > 0 && product.product_stock < 500;
+    console.log(
+      product_name_bool,
+      product_categories_bool,
+      product_brand_bool,
+      product_img_bool,
+      product_price_bool,
+      product_stock_bool
+    );
     if (
       product_name_bool &&
       product_categories_bool &&
@@ -141,6 +148,7 @@ const ProductAdd = ({ handleAddProduct }) => {
     evt.preventDefault();
     if (!validateProduct(product)) return;
     try {
+      console.log('ULTIMO MENSAJE');
       setLoading(() => true);
       const res = await dispatch(postCreateProduct(product));
       setLoading(() => null);
@@ -229,8 +237,8 @@ const ProductAdd = ({ handleAddProduct }) => {
                   {close}
                 </div>
               </div>
-              {inputs.map((item) => (
-                <div className='post__div'>
+              {inputs.map((item, index) => (
+                <div className='post__div' key={index}>
                   {item.type === 'textarea' ? (
                     <textarea
                       placeholder={item.description}

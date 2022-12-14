@@ -50,6 +50,12 @@
     font-size: 1.2em;
     border-radius: 0.5em;
   }
+  &__payment {
+    font-family: 'Roboto';
+    height: 8em;
+    text-align: center;
+    border: 2px solid #000;
+  }
 }
 .loading {
   @include modal();
@@ -96,6 +102,14 @@
   border: 1em solid #fff;
   border-bottom-color: #000;
   animation: spinner infinite 2s linear;
+  &__low {
+    width: 2em;
+    height: 2em;
+    border: 0.5em solid #fff;
+    border-bottom-color: #000;
+
+    animation: spinner infinite 0.5s linear;
+  }
 }
 .btn-top {
   position: fixed;
@@ -761,7 +775,7 @@
     position: absolute;
     bottom: -20px;
     color: red;
-    font-size: 1.045em;
+    font-size: 0.9em;
   }
   &__validate {
     position: relative;
@@ -2527,6 +2541,10 @@
     text-align: center;
     font-weight: bold;
   }
+  &__payment {
+    height: 12em;
+    font-family: 'Roboto';
+  }
   &__div {
     width: 6em;
     height: 6em;
@@ -2711,5 +2729,61 @@
   &__postadmin {
     align-self: flex-start;
     background: #49aaee;
+  }
+}
+.form {
+  &__modal {
+    @include modal();
+  }
+  &__container {
+    background: #282c34;
+    width: 18em;
+    height: 15em;
+    border: 2px solid #ebebeb;
+    @include flex(column, nowrap, center, center, 0.5em);
+  }
+  &__div {
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__inp {
+    background: #ebebeb;
+    height: 1.5em;
+    font-size: 1.2em;
+    padding: 0.2em 0.5em;
+    &::placeholder {
+      color: #000;
+    }
+    border: 1px solid #000;
+    font-family: 'Roboto';
+  }
+  &__itd {
+    height: 2.6em;
+    position: relative;
+  }
+  &__formulario {
+    width: 100%;
+    font-size: 0.8em;
+    font-family: 'Roboto';
+    text-align: center;
+    color: #ff0000;
+  }
+  &__span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #ff0000;
+    text-align: center;
+    width: 100%;
+    font-size: 0.7em;
+    font-family: 'Roboto';
+  }
+  &__p {
+    text-align: center;
+    font-family: 'Roboto';
+  }
+  &__btn {
+    @include button-principal();
+    background: #fff;
+    color: #000;
   }
 }

@@ -1,25 +1,31 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-const ModalPayment = ({ total = 0 }) => {
+const ModalPayment = ({ total = 0, rechazed = true }) => {
   const $payment = document.getElementById('payment');
   return ReactDom.createPortal(
-    <div className='stripe'>
-      <div className='stripe__div'>
-        <p className='stripe__p'>
-          Tu compra se a realizado con exito con un valor total de{' '}
-        </p>
-        <span className='stripe__span'>
+    <div className='response'>
+      <div className='response__container response__payment'>
+        <div
+          className='response__response'
+          style={{ color: `${rechazed ? '#004b23' : '#ff0000'}` }}
+        >
+          Tu compra se a realizado con exito con un valor total de {'   '}
           {total?.toLocaleString('es-AR', {
             style: 'currency',
             currency: 'ARS',
           })}{' '}
-        </span>
-        <img
-          className='stripe__img'
-          src='../assets/nice.gif'
-          alt='Exito'
-          loading='lazy'
-        />
+        </div>
+        <div className='response__div'>
+          {rechazed ? (
+            <img className='response__image' src='../assets/nice.gif' alt='' />
+          ) : (
+            <img
+              className='response__image'
+              src='../assets/cancel.png'
+              alt=''
+            />
+          )}
+        </div>
       </div>
     </div>,
     $payment

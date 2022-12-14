@@ -38,7 +38,7 @@ const AdminOrder = () => {
           <div className='dashp__button'>EDITAR</div>
         </div>
         {response?.map((order) => (
-          <CardOrder order={order} />
+          <CardOrder order={order} key={order.order_id} />
         ))}
       </div>
       <Footer />

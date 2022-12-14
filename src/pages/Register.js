@@ -110,7 +110,7 @@ const Register = () => {
               />
               {validateRegister.user_name ? null : (
                 <span className='register__span'>
-                  El nombre no puede contener numeros
+                  El nombre no puede contener numeros y menos de 5 letras
                 </span>
               )}
             </div>

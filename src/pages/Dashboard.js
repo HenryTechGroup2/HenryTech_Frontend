@@ -111,14 +111,6 @@ const Dashboard = () => {
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         color: '#000',
       },
-      // {
-      //   label: 'Rating',
-      //   data: orderproducts
-      //     .slice(0, 10)
-      //     .map(({ product_rating }) => product_rating),
-      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      //   color: '#000',
-      // },
     ],
   };
   const [response, setResponse] = useState([]);
@@ -171,7 +163,7 @@ const Dashboard = () => {
               <div className='dashboard__ganancia'>ID DE ORDEN</div>
               <div className='dashboard__ganancia2'>COSTO</div>
               {response?.map((count) => (
-                <>
+                <React.Fragment key={count.order_id}>
                   <div className='dashboard__ganancia'>{count.order_id}</div>
                   <div className='dashboard__ganancia2'>
                     {Number(count.order_total).toLocaleString('es-AR', {
@@ -179,7 +171,7 @@ const Dashboard = () => {
                       currency: 'ARS',
                     })}
                   </div>
-                </>
+                </React.Fragment>
               ))}
               <div className='dashboard__ganancia'>TOTAL</div>
               <div className='dashboard__ganancia2'>

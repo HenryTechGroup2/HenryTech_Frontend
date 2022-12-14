@@ -278,8 +278,9 @@ export function Details() {
                           }`,
                         }}
                       >
-                        {starsMap.map((star) => (
+                        {starsMap.map((star, index) => (
                           <div
+                            key={index}
                             onClick={() => handleFilterStar(star.length)}
                             className='drop__star'
                           >

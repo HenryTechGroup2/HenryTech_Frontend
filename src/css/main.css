@@ -142,6 +142,12 @@ li {
   font-size: 1.2em;
   border-radius: 0.5em;
 }
+.loader__payment {
+  font-family: "Roboto";
+  height: 8em;
+  text-align: center;
+  border: 2px solid #000;
+}
 
 .loading {
   position: fixed;
@@ -210,6 +216,13 @@ li {
   border: 1em solid #fff;
   border-bottom-color: #000;
   animation: spinner infinite 2s linear;
+}
+.spinner__low {
+  width: 2em;
+  height: 2em;
+  border: 0.5em solid #fff;
+  border-bottom-color: #000;
+  animation: spinner infinite 0.5s linear;
 }
 
 .btn-top {
@@ -1190,7 +1203,7 @@ li {
   position: absolute;
   bottom: -20px;
   color: red;
-  font-size: 1.045em;
+  font-size: 0.9em;
 }
 .register__validate {
   position: relative;
@@ -3684,6 +3697,10 @@ li {
   text-align: center;
   font-weight: bold;
 }
+.response__payment {
+  height: 12em;
+  font-family: "Roboto";
+}
 .response__div {
   width: 6em;
   height: 6em;
@@ -3966,6 +3983,97 @@ li {
 .msg__postadmin {
   align-self: flex-start;
   background: #49aaee;
+}
+
+.form__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+  backdrop-filter: blur(1em);
+  transition: 0.5s linear;
+  z-index: 10000;
+}
+.form__container {
+  background: #282c34;
+  width: 18em;
+  height: 15em;
+  border: 2px solid #ebebeb;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+.form__div {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+.form__inp {
+  background: #ebebeb;
+  height: 1.5em;
+  font-size: 1.2em;
+  padding: 0.2em 0.5em;
+  border: 1px solid #000;
+  font-family: "Roboto";
+}
+.form__inp::placeholder {
+  color: #000;
+}
+.form__itd {
+  height: 2.6em;
+  position: relative;
+}
+.form__formulario {
+  width: 100%;
+  font-size: 0.8em;
+  font-family: "Roboto";
+  text-align: center;
+  color: #ff0000;
+}
+.form__span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #ff0000;
+  text-align: center;
+  width: 100%;
+  font-size: 0.7em;
+  font-family: "Roboto";
+}
+.form__p {
+  text-align: center;
+  font-family: "Roboto";
+}
+.form__btn {
+  background: #000;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Exo";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 0.3em;
+  align-items: center;
+  transition: 0.5s linear;
+  background: #fff;
+  color: #000;
+}
+.form__btn:hover {
+  transform: scale(1.1);
 }
 
 /*# sourceMappingURL=main.css.map */

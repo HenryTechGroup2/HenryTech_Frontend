@@ -28,8 +28,9 @@ export default function Orders() {
         </div>
       </div>
       <div className='order__div' ref={divRef}>
-        {selects.map((order) => (
+        {selects.map((order, index) => (
           <div
+            key={index}
             onClick={() => handleClickChangeOrder(order)}
             className='order__order'
           >
