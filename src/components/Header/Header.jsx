@@ -24,7 +24,7 @@ import CardCar from '../CardCar/CardCar';
 import Payment from '../Payment/Payment';
 import UpdateInfo from '../UpdateInfo/UpdateInfo';
 const INITIAL_STATE = { dropitem: null, item: 0 };
-const Header = () => {
+const Header = ({ handleClickPage }) => {
   const [open, setOpen] = useState(null);
   const [wind, setWind] = useState(document.documentElement.clientWidth);
   const [drop, setDrop] = useState(INITIAL_STATE);
@@ -57,6 +57,7 @@ const Header = () => {
 
   const handleChangeProductFilter = (evt) => {
     const { value } = evt.currentTarget;
+    handleClickPage(1);
     dispatch({ type: FILTER_SEARCH, payload: value });
   };
 

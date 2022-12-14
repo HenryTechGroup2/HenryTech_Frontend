@@ -62,13 +62,13 @@ const Home = () => {
   return (
     <div className='home'>
       <ButtonTop />
-      <Header />
+      <Header handleClickPage={handleClick} />
       <Images />
       {loadingHome ? (
         <div>
           {filters?.search.length > 0 || viewHome === true ? (
             <div className='home__main'>
-              <Aside filterRef={filterRef} />
+              <Aside filterRef={filterRef} handleClickPage={handleClick} />
               <div className='home__pages'>
                 {wind <= 600 ? (
                   <div className='home__res'>

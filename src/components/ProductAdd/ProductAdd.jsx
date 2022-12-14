@@ -93,8 +93,27 @@ const ProductAdd = ({ handleAddProduct }) => {
       });
     };
   };
+  const validateProduct = (product) => {
+    const product_name_re = /^.{8,50}$/;
+    const product_name_bool = product_name_re.test(product.product_name);
+    const product_categories = ["Teclados", "Procesadores", "Placas Madres", "Notebooks", "Mouses", "Monitores", "Microfonos", "Memorias RAM", "GPU", "Gabinetes", "Fuentes de Poder", "Cooler Fan", "Consolas", "Camaras", "Auriculares", "Almacenamiento"];
+    const product_categories_bool = product_categories.includes(product.product_category);
+    const product_brand_re = /^.{3,10}$/
+    const product_brand_bool = product_brand_re.test(product.product_brand);
+    const product_img_bool = product.product_img !== null;
+    const product_price_bool = product.product_price > 0 && product.product_price < 9999999;
+    const product_stock_bool = product.product_stock > 0 && product.product_price < 500;
+
+    if (product_name_bool && product_categories_bool && product_brand_bool && product_img_bool && product_price_bool && product_stock_bool) {
+      console.log(true);
+      return true;
+    }
+    console.log(false)
+    return false;
+  }
   const handlePostProduct = async (evt) => {
     evt.preventDefault();
+    if (!validateProduct(product)) return;
     try {
       setLoading(() => true);
       const res = await dispatch(postCreateProduct(product));
