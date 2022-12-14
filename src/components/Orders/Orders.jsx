@@ -15,7 +15,6 @@ export default function Orders() {
   const divRef = useRef(null);
   function handleClickChangeOrder(order) {
     dispatch(orderSelect(order));
-    console.log(order);
   }
   const handleSelect = () => {
     divRef.current.classList.toggle('order__toggle');

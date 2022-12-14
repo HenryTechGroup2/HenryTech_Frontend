@@ -161,7 +161,7 @@
     cursor: pointer;
   }
   &__message {
-    @include flex(row, nowrap, end, end, 0);
+    @include flex(row, nowrap, flex-end, flex-end, 0);
     margin: 0 0 1em 0;
     position: fixed;
     bottom: 5.5em;
@@ -238,7 +238,7 @@
   }
 
   &__main {
-    @include flex(row, wrap, start, center, 0.4em);
+    @include flex(row, wrap, flex-start, center, 0.4em);
     position: relative;
   }
   &__products {
@@ -250,7 +250,7 @@
 }
 .aside {
   height: 40em;
-  @include flex(column, nowrap, start, center, 0);
+  @include flex(column, nowrap, flex-start, center, 0);
   position: sticky;
   background: #000;
   padding: 1em 0;
@@ -270,7 +270,7 @@
 }
 .filter {
   height: 45em;
-  @include flex(column, nowrap, start, center, 0.5em);
+  @include flex(column, nowrap, flex-start, center, 0.5em);
   background: #000;
   color: #fff;
   max-width: 20em;
@@ -314,7 +314,7 @@
     width: 8em;
   }
   &__map {
-    @include flex(row, nowrap, start, center, 0.5em);
+    @include flex(row, nowrap, flex-start, center, 0.5em);
   }
   &__categorys {
     padding: 1em;
@@ -355,13 +355,13 @@
   }
 }
 .order {
-  @include flex(column, nowrap, start, center, 0);
+  @include flex(column, nowrap, flex-start, center, 0);
   max-width: 20em;
   width: 20em;
   height: 3em;
   position: relative;
   @include responsive(900px) {
-    // @include flex(column, nowrap, start, center, 0);
+    // @include flex(column, nowrap, flex-start, center, 0);
     width: 14em;
   }
   &__container {
@@ -382,7 +382,7 @@
   &__div {
     margin: 0 auto;
     color: #fff;
-    @include flex(column, nowrap, start, start, 0.5em);
+    @include flex(column, nowrap, flex-start, flex-start, 0.5em);
     width: 85%;
     position: absolute;
     top: 3em;
@@ -539,7 +539,7 @@
     cursor: pointer;
   }
   &__carl {
-    @include flex(row, nowrap, end, end, 0);
+    @include flex(row, nowrap, flex-end, flex-end, 0);
     padding: 0 0.8em;
     font-size: 1em;
     color: #000;
@@ -614,7 +614,7 @@
     height: 100vh;
     z-index: 11000;
     transition: 0.5s ease-in-out;
-    @include flex(column, nowrap, start, start, 0);
+    @include flex(column, nowrap, flex-start, flex-start, 0);
   }
   &__top {
     width: 100%;
@@ -636,7 +636,7 @@
   }
   &__bottom {
     border-top: 1px solid #ebebeb;
-    @include flex(row, nowrap, space-between, start, 0);
+    @include flex(row, nowrap, space-between, flex-start, 0);
     width: 100%;
     padding: 0.6em 1em;
   }
@@ -699,7 +699,7 @@
     top: 0;
     bottom: 0;
     width: 5em;
-    @include flex(row, nowrap, start, center, 0);
+    @include flex(row, nowrap, flex-start, center, 0);
   }
   &__btn {
     @include flex(row, nowrap, center, center, 0);
@@ -783,7 +783,7 @@
   &__container {
     margin: 0.5em 0 0 0;
     background: #fff;
-    @include flex(row, nowrap, center, start, 0.5em);
+    @include flex(row, nowrap, center, flex-start, 0.5em);
     color: #000;
     height: 6em;
     margin: 0.5em 0.4em;
@@ -819,7 +819,7 @@
     text-align: center;
   }
   &__btn {
-    align-self: end;
+    align-self: flex-end;
     margin: 0.5em 1em 0.5em 0.5em;
     background: transparent;
   }
@@ -1000,7 +1000,7 @@
     box-sizing: border-box;
   }
   &__special {
-    @include flex(row, nowrap, start, center, 0);
+    @include flex(row, nowrap, flex-start, center, 0);
     height: 10em;
     & img {
       object-fit: contain;
@@ -1054,17 +1054,17 @@
   }
   &__centerx {
     height: 100%;
-    @include flex(column, nowrap, start, start, 0.5em);
+    @include flex(column, nowrap, flex-start, flex-start, 0.5em);
   }
   &__brand {
   }
   &__views {
   }
   &__send {
-    @include flex(row, nowrap, start, center, 0.4em);
+    @include flex(row, nowrap, flex-start, center, 0.4em);
   }
   &__stock {
-    @include flex(row, nowrap, start, center, 0.2em);
+    @include flex(row, nowrap, flex-start, center, 0.2em);
   }
   &__dis {
     font-size: 0.7em;
@@ -1082,7 +1082,7 @@
   }
   &__dpago {
     margin: 3em 0 0 0;
-    @include flex(row, wrap, center, start, 1em);
+    @include flex(row, wrap, center, flex-start, 1em);
     height: 100%;
   }
   &__bottom {
@@ -1130,7 +1130,7 @@
   @include flex(column, nowrap, center, center, 0);
   &__form {
     width: 100%;
-    @include flex(column, nowrap, start, start, 0em);
+    @include flex(column, nowrap, flex-start, flex-start, 0em);
   }
   &__div {
     @include flex(row, nowrap, center, center, 0.5em);
@@ -1202,9 +1202,9 @@
 }
 .comentarios {
   margin: 2em 0 2em 0;
-  @include flex(column, nowrap, start, center, 0.3em);
+  @include flex(column, nowrap, flex-start, center, 0.3em);
   &__div {
-    @include flex(row, nowrap, start, center, 0.3em);
+    @include flex(row, nowrap, flex-start, center, 0.3em);
     max-width: 1250px;
   }
   &__rating {
@@ -1212,7 +1212,7 @@
     padding: 0.5em;
     border-radius: 0.5em;
     box-shadow: 0.2em 0.2em 0.1em #000;
-    @include flex(row, nowrap, start, center, 0.3em);
+    @include flex(row, nowrap, flex-start, center, 0.3em);
   }
   &__cal {
     font-size: 2em;
@@ -1228,10 +1228,10 @@
     padding: 0.3em;
   }
   &__div {
-    @include flex(row, wrap, start, start, 1em);
+    @include flex(row, wrap, flex-start, flex-start, 1em);
   }
   &__star {
-    align-self: start;
+    align-self: flex-start;
   }
   &__rating {
   }
@@ -1250,7 +1250,7 @@
     }
   }
   &__select {
-    @include flex(row, nowrap, start, center, 0.4em);
+    @include flex(row, nowrap, flex-start, center, 0.4em);
     margin: 0 0 2em 0;
     border-radius: 0.5em;
   }
@@ -1327,7 +1327,7 @@
 }
 .about {
   height: calc(100vh - 203px);
-  @include flex(column, nowrap, start, center, 0);
+  @include flex(column, nowrap, flex-start, center, 0);
   font-family: 'Roboto';
   &__h1 {
     margin: 2em 0 0 0;
@@ -1440,7 +1440,7 @@
 .pc {
   position: relative;
   z-index: 100;
-  @include flex(row, nowrap, start, center, 0);
+  @include flex(row, nowrap, flex-start, center, 0);
   &__container {
     max-width: 1200px;
     padding: 1em;
@@ -1450,7 +1450,7 @@
     margin: auto;
   }
   &__components {
-    @include flex(row, nowrap, start, start, 2em);
+    @include flex(row, nowrap, flex-start, flex-start, 2em);
   }
   &__component {
     width: 6em;
@@ -1460,7 +1460,7 @@
   }
   &__brand {
     background: #fff;
-    @include flex(row, nowrap, start, center, 0.5em);
+    @include flex(row, nowrap, flex-start, center, 0.5em);
     width: 18em;
     padding: 0.5em;
     border-radius: 0.2em;
@@ -1507,14 +1507,14 @@
     transform: translateX(0);
   }
   &__right {
-    @include flex(row, wrap, center, start, 1em);
+    @include flex(row, wrap, center, flex-start, 1em);
     min-height: 500px;
     @include responsive(600px) {
       @include flex(row, wrap, center, center, 1em);
     }
   }
   &__mark {
-    @include flex(row, nowrap, start, center, 0.5em);
+    @include flex(row, nowrap, flex-start, center, 0.5em);
     margin: 0 0 1em 0;
     @include responsive(600px) {
       @include flex(row, wrap, center, center, 1em);
@@ -1531,7 +1531,7 @@
     height: 9em;
     width: 20em;
     color: #000;
-    @include flex(row, wrap, start, space-between, 1em);
+    @include flex(row, wrap, flex-start, space-between, 1em);
     background: #fff;
     border-radius: 0.5em;
     position: relative;
@@ -1547,7 +1547,7 @@
     width: 13em;
     padding: 1em 0 0 0;
     font-weight: bold;
-    justify-items: start;
+    justify-items: flex-start;
     height: 5em;
   }
   &__price {
@@ -1629,7 +1629,7 @@
   }
   &__ul {
     height: calc(100% - 32px);
-    @include flex(column, nowrap, space-between, start, 0);
+    @include flex(column, nowrap, space-between, flex-start, 0);
   }
   &__li {
   }
@@ -1642,7 +1642,7 @@
     @include button-principal();
   }
   &__columnx {
-    @include flex(column, nowrap, space-between, start, 0);
+    @include flex(column, nowrap, space-between, flex-start, 0);
     max-width: 790px;
     flex-grow: 1;
     // @include responsive(600px) {
@@ -1650,7 +1650,7 @@
     // }
   }
   &__periferico {
-    @include flex(row, nowrap, center, start, 0.5em);
+    @include flex(row, nowrap, center, flex-start, 0.5em);
     margin: 0 0 1em 0;
     width: 100%;
     @include responsive(600px) {
@@ -1687,7 +1687,7 @@
   &__carruzel {
     width: 20em;
     overflow: hidden;
-    @include flex(row, nowrap, start, center, 0);
+    @include flex(row, nowrap, flex-start, center, 0);
     margin: auto;
   }
   &__carruzell {
@@ -1787,7 +1787,7 @@
 }
 .informacion {
   &__close {
-    @include flex(row, nowrap, end, end, 0);
+    @include flex(row, nowrap, flex-end, flex-end, 0);
     cursor: pointer;
     padding: 0.5em;
   }
@@ -1799,7 +1799,7 @@
   }
   &__flex {
     margin: 2em 0 0 0;
-    @include flex(row, nowrap, start, start, 0);
+    @include flex(row, nowrap, flex-start, flex-start, 0);
     width: 100%;
   }
   &__img {
@@ -1825,7 +1825,7 @@
   }
   &__info {
     padding: 0 0 0 1em;
-    @include flex(column, nowrap, start, center, 0.5em);
+    @include flex(column, nowrap, flex-start, center, 0.5em);
   }
   &__divs {
     padding: 0 0 0 1em;
@@ -1878,7 +1878,7 @@
   @include flex(row, nowrap, space-between, center, 0);
   &__select {
     position: relative;
-    @include flex(column, nowrap, start, start, 0);
+    @include flex(column, nowrap, flex-start, flex-start, 0);
   }
   &__img {
   }
@@ -1908,7 +1908,7 @@
 }
 .acount {
   //PANEL IZQUIERDO
-  @include flex(row, nowrap, start, start, 2em);
+  @include flex(row, nowrap, flex-start, flex-start, 2em);
   height: 80vh;
   &__drop {
     position: relative;
@@ -1955,7 +1955,7 @@
     z-index: 500;
   }
   &__div {
-    @include flex(row, nowrap, space-between, start, 0);
+    @include flex(row, nowrap, space-between, flex-start, 0);
     width: 18em;
     padding: 0.5em 0;
     border-bottom: 1px solid #ebebeb;
@@ -1974,7 +1974,7 @@
   }
   //PANEL DERECHO QUE SE RENDIRZA DEPENDDIENDO LO DEL IZQUIERDO
   &__right {
-    @include flex(row, wrap, center, start, 1em);
+    @include flex(row, wrap, center, flex-start, 1em);
     max-width: 1000px;
     color: #000;
     flex-shrink: 1.5;
@@ -2022,7 +2022,7 @@
     width: 100vw;
     position: relative;
     z-index: 500;
-    @include flex(row, nowrap, end, end, 0);
+    @include flex(row, nowrap, flex-end, flex-end, 0);
   }
   &__buttonopen {
     display: none;
@@ -2039,7 +2039,7 @@
   &__form {
   }
   &__div {
-    @include flex(row, nowrap, space-between, start, 0);
+    @include flex(row, nowrap, space-between, flex-start, 0);
     width: 100%;
     padding: 0.5em 0;
   }
@@ -2048,7 +2048,7 @@
     // background: red;
   }
   &__flex {
-    @include flex(row, nowrap, space-between, start, 0.5em);
+    @include flex(row, nowrap, space-between, flex-start, 0.5em);
   }
   &__input {
     width: 21em;
@@ -2235,7 +2235,7 @@
   margin: 2.5em 0 0 0;
   position: relative;
   z-index: 300;
-  @include flex(column, nowrap, start, center, 0);
+  @include flex(column, nowrap, flex-start, center, 0);
 }
 .seguro {
   @include modal();
@@ -2270,7 +2270,7 @@
   &__aux {
     width: 100vw;
     max-width: 1400px;
-    @include flex(row, nowrap, end, end, 0);
+    @include flex(row, nowrap, flex-end, flex-end, 0);
   }
   &__flex {
     display: grid;
@@ -2288,7 +2288,7 @@
     filter: grayscale(1);
   }
   &__divs {
-    @include flex(row, nowrap, start, start, 0.4em);
+    @include flex(row, nowrap, flex-start, flex-start, 0.4em);
     position: absolute;
     top: 2em;
     left: -5em;
@@ -2339,7 +2339,7 @@
     height: 2.5em;
   }
   &__name {
-    justify-self: start;
+    justify-self: flex-start;
     align-self: center;
   }
   &__ofer {
@@ -2357,7 +2357,7 @@
   &__add--img {
     width: 3em;
     height: 3em;
-    align-self: end;
+    align-self: flex-end;
     cursor: pointer;
     margin: 0 2em 2em;
   }
@@ -2392,16 +2392,16 @@
     @include flex(column, nowrap, center, center, 0);
   }
   &__contain {
-    @include flex(row, nowrap, start, start, 0);
+    @include flex(row, nowrap, flex-start, flex-start, 0);
   }
   &__div--x {
     width: 5em;
   }
   &__alldiv {
-    @include flex(column, nowrap, center, start, 0.5em);
+    @include flex(column, nowrap, center, flex-start, 0.5em);
   }
   &__flexx {
-    @include flex(row, nowrap, start, start, 0.5em);
+    @include flex(row, nowrap, flex-start, flex-start, 0.5em);
   }
   &__mid {
     @include flex(row, nowrap, center, center, 0.5em);
@@ -2412,11 +2412,11 @@
   }
   &__carruzel {
     width: 30em;
-    @include flex(row, nowrap, start, start, 0);
+    @include flex(row, nowrap, flex-start, flex-start, 0);
     overflow: hidden;
   }
   &__carruzell {
-    @include flex(row, nowrap, start, start, 0);
+    @include flex(row, nowrap, flex-start, flex-start, 0);
     transition: 0.5s ease;
   }
   &__view {
@@ -2437,7 +2437,7 @@
   &__aux {
     width: 100%;
     align-self: flex-start;
-    @include flex(column, nowrap, end, end, 0);
+    @include flex(column, nowrap, flex-end, flex-end, 0);
     padding: 1em 2em 0 0;
   }
   &__close {
@@ -2536,9 +2536,6 @@
   &__image {
     width: 100%;
     height: 100%;
-    // width: 8em;
-    // height: 8em;
-    // border-radius: 50%;
   }
   &__buttons {
     @include flex(row, nowrap, space-between, center, 0);
@@ -2582,7 +2579,7 @@
   &__close {
     background: #ebebeb;
     padding: 1em 0 0 0;
-    @include flex(column, nowrap, end, end, 0);
+    @include flex(column, nowrap, flex-end, flex-end, 0);
     width: 46.6em;
     @include responsive(600px) {
       width: 100vw;
@@ -2605,7 +2602,7 @@
   }
   &__container {
     background: #ebebeb;
-    @include flex(row, nowrap, start, start, 0.3em);
+    @include flex(row, nowrap, flex-start, flex-start, 0.3em);
     padding: 0.4em 1em;
   }
   &__item {
@@ -2624,7 +2621,7 @@
     width: 6em;
   }
   &__state {
-    @include flex(row, nowrap, space-between, end, 0.3em);
+    @include flex(row, nowrap, space-between, flex-end, 0.3em);
     width: 40em;
     background: #ebebeb;
     color: #282c34;
@@ -2669,7 +2666,7 @@
     text-align: center;
   }
   &__messagesposts {
-    @include flex(column, nowrap, start, start, 0);
+    @include flex(column, nowrap, flex-start, flex-start, 0);
     width: 100%;
   }
   &__postadmin {
@@ -2694,7 +2691,7 @@
     border-radius: 0.5em;
   }
   &__div {
-    @include flex(column, nowrap, start, start, 0);
+    @include flex(column, nowrap, flex-start, flex-start, 0);
     width: 100%;
   }
   &__div:nth-child(1) {

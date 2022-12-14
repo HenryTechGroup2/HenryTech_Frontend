@@ -9,7 +9,6 @@ const Facturas = ({ handleCLoseLeftDiv }) => {
     handleCLoseLeftDiv();
     if (view === index) return setView(null);
     setView(index);
-    console.log('hola');
   };
   return (
     <div className='facturas'>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import useCount from '../../hooks/useCount';
 import { ADD_TO_CART } from '../../redux/actionsCar';
 import { cart } from '../../utils/Icons';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Count = ({ product_count = 1, product, view = false }) => {
   const { count, handleClick } = useCount(product_count);

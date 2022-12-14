@@ -31,7 +31,6 @@ const Graficas = ({ products, titleG, cls, filtr }) => {
       },
     },
   };
-  console.log(products);
   const data = {
     labels: products
       .slice(0, 10)

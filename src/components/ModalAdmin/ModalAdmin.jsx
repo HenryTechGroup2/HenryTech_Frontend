@@ -37,7 +37,6 @@ const ModalAdmin = ({ product, open, handleOpenModal }) => {
       name: 'product_stock',
     },
   ];
-  console.log(update);
   const handleClick = (index) => {
     setEdit(index);
   };
@@ -114,7 +113,6 @@ const ModalAdmin = ({ product, open, handleOpenModal }) => {
                   <span className='informacion__span'>{item.title}</span>
                   {item.title === 'Oferta' ? (
                     <>
-                      {console.log(item.values)}
                       <input
                         type='checkbox'
                         checked={item.values}

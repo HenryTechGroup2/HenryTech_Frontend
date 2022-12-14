@@ -5,8 +5,6 @@ import PartFacture from './PartFacture';
 
 const CardFactura = ({ item, open, handleOpenFactura, index }) => {
   const products = item.invoice_detail?.split('-') || null;
-  console.log(item);
-  console.log(products);
   const refModalDiv = useRef(null);
   const handleZIndex = () => {
     refModalDiv.current.classList.toggle('facturas__view');

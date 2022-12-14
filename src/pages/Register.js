@@ -43,7 +43,6 @@ const Register = () => {
       [name]: expresiones[name].test(value.trim()),
     });
   };
-  console.log(validateRegister);
   const handleSubmitRegister = async (evt) => {
     evt.preventDefault();
     if (

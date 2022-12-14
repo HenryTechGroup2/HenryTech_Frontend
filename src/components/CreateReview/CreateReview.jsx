@@ -11,7 +11,6 @@ import {
 } from '../../redux/actions';
 const server = io(api);
 
-console.log('xd');
 const star = ['☆', '☆', '☆', '☆', '☆'];
 export function CreateReview({ productId }) {
   const [reviews, setReviews] = useState([]);
@@ -123,24 +122,24 @@ export function CreateReview({ productId }) {
           <p className='review__cstar'>
             {startState.confirmStar === null
               ? star.map((star, index) => (
-                <span
-                  key={index}
-                  className='review__star'
-                  onMouseEnter={() => handleMouseStar(index)}
-                  onClick={handleClickStar}
-                >
-                  {startState.cantityStar >= index ? '★' : star}
-                </span>
-              ))
+                  <span
+                    key={index}
+                    className='review__star'
+                    onMouseEnter={() => handleMouseStar(index)}
+                    onClick={handleClickStar}
+                  >
+                    {startState.cantityStar >= index ? '★' : star}
+                  </span>
+                ))
               : star.map((star, index) => (
-                <span
-                  key={index}
-                  className='review__star'
-                  onClick={() => handleClickStar(index, 'change')}
-                >
-                  {startState.cantityStar >= index ? '★' : star}
-                </span>
-              ))}
+                  <span
+                    key={index}
+                    className='review__star'
+                    onClick={() => handleClickStar(index, 'change')}
+                  >
+                    {startState.cantityStar >= index ? '★' : star}
+                  </span>
+                ))}
           </p>
         </div>
         <div className='review__msg'>
@@ -154,7 +153,6 @@ export function CreateReview({ productId }) {
           />
 
           <button className='review__button' type='submit'>
-
             <img src='../send.png' alt='' />
           </button>
         </div>

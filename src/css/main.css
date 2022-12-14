@@ -312,9 +312,9 @@ li {
 .home__message {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
   margin: 0 0 1em 0;
   position: fixed;
   bottom: 5.5em;
@@ -418,7 +418,7 @@ li {
 .home__main {
   display: flex;
   flex-flow: row wrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.4em;
   align-content: center;
   position: relative;
@@ -438,7 +438,7 @@ li {
   height: 40em;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
   position: sticky;
@@ -462,7 +462,7 @@ li {
   height: 45em;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
   background: #000;
@@ -529,7 +529,7 @@ li {
 .filter__map {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
 }
@@ -596,7 +596,7 @@ li {
 .order {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
   max-width: 20em;
@@ -635,9 +635,9 @@ li {
   color: #fff;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
   width: 85%;
   position: absolute;
   top: 3em;
@@ -865,9 +865,9 @@ li {
 .header__carl {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
   padding: 0 0.8em;
   font-size: 1em;
   color: #000;
@@ -971,9 +971,9 @@ li {
   transition: 0.5s ease-in-out;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
 }
 .header__top {
   width: 100%;
@@ -1003,7 +1003,7 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   padding: 0.6em 1em;
 }
@@ -1079,7 +1079,7 @@ li {
   width: 5em;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
 }
@@ -1229,7 +1229,7 @@ li {
   flex-flow: row nowrap;
   justify-content: center;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
   color: #000;
   height: 6em;
   margin: 0.5em 0.4em;
@@ -1268,7 +1268,7 @@ li {
   text-align: center;
 }
 .car__btn {
-  align-self: end;
+  align-self: flex-end;
   margin: 0.5em 1em 0.5em 0.5em;
   background: transparent;
 }
@@ -1535,7 +1535,7 @@ li {
 .details__special {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
   height: 10em;
@@ -1621,21 +1621,21 @@ li {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
 }
 .details__send {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.4em;
   align-items: center;
 }
 .details__stock {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.2em;
   align-items: center;
 }
@@ -1662,7 +1662,7 @@ li {
   flex-flow: row wrap;
   justify-content: center;
   gap: 1em;
-  align-content: start;
+  align-content: flex-start;
   height: 100%;
 }
 .details__bottom {
@@ -1725,9 +1725,9 @@ li {
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0em;
-  align-items: start;
+  align-items: flex-start;
 }
 .review__div {
   display: flex;
@@ -1826,14 +1826,14 @@ li {
   margin: 2em 0 2em 0;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.3em;
   align-items: center;
 }
 .comentarios__div {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.3em;
   align-items: center;
   max-width: 1250px;
@@ -1845,7 +1845,7 @@ li {
   box-shadow: 0.2em 0.2em 0.1em #000;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.3em;
   align-items: center;
 }
@@ -1865,12 +1865,12 @@ li {
 .comentarios__div {
   display: flex;
   flex-flow: row wrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 1em;
-  align-content: start;
+  align-content: flex-start;
 }
 .comentarios__star {
-  align-self: start;
+  align-self: flex-start;
 }
 .comentarios__coment {
   background: #fff;
@@ -1887,7 +1887,7 @@ li {
 .comentarios__select {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.4em;
   align-items: center;
   margin: 0 0 2em 0;
@@ -2016,7 +2016,7 @@ li {
   height: calc(100vh - 203px);
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
   font-family: "Roboto";
@@ -2165,7 +2165,7 @@ li {
   z-index: 100;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
 }
@@ -2182,9 +2182,9 @@ li {
 .pc__components {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 2em;
-  align-items: start;
+  align-items: flex-start;
 }
 .pc__component {
   width: 6em;
@@ -2196,7 +2196,7 @@ li {
   background: #fff;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
   width: 18em;
@@ -2251,7 +2251,7 @@ li {
   flex-flow: row wrap;
   justify-content: center;
   gap: 1em;
-  align-content: start;
+  align-content: flex-start;
   min-height: 500px;
 }
 @media screen and (max-width: 600px) {
@@ -2266,7 +2266,7 @@ li {
 .pc__mark {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
   margin: 0 0 1em 0;
@@ -2293,7 +2293,7 @@ li {
   color: #000;
   display: flex;
   flex-flow: row wrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 1em;
   align-content: space-between;
   background: #fff;
@@ -2315,7 +2315,7 @@ li {
   width: 13em;
   padding: 1em 0 0 0;
   font-weight: bold;
-  justify-items: start;
+  justify-items: flex-start;
   height: 5em;
 }
 .pc__price {
@@ -2424,7 +2424,7 @@ li {
   flex-flow: column nowrap;
   justify-content: space-between;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
 }
 .pc__span {
   display: inline-block;
@@ -2455,7 +2455,7 @@ li {
   flex-flow: column nowrap;
   justify-content: space-between;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   max-width: 790px;
   flex-grow: 1;
 }
@@ -2464,7 +2464,7 @@ li {
   flex-flow: row nowrap;
   justify-content: center;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
   margin: 0 0 1em 0;
   width: 100%;
 }
@@ -2532,7 +2532,7 @@ li {
   overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
   margin: auto;
@@ -2664,9 +2664,9 @@ li {
 .informacion__close {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
   cursor: pointer;
   padding: 0.5em;
 }
@@ -2680,9 +2680,9 @@ li {
   margin: 2em 0 0 0;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
 }
 .informacion__img {
@@ -2714,7 +2714,7 @@ li {
   padding: 0 0 0 1em;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
 }
@@ -2800,9 +2800,9 @@ li {
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
 }
 .drop__review {
   align-self: center;
@@ -2831,9 +2831,9 @@ li {
 .acount {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 2em;
-  align-items: start;
+  align-items: flex-start;
   height: 80vh;
 }
 .acount__drop {
@@ -2894,7 +2894,7 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 18em;
   padding: 0.5em 0;
   border-bottom: 1px solid #ebebeb;
@@ -2920,7 +2920,7 @@ li {
   flex-flow: row wrap;
   justify-content: center;
   gap: 1em;
-  align-content: start;
+  align-content: flex-start;
   max-width: 1000px;
   color: #000;
   flex-shrink: 1.5;
@@ -2985,9 +2985,9 @@ li {
   z-index: 500;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
 }
 .update__buttonopen {
   display: none;
@@ -3006,7 +3006,7 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   padding: 0.5em 0;
 }
@@ -3018,7 +3018,7 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
 }
 .update__input {
   width: 21em;
@@ -3259,7 +3259,7 @@ li {
   z-index: 300;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
   align-items: center;
 }
@@ -3339,9 +3339,9 @@ li {
   max-width: 1400px;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
 }
 .dashp__flex {
   display: grid;
@@ -3359,9 +3359,9 @@ li {
 .dashp__divs {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.4em;
-  align-items: start;
+  align-items: flex-start;
   position: absolute;
   top: 2em;
   left: -5em;
@@ -3417,7 +3417,7 @@ li {
   height: 2.5em;
 }
 .dashp__name {
-  justify-self: start;
+  justify-self: flex-start;
   align-self: center;
 }
 .dashp__ofer {
@@ -3434,7 +3434,7 @@ li {
 .dashp__add--img {
   width: 3em;
   height: 3em;
-  align-self: end;
+  align-self: flex-end;
   cursor: pointer;
   margin: 0 2em 2em;
 }
@@ -3478,9 +3478,9 @@ li {
 .post__contain {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
 }
 .post__div--x {
   width: 5em;
@@ -3490,14 +3490,14 @@ li {
   flex-flow: column nowrap;
   justify-content: center;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
 }
 .post__flexx {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.5em;
-  align-items: start;
+  align-items: flex-start;
 }
 .post__mid {
   display: flex;
@@ -3514,17 +3514,17 @@ li {
   width: 30em;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   overflow: hidden;
 }
 .post__carruzell {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   transition: 0.5s ease;
 }
 .post__view {
@@ -3551,9 +3551,9 @@ li {
   align-self: flex-start;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
   padding: 1em 2em 0 0;
 }
 .post__close {
@@ -3800,9 +3800,9 @@ li {
   padding: 1em 0 0 0;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0;
-  align-items: end;
+  align-items: flex-end;
   width: 46.6em;
 }
 @media screen and (max-width: 600px) {
@@ -3835,9 +3835,9 @@ li {
   background: #ebebeb;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0.3em;
-  align-items: start;
+  align-items: flex-start;
   padding: 0.4em 1em;
 }
 .facturas__item {
@@ -3862,7 +3862,7 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 0.3em;
-  align-items: end;
+  align-items: flex-end;
   width: 40em;
   background: #ebebeb;
   color: #282c34;
@@ -3917,9 +3917,9 @@ li {
 .message__messagesposts {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
 }
 .message__postadmin {
@@ -3945,9 +3945,9 @@ li {
 .message__div {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 0;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
 }
 .message__div:nth-child(1) {

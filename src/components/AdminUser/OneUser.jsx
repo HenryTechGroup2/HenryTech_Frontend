@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { api } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { api, ERROR } from '../../redux/actions';
 import ModalResponse from '../ModalResponse/ModalResponse';
 
 const OneUser = ({ user }) => {
   const [admin, setAdmin] = useState(user.user_isAdmin);
   const [suspense, setSuspense] = useState(user.user_suspense);
   const [responseBackend, setResponseBackend] = useState(null);
+  const dispatch = useDispatch();
   const handleChangeAdmin = async (evt) => {
     const { checked } = evt.currentTarget;
     try {
@@ -20,7 +22,10 @@ const OneUser = ({ user }) => {
         setResponseBackend(null);
       }, 2000);
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: 'LINEA 25 ONEUSER',
+      });
     }
   };
   //
@@ -35,10 +40,12 @@ const OneUser = ({ user }) => {
       setTimeout(() => {
         setResponseBackend(null);
       }, 2000);
-      console.log(data);
       setSuspense(checked);
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: 'LINEA 47 ONEUSER',
+      });
     }
   };
   return (
@@ -58,14 +65,7 @@ const OneUser = ({ user }) => {
           </div>
           <div className='dashp__number'>{user.user_id}</div>
         </div>
-        <div className='dashp__image'>
-          {/* <img
-            className='dashp__img'
-            loading='lazy'
-            src={product.product_img}
-            alt={product.product_name}
-          /> */}
-        </div>
+        <div className='dashp__image'></div>
         <div className='dashp__name'>{user.user_email}</div>
         <div className='dashp__ofer'>{user.user_name}</div>
         <div className='dashp__button'>
@@ -76,9 +76,7 @@ const OneUser = ({ user }) => {
           />
           {String(admin) === 'true' ? 'Si' : 'No'}
         </div>
-        <div className='dashp__delete'>
-          {/* <button className='dashp__dlt'>{deleteProduct}</button> */}
-        </div>
+        <div className='dashp__delete'></div>
       </div>
     </div>
   );

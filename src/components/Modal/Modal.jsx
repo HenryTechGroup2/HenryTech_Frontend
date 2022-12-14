@@ -29,7 +29,6 @@ const Modal = ({ open, handleOpenModalSession }) => {
         user_email: login.email,
         user_password: login.password,
       });
-      console.log(data);
       if (data.status === 202) {
         setModal({
           view: true,
@@ -40,7 +39,6 @@ const Modal = ({ open, handleOpenModalSession }) => {
         }, 2000);
       }
       if (data.status === 201) {
-        console.log(data.data);
         setTimeout(() => setResponseBackend(null), 2500);
 
         return setResponseBackend(data.data.message);

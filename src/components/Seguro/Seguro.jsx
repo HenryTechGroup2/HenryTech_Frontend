@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import { api } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { api, ERROR } from '../../redux/actions';
 
 const Seguro = ({ id, handleDeleteProduct, handleDeleteP }) => {
+  const dispatch = useDispatch();
   const handleDelete = async (name) => {
-    console.log(name);
     if (name === 'NO') {
       handleDeleteProduct();
       return;
@@ -14,7 +15,10 @@ const Seguro = ({ id, handleDeleteProduct, handleDeleteP }) => {
       handleDeleteP(data.msg);
       handleDeleteProduct();
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: ERROR,
+        payload: 'ERROR LINEA 18 ORDER',
+      });
     }
   };
   return (

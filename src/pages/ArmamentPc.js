@@ -119,7 +119,6 @@ const ArmamentPc = () => {
     setPeriferico(category);
   };
   const handleOpenConfigArmamentPc = () => {
-    console.log('xd');
     divLeftRef.current.classList.toggle('pc__viewitem');
   };
   return (

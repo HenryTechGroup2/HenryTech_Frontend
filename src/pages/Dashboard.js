@@ -11,11 +11,11 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Graficas from '../components/Graficas/Graficas';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
-import { api } from '../redux/actions';
+import { api, ERROR } from '../redux/actions';
 import { message } from '../utils/Icons';
 
 ChartJS.register(
@@ -122,14 +122,17 @@ const Dashboard = () => {
     ],
   };
   const [response, setResponse] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getInvoices = async () => {
       try {
         const { data } = await axios.get(`${api}/api/order`);
         setResponse(data);
-        console.log(data);
       } catch (error) {
-        console.log(error);
+        dispatch({
+          type: ERROR,
+          payload: 'ERROR LINEA 134 DASHBOARD',
+        });
       }
     };
 
@@ -139,7 +142,6 @@ const Dashboard = () => {
     response.length > 0
       ? response?.reduce((a, b) => Number(a) + Number(b.order_total), 0)
       : 'Cargando...';
-  console.log(response);
   return (
     <>
       <Header />

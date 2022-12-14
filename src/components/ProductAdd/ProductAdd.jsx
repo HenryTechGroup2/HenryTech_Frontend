@@ -27,7 +27,7 @@ const ProductAdd = ({ handleAddProduct }) => {
   const [responseBackend, setResponseBacked] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(null);
-  const [loadings, setLoadings] = useState("");
+  const [loadings, setLoadings] = useState('');
   const [loadings2, setLoadings2] = useState(false);
 
   const inputs = [
@@ -96,21 +96,47 @@ const ProductAdd = ({ handleAddProduct }) => {
   const validateProduct = (product) => {
     const product_name_re = /^.{8,50}$/;
     const product_name_bool = product_name_re.test(product.product_name);
-    const product_categories = ["Teclados", "Procesadores", "Placas Madres", "Notebooks", "Mouses", "Monitores", "Microfonos", "Memorias RAM", "GPU", "Gabinetes", "Fuentes de Poder", "Cooler Fan", "Consolas", "Camaras", "Auriculares", "Almacenamiento"];
-    const product_categories_bool = product_categories.includes(product.product_category);
-    const product_brand_re = /^.{3,10}$/
+    const product_categories = [
+      'Teclados',
+      'Procesadores',
+      'Placas Madres',
+      'Notebooks',
+      'Mouses',
+      'Monitores',
+      'Microfonos',
+      'Memorias RAM',
+      'GPU',
+      'Gabinetes',
+      'Fuentes de Poder',
+      'Cooler Fan',
+      'Consolas',
+      'Camaras',
+      'Auriculares',
+      'Almacenamiento',
+    ];
+    const product_categories_bool = product_categories.includes(
+      product.product_category
+    );
+    const product_brand_re = /^.{3,10}$/;
     const product_brand_bool = product_brand_re.test(product.product_brand);
     const product_img_bool = product.product_img !== null;
-    const product_price_bool = product.product_price > 0 && product.product_price < 9999999;
-    const product_stock_bool = product.product_stock > 0 && product.product_price < 500;
+    const product_price_bool =
+      product.product_price > 0 && product.product_price < 9999999;
+    const product_stock_bool =
+      product.product_stock > 0 && product.product_price < 500;
 
-    if (product_name_bool && product_categories_bool && product_brand_bool && product_img_bool && product_price_bool && product_stock_bool) {
-      console.log(true);
+    if (
+      product_name_bool &&
+      product_categories_bool &&
+      product_brand_bool &&
+      product_img_bool &&
+      product_price_bool &&
+      product_stock_bool
+    ) {
       return true;
     }
-    console.log(false)
     return false;
-  }
+  };
   const handlePostProduct = async (evt) => {
     evt.preventDefault();
     if (!validateProduct(product)) return;
@@ -141,47 +167,50 @@ const ProductAdd = ({ handleAddProduct }) => {
   const handleDrop = (files) => {
     const uploaders = files.map((file) => {
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("tags", `codeinfuse, medium, gist`);
-      formData.append("upload_preset", "Learning");
-      formData.append("api_key", "913529548732914");
-      formData.append("timestamp", (Date.now() / 1000) | 0);
-      setLoadings("true");
+      formData.append('file', file);
+      formData.append('tags', `codeinfuse, medium, gist`);
+      formData.append('upload_preset', 'Learning');
+      formData.append('api_key', '913529548732914');
+      formData.append('timestamp', (Date.now() / 1000) | 0);
+      setLoadings('true');
       return axios
-        .post("https://api.cloudinary.com/v1_1/dpte23mmk/image/upload", formData, {
-          headers: { "X-Requested-With": "XMLHttpRequest" },
-        })
+        .post(
+          'https://api.cloudinary.com/v1_1/dpte23mmk/image/upload',
+          formData,
+          {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          }
+        )
         .then((response) => {
-          const data = response.data
+          const data = response.data;
           const fileURL = data.secure_url;
           let specificArrayInObject = product.product_array_img;
           specificArrayInObject.push(fileURL);
           const newobj = { ...product, specificArrayInObject };
           setProduct(newobj);
-        })
+        });
     });
     axios.all(uploaders).then(() => {
-      setLoadings("false");
+      setLoadings('false');
     });
   };
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "Learning");
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Learning');
     setLoadings2(true);
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dpte23mmk/image/upload",
+      'https://api.cloudinary.com/v1_1/dpte23mmk/image/upload',
       {
-        method: "POST",
+        method: 'POST',
         body: data,
       }
-    )
+    );
     const file = await res.json();
-    setProduct({...product, product_img: file.secure_url});
+    setProduct({ ...product, product_img: file.secure_url });
     setLoadings2(false);
   };
-  console.log(product);
   return (
     <div className='post__container'>
       {loading === null ? null : <ModalLoading />}
@@ -237,14 +266,14 @@ const ProductAdd = ({ handleAddProduct }) => {
                 <div className='post__files'>
                   <Container>
                     <Dropzone
-                      className="dropzone"
+                      className='dropzone'
                       onDrop={handleDrop}
                       onChange={(e) => setProduct(e.target.value)}
                       value={product}
                     >
                       {({ getRootProps, getInputProps }) => (
                         <section>
-                          <div {...getRootProps({ className: "dropzone" })}>
+                          <div {...getRootProps({ className: 'dropzone' })}>
                             <input
                               {...getInputProps()}
                               onChange={handleChangeAllFIles}

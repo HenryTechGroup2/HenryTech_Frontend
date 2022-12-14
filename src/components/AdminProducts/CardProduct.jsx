@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { api } from '../../redux/actions';
-import { deleteProduct, info } from '../../utils/Icons';
+import { useDispatch } from 'react-redux';
+import { api, ERROR } from '../../redux/actions';
+import { deleteProduct } from '../../utils/Icons';
 import ModalAdmin from '../ModalAdmin/ModalAdmin';
 import ModalResponse from '../ModalResponse/ModalResponse';
 import Seguro from '../Seguro/Seguro';
@@ -12,6 +13,7 @@ const CardProduct = ({ product }) => {
   const [ofert, setOfert] = useState(product.product_ofer);
   const [responseBackend, setResponseBackend] = useState(null);
   const [deletePro, setDeletePro] = useState(false);
+  const dispatch = useDispatch();
   const handleOpenModal = (change) => {
     if (change) setOfert(!ofert);
     setOpen(!open);
@@ -29,7 +31,7 @@ const CardProduct = ({ product }) => {
         setResponseBackend(null);
       }, 2000);
     } catch (error) {
-      console.log(error);
+      dispatch({ type: ERROR, payload: 'ERROR LINEA 35 CARDPRODUCT' });
     }
   };
   const handleDeleteProduct = () => {

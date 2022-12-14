@@ -14,7 +14,6 @@ const AdminUser = () => {
     };
   }, []);
   const { users } = useSelector((state) => state);
-  console.log(users);
   return (
     <>
       <Header />
@@ -33,7 +32,7 @@ const AdminUser = () => {
             <OneUser key={user.user_id} user={user} />
           ))}
         </div>
-        <div>{/* <button onClick={moreProducts}>Ver Mas</button> */}</div>
+        <div></div>
       </div>
     </>
   );

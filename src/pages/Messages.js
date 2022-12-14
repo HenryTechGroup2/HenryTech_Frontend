@@ -35,13 +35,11 @@ const MessagesPage = () => {
       messagesUser();
     }
     const upNewMessage = (mesage) => {
-      console.log(mesage);
       dispatch({ type: MESSAGE_USER, payload: mesage });
       return;
     };
 
     function newMessage(message) {
-      console.log(message);
       dispatch({ type: MESSAGE_USER_POST, payload: message });
       return;
     }
@@ -73,7 +71,6 @@ const MessagesPage = () => {
     const { value } = evt.currentTarget;
     dispatch({ type: MSG_RECEIVED_INPUT, payload: value });
   };
-  console.log(userAllMessages);
   return (
     <>
       <Header />

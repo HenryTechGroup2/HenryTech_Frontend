@@ -31,7 +31,6 @@ const ProductsHome = ({ products }) => {
   ) {
     buttons.push(i);
   }
-  console.log(buttons, 'hola');
   return (
     <div className='home__cards'>
       <ProductsCarruzel translate={transform} products={products} />

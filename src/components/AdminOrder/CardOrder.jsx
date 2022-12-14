@@ -38,11 +38,7 @@ const CardOrder = ({ order }) => {
       )}
       <div className='dashp__id'>
         <div className='dashp__check'>
-          <input
-            type='checkbox'
-            // onChange={handleChangeSuspense}
-            // checked={suspense ? true : false}
-          />
+          <input type='checkbox' />
         </div>
         <div className='dashp__number'>{order.order_id}</div>
       </div>

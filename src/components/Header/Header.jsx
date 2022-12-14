@@ -5,6 +5,7 @@ import {
   api,
   closeSession,
   CREATE_USER_AUTH0,
+  ERROR,
   FILTER_SEARCH,
   HOVER,
   pageHome,
@@ -39,12 +40,18 @@ const Header = ({ handleClickPage }) => {
   );
   useEffect(() => {
     const auth0Autentication = async () => {
-      const data = await axios.post(`${api}/api/user/login/auth0`, {
-        user_email: user?.email,
-        user_name: user?.given_name,
-      });
-      console.log(data);
-      dispatch({ type: CREATE_USER_AUTH0, payload: data.data });
+      try {
+        const data = await axios.post(`${api}/api/user/login/auth0`, {
+          user_email: user?.email,
+          user_name: user?.given_name,
+        });
+        dispatch({ type: CREATE_USER_AUTH0, payload: data.data });
+      } catch (error) {
+        dispatch({
+          type: ERROR,
+          payload: 'LINEA 52 HEADER',
+        });
+      }
     };
     auth0Autentication();
   }, [user]);

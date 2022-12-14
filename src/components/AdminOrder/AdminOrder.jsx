@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { api } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { api, ERROR } from '../../redux/actions';
 import AdminLinks from '../AdminLinks/AdminLinks';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -8,20 +9,22 @@ import CardOrder from './CardOrder';
 
 const AdminOrder = () => {
   const [response, setResponse] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getInvoices = async () => {
       try {
         const { data } = await axios.get(`${api}/api/order`);
         setResponse(data);
-        console.log(data);
       } catch (error) {
-        console.log(error);
+        dispatch({
+          type: ERROR,
+          payload: 'Error linea 21 AdminOrder API',
+        });
       }
     };
 
     getInvoices();
   }, []);
-  console.log(response);
   return (
     <>
       <Header />

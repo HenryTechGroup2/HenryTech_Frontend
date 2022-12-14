@@ -46,8 +46,6 @@ const UpdateUser = ({ user, id }) => {
   const [modal, setModal] = useState(null);
   function handleOnChange(e) {
     e.preventDefault();
-    console.log(e.target.name, e.target.value);
-    console.log(input);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -62,11 +60,9 @@ const UpdateUser = ({ user, id }) => {
 
   async function handleOnSubmit(e) {
     e.preventDefault();
-    console.log(e);
     const res = await dispatch(
       updateUser(input, id, input.user_password_confirm)
     );
-    console.log(res);
     setModal(true);
     setResponseBackend(res.payload.data.msg);
     setTimeout(() => {
