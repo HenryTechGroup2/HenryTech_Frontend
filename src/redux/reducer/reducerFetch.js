@@ -178,6 +178,19 @@ export const reducerFetch = (state = initialState, action) => {
       const newFavorits = state.userDates.user_favorites.filter(
         ({ product_id }) => product_id !== action.payload
       );
+      if (state.detailsProduct.hasOwnProperty('product_name')) {
+        return {
+          ...state,
+          userDates: {
+            ...state.userDates,
+            user_favorites: newFavorits,
+          },
+          detailsProduct: {
+            ...state.detailsProduct,
+            product_favorite: false,
+          },
+        };
+      }
       return {
         ...state,
         userDates: {
@@ -195,6 +208,22 @@ export const reducerFetch = (state = initialState, action) => {
         (product) => product.product_id === Number(action.payload)
       );
       productFavorit.product_favorite = true;
+      if (state.detailsProduct.hasOwnProperty('product_name')) {
+        return {
+          ...state,
+          userDates: {
+            ...state.userDates,
+            user_favorites: [
+              ...state.userDates.user_favorites,
+              productNewFavorit,
+            ],
+          },
+          detailsProduct: {
+            ...state.detailsProduct,
+            product_favorite: true,
+          },
+        };
+      }
       return {
         ...state,
         userDates: {
@@ -740,19 +769,26 @@ export const reducerFetch = (state = initialState, action) => {
         bienvenido: action.payload,
       };
     }
+    //TODO RECIEN CAMBIADO
     case MESSAGE: {
       console.log(action.payload);
       const newMessage = {
         ...action.payload,
         msgreceiveds: [],
       };
-      return {
-        ...state,
-        userDates: {
-          ...state.userDates,
-          msgposts: [...state.userDates.msgposts, newMessage],
-        },
-      };
+      if (
+        action.payload.msgpost_id !==
+        state.userDates.msgposts[state.userDates.msgposts.length - 1].msgpost_id
+      ) {
+        return {
+          ...state,
+          userDates: {
+            ...state.userDates,
+            msgposts: [...state.userDates.msgposts, newMessage],
+          },
+        };
+      }
+      return state;
     }
     case MSG: {
       const newMessage = state.userDates;

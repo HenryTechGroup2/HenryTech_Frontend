@@ -17,7 +17,7 @@ export function CreateReview({ productId }) {
   const initialState = {
     review_title: '',
     review_body: '',
-    review_score: '',
+    review_score: 1,
   };
 
   const [input, setInput] = useState(initialState);
@@ -76,6 +76,7 @@ export function CreateReview({ productId }) {
   //Envio de encuesta
   function handleOnSubmit(e) {
     e.preventDefault();
+    console.log(input);
     server.emit('@review/create', {
       review_title: input.review_title,
       review_body: input.review_body,

@@ -15,6 +15,10 @@ function Aboutus() {
           vida al máximo 100% originales, brindandote siempre la mejor asesoría
           y precios increíbles.
         </p>
+        <h2 className='about__h2'>
+          Este proyecto fue realizado por alumnos de Henry
+        </h2>
+        <p></p>
       </div>
       <Footer />
     </>

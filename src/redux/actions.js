@@ -237,6 +237,7 @@ export function updateUser(payload, id, password) {
         payload: { data: result.data, password },
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: ERROR,
         payload: error.response.data.msg,

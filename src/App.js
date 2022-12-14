@@ -40,8 +40,15 @@ const stripePromise = loadStripe(
 );
 function App() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state);
-
+  const { products, userDates } = useSelector((state) => state);
+  window.addEventListener('beforeunload', async () => {
+    if (userDates.hasOwnProperty('user_name')) {
+      return await axios.post(`${api}/api/cart-email`, {
+        user_email: userDates.user_email,
+        user_name: userDates.user_name,
+      });
+    }
+  });
   useEffect(() => {
     const userLogin = window.localStorage.getItem(USER);
     const car = window.localStorage.getItem(CAR);

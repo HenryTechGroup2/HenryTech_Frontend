@@ -24,7 +24,7 @@ export function MyAcount() {
     userDates?.user_favorites?.forEach(
       (product) => (product.product_favorite = true)
     );
-  }, [userDates]);
+  }, []);
   const leftMap = [
     {
       name: userDates?.user_name,

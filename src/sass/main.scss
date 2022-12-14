@@ -153,6 +153,9 @@
     background-size: contain;
     background-repeat: repeat;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
   }
   &__span {
     cursor: pointer;
@@ -1175,6 +1178,7 @@
   background: #282c34;
   border-top: 2px solid #fff;
   @include flex(row, nowrap, space-around, center, 1em);
+  font-family: 'Roboto';
   &__h1 {
   }
   &__ul {
@@ -1323,9 +1327,17 @@
 }
 .about {
   height: calc(100vh - 203px);
+  @include flex(column, nowrap, start, center, 0);
+  font-family: 'Roboto';
   &__h1 {
+    margin: 2em 0 0 0;
+  }
+  &__h2 {
+    font-family: 'Roboto';
   }
   &__p {
+    text-align: center;
+    max-width: 35em;
   }
 }
 .questions {
@@ -2640,7 +2652,7 @@
     width: 100%;
   }
   &__name {
-    width: 15em;
+    width: 100%;
     border: 1px solid #ebebeb;
     padding: 0.5em;
     text-transform: uppercase;
@@ -2684,6 +2696,9 @@
   &__div {
     @include flex(column, nowrap, start, start, 0);
     width: 100%;
+  }
+  &__div:nth-child(1) {
+    overflow: auto;
   }
   &__div:nth-child(2) {
     background: url('../../public/assets/responsive/bak.jpg');

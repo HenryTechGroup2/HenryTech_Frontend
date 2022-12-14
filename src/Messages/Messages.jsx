@@ -7,8 +7,6 @@ import { useEffect } from 'react';
 import MessagePost from './MessagePost';
 const server = io(api, {
   transports: ['polling', 'websocket'],
-
-  withCredentials: true,
 });
 const Messages = () => {
   const messageRef = useRef(null);

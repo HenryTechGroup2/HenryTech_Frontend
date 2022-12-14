@@ -58,7 +58,7 @@ const Home = () => {
   function handleOpenConfigFilter() {
     filterRef.current.classList.toggle('aside__view');
   }
-
+  console.log(productsOfer);
   return (
     <div className='home'>
       <ButtonTop />

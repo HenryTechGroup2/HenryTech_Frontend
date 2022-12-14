@@ -7,13 +7,19 @@ import { api, LOGIN_USER } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
 import { PASSWORD } from '../../redux/storage/variables';
+import ModalResponse from '../ModalResponse/ModalResponse';
 const INITIAL_STATE = {
   email: '',
   password: '',
 };
+const INITIAL_STATE_RESPONSE = {
+  view: null,
+  responseBackend: null,
+};
 const Modal = ({ open, handleOpenModalSession }) => {
   const { loginWithRedirect } = useAuth0();
   const [login, setLogin] = useState(INITIAL_STATE);
+  const [modal, setModal] = useState(INITIAL_STATE_RESPONSE);
   const [responseBackend, setResponseBackend] = useState(null);
   const dispatch = useDispatch();
   const handleSubmit = async (evt) => {
@@ -23,6 +29,22 @@ const Modal = ({ open, handleOpenModalSession }) => {
         user_email: login.email,
         user_password: login.password,
       });
+      console.log(data);
+      if (data.status === 202) {
+        setModal({
+          view: true,
+          responseBackend: data.data.message,
+        });
+        return setTimeout(() => {
+          setModal(INITIAL_STATE_RESPONSE);
+        }, 2000);
+      }
+      if (data.status === 201) {
+        console.log(data.data);
+        setTimeout(() => setResponseBackend(null), 2500);
+
+        return setResponseBackend(data.data.message);
+      }
       dispatch({ type: LOGIN_USER, payload: data.data.user });
       handleOpenModalSession(null);
       window.localStorage.setItem(PASSWORD, login.password);
@@ -49,6 +71,9 @@ const Modal = ({ open, handleOpenModalSession }) => {
         backdropFilter: `${open === null ? 'blur(0)' : 'blur(1em)'}`,
       }}
     >
+      {modal.view === null ? null : (
+        <ModalResponse response={modal.responseBackend} rechazed={false} />
+      )}
       <div className='modal__container'>
         <i
           className='modal__close'

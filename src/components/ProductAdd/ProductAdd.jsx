@@ -31,7 +31,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       description: 'Nombre del producto',
       values: product.product_name,
     },
-    // { type: 'checkbox', name: 'product_ofer' },
     {
       type: 'textarea',
       name: 'product_description',
@@ -50,8 +49,6 @@ const ProductAdd = ({ handleAddProduct }) => {
       description: 'Categoria',
       values: product.product_category,
     },
-    // { type: 'file', name: 'product_img' },
-    // { type: 'file', name: 'product_array_img' },
     {
       type: 'number',
       name: 'product_stock',

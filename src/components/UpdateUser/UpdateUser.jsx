@@ -1,10 +1,8 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { ERROR, updateUser } from '../../redux/actions';
-import styles from '../../scenes/FormStyle.module.css';
-import { toast, ToastContainer } from 'react-toastify';
+import ModalResponse from '../ModalResponse/ModalResponse';
 
 export function validate(input) {
   let errors = {};
@@ -40,11 +38,12 @@ const UpdateUser = ({ user, id }) => {
     user_shipping_address: user.user_shipping_address,
     user_email: user.user_email,
   };
+  const [responseBackend, setResponseBackend] = useState(null);
   const [input, setInput] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const { errorAxios } = useSelector((state) => state);
   const [edit, setEdit] = useState(null);
-
+  const [modal, setModal] = useState(null);
   function handleOnChange(e) {
     e.preventDefault();
     console.log(e.target.name, e.target.value);
@@ -61,9 +60,19 @@ const UpdateUser = ({ user, id }) => {
     );
   }
 
-  function handleOnSubmit(e) {
+  async function handleOnSubmit(e) {
     e.preventDefault();
-    dispatch(updateUser(input, id, input.user_password_confirm));
+    console.log(e);
+    const res = await dispatch(
+      updateUser(input, id, input.user_password_confirm)
+    );
+    console.log(res);
+    setModal(true);
+    setResponseBackend(res.payload.data.msg);
+    setTimeout(() => {
+      setModal(null);
+      setResponseBackend(null);
+    }, 2000);
     setTimeout(() => dispatch({ type: ERROR, payload: null }), 3500);
   }
   const inputDates = [
@@ -109,7 +118,7 @@ const UpdateUser = ({ user, id }) => {
   };
   return (
     <>
-      {/* <ToastContainer /> */}
+      {modal === null ? null : <ModalResponse response={responseBackend} />}
       {Object.values(user).length > 0 ? (
         <div className='update'>
           <div className='update__container'>
@@ -158,11 +167,7 @@ const UpdateUser = ({ user, id }) => {
                   </button>
                 </div>
               ))}
-              <button
-                className='update__submit'
-                type='submit'
-                // disabled={Object.entries(errors).length === 0 ? false : true}
-              >
+              <button className='update__submit' type='submit'>
                 Actualizar
               </button>
               {errorAxios !== null ? (
