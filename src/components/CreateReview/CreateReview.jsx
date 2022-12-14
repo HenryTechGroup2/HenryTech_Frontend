@@ -144,7 +144,7 @@ export function CreateReview({ productId }) {
         </div>
         <div className='review__msg'>
           <input
-            placeholder='Que te parecio el producto'
+            placeholder='Que te parecio el producto?'
             className='review__input'
             type='text'
             name='review_body'
