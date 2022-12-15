@@ -90,7 +90,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case 'GET_PRODUCTS': {
-      console.log(action.payload);
       const ofertDay = action.payload.filter(
         ({ product_ofer }) => product_ofer === true
       );
@@ -113,6 +112,11 @@ export const reducerFetch = (state = initialState, action) => {
         }
         return 0;
       });
+      action.payload.forEach((product) => {
+        if (product.product_ofer === true) {
+          product.oferta = product.product_price - product.product_price / 5;
+        }
+      });
       return {
         ...state,
         products: action.payload,
@@ -125,18 +129,13 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case 'GET_DETAILS_PRODUCTS': {
       //Eliminar el reviews cuando haga el push
-      console.log(state.userDates);
-      console.log(state);
       if (state.userDates.hasOwnProperty('user_name')) {
-        console.log(state.userDates);
         if (state.userDates.user_favorites.length > 0) {
           const favoritProduct = state.userDates.user_favorites.find(
             ({ product_id }) => product_id === action.payload.product_id
           );
-          console.log(favoritProduct);
           if (favoritProduct) {
             action.payload.product_favorite = true;
-            console.log(action.payload);
 
             return {
               ...state,
@@ -149,7 +148,6 @@ export const reducerFetch = (state = initialState, action) => {
         }
         action.payload.product_favorite = false;
       }
-      console.log(action.payload);
       return {
         ...state,
         detailsProduct: action.payload,
@@ -254,7 +252,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case LOGIN_USER: {
-      console.log(action.payload);
       window.localStorage.setItem(USER, JSON.stringify([action.payload]));
       return {
         ...state,
@@ -264,7 +261,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case CREATE_USER_AUTH0: {
-      console.log(action.payload);
       window.localStorage.setItem(USER, JSON.stringify([action.payload]));
       window.localStorage.setItem(AUTH0, 'YES');
       return {
@@ -577,7 +573,6 @@ export const reducerFetch = (state = initialState, action) => {
           }
           return 0;
         });
-        console.log(orderproducts, 'ORDER');
         return {
           ...state,
           copieProducts: orderproducts,
@@ -593,7 +588,6 @@ export const reducerFetch = (state = initialState, action) => {
           }
           return 0;
         });
-        console.log(orderproducts);
         return {
           ...state,
           copieProducts: orderproducts,
@@ -636,7 +630,6 @@ export const reducerFetch = (state = initialState, action) => {
         return state;
       }
       if (existCategory) {
-        console.log(existCategory);
         if (
           existCategory?.product_category === 'Memorias RAM' ||
           existCategory?.product_category === 'Teclados' ||
@@ -674,7 +667,6 @@ export const reducerFetch = (state = initialState, action) => {
         if (productArmament?.productExistToCart) return;
         return newProductsToCart.push(productArmament);
       });
-      console.log(newProductsToCart);
       return {
         ...state,
         car: [...state.car, ...newProductsToCart],
@@ -693,7 +685,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case 'GET_USER': {
-      console.log(action.payload);
       return {
         ...state,
         userDates: action.payload,
@@ -757,7 +748,6 @@ export const reducerFetch = (state = initialState, action) => {
       };
     }
     case BIENVENIDO: {
-      console.log(action.payload);
       return {
         ...state,
         bienvenido: action.payload,
@@ -765,7 +755,6 @@ export const reducerFetch = (state = initialState, action) => {
     }
     //TODO RECIEN CAMBIADO
     case MESSAGE: {
-      console.log(action.payload);
       const newMessage = {
         ...action.payload,
         msgreceiveds: [],
@@ -789,7 +778,6 @@ export const reducerFetch = (state = initialState, action) => {
       newMessage?.msgposts[
         state.userDates?.msgposts?.length - 1
       ]?.msgreceiveds?.push(action.payload);
-      console.log(newMessage);
       return {
         ...state,
         userDates: {
@@ -813,7 +801,6 @@ export const reducerFetch = (state = initialState, action) => {
     }
     case MESSAGE_USER_POST: {
       const newState = state;
-      console.log(action.payload, newState);
 
       const userExist = newState.userAllMessages.find(
         ({ user_id }) => user_id === action.payload.userUserId
@@ -826,9 +813,7 @@ export const reducerFetch = (state = initialState, action) => {
           ...action.payload,
           msgreceiveds: [],
         };
-        console.log(newMessages);
         userExist?.msgposts.push(newMessages);
-        console.log(userExist);
         return {
           ...newState,
         };

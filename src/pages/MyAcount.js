@@ -21,10 +21,14 @@ export function MyAcount() {
   const { userDates } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getUser(id));
-    userDates?.user_favorites?.forEach(
-      (product) => (product.product_favorite = true)
-    );
   }, []);
+  userDates?.user_favorites?.forEach((product) => {
+    product.product_favorite = true;
+    if (product.product_ofer === true) {
+      product.oferta =
+        Number(product.product_price) - Number(product.product_price) / 5;
+    }
+  });
   const leftMap = [
     {
       name: userDates?.user_name,

@@ -60,7 +60,6 @@ function App() {
     allProducts();
     if (userLogin?.length > 0) {
       const userExist = JSON.parse(userLogin);
-      console.log(userExist);
       const userLocalStorage = async () => {
         if (auth0Session === 'YES') {
           const data = await axios.post(`${api}/api/user/login/auth0`, {

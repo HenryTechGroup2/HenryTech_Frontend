@@ -63,7 +63,6 @@ const UpdateUser = ({ user, id }) => {
 
   async function handleOnSubmit(e) {
     e.preventDefault();
-    console.log(user.user_password, password);
     if (input.user_password !== password) {
       setTimeout(() => setPasswordConfirm(null), 2500);
       return setPasswordConfirm('La contraseña es incorrecta');
@@ -73,7 +72,6 @@ const UpdateUser = ({ user, id }) => {
     );
     setModal(true);
     setResponseBackend(res.payload.data.msg);
-    console.log('UPDATE');
     setTimeout(() => {
       setModal(null);
       setResponseBackend(null);

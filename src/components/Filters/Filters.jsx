@@ -27,9 +27,6 @@ export default function GetFilters({ handleClickPage }) {
 
   let allbrands = [];
   products.forEach((e) => allbrands.push(e.product_brand));
-  // let uniquebrands = allbrands.filter((valor, index) => {
-  //   return allbrands.indexOf(valor) === index;
-  // });
 
   let dispatch = useDispatch();
 
@@ -54,17 +51,6 @@ export default function GetFilters({ handleClickPage }) {
       setInput({ ...input, category: input.category });
     }
   };
-  // let brandOnChange = (e) => {
-  //   if (e.target.checked) {
-  //     setInput({ ...input, brand: [...input.brand, e.target.value] });
-  //   }
-  //   if (!e.target.checked) {
-  //     let indexout = input.brand.indexOf(e.target.value);
-  //     input.brand.splice(indexout, 1);
-  //     setInput({ ...input, brand: input.brand });
-  //   }
-  // };
-
   useEffect(() => {
     return () => {
       dispatch(filters({ ...inicialstate, active: false }));
@@ -89,7 +75,15 @@ export default function GetFilters({ handleClickPage }) {
           <span className='filter__price'>{maxPrice}</span>
         </div>
         <div className='filter__input--price'>
-          {input.price === Infinity ? minPrice : input.price}
+          {input.price === Infinity
+            ? Number(minPrice).toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+              })
+            : Number(input.price).toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+              })}
         </div>
       </div>
       <div className='filter__div'>

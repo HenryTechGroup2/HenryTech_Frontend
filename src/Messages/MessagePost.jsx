@@ -2,7 +2,6 @@ import React from 'react';
 import MessageReceived from './MessageReceived';
 
 const MessagePost = ({ msg }) => {
-  console.log(msg);
   return (
     <div className='message__messagesposts'>
       {msg.msgpost_post === '' ? null : (

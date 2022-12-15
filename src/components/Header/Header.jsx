@@ -99,8 +99,6 @@ const Header = ({ handleClickPage }) => {
     auth0Autentication();
   }, [user]);
   useEffect(() => {
-    console.log(userPassword.password.length);
-
     if (Number(userPassword.password.length) >= 8) {
       if (userPassword.passwordConfirm === userPassword.password) {
         return setValidatePassword(() => ({

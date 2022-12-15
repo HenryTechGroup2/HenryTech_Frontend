@@ -870,11 +870,15 @@
 .product {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
   gap: 0.6em;
   color: #232;
   &__btn {
     background: transparent;
+  }
+  &__oferta {
+    text-decoration: line-through;
+    color: #004b23;
   }
   &__article {
     width: 20em;

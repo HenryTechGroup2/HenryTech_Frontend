@@ -32,7 +32,13 @@ const CardFactura = ({ item, open, handleOpenFactura, index }) => {
             </div>
             <div className='facturas__state'>
               <div>Estado de la compra:{item.order.order_status}</div>
-              <div>Total: {item.order.order_total}</div>
+              <div>
+                Total:{' '}
+                {Number(item.order.order_total).toLocaleString('es-AR', {
+                  style: 'currency',
+                  currency: 'ARS',
+                })}
+              </div>
             </div>
           </div>
         </div>

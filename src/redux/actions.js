@@ -59,7 +59,6 @@ export function getAllProducts() {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -82,7 +81,6 @@ export function getDetailsProducts(id) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -102,7 +100,6 @@ export function postCreateReview(payload) {
         payload: result4.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -121,7 +118,6 @@ export function productByname(title) {
         payload: productName.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -213,13 +209,11 @@ export function getUser(id) {
   return async function (dispatch) {
     try {
       const result = await axios.get(`${api}/api/user/${id}`);
-      console.log(result.data);
       return dispatch({
         type: 'GET_USER',
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -230,7 +224,6 @@ export function getUser(id) {
 
 export function updateUser(payload, id, password) {
   return async function (dispatch) {
-    console.log(payload);
     try {
       const result = await axios.put(`${api}/api/user/${id}`, payload);
       return dispatch({
@@ -279,7 +272,6 @@ export function getUsers() {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -296,7 +288,6 @@ export function getInvoice() {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -314,7 +305,6 @@ export function getReviews() {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -332,7 +322,6 @@ export function updateProduct(payload, id) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -349,7 +338,6 @@ export function sendMail(emails) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -367,7 +355,6 @@ export function sendMailCar(emails) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,

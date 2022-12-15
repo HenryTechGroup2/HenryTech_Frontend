@@ -10,8 +10,6 @@ const AdminProducts = () => {
   const [more, setMore] = useState(10);
   const [open, setOpen] = useState(false);
   const moreProducts = () => {
-    console.log('xd');
-    console.log(more);
     setMore(more + 10);
   };
   const handleAddProduct = () => {

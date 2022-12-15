@@ -75,7 +75,7 @@ const Messages = () => {
               return 0;
             })
             ?.map((msg) => (
-              <MessagePost msg={msg} />
+              <MessagePost msg={msg} key={msg.msgpost_id} />
             ))}
         </div>
         <div className='home__bottom'>

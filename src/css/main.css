@@ -1317,12 +1317,16 @@ li {
 .product {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
   gap: 0.6em;
   color: #232;
 }
 .product__btn {
   background: transparent;
+}
+.product__oferta {
+  text-decoration: line-through;
+  color: #004b23;
 }
 .product__article {
   width: 20em;

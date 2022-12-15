@@ -21,9 +21,7 @@ const Card = ({
   const width = divRef === null ? 0 : divRef.current?.clientWidth / 16;
   useEffect(() => {
     dispatch({ type: WIDTH, payload: width });
-    console.log(width);
   }, [divRef, dispatch, width]);
-
   return (
     <>
       {product.product_suspense === true ? null : (
@@ -40,7 +38,7 @@ const Card = ({
                 {product.stock?.stock_amount > 0 ? (
                   <div className='product__stock--icon'>{stockIcon} Stock</div>
                 ) : (
-                  <div className='product__stock--icon'>{noStock} No Stock</div>
+                  <div className='product__stock--icon'>{noStock} Stock</div>
                 )}
               </span>
               <ButtonFavorite product={product} />
@@ -77,10 +75,26 @@ const Card = ({
                   fontSize: `${view ? '.7em' : ''}`,
                 }}
               >
-                {Number(product.product_price).toLocaleString('es-AR', {
-                  style: 'currency',
-                  currency: 'ARS',
-                })}{' '}
+                {product.product_ofer ? (
+                  <>
+                    <span className='product__oferta'>
+                      {Number(product.product_price).toLocaleString('es-AR', {
+                        style: 'currency',
+                        currency: 'ARS',
+                      })}
+                    </span>
+                    <br />
+                    {Number(product?.oferta).toLocaleString('es-AR', {
+                      style: 'currency',
+                      currency: 'ARS',
+                    })}
+                  </>
+                ) : (
+                  Number(product.product_price).toLocaleString('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                  })
+                )}
                 <span className='product__rating'>
                   {'★'.repeat(product.product_rating).padEnd(5, '☆')}
                 </span>
