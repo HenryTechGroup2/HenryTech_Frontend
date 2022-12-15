@@ -131,22 +131,22 @@ li {
 }
 .loader__container {
   width: 20em;
-  height: 20em;
-  background: #ebebeb;
+  height: 8em;
+  background: #282c34;
+  color: #ebebeb;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 2em;
   align-items: center;
-  color: #000;
   font-size: 1.2em;
-  border-radius: 0.5em;
+  border: 2px solid #000;
 }
 .loader__payment {
   font-family: "Roboto";
   height: 8em;
   text-align: center;
-  border: 2px solid #000;
+  border: 2px solid #fff;
 }
 
 .loading {
@@ -218,11 +218,11 @@ li {
   animation: spinner infinite 2s linear;
 }
 .spinner__low {
-  width: 2em;
-  height: 2em;
-  border: 0.5em solid #fff;
-  border-bottom-color: #000;
-  animation: spinner infinite 0.5s linear;
+  width: 1.4em;
+  height: 1.4em;
+  border: 0.1em solid #000;
+  border-bottom-color: #ebebeb;
+  animation: spinner infinite 0.4s linear;
 }
 
 .btn-top {
@@ -261,6 +261,11 @@ li {
   overflow: hidden;
 }
 
+.home__title {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: "Roboto";
+}
 .home__carruzel {
   display: flex;
   color: #000;
@@ -2033,9 +2038,15 @@ li {
   gap: 0;
   align-items: center;
   font-family: "Roboto";
+  position: relative;
+  z-index: 600;
 }
-.about__h1 {
+.about__container {
+  text-align: center;
   margin: 2em 0 0 0;
+  background: #ebebeb;
+  color: #282c34;
+  padding: 0.2em;
 }
 .about__h2 {
   font-family: "Roboto";
@@ -2043,6 +2054,8 @@ li {
 .about__p {
   text-align: center;
   max-width: 35em;
+  font-size: 1.2em;
+  line-height: 2em;
 }
 
 .questions {
@@ -2127,10 +2140,12 @@ li {
   position: relative;
   z-index: 10;
   cursor: pointer;
-  background: #282c34;
-  font-size: 1em;
+  background: #ebebeb;
+  color: #282c34;
+  font-size: 1.4em;
 }
 .questions__pos {
+  margin: 0 0 3em 0;
   position: relative;
   z-index: 1000;
 }
@@ -2849,6 +2864,13 @@ li {
   align-items: flex-start;
   height: 80vh;
 }
+.acount__heart {
+  width: 12em;
+  height: 14em;
+}
+.acount__cart {
+  width: 18em;
+}
 .acount__drop {
   position: relative;
   width: 20em;
@@ -3317,22 +3339,24 @@ li {
   gap: 0.3em;
   align-items: center;
   transition: 0.5s linear;
-  background: #282c34;
+  background: #ebebeb;
+  color: #282c34;
   width: 3.5em;
 }
 .seguro__btn:hover {
   transform: scale(1.1);
 }
 .seguro__div {
-  border: 0.4em solid #282c34;
-  border-radius: 0.5em;
+  border: 0.1em solid #ebebeb;
+  font-family: "Roboto";
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 1em;
   align-items: center;
-  background: #ebebeb;
+  background: #282c34;
   width: 20em;
+  color: #ebebeb;
   height: 15em;
 }
 
@@ -3680,20 +3704,19 @@ li {
   z-index: 10000;
 }
 .response__container {
-  background: #ebebeb;
+  background: #282c34;
   width: 25em;
-  height: 20em;
+  height: 8em;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  gap: 0;
+  gap: 1em;
   align-items: center;
-  border-radius: 0.5em;
-  border: 1px solid #004b23;
+  border: 2px solid #ebebeb;
 }
 .response__response {
-  font-size: 1.5em;
-  color: #004b23;
+  font-size: 1.1em;
+  color: #ebebeb;
   text-align: center;
   font-weight: bold;
 }
@@ -3702,8 +3725,8 @@ li {
   font-family: "Roboto";
 }
 .response__div {
-  width: 6em;
-  height: 6em;
+  width: 3em;
+  height: 3em;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -3806,6 +3829,8 @@ li {
   justify-content: center;
   gap: 0;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 @media screen and (max-width: 600px) {
   .facturas__modal {

@@ -91,9 +91,13 @@ export function MyAcount() {
                     <div className='acount__add'>
                       <div className='acount__text'>
                         {' '}
-                        Agregue los productos que mas le gusten
+                        Agregue los productos que mas le gusten.
                       </div>
-                      <img src='../assets/favorit.png' alt='' />
+                      <img
+                        className='acount__heart'
+                        src='../assets/favorit.png'
+                        alt=''
+                      />
                     </div>
                   ) : (
                     userDates.user_favorites.map((favorites) => (

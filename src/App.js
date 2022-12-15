@@ -67,6 +67,7 @@ function App() {
             user_email: userExist[0].user_email,
             user_name: userExist[0].user_name,
           });
+
           return await dispatch({ type: LOGIN_USER, payload: data.data });
         }
         const data = await axios.post(`${api}/api/user/login`, {
@@ -89,6 +90,7 @@ function App() {
   useEffect(() => {
     dispatch({ type: ADD_ALL_FAVORITES });
   }, [products, dispatch]);
+
   return (
     <Elements stripe={stripePromise}>
       <ParticlesBackground />

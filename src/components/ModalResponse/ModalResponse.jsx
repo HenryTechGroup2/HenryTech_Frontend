@@ -6,7 +6,7 @@ const ModalResponse = ({ response, rechazed = true }) => {
       <div className='response__container'>
         <div
           className='response__response'
-          style={{ color: `${rechazed ? '#004b23' : '#ff0000'}` }}
+          style={{ color: `${rechazed ? '#ebebeb' : '#ff0000'}` }}
         >
           {response}
         </div>

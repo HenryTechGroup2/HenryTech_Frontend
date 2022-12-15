@@ -25,7 +25,7 @@ const Count = ({ product_count = 1, product, view = false }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'dark',
+      theme: 'colored',
     });
   };
   window.addEventListener('resize', () =>

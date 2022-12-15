@@ -7,7 +7,7 @@ const ModalPayment = ({ total = 0, rechazed = true }) => {
       <div className='response__container response__payment'>
         <div
           className='response__response'
-          style={{ color: `${rechazed ? '#004b23' : '#ff0000'}` }}
+          style={{ color: `${rechazed ? '#ebebeb' : '#ff0000'}` }}
         >
           Tu compra se a realizado con exito con un valor total de {'   '}
           {total?.toLocaleString('es-AR', {

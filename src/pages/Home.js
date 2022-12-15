@@ -90,13 +90,13 @@ const Home = () => {
             </div>
           ) : (
             <div className='home__products'>
-              Productos en oferta
+              <div className='home__title'>Productos en oferta</div>
               <ProductsHome products={productsOfer} />
-              Productos mas vistos
+              <div className='home__title'>Productos mas vistos</div>
               <ProductsHome products={productsMostViewHome} />
-              Productos con mas rating
+              <div className='home__title'>Productos con mas rating</div>
               <ProductsHome products={productsRating} />
-              <ProductsHome products={productsView} />
+              {/* <ProductsHome products={productsView} /> */}
             </div>
           )}
           <div className='home__message'>

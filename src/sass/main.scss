@@ -43,18 +43,19 @@
   @include flex(column, nowrap, center, center, 0);
   &__container {
     width: 20em;
-    height: 20em;
-    background: #ebebeb;
+    height: 8em;
+
+    background: #282c34;
+    color: #ebebeb;
     @include flex(column, nowrap, center, center, 2em);
-    color: #000;
     font-size: 1.2em;
-    border-radius: 0.5em;
+    border: 2px solid #000;
   }
   &__payment {
     font-family: 'Roboto';
     height: 8em;
     text-align: center;
-    border: 2px solid #000;
+    border: 2px solid #fff;
   }
 }
 .loading {
@@ -103,12 +104,12 @@
   border-bottom-color: #000;
   animation: spinner infinite 2s linear;
   &__low {
-    width: 2em;
-    height: 2em;
-    border: 0.5em solid #fff;
-    border-bottom-color: #000;
+    width: 1.4em;
+    height: 1.4em;
+    border: 0.1em solid #000;
+    border-bottom-color: #ebebeb;
 
-    animation: spinner infinite 0.5s linear;
+    animation: spinner infinite 0.4s linear;
   }
 }
 .btn-top {
@@ -129,6 +130,11 @@
   overflow: hidden;
 }
 .home {
+  &__title {
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'Roboto';
+  }
   &__carruzel {
     display: flex;
     color: #000;
@@ -1343,8 +1349,16 @@
   height: calc(100vh - 203px);
   @include flex(column, nowrap, flex-start, center, 0);
   font-family: 'Roboto';
-  &__h1 {
+  position: relative;
+  z-index: 600;
+  &__container {
+    text-align: center;
     margin: 2em 0 0 0;
+    background: #ebebeb;
+    color: #282c34;
+    padding: 0.2em;
+  }
+  &__h1 {
   }
   &__h2 {
     font-family: 'Roboto';
@@ -1352,6 +1366,8 @@
   &__p {
     text-align: center;
     max-width: 35em;
+    font-size: 1.2em;
+    line-height: 2em;
   }
 }
 .questions {
@@ -1415,10 +1431,12 @@
     position: relative;
     z-index: 10;
     cursor: pointer;
-    background: #282c34;
-    font-size: 1em;
+    background: #ebebeb;
+    color: #282c34;
+    font-size: 1.4em;
   }
   &__pos {
+    margin: 0 0 3em 0;
     position: relative;
     z-index: 1000;
   }
@@ -1924,6 +1942,13 @@
   //PANEL IZQUIERDO
   @include flex(row, nowrap, flex-start, flex-start, 2em);
   height: 80vh;
+  &__heart {
+    width: 12em;
+    height: 14em;
+  }
+  &__cart {
+    width: 18em;
+  }
   &__drop {
     position: relative;
     width: 20em;
@@ -2261,15 +2286,17 @@
   }
   &__btn {
     @include button-principal();
-    background: #282c34;
+    background: #ebebeb;
+    color: #282c34;
     width: 3.5em;
   }
   &__div {
-    border: 0.4em solid #282c34;
-    border-radius: 0.5em;
+    border: 0.1em solid #ebebeb;
+    font-family: 'Roboto';
     @include flex(column, nowrap, center, center, 1em);
-    background: #ebebeb;
+    background: #282c34;
     width: 20em;
+    color: #ebebeb;
     height: 15em;
   }
 }
@@ -2528,16 +2555,17 @@
 .response {
   @include modal();
   &__container {
-    background: #ebebeb;
+    background: #282c34;
+
     width: 25em;
-    height: 20em;
-    @include flex(column, nowrap, center, center, 0);
-    border-radius: 0.5em;
-    border: 1px solid #004b23;
+    height: 8em;
+
+    @include flex(column, nowrap, center, center, 1em);
+    border: 2px solid #ebebeb;
   }
   &__response {
-    font-size: 1.5em;
-    color: #004b23;
+    font-size: 1.1em;
+    color: #ebebeb;
     text-align: center;
     font-weight: bold;
   }
@@ -2546,8 +2574,8 @@
     font-family: 'Roboto';
   }
   &__div {
-    width: 6em;
-    height: 6em;
+    width: 3em;
+    height: 3em;
     overflow: hidden;
     border-radius: 50%;
   }
@@ -2593,6 +2621,8 @@
     @include responsive(600px) {
       height: 30em;
     }
+    height: 100vh;
+    width: 100vw;
   }
   &__close {
     background: #ebebeb;
